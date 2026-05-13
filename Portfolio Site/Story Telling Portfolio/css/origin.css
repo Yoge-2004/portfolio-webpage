@@ -1,0 +1,146 @@
+/* ============================================
+   ORIGIN SECTION - Chapter One
+   ============================================ */
+
+.origin-section {
+    background: var(--bg-dark);
+    padding: 140px 0;
+}
+
+.origin-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+}
+
+/* Narrative */
+.origin-narrative {
+    padding-top: 20px;
+}
+
+.narrative-block {
+    margin-bottom: 28px;
+}
+
+.narrative-text {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.9;
+}
+
+.narrative-text--lead {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+}
+
+.narrative-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--accent-cyan);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 16px;
+    position: relative;
+    transition: gap 0.4s var(--ease-out-expo);
+}
+
+.narrative-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent-cyan);
+    transition: width 0.4s var(--ease-out-expo);
+}
+
+.narrative-link:hover {
+    gap: 16px;
+}
+
+.narrative-link:hover::after {
+    width: 100%;
+}
+
+/* Origin Cards */
+.origin-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.origin-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 20px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s var(--ease-out-expo);
+    /* opacity/transform removed - GSAP handles animation */
+}
+
+/* .origin-card.is-revealed - animation handled by GSAP */
+
+
+.origin-card:hover {
+    border-color: rgba(0, 229, 255, 0.2);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 24px 48px rgba(0, 229, 255, 0.08);
+}
+
+.origin-card__shine {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0,229,255,0.06) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.origin-card:hover .origin-card__shine {
+    opacity: 1;
+}
+
+.origin-card__icon {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: var(--accent-cyan);
+}
+
+.origin-card__title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text-bright);
+}
+
+.origin-card__main {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.origin-card__sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+}
+
+.origin-card__stat {
+    display: inline-block;
+    padding: 6px 14px;
+    background: rgba(0, 229, 255, 0.06);
+    border: 1px solid rgba(0, 229, 255, 0.12);
+    border-radius: 100px;
+    font-size: 12px;
+    color: var(--accent-cyan);
+    font-family: var(--font-mono);
+}

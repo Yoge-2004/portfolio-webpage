@@ -1,0 +1,1446 @@
+/* ============================================================
+   CINEMATIC.CSS + EFFECTS.CSS  ·  YOGE.DEV  ·  MERGED
+   Rules: only transform + opacity animated · no filter blur
+          no backdrop-filter on cards · no grain animation
+   ============================================================ */
+
+/* ── Reveal animation classes ────────────────────────────── */
+/* Default: elements ARE visible. JS adds .will-reveal to opt-in. */
+
+.will-reveal { transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
+
+.reveal-up    { opacity: 0; transform: translateY(48px); }
+.reveal-left  { opacity: 0; transform: translateX(-52px); }
+.reveal-right { opacity: 0; transform: translateX(52px); }
+.reveal-wipe  { opacity: 0; clip-path: inset(0 100% 0 0); transition: opacity .9s, clip-path 1s cubic-bezier(.16,1,.3,1), transform .7s; }
+
+.will-reveal.revealed { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+
+/* Section eyebrow */
+.section-eyebrow { opacity: 0; transform: translateY(14px); letter-spacing: 14px;
+    transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s, letter-spacing .9s; }
+.section-eyebrow.is-revealed { opacity: 1; transform: none; letter-spacing: 4px; }
+
+/* ── Particle rise keyframe ──────────────────────────────── */
+@keyframes pRise {
+    0%   { transform: translateY(0)      translateX(0);    opacity: 0; }
+    8%   { opacity: .8; }
+    92%  { opacity: .4; }
+    100% { transform: translateY(-110vh) translateX(12px); opacity: 0; }
+}
+
+/* ── Cursor ──────────────────────────────────────────────── */
+.cursor { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 99999; }
+.cursor__dot {
+    position: absolute; width: 8px; height: 8px; border-radius: 50%;
+    background: #66e7f2; transform: translate(-500px,-500px) translate(-50%,-50%);
+    box-shadow: 0 0 8px rgba(102,231,242,.9), 0 0 16px rgba(102,231,242,.4);
+    transition: width .2s, height .2s, background .2s;
+    will-change: transform;
+}
+.cursor__ring {
+    position: absolute; width: 36px; height: 36px; border-radius: 50%;
+    border: 1.5px solid rgba(102,231,242,.5);
+    transform: translate(-500px,-500px) translate(-50%,-50%);
+    transition: width .3s, height .3s, border-color .3s;
+    will-change: transform;
+}
+.cursor__dot.is-hover  { width: 14px; height: 14px; background: #f4c76b; box-shadow: 0 0 12px rgba(244,199,107,.9); }
+.cursor__ring.is-hover { width: 54px; height: 54px; border-color: rgba(244,199,107,.45); }
+.cursor__ring.is-click { transform: translate(-500px,-500px) translate(-50%,-50%) scale(.72); }
+
+/* ── Scroll progress ─────────────────────────────────────── */
+.scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 9999; pointer-events: none; }
+.scroll-progress__fill { height: 100%; width: 0; background: linear-gradient(90deg,#66e7f2,#9a8cff,#f4c76b); box-shadow: 0 0 5px rgba(102,231,242,.5); }
+
+/* ── Navigation ──────────────────────────────────────────── */
+.main-nav {
+    position: fixed; top: 14px; left: 24px; right: 24px;
+    z-index: 1000; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 28px; height: 62px; border-radius: 14px;
+    border: 1px solid rgba(255,255,255,.08);
+    background: rgba(5,7,11,.65);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    transition: background .4s, border-color .4s, box-shadow .4s;
+}
+.main-nav.is-scrolled {
+    background: rgba(5,7,11,.9);
+    border-color: rgba(102,231,242,.16);
+    box-shadow: 0 4px 30px rgba(0,0,0,.5);
+}
+.nav-logo { font-family: var(--font-mono); font-size: 14px; font-weight: 600; letter-spacing: 3px; color: var(--text-primary); text-decoration: none; display: flex; align-items: center; gap: 1px; transition: color .3s; }
+.nav-logo__bracket { color: rgba(255,255,255,.25); }
+.nav-logo__dot { color: #66e7f2; }
+.nav-logo:hover { color: #66e7f2; }
+
+.nav-links { display: flex; gap: 28px; align-items: center; }
+.nav-link { font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.5px; color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 6px; position: relative; transition: color .3s; padding: 4px 0; }
+.nav-link__num { color: #66e7f2; font-size: 9px; opacity: .7; }
+.nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px; background: #66e7f2; transition: width .4s cubic-bezier(.16,1,.3,1); }
+.nav-link:hover, .nav-link.is-active { color: var(--text-primary); }
+.nav-link:hover::after, .nav-link.is-active::after { width: 100%; }
+
+.menu-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+.menu-toggle__line { display: block; width: 22px; height: 2px; background: var(--text-primary); border-radius: 2px; transition: all .35s cubic-bezier(.16,1,.3,1); transform-origin: center; }
+.menu-toggle.is-open .menu-toggle__line:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+.menu-toggle.is-open .menu-toggle__line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.menu-toggle.is-open .menu-toggle__line:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+/* ── Mobile menu ─────────────────────────────────────────── */
+.mobile-menu { position: fixed; inset: 0; z-index: 998; visibility: hidden; transition: visibility 0s .5s; }
+.mobile-menu.is-open { visibility: visible; transition: visibility 0s; }
+.mobile-menu__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.78); opacity: 0; transition: opacity .4s; }
+.mobile-menu.is-open .mobile-menu__backdrop { opacity: 1; }
+.mobile-menu__panel {
+    position: absolute; top: 0; right: 0; width: min(100vw,400px); height: 100%;
+    background: #05070b; border-left: 1px solid rgba(102,231,242,.12);
+    display: flex; flex-direction: column; padding: 88px 36px 40px;
+    transform: translateX(102%); transition: transform .5s cubic-bezier(.16,1,.3,1);
+    overflow-y: auto; overscroll-behavior: contain;
+}
+.mobile-menu.is-open .mobile-menu__panel { transform: translateX(0); }
+.mobile-menu__close { position: absolute; top: 18px; right: 18px; width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); color: var(--text-secondary); font-size: 17px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .3s; z-index: 1; }
+.mobile-menu__close:hover { border-color: #66e7f2; color: #66e7f2; transform: rotate(90deg); }
+.mobile-menu__links { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.mobile-link { font-family: var(--font-display); font-size: 2.2rem; color: rgba(255,255,255,.72); text-decoration: none; padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,.06); display: flex; align-items: baseline; gap: 16px; transition: color .3s, padding-left .35s cubic-bezier(.16,1,.3,1), opacity .4s, transform .45s cubic-bezier(.16,1,.3,1); opacity: 0; transform: translateX(40px); }
+.mobile-menu.is-open .mobile-link { opacity: 1; transform: translateX(0); }
+.mobile-link:nth-child(1){transition-delay:.07s}.mobile-link:nth-child(2){transition-delay:.12s}.mobile-link:nth-child(3){transition-delay:.17s}.mobile-link:nth-child(4){transition-delay:.22s}.mobile-link:nth-child(5){transition-delay:.27s}.mobile-link:nth-child(6){transition-delay:.32s}.mobile-link:nth-child(7){transition-delay:.37s}
+.mobile-link span { font-family: var(--font-mono); font-size: 11px; color: #66e7f2; opacity: .8; min-width: 20px; }
+.mobile-link:hover { color: #66e7f2; padding-left: 14px; }
+.mobile-menu__social { display: flex; gap: 14px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.06); margin-top: 16px; flex-shrink: 0; }
+.mobile-menu__social a { width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,.1); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); font-size: 17px; text-decoration: none; transition: all .3s; opacity: 0; transform: translateY(16px); }
+.mobile-menu.is-open .mobile-menu__social a { opacity: 1; transform: translateY(0); }
+.mobile-menu.is-open .mobile-menu__social a:nth-child(1){transition:all .4s .42s}.mobile-menu.is-open .mobile-menu__social a:nth-child(2){transition:all .4s .47s}.mobile-menu.is-open .mobile-menu__social a:nth-child(3){transition:all .4s .52s}
+.mobile-menu__social a:hover { border-color: #66e7f2; color: #66e7f2; transform: translateY(-3px) !important; }
+
+/* ── Buttons ──────────────────────────────────────────────── */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 24px; min-height: 46px; border-radius: 10px; font-family: var(--font-body); font-size: 13px; font-weight: 600; text-decoration: none; cursor: pointer; border: none; position: relative; overflow: hidden; white-space: nowrap; flex-shrink: 0; transition: box-shadow .3s, background .3s; }
+.btn::after { content: ''; position: absolute; inset: 0; background: linear-gradient(105deg,transparent 30%,rgba(255,255,255,.18) 50%,transparent 70%); transform: translateX(-120%); transition: transform .5s ease; border-radius: inherit; pointer-events: none; }
+.btn:hover::after { transform: translateX(120%); }
+.btn--primary { background: linear-gradient(135deg,#66e7f2,#f4c76b); color: #05070b; box-shadow: 0 4px 20px rgba(102,231,242,.2); }
+.btn--primary:hover { box-shadow: 0 10px 34px rgba(102,231,242,.36); }
+.btn--ghost { background: rgba(255,255,255,.04); color: var(--text-secondary); border: 1.5px solid rgba(255,255,255,.1); }
+.btn--ghost:hover { border-color: #66e7f2; color: #66e7f2; background: rgba(102,231,242,.06); }
+.btn--accent { background: linear-gradient(135deg,#68d8a8,#66e7f2); color: #05070b; }
+.btn--small { padding: 8px 16px; min-height: 36px; font-size: 12px; }
+.btn__icon { transition: transform .3s; flex-shrink: 0; }
+.btn:hover .btn__icon { transform: translateX(4px); }
+
+/* ── Credentials ─────────────────────────────────────────── */
+.credentials-section { background: var(--bg-darkest); padding: 140px 0; }
+.credentials-layout { display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: start; }
+.panel-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 400; margin-bottom: 28px; color: var(--text-bright); }
+.skills-panel, .certs-panel { background: rgba(12,19,30,.85); border: 1px solid rgba(255,255,255,.07); border-radius: 18px; padding: 32px; }
+.skill-group { margin-bottom: 28px; }
+.skill-group:last-child { margin-bottom: 0; }
+.skill-group__header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-weight: 600; color: var(--text-bright); font-size: 13px; }
+.skill-group__icon { font-size: 16px; color: #66e7f2; }
+.skill-group__items { display: flex; flex-direction: column; gap: 12px; }
+.skill-row { display: grid; grid-template-columns: 108px 1fr 40px; align-items: center; gap: 12px; }
+.skill-row > span:first-child { font-size: 13px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.skill-bar { height: 6px; background: rgba(255,255,255,.05); border-radius: 3px; overflow: hidden; }
+.skill-bar__fill { height: 100%; width: 0; background: linear-gradient(90deg,#66e7f2,#9a8cff); border-radius: 3px; transition: width 1.6s cubic-bezier(.16,1,.3,1); }
+.skill-row__pct { font-size: 11px; color: var(--text-muted); text-align: right; font-family: var(--font-mono); white-space: nowrap; }
+.certs-list { display: flex; flex-direction: column; gap: 9px; }
+.cert-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; gap: 10px; background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.05); border-radius: 11px; transition: border-color .35s, transform .35s cubic-bezier(.16,1,.3,1); }
+.cert-item:hover { border-color: rgba(102,231,242,.18); transform: translateX(8px); }
+.cert-item__left { display: flex; align-items: center; gap: 12px; min-width: 0; flex: 1; }
+.cert-item__emoji { font-size: 20px; width: 26px; text-align: center; flex-shrink: 0; }
+.cert-item__info { min-width: 0; }
+.cert-item__info h4 { font-size: 13px; font-weight: 600; color: var(--text-bright); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cert-item__info p { font-size: 11px; color: var(--text-muted); }
+.cert-item__actions { display: flex; gap: 5px; flex-shrink: 0; }
+.cert-item__actions a { width: 28px; height: 28px; border-radius: 7px; border: 1px solid rgba(255,255,255,.08); background: transparent; color: var(--text-muted); display: flex; align-items: center; justify-content: center; font-size: 12px; text-decoration: none; transition: all .3s; cursor: pointer; }
+.cert-item__actions a:hover { border-color: #66e7f2; color: #66e7f2; }
+
+/* ── Contact ─────────────────────────────────────────────── */
+.contact-card { display: flex; align-items: center; gap: 20px; padding: 24px 30px; background: rgba(12,19,30,.82); border: 1px solid rgba(255,255,255,.06); border-radius: 16px; text-decoration: none; color: inherit; transition: border-color .4s, transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s; }
+.contact-card:hover { border-color: rgba(102,231,242,.22); transform: translateX(12px); box-shadow: 0 10px 38px rgba(102,231,242,.08); }
+
+/* ── Hero spotlight ──────────────────────────────────────── */
+.hero-section { --sx: 50%; --sy: 50%; }
+.hero-section::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle 420px at var(--sx) var(--sy), rgba(102,231,242,.08) 0%, transparent 65%); pointer-events: none; z-index: 2; }
+
+/* ── Corner brackets on feature cards ───────────────────── */
+.project-hero, .battle-featured, .research-paper { position: relative; }
+.project-hero::before, .battle-featured::before, .research-paper::before { content: ''; position: absolute; top: 10px; left: 10px; width: 18px; height: 18px; border-top: 1.5px solid rgba(102,231,242,.3); border-left: 1.5px solid rgba(102,231,242,.3); pointer-events: none; z-index: 3; }
+.project-hero::after, .battle-featured::after, .research-paper::after { content: ''; position: absolute; bottom: 10px; right: 10px; width: 18px; height: 18px; border-bottom: 1.5px solid rgba(102,231,242,.3); border-right: 1.5px solid rgba(102,231,242,.3); pointer-events: none; z-index: 3; }
+
+/* ── Marquee ─────────────────────────────────────────────── */
+.marquee-strip { overflow: hidden; padding: 12px 0; background: rgba(102,231,242,.03); border-top: 1px solid rgba(102,231,242,.09); border-bottom: 1px solid rgba(102,231,242,.09); position: relative; z-index: 2; }
+.marquee-inner { display: flex; white-space: nowrap; animation: marqScroll 30s linear infinite; will-change: transform; }
+.marquee-inner span { font-family: var(--font-mono); font-size: 10px; letter-spacing: .2em; color: rgba(102,231,242,.45); text-transform: uppercase; padding: 0 6px; }
+@keyframes marqScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ── Chapter flash ───────────────────────────────────────── */
+#chflash { position: fixed; inset: 0; z-index: 8000; display: none; align-items: center; justify-content: center; flex-direction: column; gap: 10px; pointer-events: none; background: rgba(5,7,11,.8); }
+.cf-n { font-family: var(--font-mono); font-size: 12px; letter-spacing: .5em; color: #66e7f2; opacity: .75; text-transform: uppercase; display: block; }
+.cf-t { font-family: var(--font-display); font-size: clamp(2.2rem,7vw,5rem); font-weight: 300; color: rgba(255,255,255,.9); letter-spacing: .04em; line-height: 1; display: block; }
+
+/* ── Neon hover on featured ──────────────────────────────── */
+.project-hero:hover, .battle-featured:hover, .research-paper:hover { box-shadow: 0 0 0 1px rgba(102,231,242,.25), 0 24px 55px rgba(0,0,0,.38); transition: box-shadow .4s; }
+
+/* ── Footer ──────────────────────────────────────────────── */
+.site-footer { padding: 36px 40px; background: var(--bg-darkest); border-top: 1px solid rgba(255,255,255,.04); }
+.footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+.footer-inner p { font-size: 13px; color: var(--text-muted); }
+.top-button { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.1); border-radius: 100px; color: var(--text-secondary); font-size: 13px; cursor: pointer; transition: all .35s; }
+.top-button:hover { border-color: #66e7f2; color: #66e7f2; transform: translateY(-2px); }
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 1024px) {
+    .main-nav { left: 16px; right: 16px; }
+    .nav-links { display: none; }
+    .menu-toggle { display: flex; }
+    .credentials-layout { grid-template-columns: 1fr; gap: 28px; }
+}
+@media (max-width: 768px) {
+    .main-nav { top: 10px; left: 12px; right: 12px; padding: 0 16px; height: 56px; }
+    .credentials-section { padding: 80px 0; }
+    .skills-panel, .certs-panel { padding: 22px; }
+    .skill-row { grid-template-columns: 88px 1fr 36px; gap: 9px; }
+    .mobile-link { font-size: 1.9rem; }
+    .mobile-menu__panel { padding: 78px 24px 36px; }
+    .contact-card { padding: 18px 20px; gap: 14px; }
+    .hero-cta { flex-wrap: wrap; gap: 10px; }
+    .hero-cta .btn { flex: 1 1 auto; min-width: 110px; }
+    .battle-featured__actions { flex-wrap: wrap; }
+    .battle-featured__actions .btn { flex: 1 1 auto; min-width: 100px; }
+    .paper-actions-row { flex-direction: column; }
+    .paper-actions-row .btn { width: 100%; justify-content: center; }
+    .story-section:not(.hero-section) { min-height: auto; }
+    .footer-inner { flex-direction: column; text-align: center; }
+    .hero-section::after { display: none; }
+    #chflash .cf-t { font-size: 2rem; }
+}
+@media (max-width: 480px) {
+    .main-nav { top: 8px; left: 8px; right: 8px; }
+    .mobile-link { font-size: 1.65rem; }
+    .skill-row { grid-template-columns: 76px 1fr 32px; gap: 7px; }
+    .hero-cta { flex-direction: column; align-items: stretch; }
+    .hero-cta .btn { width: 100%; justify-content: center; }
+    .contact-card { flex-direction: column; text-align: center; gap: 10px; }
+    .contact-card__info { text-align: center; }
+    .contact-card__arrow { display: none; }
+}
+@media (pointer: coarse) {
+    .cursor { display: none !important; }
+    body { cursor: auto !important; }
+    .btn, a, button { cursor: pointer !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .will-reveal { transition: none !important; }
+    .marquee-inner { animation: none !important; }
+    .will-reveal { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   PATCH v3  —  All reported visual bugs fixed
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Result cards: uniform height so bars align ─────────── */
+.result-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 200px;
+}
+.result-card__number { line-height: 1; margin-bottom: 0; }
+.result-card__unit   { line-height: 1.2; min-height: 1.4em; }
+.result-card__decimal{ line-height: 1.2; min-height: 1.4em; }
+.result-card__label  { margin-top: auto; padding-top: 8px; }
+.result-card__bar    { width: 100%; margin-top: 12px; }
+
+/* ── Mobile menu: fix double lines + center icons ────────── */
+.mobile-menu__panel::before { display: none; } /* Remove gradient pseudo-line */
+.mobile-menu__panel::after  { display: none; }
+.mobile-menu__social {
+    justify-content: center !important;
+    margin-top: auto;
+    border-top: 1px solid rgba(255,255,255,.06);
+    padding-top: 24px;
+    flex-shrink: 0;
+}
+
+/* ── Mobile menu: ensure all 7 links visible ────────────── */
+.mobile-menu__panel {
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+    gap: 0;
+}
+.mobile-menu__links {
+    overflow-y: visible;
+    flex-shrink: 0;
+}
+
+/* ── Hero scroll hint: always visible at hero bottom ─────── */
+.hero-scroll-hint {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    pointer-events: none;
+}
+/* Ensure hero section is relative so absolute child works */
+.hero-section { position: relative; }
+
+/* On mobile the hero-content is single-column and tall — push hint below metrics not below fold */
+@media (max-width: 768px) {
+    .hero-scroll-hint {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        transform: none;
+        margin: 0 auto;
+        padding-top: 24px;
+        padding-bottom: 20px;
+        order: 99; /* last flex child */
+    }
+    /* hero-content becomes flex column — hint needs to be inside it */
+}
+
+/* ── Project grid: no sideways scroll on mobile ─────────── */
+.project-grid {
+    overflow: visible !important;
+    overflow-x: visible !important;
+}
+@media (max-width: 768px) {
+    .project-grid {
+        grid-template-columns: 1fr !important;
+        gap: 18px;
+    }
+    .project-card { width: 100% !important; min-width: 0 !important; }
+}
+
+/* ── Credentials: prevent overflow on mobile ─────────────── */
+.credentials-section { overflow: hidden; }
+.credentials-layout  { overflow: hidden; }
+@media (max-width: 1024px) {
+    .credentials-layout { grid-template-columns: 1fr !important; }
+    .skills-panel, .certs-panel {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        min-width: 0 !important;
+    }
+}
+@media (max-width: 768px) {
+    .skill-row {
+        grid-template-columns: minmax(0,100px) 1fr 38px !important;
+        gap: 10px;
+    }
+    .skill-row > span:first-child { min-width: 0; font-size: 12px; }
+    .cert-item { padding: 14px 14px; gap: 10px; }
+    .cert-item__info h4 { font-size: 12px; white-space: normal; }
+}
+
+/* ── Credentials: more breathing room ───────────────────── */
+.skills-panel, .certs-panel { padding: 40px 36px; }
+.skill-group  { margin-bottom: 36px; }
+.skill-group__items { gap: 18px; }
+.cert-item    { padding: 18px 20px; }
+.certs-list   { gap: 12px; }
+@media (max-width: 1024px) {
+    .skills-panel, .certs-panel { padding: 28px 24px; }
+}
+@media (max-width: 768px) {
+    .skills-panel, .certs-panel { padding: 22px 18px; }
+    .skill-group  { margin-bottom: 24px; }
+    .skill-group__items { gap: 14px; }
+}
+
+/* ── Prevent ANY horizontal overflow sitewide ────────────── */
+.container, .story-section, .origin-layout,
+.battles-layout, .credentials-layout, .quests-showcase {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* ── Mobile: section min-height — no huge blank gaps ─────── */
+@media (max-width: 768px) {
+    .story-section { min-height: auto !important; }
+    .hero-section  { min-height: 100svh !important; }
+    .origin-layout, .journey-section .timeline { overflow-x: hidden; }
+    .timeline-entry__card { box-sizing: border-box; max-width: 100%; }
+}
+
+/* ── Mobile animations — more dramatic to match desktop ──── */
+@media (max-width: 768px) {
+    /* Larger translate distances feel more cinematic on mobile */
+    .reveal-up   { transform: translateY(55px) !important; }
+    .reveal-left { transform: translateX(-45px) !important; }
+}
+
+/* ── Origin narrative: text-highlight and text-accent ───── */
+/* These classes must render styled, not as raw HTML */
+.narrative-text .text-highlight,
+.narrative-text strong.text-highlight { color: #fff; font-weight: 700; }
+.narrative-text .text-accent { color: #66e7f2; font-weight: 500; }
+
+/* ── Battle featured actions: wrap on small screens ─────── */
+@media (max-width: 600px) {
+    .battle-featured__actions { flex-direction: column; }
+    .battle-featured__actions .btn { width: 100%; justify-content: center; }
+    .battle-featured__footer { flex-direction: column; gap: 12px; }
+}
+
+/* ── Bottom nav safe area (iPhone home bar) ──────────────── */
+@media (max-width: 768px) {
+    .site-footer { padding-bottom: calc(36px + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* ── Scroll hint text spacing ────────────────────────────── */
+.hero-scroll-hint__text {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* ── Mobile hero: metrics 2×2 grid ──────────────────────── */
+@media (max-width: 768px) {
+    .hero-metrics {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 1px !important;
+        border: 1px solid rgba(255,255,255,.07) !important;
+        border-radius: 12px;
+        overflow: hidden;
+        max-width: 300px;
+        margin: 0 auto !important;
+    }
+    .hero-metric {
+        padding: 18px 12px !important;
+        background: rgba(255,255,255,.02);
+        border-right: 1px solid rgba(255,255,255,.05);
+        border-bottom: 1px solid rgba(255,255,255,.05);
+        text-align: center;
+    }
+    .hero-metric:nth-child(2n)  { border-right: none !important; }
+    .hero-metric:nth-last-child(-n+3) { border-bottom: none; }
+    .hero-metric__divider { display: none !important; }
+    .hero-metric__number  { font-size: 2rem !important; }
+    .hero-metric__label   { font-size: 9px !important; letter-spacing: 1px; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   PATCH v4  —  Screenshot-verified fixes
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Credentials: full width, generous space ────────────── */
+.credentials-section .container {
+    max-width: 1200px;
+}
+.credentials-layout {
+    grid-template-columns: 1.1fr 1fr;
+    gap: 40px;
+    align-items: start;
+    /* Remove any max-width constraint causing small panels */
+    width: 100%;
+}
+.skills-panel {
+    padding: 52px 48px !important;
+    min-height: 560px;
+}
+.certs-panel {
+    padding: 52px 48px !important;
+}
+.skill-group {
+    margin-bottom: 44px !important;
+}
+.skill-group:last-child { margin-bottom: 0 !important; }
+.skill-group__header {
+    font-size: 15px !important;
+    margin-bottom: 22px !important;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.skill-group__icon { font-size: 20px !important; }
+.skill-group__items { gap: 20px !important; }
+.skill-row {
+    grid-template-columns: 120px 1fr 48px !important;
+    gap: 16px !important;
+}
+.skill-row > span:first-child {
+    font-size: 14px !important;
+    color: var(--text-secondary) !important;
+}
+.skill-bar { height: 8px !important; }
+.skill-row__pct { font-size: 12px !important; }
+.panel-title {
+    font-size: 1.8rem !important;
+    margin-bottom: 36px !important;
+    letter-spacing: -.01em;
+}
+.certs-list { gap: 14px !important; }
+.cert-item {
+    padding: 20px 24px !important;
+    gap: 16px !important;
+    border-radius: 14px !important;
+}
+.cert-item__emoji { font-size: 26px !important; width: 34px !important; }
+.cert-item__info h4 { font-size: 14px !important; margin-bottom: 4px !important; }
+.cert-item__info p  { font-size: 12px !important; }
+.cert-item__actions a {
+    width: 34px !important; height: 34px !important;
+    font-size: 14px !important; border-radius: 9px !important;
+}
+
+/* ── Result cards: perfect height alignment ──────────────── */
+.result-cards { align-items: stretch; }
+.result-card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding: 36px 28px 28px !important;
+    min-height: 220px !important;
+}
+.result-card__number {
+    font-size: 3.6rem !important;
+    line-height: 1 !important;
+    margin-bottom: 0 !important;
+}
+/* All cards have: number + unit row (height 1.8rem) + decimal row (height 1.8rem) + label + bar */
+.result-card__unit,
+.result-card__decimal {
+    font-size: 1.8rem !important;
+    line-height: 1 !important;
+    height: 2rem !important;   /* fixed height so ALL cards have same structure */
+    display: flex !important;
+    align-items: center !important;
+    margin-bottom: 0 !important;
+}
+.result-card__label {
+    font-size: 11px !important;
+    letter-spacing: 1.5px !important;
+    margin-top: 16px !important;
+    margin-bottom: 0 !important;
+    flex: 1 !important;        /* pushes bar to bottom */
+    display: flex !important;
+    align-items: flex-end !important;
+}
+.result-card__bar {
+    width: 100% !important;
+    margin-top: 12px !important;
+    height: 5px !important;
+    flex-shrink: 0 !important;
+}
+
+/* ── Discovery: sub-blocks force visible (fallback) ─────── */
+.abstract-block, .keywords-block, .results-block,
+.authors-block, .project-link-block, .paper-actions-row,
+.flags-row, .research-paper__venue {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* ── Mobile nav overlap fix on credentials ───────────────── */
+@media (max-width: 768px) {
+    .credentials-section { padding-top: 100px; }
+    .skills-panel { padding: 28px 20px !important; min-height: auto !important; }
+    .certs-panel  { padding: 28px 20px !important; }
+    .skill-row { grid-template-columns: 100px 1fr 36px !important; gap: 10px !important; }
+    .skill-row > span:first-child { font-size: 13px !important; }
+    .cert-item { padding: 16px 16px !important; gap: 12px !important; }
+    .panel-title { font-size: 1.5rem !important; margin-bottom: 24px !important; }
+}
+
+/* ── Mobile: quests project card visual height ───────────── */
+@media (max-width: 768px) {
+    .project-hero__visual { min-height: 160px !important; }
+    .project-card__visual { height: 120px !important; }
+}
+
+/* ── CINEMATIC ENHANCEMENTS ──────────────────────────────── */
+
+/* Floating glow rings on skill bars */
+.skill-bar__fill {
+    position: relative !important;
+    overflow: visible !important;
+}
+.skill-bar__fill::after {
+    content: '' !important;
+    position: absolute !important;
+    right: -3px !important; top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 12px !important; height: 12px !important;
+    border-radius: 50% !important;
+    background: #66e7f2 !important;
+    box-shadow: 0 0 8px #66e7f2, 0 0 18px rgba(102,231,242,.6) !important;
+    transition: opacity .3s !important;
+}
+
+/* Cert items: hover glow sweep */
+.cert-item::before {
+    content: '';
+    position: absolute; inset: 0; border-radius: inherit;
+    background: linear-gradient(90deg, transparent 0%, rgba(102,231,242,.04) 50%, transparent 100%);
+    transform: translateX(-100%);
+    transition: transform .55s ease;
+    pointer-events: none;
+}
+.cert-item:hover::before { transform: translateX(100%); }
+.cert-item { position: relative; overflow: hidden; }
+
+/* Section background grid lines */
+.credentials-section::before {
+    content: '';
+    position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+            linear-gradient(rgba(102,231,242,.025) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(102,231,242,.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+}
+.credentials-section .container { position: relative; z-index: 1; }
+
+/* ── Journey markers: glowing rings ─────────────────────── */
+.timeline-entry__core--active {
+    box-shadow: 0 0 0 4px rgba(102,231,242,.2), 0 0 20px rgba(102,231,242,.4) !important;
+}
+
+/* ══════════════════════════════════════════════════════════
+   PATCH v5  —  Credentials max-width fill + nav scroll offset
+   ══════════════════════════════════════════════════════════ */
+
+/* Credentials: remove inner container constraint so panels fill full width */
+.credentials-section .container { max-width: 1320px; padding: 0 40px; }
+@media (min-width: 1025px) {
+    .credentials-layout {
+        grid-template-columns: 1.15fr 1fr !important;
+        gap: 36px !important;
+    }
+}
+
+/* Section scroll-margin so nav doesn't cover title on jump */
+.story-section[id] { scroll-margin-top: 90px; }
+
+/* Credentials background grid */
+.credentials-section { position: relative; }
+
+/* ── Cinematic: animated gradient border on skills panel ── */
+.skills-panel {
+    position: relative;
+    background: linear-gradient(160deg, rgba(13,21,32,.95), rgba(8,15,24,.98)) !important;
+}
+.skills-panel::before {
+    content: '';
+    position: absolute; inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(102,231,242,.12) 0%, transparent 50%, rgba(154,140,255,.08) 100%);
+    pointer-events: none;
+}
+
+/* ── Cinematic: cert items with category color bars ─────── */
+.cert-item {
+    border-left: 3px solid rgba(102,231,242,.25) !important;
+    transition: border-color .35s, transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s !important;
+}
+.cert-item:hover {
+    border-left-color: #66e7f2 !important;
+    box-shadow: 0 8px 30px rgba(102,231,242,.08), 4px 0 0 rgba(102,231,242,.2) !important;
+    transform: translateX(6px) !important;
+}
+
+/* ── Skill group: progress track glow ───────────────────── */
+.skill-bar {
+    position: relative;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.04) !important;
+}
+
+/* ── Floating number animation on result cards ───────────── */
+.result-card:hover .result-card__number {
+    text-shadow: 0 0 30px rgba(102,231,242,.5), 0 0 60px rgba(102,231,242,.2);
+    transition: text-shadow .3s;
+}
+
+/* ── Discovery: research paper wider on large screens ────── */
+@media (min-width: 1280px) {
+    .discovery-section .container { max-width: 1100px; }
+}
+
+/* ── Mobile: section title scroll margin ─────────────────── */
+@media (max-width: 768px) {
+    .story-section[id] { scroll-margin-top: 72px; }
+    .credentials-section .container { padding: 0 16px; }
+    .credentials-layout { grid-template-columns: 1fr !important; gap: 20px !important; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   PATCH v6  —  Nav overlap fixes + cert text + final polish
+   ══════════════════════════════════════════════════════════ */
+
+/* Scroll margin on ALL sections so nav pill doesn't cover heading */
+.story-section { scroll-margin-top: 88px; }
+
+/* Mobile: cert item text wrap nicely */
+@media (max-width: 768px) {
+    .cert-item__info h4 {
+        white-space: normal !important;
+        overflow: visible !important;
+        text-overflow: unset !important;
+        line-height: 1.4 !important;
+    }
+    .cert-item { align-items: flex-start !important; }
+    .cert-item__emoji { padding-top: 2px; }
+
+    /* Credentials section: extra top padding so nav clears */
+    .credentials-section { padding-top: 110px !important; }
+
+    /* Skills bar glow dot: hide on mobile (too small) */
+    .skill-bar__fill::after { display: none !important; }
+}
+
+/* Desktop credentials: expand panels to use available space better */
+@media (min-width: 1025px) {
+    .credentials-section .container { max-width: 1260px; }
+    .skills-panel { padding: 56px 52px !important; }
+    .certs-panel  { padding: 56px 52px !important; }
+}
+
+/* Animated glow dot at end of skill bar — desktop only */
+@media (min-width: 769px) {
+    .skill-bar { overflow: visible !important; position: relative; }
+    .skill-bar__fill::after {
+        content: '' !important;
+        position: absolute !important;
+        right: -4px !important; top: 50% !important;
+        transform: translateY(-50%) !important;
+        width: 14px !important; height: 14px !important;
+        border-radius: 50% !important;
+        background: #66e7f2 !important;
+        box-shadow: 0 0 10px #66e7f2, 0 0 22px rgba(102,231,242,.7) !important;
+        display: block !important;
+        animation: dotPulse 2s ease-in-out infinite !important;
+    }
+}
+
+/* Cert items: left accent color bar + breathing gap */
+.cert-item + .cert-item { margin-top: 0; }
+
+/* Result cards: equal flex heights for aligned bars */
+.result-cards { align-items: stretch; }
+.result-card {
+    flex: 1;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+.result-card__bar { margin-top: auto !important; padding-top: 14px !important; width: 100% !important; }
+
+/* Discovery section: slightly more breathing room */
+.research-paper { padding: 56px !important; }
+@media (max-width: 768px) {
+    .research-paper { padding: 24px !important; }
+}
+
+/* Hero section: content doesn't hide behind nav on page load */
+.hero-content { padding-top: 100px; }
+@media (max-width: 768px) { .hero-content { padding-top: 80px; } }
+
+/* Make project hero visual fill more space */
+.project-hero__visual { background: linear-gradient(135deg,rgba(0,229,255,.06) 0%,rgba(168,85,247,.06) 100%) !important; }
+
+/* Battle featured card: cinematic accent corner */
+.battle-featured { border-radius: 20px !important; }
+
+/* ══════════════════════════════════════════════════════════
+   LARGE DISPLAY SCALING  —  1440p · 2K · 4K · Ultrawide
+   Strategy: fluid container + clamp() type + wider grids
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Fluid container that grows with the screen ─────────── */
+.container {
+    max-width: min(1400px, 92vw) !important;
+    padding: 0 clamp(24px, 4vw, 80px) !important;
+}
+
+/* ── 1440p (1440–1920px) ─────────────────────────────────── */
+@media (min-width: 1440px) {
+    .container { max-width: min(1440px, 90vw) !important; }
+
+    /* Hero */
+    .hero-content {
+        max-width: min(1500px, 92vw) !important;
+        gap: clamp(60px, 6vw, 100px) !important;
+        padding-left:  clamp(40px, 5vw, 80px) !important;
+        padding-right: clamp(40px, 5vw, 80px) !important;
+    }
+    .hero-image__frame { width: clamp(320px, 26vw, 440px) !important; height: auto !important; aspect-ratio: 360/460; }
+    .hero-headline     { font-size: clamp(4rem, 5.5vw, 5.5rem) !important; }
+    .hero-metric__number { font-size: clamp(2.6rem, 3.2vw, 3.5rem) !important; }
+
+    /* Sections */
+    .section-title    { font-size: clamp(3rem, 4.5vw, 5rem) !important; }
+    .section-subtitle { font-size: clamp(1rem, 1.2vw, 1.3rem) !important; }
+
+    /* Origin */
+    .origin-layout { gap: clamp(48px, 7vw, 120px) !important; }
+    .narrative-text { font-size: clamp(1rem, 1.1vw, 1.2rem) !important; line-height: 1.9 !important; }
+
+    /* Credentials */
+    .credentials-section .container { max-width: min(1600px, 90vw) !important; }
+    .credentials-layout { grid-template-columns: 1.2fr 1fr !important; gap: 48px !important; }
+    .skills-panel, .certs-panel { padding: 56px !important; }
+    .skill-row { grid-template-columns: 130px 1fr 52px !important; }
+
+    /* Journey */
+    .timeline { max-width: min(1100px, 85vw) !important; }
+
+    /* Quests */
+    .project-hero__name { font-size: clamp(2rem, 2.5vw, 2.8rem) !important; }
+
+    /* Discovery */
+    .research-paper { padding: 64px !important; }
+    .research-paper__title { font-size: clamp(1.6rem, 2vw, 2.2rem) !important; }
+}
+
+/* ── 1920p (1920–2560px) ─────────────────────────────────── */
+@media (min-width: 1920px) {
+    :root { font-size: 18px; }          /* Base scale-up — everything proportionally larger */
+
+    .container { max-width: min(1760px, 88vw) !important; }
+
+    .main-nav  {
+        left: clamp(24px, 3vw, 60px) !important;
+        right: clamp(24px, 3vw, 60px) !important;
+        height: 72px !important;
+        padding: 0 clamp(28px, 2.5vw, 52px) !important;
+    }
+    .nav-logo  { font-size: 16px !important; }
+    .nav-link  { font-size: 12px !important; gap: 8px !important; }
+    .nav-links { gap: 36px !important; }
+
+    /* Hero — fill the screen properly */
+    .hero-content {
+        max-width: min(1800px, 88vw) !important;
+        grid-template-columns: 1fr 1.3fr !important;
+        gap: clamp(80px, 7vw, 140px) !important;
+        padding: clamp(120px, 9vw, 160px) clamp(48px, 5vw, 100px) clamp(80px, 7vw, 120px) !important;
+    }
+    .hero-image__frame {
+        width: clamp(380px, 28vw, 560px) !important;
+        aspect-ratio: 360/460;
+        height: auto !important;
+    }
+    .hero-headline     { font-size: clamp(4.5rem, 5.8vw, 6.5rem) !important; }
+    .hero-tagline      { font-size: clamp(1.1rem, 1.2vw, 1.5rem) !important; max-width: 580px !important; }
+    .hero-metric__number { font-size: clamp(3rem, 3.5vw, 4rem) !important; }
+    .hero-metric__label  { font-size: 12px !important; }
+
+    /* Typography scale */
+    .section-title     { font-size: clamp(3.5rem, 5vw, 6rem) !important; }
+    .section-eyebrow   { font-size: 13px !important; }
+    .section-subtitle  { font-size: clamp(1.1rem, 1.3vw, 1.4rem) !important; }
+
+    /* Origin */
+    .origin-layout     { gap: clamp(80px, 8vw, 140px) !important; }
+    .narrative-text    { font-size: clamp(1.05rem, 1.1vw, 1.3rem) !important; }
+    .origin-card       { padding: 40px !important; }
+    .origin-card__title { font-size: 18px !important; }
+
+    /* Journey */
+    .timeline          { max-width: min(1200px, 80vw) !important; }
+    .timeline-entry__card { padding: 40px !important; }
+    .timeline-entry__title { font-size: 22px !important; }
+
+    /* Quests */
+    .project-hero__content { padding: 64px !important; }
+    .project-hero__name    { font-size: clamp(2.2rem, 2.8vw, 3.2rem) !important; }
+    .project-hero__body    { font-size: 17px !important; }
+
+    /* Battles */
+    .battle-featured   { padding: 52px !important; }
+    .battle-featured__title { font-size: 2.4rem !important; }
+
+    /* Discovery */
+    .research-paper    { padding: 72px !important; }
+    .research-paper__title { font-size: clamp(1.8rem, 2.2vw, 2.6rem) !important; }
+    .result-card__number   { font-size: 4.2rem !important; }
+
+    /* Credentials */
+    .credentials-section .container { max-width: min(1800px, 88vw) !important; }
+    .credentials-layout { grid-template-columns: 1.2fr 1fr !important; gap: 56px !important; }
+    .skills-panel, .certs-panel { padding: 68px 60px !important; }
+    .panel-title       { font-size: 2.2rem !important; }
+    .skill-row         { grid-template-columns: 150px 1fr 56px !important; gap: 20px !important; }
+    .skill-bar         { height: 10px !important; }
+    .skill-group__header { font-size: 16px !important; }
+    .skill-row > span:first-child { font-size: 15px !important; }
+    .skill-row__pct    { font-size: 13px !important; }
+    .cert-item         { padding: 24px 28px !important; }
+    .cert-item__info h4 { font-size: 15px !important; }
+    .cert-item__info p  { font-size: 13px !important; }
+
+    /* Contact */
+    .contact-card      { padding: 32px 40px !important; gap: 28px !important; }
+    .contact-card__value { font-size: 18px !important; }
+}
+
+/* ── 2560p / 2K (2560–3840px) ───────────────────────────── */
+@media (min-width: 2560px) {
+    :root { font-size: 20px; }
+
+    .container { max-width: min(2200px, 86vw) !important; }
+
+    .main-nav {
+        left: clamp(32px, 3vw, 80px) !important;
+        right: clamp(32px, 3vw, 80px) !important;
+        height: 80px !important;
+        border-radius: 18px !important;
+    }
+    .nav-logo  { font-size: 17px !important; letter-spacing: 4px !important; }
+    .nav-links { gap: 44px !important; }
+    .nav-link  { font-size: 13px !important; }
+
+    .hero-content {
+        max-width: min(2300px, 86vw) !important;
+        grid-template-columns: 1fr 1.35fr !important;
+        gap: clamp(100px, 8vw, 180px) !important;
+        padding: clamp(140px, 9vw, 200px) clamp(60px, 6vw, 120px) clamp(100px, 8vw, 160px) !important;
+    }
+    .hero-image__frame {
+        width: clamp(440px, 26vw, 680px) !important;
+        aspect-ratio: 360/460; height: auto !important;
+    }
+    .hero-image__frame .hero-image__mask,
+    .hero-image__frame .hero-image__border { border-radius: 28px !important; }
+    .hero-headline     { font-size: clamp(5rem, 6.5vw, 8rem) !important; }
+    .hero-tagline      { font-size: clamp(1.2rem, 1.4vw, 1.7rem) !important; max-width: 700px !important; }
+    .hero-metric__number { font-size: clamp(3.5rem, 4.2vw, 5rem) !important; }
+    .hero-metric__label  { font-size: 13px !important; }
+    .hero-badge        { padding: 14px 28px !important; font-size: 14px !important; }
+    .btn               { padding: 16px 32px !important; min-height: 56px !important; font-size: 15px !important; }
+
+    .section-title     { font-size: clamp(4.5rem, 6vw, 7.5rem) !important; }
+    .section-subtitle  { font-size: clamp(1.2rem, 1.4vw, 1.6rem) !important; }
+
+    .origin-layout     { gap: clamp(100px, 9vw, 180px) !important; }
+    .narrative-text    { font-size: clamp(1.1rem, 1.15vw, 1.4rem) !important; }
+    .origin-card       { padding: 52px !important; border-radius: 28px !important; }
+
+    .timeline          { max-width: min(1600px, 76vw) !important; }
+
+    .project-hero__content { padding: 80px !important; }
+    .project-hero__name    { font-size: clamp(2.8rem, 3.2vw, 4rem) !important; }
+
+    .battle-featured   { padding: 64px !important; border-radius: 28px !important; }
+
+    .research-paper    { padding: 88px !important; border-radius: 36px !important; }
+    .result-card       { padding: 48px 36px !important; }
+    .result-card__number { font-size: 5rem !important; }
+
+    .credentials-section .container { max-width: min(2300px, 86vw) !important; }
+    .credentials-layout { gap: 72px !important; }
+    .skills-panel, .certs-panel { padding: 80px 72px !important; border-radius: 28px !important; }
+    .panel-title       { font-size: 2.6rem !important; margin-bottom: 48px !important; }
+    .skill-group       { margin-bottom: 56px !important; }
+    .skill-row         { grid-template-columns: 180px 1fr 64px !important; gap: 24px !important; }
+    .skill-bar         { height: 12px !important; }
+    .skill-bar__fill::after { width: 18px !important; height: 18px !important; }
+    .skill-group__header { font-size: 18px !important; }
+    .skill-row > span:first-child { font-size: 17px !important; }
+    .cert-item         { padding: 28px 32px !important; border-radius: 18px !important; }
+    .cert-item__emoji  { font-size: 32px !important; width: 42px !important; }
+    .cert-item__info h4 { font-size: 17px !important; }
+    .cert-item__info p  { font-size: 14px !important; }
+    .cert-item__actions a { width: 42px !important; height: 42px !important; font-size: 17px !important; }
+    .certs-list        { gap: 18px !important; }
+
+    .contact-card      { padding: 40px 52px !important; border-radius: 24px !important; gap: 32px !important; }
+    .contact-card__value { font-size: 20px !important; }
+    .contact-card__label { font-size: 13px !important; }
+    .contact-card__icon  { font-size: 36px !important; }
+}
+
+/* ── 4K / UHD (3840px+) ─────────────────────────────────── */
+@media (min-width: 3840px) {
+    :root { font-size: 24px; }
+
+    .container { max-width: min(3200px, 84vw) !important; }
+
+    .main-nav {
+        height: 90px !important; border-radius: 22px !important;
+        left: clamp(40px, 3vw, 100px) !important;
+        right: clamp(40px, 3vw, 100px) !important;
+    }
+    .nav-logo  { font-size: 20px !important; }
+    .nav-links { gap: 56px !important; }
+    .nav-link  { font-size: 15px !important; }
+
+    .hero-content {
+        max-width: min(3300px, 84vw) !important;
+        gap: clamp(140px, 9vw, 260px) !important;
+        padding: clamp(180px, 9vw, 260px) clamp(80px, 7vw, 160px) clamp(140px, 9vw, 200px) !important;
+    }
+    .hero-image__frame {
+        width: clamp(560px, 24vw, 880px) !important;
+        aspect-ratio: 360/460; height: auto !important;
+    }
+    .hero-headline     { font-size: clamp(6rem, 7vw, 10rem) !important; }
+    .hero-tagline      { font-size: clamp(1.3rem, 1.5vw, 2rem) !important; max-width: 900px !important; }
+    .hero-metric__number { font-size: clamp(4rem, 5vw, 6rem) !important; }
+    .btn               { padding: 20px 40px !important; min-height: 66px !important; font-size: 18px !important; border-radius: 14px !important; }
+
+    .section-title     { font-size: clamp(5.5rem, 7vw, 9rem) !important; }
+    .section-subtitle  { font-size: clamp(1.3rem, 1.6vw, 1.9rem) !important; }
+
+    .credentials-section .container { max-width: min(3300px, 84vw) !important; }
+    .credentials-layout { gap: 96px !important; }
+    .skills-panel, .certs-panel { padding: 100px 88px !important; border-radius: 36px !important; }
+    .panel-title       { font-size: 3.2rem !important; }
+    .skill-bar         { height: 14px !important; }
+    .cert-item         { padding: 36px 40px !important; border-radius: 22px !important; }
+    .cert-item__info h4 { font-size: 20px !important; }
+    .result-card__number { font-size: 6.5rem !important; }
+}
+
+/* ── Ultrawide (21:9 and wider, any height) ──────────────── */
+@media (min-aspect-ratio: 21/9) {
+    /* Use horizontal centering with max-width to prevent over-stretching */
+    .hero-content { grid-template-columns: 0.8fr 1.2fr !important; }
+    .container { max-width: min(80vw, 2000px) !important; }
+
+    /* Prevent background orbs from bleeding too far */
+    .section-bg__orb--1 { right: -100px !important; }
+    .section-bg__orb--2 { left: -60px !important; }
+}
+
+/* ── Fluid typography clamp system across all sizes ─────── */
+@media (min-width: 1440px) {
+    /* Narrative text */
+    .battle-featured__desc,
+    .battle-card__desc,
+    .project-hero__body,
+    .abstract-block p {
+        font-size: clamp(14px, 1vw, 18px) !important;
+        line-height: 1.85 !important;
+    }
+
+    /* Section spacing scales with viewport */
+    .battles-section,
+    .journey-section,
+    .origin-section,
+    .quests-section,
+    .credentials-section,
+    .discovery-section {
+        padding: clamp(100px, 10vw, 200px) 0 !important;
+    }
+}
+
+/* ══ FIX: Battles featured card — don't stretch to grid height ══ */
+.battles-layout { align-items: start !important; }
+.battle-featured {
+    height: auto !important;
+    align-self: start !important;
+    position: sticky !important;
+    top: 90px !important;        /* sticks near top while grid scrolls */
+}
+
+/* ══ FIX: Credentials — equalise panel heights via stretch ══ */
+.credentials-layout { align-items: stretch !important; }
+.skills-panel  { display: flex !important; flex-direction: column !important; }
+.certs-panel   { display: flex !important; flex-direction: column !important; }
+.certs-list    { flex: 1 !important; display: flex !important; flex-direction: column !important; justify-content: space-between !important; }
+.skill-group:last-child { margin-bottom: 0 !important; }
+.skill-group__items { flex: 1; }
+
+/* ══ FIX: Result card bars — pure GSAP, no CSS width override ══ */
+.result-card__bar   { overflow: hidden !important; }
+/* DO NOT set width:0 here — GSAP controls it via inline style */
+/* .result-card__fill transition: controlled by GSAP, not CSS */
+
+/* ══════════════════════════════════════════════════════════
+   AUDIT FIX BATCH — All viewport issues resolved
+   ══════════════════════════════════════════════════════════ */
+
+/* ── 1. Nav overlap: scroll-margin-top on ALL sections ──── */
+/* Already set above, but ensure it's aggressive enough */
+.story-section { scroll-margin-top: 100px !important; }
+
+/* ── 2. Hero badge: never truncate ──────────────────────── */
+.hero-badge {
+    white-space: nowrap !important;
+    max-width: none !important;
+    width: auto !important;
+}
+@media (max-width: 480px) {
+    .hero-badge {
+        font-size: 10px !important;
+        padding: 8px 14px !important;
+        gap: 6px !important;
+    }
+}
+
+/* ── 3. Battles: sticky only on desktop, not mobile ─────── */
+@media (max-width: 1023px) {
+    .battle-featured {
+        position: static !important;
+        height: auto !important;
+        align-self: auto !important;
+    }
+    .battles-layout {
+        grid-template-columns: 1fr !important;
+    }
+}
+@media (min-width: 1024px) {
+    .battle-featured {
+        position: sticky !important;
+        top: 90px !important;
+        align-self: start !important;
+        height: auto !important;
+    }
+    .battles-layout { align-items: start !important; }
+}
+
+/* ── 4. Discovery: result cards on mobile ── 1 column ───── */
+@media (max-width: 768px) {
+    .result-cards {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+    .result-card {
+        flex-direction: row !important;
+        align-items: center !important;
+        padding: 20px 24px !important;
+        min-height: auto !important;
+        gap: 16px !important;
+        text-align: left !important;
+    }
+    .result-card__number { font-size: 2.4rem !important; flex-shrink: 0; }
+    .result-card__unit, .result-card__decimal { font-size: 1.4rem !important; height: auto !important; }
+    .result-card__label { margin-top: 0 !important; padding-top: 0 !important; font-size: 10px !important; }
+    .result-card__bar   { display: none !important; } /* hidden on mobile — numbers are enough */
+}
+
+/* ── 5. Hero scroll hint: always inside viewport ─────────── */
+/* On tablet single-column, push hint into the flow */
+@media (max-width: 1024px) {
+    .hero-scroll-hint {
+        position: relative !important;
+        bottom: auto !important;
+        left: auto !important;
+        transform: none !important;
+        margin: 20px auto 0 !important;
+        display: flex !important;
+        opacity: 1 !important;
+    }
+}
+
+/* ── 6. Section title: starts below nav pill ─────────────── */
+/* The wipe animation starts from top — add padding to section header */
+.section-header {
+    padding-top: clamp(16px, 4vw, 40px);
+}
+
+/* ── 7. Credentials: mobile overflow fully blocked ───────── */
+@media (max-width: 768px) {
+    .credentials-section,
+    .credentials-layout,
+    .skills-panel,
+    .certs-panel {
+        overflow-x: hidden !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    /* Tighten skill row on smallest phones */
+    .skill-row {
+        grid-template-columns: minmax(0, 90px) minmax(0, 1fr) 34px !important;
+        gap: 8px !important;
+    }
+}
+
+/* ── 8. 2K+ nav height matching ─────────────────────────── */
+@media (min-width: 1920px) {
+    .story-section { scroll-margin-top: 120px !important; }
+    .section-header { padding-top: 60px; }
+}
+@media (min-width: 2560px) {
+    .story-section { scroll-margin-top: 140px !important; }
+}
+
+/* ── 9. Mobile nav z-index: never obscure clickable content  */
+/* Nav is already z:1000 — ensure body content never goes above */
+.mobile-menu { z-index: 9990 !important; }
+.main-nav    { z-index: 1000 !important; }
+
+/* ── 10. Hero badge transform fix on mobile ─────────────── */
+@media (max-width: 768px) {
+    .hero-badge,
+    .hero-badge.is-revealed {
+        transform: translateX(-50%) !important;
+        left: 50% !important;
+        position: absolute !important;
+        bottom: -18px !important;
+    }
+    /* If hero-badge is now inside hero-right (flow), reset the absolute */
+    .hero-right .hero-badge {
+        position: relative !important;
+        left: auto !important;
+        transform: none !important;
+        bottom: auto !important;
+        margin: 12px auto 0 !important;
+        display: inline-flex !important;
+    }
+}
+
+/* ── 11. Mobile: section vertical spacing ───────────────── */
+@media (max-width: 768px) {
+    .battles-section,
+    .journey-section,
+    .origin-section,
+    .quests-section,
+    .discovery-section,
+    .credentials-section {
+        padding: 80px 0 60px !important;
+    }
+    .contact-section { padding: 60px 0 !important; }
+}
+
+/* ── 12. Large screens: section titles don't overlap nav ── */
+@media (min-width: 1440px) {
+    .section-header { margin-top: 20px; }
+}
+
+/* ── 13. Tab 768: hero metrics 2x2 grid ─────────────────── */
+@media (min-width: 601px) and (max-width: 1023px) {
+    .hero-metrics {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        max-width: 360px !important;
+        margin: 0 auto !important;
+        border: 1px solid rgba(255,255,255,.07) !important;
+        border-radius: 12px !important;
+        overflow: hidden !important;
+        gap: 1px !important;
+    }
+    .hero-metric {
+        padding: 20px 16px !important;
+        background: rgba(255,255,255,.02) !important;
+        text-align: center !important;
+    }
+    .hero-metric__divider { display: none !important; }
+}
+
+/* ══ FINAL POLISH ══════════════════════════════════════════ */
+
+/* 2K: section title below nav — push header down more */
+@media (min-width: 1920px) {
+    .section-header { padding-top: 80px !important; }
+    .story-section  { scroll-margin-top: 130px !important; }
+}
+
+/* Mobile: bigger scroll margin + nav-aware padding */
+@media (max-width: 768px) {
+    .story-section  { scroll-margin-top: 80px !important; }
+    /* Prevent nav covering section titles on jump-to */
+    .section-eyebrow { padding-top: 0; }
+}
+
+/* Cert item: title truncation on very narrow screens */
+@media (max-width: 400px) {
+    .cert-item__info h4 {
+        font-size: 11px !important;
+        line-height: 1.3 !important;
+    }
+    .cert-item { padding: 10px 12px !important; }
+    .cert-item__emoji { font-size: 16px !important; width: 20px !important; }
+}
+
+/* Result card fills: GSAP controls width via inline style */
+/* No CSS width override here — inline style from GSAP wins */
+
+/* Mobile: discovery result cards horizontal layout cleanup */
+@media (max-width: 768px) {
+    .result-card {
+        display: grid !important;
+        grid-template-columns: auto 1fr !important;
+        grid-template-rows: auto auto auto !important;
+        align-items: center !important;
+        column-gap: 16px !important;
+        row-gap: 2px !important;
+    }
+    .result-card__number {
+        grid-row: 1 / 3 !important;
+        font-size: 2.8rem !important;
+    }
+    .result-card__unit,
+    .result-card__decimal {
+        grid-column: 1 !important;
+        font-size: 1.2rem !important;
+        height: auto !important;
+    }
+    .result-card__label {
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+        margin-top: 0 !important;
+        font-size: 11px !important;
+        letter-spacing: 1px !important;
+        align-items: flex-start !important;
+    }
+    .result-card__bar { display: none !important; }
+}
+
+/* Battles mobile: no extra top space */
+@media (max-width: 1023px) {
+    .battle-featured { margin-bottom: 0 !important; }
+}
+
+/* Journey: timeline track always visible on mobile */
+@media (max-width: 768px) {
+    .timeline__track { display: block !important; left: 20px !important; }
+    .timeline-entry__card {
+        width: calc(100% - 52px) !important;
+        margin-left: 46px !important;
+        box-sizing: border-box !important;
+    }
+}
+
+/* ══════════════════════════════════════════════════════════
+   ISSUE FIX BATCH  ·  All 7 reported problems resolved
+   ══════════════════════════════════════════════════════════ */
+
+/* ── 1. SCROLLBAR — hide on all browsers ────────────────── */
+html {
+    scrollbar-width: none !important;   /* Firefox */
+    -ms-overflow-style: none !important; /* IE/Edge */
+}
+html::-webkit-scrollbar { display: none !important; } /* Chrome/Safari */
+body { overflow-y: scroll !important; } /* keep scroll capability */
+
+/* ── 2. CARD HOVER OVERLAP — isolation + z-index ─────────── */
+/* Cards lift on hover via transform:scale/translateY but need their own
+   stacking context so they don't clip over siblings */
+.origin-card,
+.project-card,
+.battle-card,
+.battle-featured,
+.timeline-entry__card,
+.cert-item,
+.contact-card,
+.result-card {
+    isolation: isolate !important;
+    transition: transform .4s cubic-bezier(.16,1,.3,1),
+    box-shadow .4s cubic-bezier(.16,1,.3,1),
+    border-color .4s !important;
+}
+/* Hovered card sits on top */
+.origin-card:hover,
+.project-card:hover,
+.battle-card:hover,
+.cert-item:hover,
+.contact-card:hover,
+.result-card:hover { z-index: 10 !important; }
+
+/* Gap between cards so hover transform has breathing room */
+.origin-cards   { gap: 24px !important; }
+.battle-grid    { gap: 20px !important; }
+.certs-list     { gap: 14px !important; }
+.result-cards   { gap: 20px !important; }
+.project-grid   { gap: 24px !important; }
+
+/* ── 3. BATTLES GRID — fill empty space ──────────────────── */
+/* Featured card and grid side-by-side.
+   When featured card is short, grid cards should NOT leave gap.
+   Use grid rows that auto-size to content. */
+.battles-layout {
+    grid-template-columns: 1.15fr 1fr !important;
+    align-items: start !important;
+    gap: 28px !important;
+}
+.battle-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 18px !important;
+}
+.battle-card {
+    flex: 0 0 auto !important;
+    /* No fixed height — grows to content */
+}
+
+/* ── 4. CREDENTIALS — equal panel heights via CSS grid row ── */
+/* Use align-items:stretch (already set) + ensure both panels
+   use flex-column so inner content distributes */
+.credentials-layout {
+    align-items: stretch !important;
+}
+.skills-panel,
+.certs-panel {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    box-sizing: border-box !important;
+}
+.skills-panel .skill-group:last-child {
+    margin-bottom: 0 !important;
+}
+/* Distribute cert items evenly */
+.certs-list {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    gap: 10px !important;
+}
+.cert-item { flex: 1 1 auto !important; }
+
+/* ── 5. RESULT BARS — GSAP drives width, CSS stays out of way ── */
+/* No width override here — GSAP uses gsap.fromTo with inline styles.
+   The key: remove any previous !important width:0 from other rules.
+   The .result-card__fill starts hidden via GSAP set(), not CSS. */
+.result-card__bar { overflow: hidden !important; }
+
+/* ── 6. SCROLL HINT — always visible in hero viewport ──────── */
+/* Position at bottom of hero-right, not after viewport edge */
+.hero-scroll-hint {
+    display: flex !important;
+    align-items: center !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    margin-top: 24px !important;
+    opacity: 1 !important; /* GSAP controls this, just ensure visible on load */
+    pointer-events: none;
+    transition: opacity .3s, transform .3s !important;
+}
+/* On desktop: absolute at bottom of hero section */
+@media (min-width: 1024px) {
+    .hero-section { position: relative; }
+    .hero-scroll-hint {
+        position: absolute !important;
+        bottom: 28px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        margin-top: 0 !important;
+    }
+}
+
+/* ── 7. SCROLL PROGRESS BAR — reach 100% at page bottom ───── */
+/* Ensure the fill has no max-width constraint */
+.scroll-progress__fill {
+    max-width: 100vw !important;
+    width: 0% !important; /* GSAP drives this via ScrollTrigger */
+}
+.scroll-progress {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* ── Extra: Battles mobile - single column, no gap ─────────── */
+@media (max-width: 1023px) {
+    .battles-layout {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+    .battle-featured { position: static !important; }
+}
+
+/* GSAP inline styles drive result bar width */

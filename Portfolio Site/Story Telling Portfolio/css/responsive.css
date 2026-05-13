@@ -1,0 +1,766 @@
+/* ============================================
+   RESPONSIVE — Cinematic at every screen size
+   Premium $10k quality, not a simple page.
+   ============================================ */
+
+/* ─────────────────────────────────────────────
+   GLOBAL OVERFLOW / HORIZONTAL SCROLL KILL
+   ───────────────────────────────────────────── */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.story-section,
+.container,
+.hero-content,
+.origin-layout,
+.credentials-layout,
+.battles-layout,
+.quests-showcase,
+.project-grid,
+.timeline,
+.contact-center {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* ─────────────────────────────────────────────
+   ≤ 1280px  Wide laptop
+   ───────────────────────────────────────────── */
+@media (max-width: 1280px) {
+    .hero-content {
+        max-width: 1100px;
+        gap: 60px;
+    }
+
+    .hero-image__frame {
+        width: 320px;
+        height: 410px;
+    }
+
+    .hero-headline {
+        font-size: clamp(3rem, 4.5vw, 4.4rem);
+    }
+}
+
+/* ─────────────────────────────────────────────
+   ≤ 1024px  Tablet landscape / small laptop
+   ───────────────────────────────────────────── */
+@media (max-width: 1024px) {
+
+    /* Nav */
+    .nav-links { display: none; }
+    .menu-toggle { display: flex; }
+
+    .main-nav {
+        left: 16px;
+        right: 16px;
+    }
+
+    /* Hero — single column, text first on mobile */
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 48px;
+        padding: 120px 32px 80px;
+        max-width: 720px;
+        margin: 0 auto;
+    }
+
+    .hero-image-wrapper { order: 2; }
+    .hero-right         { order: 1; }
+
+    .hero-image__frame {
+        width: 280px;
+        height: 360px;
+        margin: 0 auto;
+    }
+
+    .hero-tagline {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-metrics {
+        justify-content: center;
+    }
+
+    .hero-cta {
+        justify-content: center;
+    }
+
+    .hero-kicker {
+        justify-content: center;
+    }
+
+    /* Origin */
+    .origin-layout {
+        grid-template-columns: 1fr;
+        gap: 48px;
+    }
+
+    .origin-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Journey — left-aligned timeline */
+    .timeline-entry,
+    .timeline-entry:nth-child(even) {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .timeline__track {
+        left: 20px;
+    }
+
+    .timeline-entry__marker {
+        left: 20px;
+        transform: translateX(-50%);
+    }
+
+    .timeline-entry__card,
+    .timeline-entry:nth-child(even) .timeline-entry__card {
+        width: calc(100% - 60px);
+        margin-left: 50px;
+        text-align: left;
+    }
+
+    /* Quests */
+    .project-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .project-hero__visual {
+        min-height: 220px;
+    }
+
+    /* Battles */
+    .battles-layout {
+        grid-template-columns: 1fr;
+    }
+
+    /* Credentials */
+    .credentials-layout {
+        grid-template-columns: 1fr;
+    }
+
+    /* Discovery */
+    .result-cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .research-paper {
+        padding: 32px;
+    }
+
+    /* Modal */
+    .modal-results-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ─────────────────────────────────────────────
+   ≤ 768px  Tablet portrait / large phones
+   ───────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+    /* Container */
+    .container {
+        padding: 0 20px;
+    }
+
+    /* Section spacing */
+    .battles-section,
+    .journey-section,
+    .origin-section,
+    .quests-section,
+    .credentials-section,
+    .discovery-section {
+        padding: 80px 0;
+    }
+
+    .contact-section {
+        padding: 80px 0 60px;
+        min-height: auto;
+    }
+
+    /* Nav */
+    .main-nav {
+        top: 10px;
+        left: 12px;
+        right: 12px;
+        padding: 0 16px;
+    }
+
+    /* Hero */
+    .hero-content {
+        padding: 100px 20px 60px;
+        gap: 32px;
+    }
+
+    .hero-image__frame {
+        width: min(240px, calc(100vw - 80px));
+        height: auto;
+        aspect-ratio: 360 / 460;
+    }
+
+    /* Prevent char spans from overflowing */
+    .hero-headline {
+        font-size: clamp(2rem, 8vw, 2.8rem);
+        word-break: break-word;
+    }
+
+    .hero-headline__word {
+        display: block;
+        overflow: visible;
+        white-space: normal;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+    }
+
+    .hero-headline__word .char {
+        display: inline;
+    }
+
+    /* Metrics — 2×2 grid on tablet */
+    .hero-metrics {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1px;
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 12px;
+        overflow: hidden;
+        max-width: 340px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-metric {
+        padding: 20px 16px;
+        background: rgba(255,255,255,0.02);
+        border-right: 1px solid rgba(255,255,255,0.05);
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .hero-metric:nth-child(2n) { border-right: none; }
+    .hero-metric:nth-child(n+5) { border-bottom: none; }
+
+    .hero-metric__divider { display: none; }
+
+    .hero-metric__number {
+        font-size: 2rem;
+    }
+
+    .hero-metric__label {
+        font-size: 10px;
+    }
+
+    /* Hero badge */
+    .hero-badge {
+        width: auto;
+        max-width: min(320px, calc(100vw - 48px));
+        white-space: nowrap;
+    }
+
+    /* Section typography */
+    .section-title {
+        font-size: clamp(2rem, 8vw, 2.6rem);
+    }
+
+    .section-subtitle {
+        font-size: 1rem;
+    }
+
+    /* Origin */
+    .origin-cards {
+        grid-template-columns: 1fr;
+    }
+
+    /* Journey */
+    .timeline-entry__card {
+        padding: 24px;
+    }
+
+    .timeline-entry__title {
+        font-size: 17px;
+    }
+
+    /* Quests */
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .project-hero__content {
+        padding: 28px;
+    }
+
+    .project-hero__name {
+        font-size: 1.6rem;
+    }
+
+    .project-hero__wins {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    /* Battles */
+    .battle-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .battle-featured {
+        padding: 28px;
+    }
+
+    .battle-featured__title {
+        font-size: 1.5rem;
+    }
+
+    .battle-featured__footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .battle-featured__actions {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .battle-featured__actions .btn {
+        flex: 1;
+        justify-content: center;
+        min-width: 120px;
+    }
+
+    /* Discovery */
+    .result-cards {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .result-card {
+        display: flex;
+        align-items: center;
+        text-align: left;
+        padding: 20px 24px;
+        gap: 20px;
+    }
+
+    .result-card__number {
+        font-size: 2.4rem;
+        flex-shrink: 0;
+    }
+
+    .result-card__label {
+        margin-top: 0;
+    }
+
+    .result-card__bar {
+        display: none;
+    }
+
+    .research-paper {
+        padding: 24px;
+    }
+
+    .research-paper__title {
+        font-size: 1.4rem;
+    }
+
+    .paper-actions-row {
+        flex-direction: column;
+    }
+
+    .paper-actions-row .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .flags-row {
+        justify-content: center;
+    }
+
+    /* Credentials */
+    .skill-row {
+        grid-template-columns: 80px 1fr 40px;
+        gap: 10px;
+    }
+
+    /* Contact */
+    .contact-card {
+        padding: 20px 24px;
+        gap: 16px;
+    }
+
+    .contact-card__value {
+        font-size: 13px;
+        word-break: break-all;
+        overflow-wrap: anywhere;
+    }
+
+    /* Footer */
+    .footer-inner {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+
+    /* Modal */
+    .modal-inner {
+        padding: 28px;
+    }
+
+    .modal-hero h2 {
+        font-size: 1.6rem;
+    }
+
+    .modal-results-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+    }
+
+    .modal-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Hide custom cursor on touch */
+    .cursor {
+        display: none !important;
+    }
+
+    body {
+        cursor: auto;
+    }
+
+    .btn,
+    .menu-toggle,
+    .mobile-menu__close,
+    .top-button,
+    .modal-close-btn,
+    .cert-item__actions a,
+    .battle-card__mini-actions a {
+        cursor: pointer;
+    }
+}
+
+/* ─────────────────────────────────────────────
+   ≤ 480px  Mobile phones
+   ───────────────────────────────────────────── */
+@media (max-width: 480px) {
+
+    .container {
+        padding: 0 16px;
+    }
+
+    /* Nav */
+    .main-nav {
+        top: 8px;
+        left: 8px;
+        right: 8px;
+        height: 54px;
+    }
+
+    /* Hero */
+    .hero-content {
+        padding: 90px 16px 48px;
+    }
+
+    .hero-image__frame {
+        width: min(220px, calc(100vw - 60px));
+    }
+
+    .hero-headline {
+        font-size: clamp(1.8rem, 9vw, 2.4rem);
+    }
+
+    .hero-kicker {
+        justify-content: center;
+    }
+
+    .hero-kicker__text {
+        font-size: 10px;
+        letter-spacing: 2px;
+    }
+
+    .hero-tagline {
+        font-size: 0.95rem;
+        padding: 0 4px;
+    }
+
+    .hero-metrics {
+        max-width: 300px;
+    }
+
+    .hero-cta {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .hero-cta .btn {
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+    }
+
+    /* Section */
+    .section-title {
+        font-size: clamp(1.8rem, 7vw, 2.2rem);
+    }
+
+    .section-header {
+        margin-bottom: 40px;
+    }
+
+    /* Origin */
+    .origin-card {
+        padding: 24px;
+    }
+
+    .narrative-text--lead {
+        font-size: 1.05rem;
+    }
+
+    /* Journey */
+    .timeline-entry__card {
+        padding: 20px;
+    }
+
+    .timeline-entry__score-value {
+        font-size: 22px;
+    }
+
+    /* Quests */
+    .project-hero__content {
+        padding: 20px;
+    }
+
+    .project-hero__name {
+        font-size: 1.4rem;
+    }
+
+    .project-hero__actions,
+    .project-hero__actions {
+        flex-direction: column;
+    }
+
+    .project-hero__actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .project-hero__tech {
+        gap: 6px;
+    }
+
+    .tech-pill {
+        font-size: 11px;
+        padding: 6px 12px;
+    }
+
+    /* Battles */
+    .battle-featured {
+        padding: 20px;
+    }
+
+    .battle-featured__title {
+        font-size: 1.3rem;
+    }
+
+    .battle-featured__badges {
+        flex-wrap: wrap;
+    }
+
+    .battle-card {
+        padding: 20px;
+    }
+
+    .battle-card__footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    /* Discovery */
+    .research-paper {
+        padding: 18px;
+    }
+
+    .research-paper__title {
+        font-size: 1.2rem;
+    }
+
+    .research-paper__venue {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .keyword-list {
+        gap: 6px;
+    }
+
+    .kw-tag {
+        font-size: 11px;
+        padding: 6px 12px;
+    }
+
+    /* Credentials */
+    .skill-row {
+        grid-template-columns: 70px 1fr 36px;
+        gap: 8px;
+    }
+
+    .cert-item {
+        padding: 14px 16px;
+    }
+
+    /* Contact */
+    .contact-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+        padding: 20px;
+    }
+
+    .contact-card__info {
+        text-align: center;
+    }
+
+    .contact-card__value {
+        font-size: 12px;
+    }
+
+    .contact-card__arrow {
+        display: none;
+    }
+
+    /* Mobile menu */
+    .mobile-link {
+        font-size: 28px;
+        padding: 10px 0;
+    }
+
+    /* Modal */
+    .modal-inner {
+        padding: 20px;
+    }
+
+    .modal-hero {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .modal-hero h2 {
+        font-size: 1.4rem;
+    }
+
+    .modal-results-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 8px;
+    }
+
+    .modal-result-num {
+        font-size: 1.6rem;
+    }
+}
+
+/* ─────────────────────────────────────────────
+   ≤ 375px  Small phones (iPhone SE, Galaxy A)
+   ───────────────────────────────────────────── */
+@media (max-width: 375px) {
+
+    .container {
+        padding: 0 14px;
+    }
+
+    .hero-headline {
+        font-size: 1.7rem;
+    }
+
+    .hero-metrics {
+        max-width: 260px;
+    }
+
+    .hero-metric__number {
+        font-size: 1.8rem;
+    }
+
+    .section-title {
+        font-size: 1.7rem;
+    }
+
+    .mobile-link {
+        font-size: 24px;
+    }
+
+    .battle-featured__title {
+        font-size: 1.15rem;
+    }
+
+    .research-paper__title {
+        font-size: 1.1rem;
+    }
+
+    .timeline-entry__card {
+        width: calc(100% - 48px);
+        margin-left: 42px;
+    }
+}
+
+/* ─────────────────────────────────────────────
+   Touch pointer — kill custom cursor always
+   ───────────────────────────────────────────── */
+@media (pointer: coarse) {
+    .cursor {
+        display: none !important;
+    }
+
+    body {
+        cursor: auto;
+    }
+
+    .btn,
+    a,
+    button {
+        cursor: pointer;
+    }
+}
+
+/* ─────────────────────────────────────────────
+   Reduced motion
+   ───────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    [data-reveal] { opacity: 1; transform: none; }
+    .section-eyebrow, .section-subtitle { opacity: 1; transform: none; }
+    .hero-image__mask, .hero-image__border, .hero-image__glow,
+    .hero-badge, .hero-kicker, .hero-tagline, .hero-metrics,
+    .hero-cta, .hero-scroll-hint { opacity: 1; transform: none; }
+}
+
+/* ─────────────────────────────────────────────
+   High contrast
+   ───────────────────────────────────────────── */
+@media (prefers-contrast: high) {
+    :root {
+        --text-secondary: #b0c4de;
+        --text-muted: #8899aa;
+    }
+
+    .btn--ghost {
+        border-color: rgba(255,255,255,0.3);
+    }
+}

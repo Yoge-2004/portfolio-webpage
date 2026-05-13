@@ -1,0 +1,76 @@
+/* ============================================
+   EMERGENCY VISIBILITY FIX
+   Overrides any hidden states to ensure content is visible
+   ============================================ */
+
+/* Origin section */
+.origin-card,
+.origin-card.is-revealed {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* Journey section */
+.timeline-entry__card,
+.timeline-entry__card.is-revealed,
+.timeline-entry:nth-child(even) .timeline-entry__card {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* Quests section */
+.project-hero,
+.project-hero.is-revealed,
+.project-card,
+.project-card.is-revealed {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* Battles section */
+.battle-featured,
+.battle-featured.is-revealed,
+.battle-card,
+.battle-card.is-revealed {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* Discovery section */
+.research-paper,
+.research-paper.is-revealed,
+.research-paper__venue,
+.abstract-block,
+.keywords-block,
+.results-block,
+.authors-block,
+.project-link-block,
+.paper-actions-row,
+.flags-row {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* Credentials section */
+.skills-panel,
+.skills-panel.is-revealed,
+.certs-panel,
+.certs-panel.is-revealed,
+.cert-item,
+.cert-item.is-revealed {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* Contact section */
+.contact-card,
+.contact-card.is-revealed {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* Narrative blocks */
+.narrative-block {
+    opacity: 1 !important;
+    transform: none !important;
+}

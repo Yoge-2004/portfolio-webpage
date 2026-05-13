@@ -1,0 +1,22 @@
+/* premium.css — cosmetic palette only, no layout overrides */
+:root {
+    --bg-darkest: #05070b;
+    --bg-dark:    #080d14;
+    --bg-card:    rgba(13,21,32,.8);
+    --accent-cyan:#66e7f2;
+    --accent-cyan-dim:#2bbfce;
+    --accent-purple:#9a8cff;
+    --accent-pink:#ff7cad;
+    --accent-green:#68d8a8;
+    --accent-amber:#f4c76b;
+    --text-primary:#eef4f8;
+    --text-secondary:#b3c1cd;
+    --text-muted:#7e8c9a;
+}
+html { scroll-behavior: smooth; }
+body {
+    background:
+            radial-gradient(circle at 18% 8%,rgba(102,231,242,.08),transparent 28rem),
+            radial-gradient(circle at 82% 18%,rgba(244,199,107,.06),transparent 24rem),
+            linear-gradient(180deg,#05070b 0%,#080d14 46%,#05070b 100%);
+}

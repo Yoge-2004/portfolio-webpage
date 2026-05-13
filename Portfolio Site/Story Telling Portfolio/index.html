@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Yogeshwaran M - Software Developer & CS Engineering Student from Chennai. Expert in Java, Python, Spring Boot, and Full Stack Development. Published research on Fake Job Detection using ML & NLP.">
+    <meta name="keywords" content="Yogeshwaran M, Software Developer, Java Developer, Python Developer, Full Stack Developer, Chennai, Panimalar Engineering College, Spring Boot, Web Development, Machine Learning, NLP, Fake Job Detection, Research Paper, Portfolio">
+    <meta name="author" content="Yogeshwaran M">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yogeresume.great-site.net/">
+    <meta property="og:title" content="Yogeshwaran M | Software Developer & Researcher">
+    <meta property="og:description" content="Portfolio of Yogeshwaran M - Software Developer and Researcher specializing in Java, Python, ML/NLP. Published paper on Fake Job Detection at ICISD'26.">
+    <meta property="og:image" content="https://yogeresume.great-site.net/image.jpg">
+
+    <link rel="canonical" href="https://yogeresume.great-site.net/">
+    <link rel="icon" href="icon.png" type="image/png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <title>Yogeshwaran M | Software Developer & Researcher | Chennai</title>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Yogeshwaran M",
+            "url": "https://yogeresume.great-site.net/",
+            "image": "https://yogeresume.great-site.net/image.jpg",
+            "jobTitle": "Software Developer",
+            "description": "Software Developer, Computer Science Engineering Student, and Researcher",
+            "email": "mailto:yogeshwaranmuthuraman56@gmail.com",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Chennai",
+                "addressRegion": "Tamil Nadu",
+                "addressCountry": "India"
+            },
+            "alumniOf": {
+                "@type": "CollegeOrUniversity",
+                "name": "Panimalar Engineering College"
+            },
+            "knowsAbout": ["Java", "Python", "Spring Boot", "Web Development", "Machine Learning", "NLP", "MySQL"],
+            "sameAs": [
+                "https://github.com/Yoge-2004",
+                "https://www.linkedin.com/in/yogeshwaran-muthuraman-361912278"
+            ]
+        }
+    </script>
+
+    <!-- Split CSS Architecture -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/hero.css">
+    <link rel="stylesheet" href="css/origin.css">
+    <link rel="stylesheet" href="css/journey.css">
+    <link rel="stylesheet" href="css/quests.css">
+    <link rel="stylesheet" href="css/battles.css">
+    <link rel="stylesheet" href="css/discovery.css">
+    <link rel="stylesheet" href="css/credentials.css">
+    <link rel="stylesheet" href="css/contact.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/cinematic.css">
+    <link rel="stylesheet" href="css/premium.css">
+</head>
+<body>
+<!-- ============================================
+     CINEMATIC LOADING SCREEN
+     ============================================ -->
+<div class="loading-screen" id="loadingScreen">
+    <div class="loading-curtain loading-curtain--left"></div>
+    <div class="loading-curtain loading-curtain--right"></div>
+    <div class="loading-center">
+        <div class="loading-brand">
+            <span class="loading-char" data-delay="0">Y</span>
+            <span class="loading-char" data-delay="1">O</span>
+            <span class="loading-char" data-delay="2">G</span>
+            <span class="loading-char" data-delay="3">E</span>
+            <span class="loading-char loading-char--dot" data-delay="4">.</span>
+            <span class="loading-char" data-delay="5">D</span>
+            <span class="loading-char" data-delay="6">E</span>
+            <span class="loading-char" data-delay="7">V</span>
+        </div>
+        <div class="loading-line">
+            <div class="loading-line__fill"></div>
+        </div>
+        <div class="loading-sub">Loading Experience</div>
+    </div>
+</div>
+
+<!-- ============================================
+     CUSTOM CURSOR
+     ============================================ -->
+<div class="cursor" id="cursor">
+    <div class="cursor__dot"></div>
+    <div class="cursor__ring"></div>
+    <div class="cursor__label" id="cursorLabel"></div>
+</div>
+
+<!-- ============================================
+     SCROLL PROGRESS
+     ============================================ -->
+<div class="scroll-progress" id="scrollProgress">
+    <div class="scroll-progress__fill"></div>
+</div>
+
+<!-- ============================================
+     NAVIGATION
+     ============================================ -->
+<nav class="main-nav" id="mainNav">
+    <a href="#" class="nav-logo" data-cursor="logo">
+        <span class="nav-logo__bracket">[</span>
+        <span class="nav-logo__text">YOGE</span>
+        <span class="nav-logo__dot">.</span>
+        <span class="nav-logo__text">DEV</span>
+        <span class="nav-logo__bracket">]</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+        <a href="#origin" class="nav-link" data-cursor="nav"><span class="nav-link__num">01</span><span class="nav-link__text">Origin</span></a>
+        <a href="#journey" class="nav-link" data-cursor="nav"><span class="nav-link__num">02</span><span class="nav-link__text">Journey</span></a>
+        <a href="#quests" class="nav-link" data-cursor="nav"><span class="nav-link__num">03</span><span class="nav-link__text">Quests</span></a>
+        <a href="#battles" class="nav-link" data-cursor="nav"><span class="nav-link__num">04</span><span class="nav-link__text">Battles</span></a>
+        <a href="#discovery" class="nav-link" data-cursor="nav"><span class="nav-link__num">05</span><span class="nav-link__text">Discovery</span></a>
+        <a href="#credentials" class="nav-link" data-cursor="nav"><span class="nav-link__num">06</span><span class="nav-link__text">Creds</span></a>
+        <a href="#contact" class="nav-link" data-cursor="nav"><span class="nav-link__num">07</span><span class="nav-link__text">Connect</span></a>
+    </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" data-cursor="button">
+        <span class="menu-toggle__line"></span>
+        <span class="menu-toggle__line"></span>
+        <span class="menu-toggle__line"></span>
+    </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu__backdrop"></div>
+    <div class="mobile-menu__panel">
+        <button class="mobile-menu__close" id="mobileClose" aria-label="Close menu">✕</button>
+        <div class="mobile-menu__links">
+            <a href="#origin" class="mobile-link"><span>01</span> The Origin</a>
+            <a href="#journey" class="mobile-link"><span>02</span> The Journey</a>
+            <a href="#quests" class="mobile-link"><span>03</span> The Quests</a>
+            <a href="#battles" class="mobile-link"><span>04</span> The Battles</a>
+            <a href="#discovery" class="mobile-link"><span>05</span> The Discovery</a>
+            <a href="#credentials" class="mobile-link"><span>06</span> Credentials</a>
+            <a href="#contact" class="mobile-link"><span>07</span> The Connection</a>
+        </div>
+        <div class="mobile-menu__social">
+            <a href="https://github.com/Yoge-2004" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/yogeshwaran-muthuraman-361912278" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="mailto:yogeshwaranmuthuraman56@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================
+     SECTION 0: PROLOGUE / HERO
+     ============================================ -->
+<section class="story-section hero-section" id="prologue" data-section="0">
+    <div class="hero-particles" id="heroParticles"></div>
+    <div class="hero-vignette"></div>
+
+    <div class="hero-content">
+        <div class="hero-left">
+            <div class="hero-image-wrapper">
+                <div class="hero-image__frame">
+                    <div class="hero-image__mask">
+                        <img src="assets/hero-portrait.svg" alt="Premium developer portrait graphic for Yogeshwaran M" class="hero-image__img" loading="eager">
+                    </div>
+                    <div class="hero-image__border"></div>
+                    <div class="hero-image__glow"></div>
+                </div>
+                <div class="hero-badge">
+                    <span class="hero-badge__pulse"></span>
+                    <span class="hero-badge__text">AI Researcher & Developer</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-right">
+            <div class="hero-kicker">
+                <span class="hero-kicker__line"></span>
+                <span class="hero-kicker__text">Software Developer & Researcher</span>
+            </div>
+
+            <h1 class="hero-headline">
+                <span class="hero-headline__word" data-split>YOGESHWARAN</span>
+                <span class="hero-headline__word hero-headline__word--accent" data-split>M</span>
+            </h1>
+
+            <p class="hero-tagline" data-lines>
+                Crafting efficient, scalable software solutions and researching AI-driven fraud detection. Computer Science Engineering student based in Chennai, India.
+            </p>
+
+            <div class="hero-metrics">
+                <div class="hero-metric" data-cursor="metric">
+                    <div class="hero-metric__number" data-count="3">3</div>
+                    <div class="hero-metric__label">Years Coding</div>
+                </div>
+                <div class="hero-metric__divider"></div>
+                <div class="hero-metric" data-cursor="metric">
+                    <div class="hero-metric__number" data-count="10">10</div>
+                    <div class="hero-metric__label">Projects</div>
+                </div>
+                <div class="hero-metric__divider"></div>
+                <div class="hero-metric" data-cursor="metric">
+                    <div class="hero-metric__number" data-count="7">7</div>
+                    <div class="hero-metric__label">Certifications</div>
+                </div>
+                <div class="hero-metric__divider"></div>
+                <div class="hero-metric" data-cursor="metric">
+                    <div class="hero-metric__number" data-count="1">1</div>
+                    <div class="hero-metric__label">Research Paper</div>
+                </div>
+            </div>
+
+            <div class="hero-cta">
+                <a href="#contact" class="btn btn--primary" data-cursor="button">
+                    <span class="btn__text">Let's Talk</span>
+                    <span class="btn__icon"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="#quests" class="btn btn--ghost" data-cursor="button">
+                    <span class="btn__text">View Work</span>
+                </a>
+                <a href="Yogeshwaran Resume.pdf" class="btn btn--ghost" download data-cursor="button">
+                    <span class="btn__icon"><i class="fas fa-download"></i></span>
+                    <span class="btn__text">Resume</span>
+                </a>
+            </div>
+            <!-- Scroll hint inside hero-right so mobile shows it below CTAs -->
+            <div class="hero-scroll-hint">
+                <div class="hero-scroll-hint__mouse">
+                    <div class="hero-scroll-hint__wheel"></div>
+                </div>
+                <span class="hero-scroll-hint__text">Scroll to begin the story</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     SECTION 1: THE ORIGIN
+     ============================================ -->
+<section class="story-section origin-section" id="origin" data-section="1">
+    <div class="section-bg">
+        <div class="section-bg__orb section-bg__orb--1"></div>
+        <div class="section-bg__orb section-bg__orb--2"></div>
+    </div>
+
+    <div class="container">
+        <div class="section-header">
+            <span class="section-eyebrow" data-reveal>Chapter One</span>
+            <h2 class="section-title" data-split>The Origin</h2>
+            <p class="section-subtitle" data-reveal>Every great story has a beginning</p>
+        </div>
+
+        <div class="origin-layout">
+            <div class="origin-narrative">
+                <div class="narrative-block" data-reveal>
+                    <p class="narrative-text narrative-text--lead">
+                        Hello! I'm <strong class="text-highlight">Yogeshwaran M</strong>, a passionate Software Developer and Computer Science Engineering student with expertise in building impactful solutions and conducting research in AI/ML.
+                    </p>
+                </div>
+                <div class="narrative-block" data-reveal>
+                    <p class="narrative-text">
+                        I specialize in building robust applications using <span class="text-accent">Java</span>, <span class="text-accent">Python</span>, and modern web technologies. My research focuses on <span class="text-accent">NLP</span> and <span class="text-accent">Machine Learning</span> for fraud detection.
+                    </p>
+                </div>
+                <div class="narrative-block" data-reveal>
+                    <p class="narrative-text">
+                        Currently pursuing my B.E. at Panimalar Engineering College (2022-2026), I've maintained a strong academic record (CGPA: <span class="text-accent">9.37/10</span>) while actively contributing to real-world projects through internships, hackathons, and published research at international conferences.
+                    </p>
+                </div>
+                <a href="#discovery" class="narrative-link" data-reveal data-cursor="button">
+                    <span>View my research journey</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="origin-cards">
+                <div class="origin-card" data-reveal data-cursor="card">
+                    <div class="origin-card__shine"></div>
+                    <div class="origin-card__icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h3 class="origin-card__title">Education</h3>
+                    <p class="origin-card__main">B.E. Computer Science</p>
+                    <p class="origin-card__sub">Panimalar Engineering College</p>
+                    <div class="origin-card__stat">CGPA: 9.37/10</div>
+                </div>
+
+                <div class="origin-card" data-reveal data-cursor="card">
+                    <div class="origin-card__shine"></div>
+                    <div class="origin-card__icon"><i class="fas fa-briefcase"></i></div>
+                    <h3 class="origin-card__title">Experience</h3>
+                    <p class="origin-card__main">Software Intern</p>
+                    <p class="origin-card__sub">Robowaves, Chennai</p>
+                    <div class="origin-card__stat">Java & MySQL</div>
+                </div>
+
+                <div class="origin-card" data-reveal data-cursor="card">
+                    <div class="origin-card__shine"></div>
+                    <div class="origin-card__icon"><i class="fas fa-trophy"></i></div>
+                    <h3 class="origin-card__title">Hackathons</h3>
+                    <p class="origin-card__main">5+ Hackathons</p>
+                    <p class="origin-card__sub">IITM, SRM ICISD'26, St. Joseph's</p>
+                    <div class="origin-card__stat">Active Participant</div>
+                </div>
+
+                <div class="origin-card" data-reveal data-cursor="card">
+                    <div class="origin-card__shine"></div>
+                    <div class="origin-card__icon"><i class="fas fa-file-alt"></i></div>
+                    <h3 class="origin-card__title">Research</h3>
+                    <p class="origin-card__main">Published Paper</p>
+                    <p class="origin-card__sub">ICISD'26 — SRM Institute</p>
+                    <div class="origin-card__stat">99% Accuracy ML Model</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     SECTION 2: THE JOURNEY
+     ============================================ -->
+<section class="story-section journey-section" id="journey" data-section="2">
+    <div class="container">
+        <div class="section-header section-header--center">
+            <span class="section-eyebrow" data-reveal>Chapter Two</span>
+            <h2 class="section-title" data-split>The Journey</h2>
+            <p class="section-subtitle" data-reveal>Milestones that shaped me</p>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline__track">
+                <div class="timeline__line"></div>
+                <div class="timeline__progress" id="timelineProgress"></div>
+            </div>
+
+            <div class="timeline__entries">
+                <div class="timeline-entry" data-reveal>
+                    <div class="timeline-entry__marker">
+                        <div class="timeline-entry__core"></div>
+                        <div class="timeline-entry__ring"></div>
+                    </div>
+                    <div class="timeline-entry__card">
+                        <span class="timeline-entry__period">2019 — 2020</span>
+                        <span class="timeline-entry__status timeline-entry__status--done">Completed</span>
+                        <h3 class="timeline-entry__title">Secondary (SSLC)</h3>
+                        <p class="timeline-entry__place">Nav Bharath Vidyalaya, Chennai</p>
+                        <div class="timeline-entry__score">
+                            <span class="timeline-entry__score-label">Score</span>
+                            <span class="timeline-entry__score-value">90%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-entry" data-reveal>
+                    <div class="timeline-entry__marker">
+                        <div class="timeline-entry__core"></div>
+                        <div class="timeline-entry__ring"></div>
+                    </div>
+                    <div class="timeline-entry__card">
+                        <span class="timeline-entry__period">2021 — 2022</span>
+                        <span class="timeline-entry__status timeline-entry__status--done">Completed</span>
+                        <h3 class="timeline-entry__title">Higher Secondary (HSC)</h3>
+                        <p class="timeline-entry__place">Nav Bharath Vidyalaya, Chennai</p>
+                        <div class="timeline-entry__score">
+                            <span class="timeline-entry__score-label">Score</span>
+                            <span class="timeline-entry__score-value">91%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-entry" data-reveal>
+                    <div class="timeline-entry__marker">
+                        <div class="timeline-entry__core"></div>
+                        <div class="timeline-entry__ring"></div>
+                    </div>
+                    <div class="timeline-entry__card timeline-entry__card--featured">
+                        <span class="timeline-entry__period">2022 — 2026</span>
+                        <span class="timeline-entry__status timeline-entry__status--active">Pursuing</span>
+                        <h3 class="timeline-entry__title">B.E. Computer Science</h3>
+                        <p class="timeline-entry__place">Panimalar Engineering College, Chennai</p>
+                        <div class="timeline-entry__score">
+                            <span class="timeline-entry__score-label">CGPA</span>
+                            <span class="timeline-entry__score-value timeline-entry__score-value--highlight">9.37/10</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-entry timeline-entry--highlight" data-reveal>
+                    <div class="timeline-entry__marker">
+                        <div class="timeline-entry__core timeline-entry__core--active"></div>
+                        <div class="timeline-entry__ring timeline-entry__ring--active"></div>
+                    </div>
+                    <div class="timeline-entry__card timeline-entry__card--featured timeline-entry__card--accent">
+                        <span class="timeline-entry__period">Jun — Aug 2025</span>
+                        <span class="timeline-entry__status timeline-entry__status--intern">Internship</span>
+                        <h3 class="timeline-entry__title">Software Intern</h3>
+                        <p class="timeline-entry__place">Robowaves, Chennai</p>
+                        <p class="timeline-entry__desc">Developed Library Management System using Java, MySQL, JavaFX. Implemented user authentication, book tracking, and reporting modules.</p>
+                        <div class="timeline-entry__actions">
+                            <a href="internship_certificate_robowaves.pdf" target="_blank" class="btn btn--small btn--primary" data-cursor="button"><i class="fas fa-eye"></i> View</a>
+                            <a href="internship_certificate_robowaves.pdf" download class="btn btn--small btn--ghost" data-cursor="button"><i class="fas fa-download"></i> Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     SECTION 3: THE QUESTS
+     ============================================ -->
+<section class="story-section quests-section" id="quests" data-section="3">
+    <div class="container">
+        <div class="section-header section-header--center">
+            <span class="section-eyebrow" data-reveal>Chapter Three</span>
+            <h2 class="section-title" data-split>The Quests</h2>
+            <p class="section-subtitle" data-reveal>Projects that define me</p>
+        </div>
+
+        <div class="quests-showcase">
+            <div class="project-hero" data-reveal data-cursor="card">
+                <div class="project-hero__visual">
+                    <div class="project-hero__orb project-hero__orb--cyan"></div>
+                    <div class="project-hero__orb project-hero__orb--purple"></div>
+                    <div class="project-hero__icon"><i class="fas fa-shield-alt"></i></div>
+                </div>
+                <div class="project-hero__content">
+                    <div class="project-hero__meta">
+                        <span class="project-hero__year">2025 — 2026</span>
+                        <span class="project-hero__tag"><i class="fas fa-microscope"></i> Research Based</span>
+                    </div>
+                    <h3 class="project-hero__name">Fake Job Detection System</h3>
+                    <p class="project-hero__hook">Every day, thousands of job seekers fall prey to fraudulent postings. I asked: <em>what if AI could spot the lie before the application?</em></p>
+                    <p class="project-hero__body">Three months of research, a hybrid architecture combining DistilBERT embeddings, Isolation Forest anomaly detection, and ensemble learning — achieving <span class="text-accent">99% accuracy</span>.</p>
+                    <div class="project-hero__tech">
+                        <span class="tech-pill">Python</span>
+                        <span class="tech-pill">NLP</span>
+                        <span class="tech-pill">DistilBERT</span>
+                        <span class="tech-pill">Ensemble Learning</span>
+                        <span class="tech-pill">Hugging Face</span>
+                    </div>
+                    <div class="project-hero__wins">
+                        <span class="win-badge">🏆 Presented at ICISD'26</span>
+                        <span class="win-badge">📄 Published Research</span>
+                    </div>
+                    <div class="project-hero__actions">
+                        <a href="https://yoge-2004-fake-job-detector.hf.space/dashboard" target="_blank" rel="noopener" class="btn btn--primary" data-cursor="button">
+                            <span class="btn__text">Live Demo</span>
+                            <span class="btn__icon"><i class="fas fa-external-link-alt"></i></span>
+                        </a>
+                        <a href="https://github.com/Yoge-2004/fake-job-detection-python" target="_blank" rel="noopener" class="btn btn--ghost" data-cursor="button">
+                            <i class="fab fa-github"></i> Source Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-grid">
+                <div class="project-card" data-reveal data-cursor="card">
+                    <div class="project-card__visual">
+                        <i class="fab fa-java project-card__icon"></i>
+                    </div>
+                    <div class="project-card__body">
+                        <div class="project-card__meta">
+                            <span>2025</span>
+                            <span class="project-card__tag">Internship</span>
+                        </div>
+                        <h4>Library Management System</h4>
+                        <p>My first real-world test: 8 weeks to build a complete LMS from scratch.</p>
+                        <div class="project-card__tech">
+                            <span>Java</span><span>JavaFX</span><span>MySQL</span><span>Maven</span>
+                        </div>
+                        <a href="https://github.com/Yoge-2004/lms-javafx" target="_blank" rel="noopener" class="project-card__link" data-cursor="button">
+                            View Code <i class="fas fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card" data-reveal data-cursor="card">
+                    <div class="project-card__visual">
+                        <i class="fas fa-wallet project-card__icon"></i>
+                    </div>
+                    <div class="project-card__body">
+                        <div class="project-card__meta">
+                            <span>2026</span>
+                            <span class="project-card__tag">Full Stack</span>
+                        </div>
+                        <h4>Expense Tracker</h4>
+                        <p>Financial literacy starts with awareness. Full-stack app with data visualization.</p>
+                        <div class="project-card__tech">
+                            <span>Spring Boot</span><span>Java</span><span>MySQL</span><span>REST API</span>
+                        </div>
+                        <a href="https://github.com/Yoge-2004/expense-tracker" target="_blank" rel="noopener" class="project-card__link" data-cursor="button">
+                            View Code <i class="fas fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     SECTION 4: THE BATTLES
+     ============================================ -->
+<section class="story-section battles-section" id="battles" data-section="4">
+    <div class="container">
+        <div class="section-header section-header--center">
+            <span class="section-eyebrow" data-reveal>Chapter Four</span>
+            <h2 class="section-title" data-split>The Battles</h2>
+            <p class="section-subtitle" data-reveal>Hackathons & Conferences</p>
+        </div>
+
+        <div class="battles-layout">
+            <div class="battle-featured" data-reveal data-cursor="card">
+                <div class="battle-featured__glow"></div>
+                <div class="battle-featured__header">
+                    <div class="battle-featured__icon"><i class="fas fa-microscope"></i></div>
+                    <div class="battle-featured__badges">
+                        <span class="badge badge--published">Published</span>
+                        <span class="badge badge--oral">Oral Presentation</span>
+                    </div>
+                </div>
+                <h3 class="battle-featured__title">ICISD'26 Conference</h3>
+                <p class="battle-featured__org">SRM Institute of Science & Technology</p>
+                <p class="battle-featured__desc">International Conference on Intelligent Systems. Presented research paper on Fake Job Detection using ML & NLP. <strong>Published in proceedings.</strong></p>
+                <div class="battle-featured__footer">
+                    <span class="battle-featured__date">Apr 6-7, 2026</span>
+                    <div class="battle-featured__actions">
+                        <a href="srm_hackathon_certificate.jpg" target="_blank" class="btn btn--primary btn--small" data-cursor="button"><i class="fas fa-eye"></i> View</a>
+                        <a href="srm_hackathon_certificate.jpg" download class="btn btn--ghost btn--small" data-cursor="button"><i class="fas fa-download"></i> Download</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="battle-grid">
+                <div class="battle-card" data-reveal data-cursor="card">
+                    <div class="battle-card__top">
+                        <span class="battle-card__icon"><i class="fas fa-brain"></i></span>
+                        <div class="battle-card__tags"><span>NLP</span><span>AI</span></div>
+                    </div>
+                    <h4>Naan Mudhalvan 2025</h4>
+                    <p class="battle-card__org">IIT Madras Research Park</p>
+                    <p class="battle-card__desc">NLP-focused hackathon. Built intelligent text processing solutions for Tamil language.</p>
+                </div>
+
+                <div class="battle-card" data-reveal data-cursor="card">
+                    <div class="battle-card__top">
+                        <span class="battle-card__icon"><i class="fas fa-globe"></i></span>
+                        <div class="battle-card__tags"><span>24-Hour</span></div>
+                    </div>
+                    <h4>Web-A-Thon</h4>
+                    <p class="battle-card__org">St. Joseph's Engineering College</p>
+                    <p class="battle-card__desc">24-hour international online hackathon organised by IEEE SJCE Student Branch.</p>
+                    <div class="battle-card__footer">
+                        <span>Mar 27-28, 2025</span>
+                        <div class="battle-card__mini-actions">
+                            <a href="stjoseph_hackathon_certificate.jpg" target="_blank">View</a>
+                            <a href="stjoseph_hackathon_certificate.jpg" download>Download</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="battle-card" data-reveal data-cursor="card">
+                    <div class="battle-card__top">
+                        <span class="battle-card__icon"><i class="fas fa-hands-helping"></i></span>
+                        <div class="battle-card__tags"><span>Social Impact</span></div>
+                    </div>
+                    <h4>Hack4Purpose</h4>
+                    <p class="battle-card__org">DPurpose Foundation — Nationwide</p>
+                    <p class="battle-card__desc">Nationwide hackathon promoting sustainable social innovations.</p>
+                    <div class="battle-card__footer">
+                        <span>Feb-May 2024</span>
+                        <div class="battle-card__mini-actions">
+                            <a href="hack4purpose_hackathon_certificate.jpg" target="_blank">View</a>
+                            <a href="hack4purpose_hackathon_certificate.jpg" download>Download</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="battle-card" data-reveal data-cursor="card">
+                    <div class="battle-card__top">
+                        <span class="battle-card__icon"><i class="fas fa-layer-group"></i></span>
+                        <div class="battle-card__tags"><span>Workshop</span></div>
+                    </div>
+                    <h4>Mastering MERN</h4>
+                    <p class="battle-card__org">Octanet Workshop Series</p>
+                    <p class="battle-card__desc">4-day intensive workshop on MongoDB, Express, React, Node.js stack.</p>
+                    <div class="battle-card__footer">
+                        <div class="battle-card__mini-actions">
+                            <a href="mern_octanet_workshop.pdf" target="_blank">View</a>
+                            <a href="mern_octanet_workshop.pdf" download>Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     SECTION 5: THE DISCOVERY
+     ============================================ -->
+<section class="story-section discovery-section" id="discovery" data-section="5">
+    <div class="container">
+        <div class="section-header section-header--center">
+            <span class="section-eyebrow" data-reveal>Chapter Five</span>
+            <h2 class="section-title" data-split>The Discovery</h2>
+            <p class="section-subtitle" data-reveal>Research that matters</p>
+        </div>
+
+        <div class="research-paper" data-reveal>
+            <div class="research-paper__header">
+                <div class="research-paper__badges">
+                    <span class="paper-badge paper-badge--type"><i class="fas fa-file-alt"></i> Conference Paper</span>
+                    <span class="paper-badge paper-badge--id">ICISD26-408</span>
+                </div>
+            </div>
+
+            <h3 class="research-paper__title">Fake Job Posting and Online Recruitment Scam Detection Utilizing Machine Learning and Advanced Natural Language Processing Techniques</h3>
+
+            <div class="research-paper__venue">
+                <span class="research-paper__venue-icon"><i class="fas fa-university"></i></span>
+                <div>
+                    <p class="research-paper__venue-name">International Conference on Intelligent System And Digital Transformation (ICISD'26)</p>
+                    <p class="research-paper__venue-detail">SRM Institute of Science and Technology, Vadapalani Campus, Chennai · April 6-7, 2026</p>
+                </div>
+            </div>
+
+            <div class="research-paper__content">
+                <div class="abstract-block" data-reveal>
+                    <h4>Abstract</h4>
+                    <p>This research proposes a <strong>hybrid neuro-symbolic fraud detection system</strong> that combines <span class="text-accent">DistilBERT</span> contextual embeddings, <span class="text-accent">Isolation Forest</span> anomaly detection, and a <span class="text-accent">stacking ensemble</span> of supervised classifiers to identify fraudulent job postings with high precision.</p>
+                    <p>The study addresses the critical challenge of <strong>class imbalance</strong> (95:5 ratio) in the EMSCAD dataset. The system achieves <span class="text-accent">99% accuracy</span> and effectively detects zero-day scams through unsupervised anomaly detection.</p>
+                </div>
+
+                <div class="keywords-block" data-reveal>
+                    <h4>Keywords</h4>
+                    <div class="keyword-list">
+                        <span class="kw-tag">NLP</span>
+                        <span class="kw-tag">DistilBERT</span>
+                        <span class="kw-tag">Ensemble Learning</span>
+                        <span class="kw-tag">Fraud Detection</span>
+                        <span class="kw-tag">Zero-day Scams</span>
+                        <span class="kw-tag">Anomaly Detection</span>
+                    </div>
+                </div>
+
+                <div class="results-block" data-reveal>
+                    <h4>Key Results</h4>
+                    <div class="result-cards">
+                        <div class="result-card">
+                            <div class="result-card__number" data-count="99">99</div>
+                            <div class="result-card__unit">%</div>
+                            <div class="result-card__decimal">&nbsp;</div>
+                            <div class="result-card__label">Accuracy</div>
+                            <div class="result-card__bar"><div class="result-card__fill" style="width:99%"></div></div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-card__number" data-count="99">99</div>
+                            <div class="result-card__unit">.</div>
+                            <div class="result-card__decimal">00</div>
+                            <div class="result-card__label">F1-Score</div>
+                            <div class="result-card__bar"><div class="result-card__fill" style="width:99%"></div></div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-card__number" data-count="99">99</div>
+                            <div class="result-card__unit">.</div>
+                            <div class="result-card__decimal">99</div>
+                            <div class="result-card__label">ROC-AUC</div>
+                            <div class="result-card__bar"><div class="result-card__fill" style="width:99.99%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="authors-block" data-reveal>
+                    <p><strong class="text-accent">Yogeshwaran M</strong>, Murugavalli S, Thamarai I, Shamini M —</p>
+                    <p>Department of Computer Science and Engineering, Panimalar Engineering College, Chennai</p>
+                </div>
+
+                <div class="project-link-block" data-reveal>
+                    <span class="project-link-block__icon"><i class="fas fa-link"></i></span>
+                    <span>Related Project: <a href="https://yoge-2004-fake-job-detector.hf.space/dashboard" target="_blank" rel="noopener" class="link-highlight">Fake Job Detection System</a></span>
+                    <span class="project-link-block__note">(Deployed on Hugging Face)</span>
+                </div>
+
+                <div class="paper-actions-row" data-reveal>
+                    <a href="srm_hackathon_certificate.jpg" target="_blank" class="btn btn--primary" data-cursor="button"><i class="fas fa-certificate"></i> View Certificate</a>
+                    <a href="srm_hackathon_certificate.jpg" download class="btn btn--accent" data-cursor="button"><i class="fas fa-download"></i> Download Certificate</a>
+                </div>
+
+                <div class="flags-row" data-reveal>
+                    <span class="flag"><i class="fas fa-check-circle"></i> Peer Reviewed</span>
+                    <span class="flag"><i class="fas fa-globe"></i> International Conference</span>
+                    <span class="flag"><i class="fas fa-microphone"></i> Oral Presentation</span>
+                    <span class="flag"><i class="fas fa-award"></i> Published Proceedings</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     SECTION 6: CREDENTIALS
+     ============================================ -->
+<section class="story-section credentials-section" id="credentials" data-section="6">
+    <div class="container">
+        <div class="section-header section-header--center">
+            <span class="section-eyebrow" data-reveal>Chapter Six</span>
+            <h2 class="section-title" data-split>Credentials</h2>
+            <p class="section-subtitle" data-reveal>Skills & Certifications</p>
+        </div>
+
+        <div class="credentials-layout">
+            <div class="skills-panel" data-reveal>
+                <h3 class="panel-title">Technical Expertise</h3>
+
+                <div class="skill-group">
+                    <div class="skill-group__header">
+                        <span class="skill-group__icon"><i class="fas fa-laptop-code"></i></span>
+                        <span>Frontend</span>
+                    </div>
+                    <div class="skill-group__items">
+                        <div class="skill-row">
+                            <span>HTML5</span>
+                            <div class="skill-bar"><div class="skill-bar__fill" data-width="90"></div></div>
+                            <span class="skill-row__pct">90%</span>
+                        </div>
+                        <div class="skill-row">
+                            <span>CSS3</span>
+                            <div class="skill-bar"><div class="skill-bar__fill" data-width="85"></div></div>
+                            <span class="skill-row__pct">85%</span>
+                        </div>
+                        <div class="skill-row">
+                            <span>JavaScript</span>
+                            <div class="skill-bar"><div class="skill-bar__fill" data-width="80"></div></div>
+                            <span class="skill-row__pct">80%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <div class="skill-group__header">
+                        <span class="skill-group__icon"><i class="fas fa-server"></i></span>
+                        <span>Backend & ML</span>
+                    </div>
+                    <div class="skill-group__items">
+                        <div class="skill-row">
+                            <span>Java</span>
+                            <div class="skill-bar"><div class="skill-bar__fill" data-width="92"></div></div>
+                            <span class="skill-row__pct">92%</span>
+                        </div>
+                        <div class="skill-row">
+                            <span>Spring Boot</span>
+                            <div class="skill-bar"><div class="skill-bar__fill" data-width="85"></div></div>
+                            <span class="skill-row__pct">85%</span>
+                        </div>
+                        <div class="skill-row">
+                            <span>Python & ML</span>
+                            <div class="skill-bar"><div class="skill-bar__fill" data-width="88"></div></div>
+                            <span class="skill-row__pct">88%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <div class="skill-group__header">
+                        <span class="skill-group__icon"><i class="fas fa-database"></i></span>
+                        <span>Database & Tools</span>
+                    </div>
+                    <div class="skill-group__items">
+                        <div class="skill-row">
+                            <span>MySQL</span>
+                            <div class="skill-bar"><div class="skill-bar__fill" data-width="90"></div></div>
+                            <span class="skill-row__pct">90%</span>
+                        </div>
+                        <div class="skill-row">
+                            <span>Hibernate</span>
+                            <div class="skill-bar"><div class="skill-bar__fill" data-width="80"></div></div>
+                            <span class="skill-row__pct">80%</span>
+                        </div>
+                        <div class="skill-row">
+                            <span>Git & GitHub</span>
+                            <div class="skill-bar"><div class="skill-bar__fill" data-width="85"></div></div>
+                            <span class="skill-row__pct">85%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="certs-panel" data-reveal>
+                <h3 class="panel-title">Certifications</h3>
+                <div class="certs-list">
+                    <div class="cert-item" data-cursor="card">
+                        <div class="cert-item__left">
+                            <span class="cert-item__emoji"><i class="fab fa-python" style="color: #3776ab;"></i></span>
+                            <div class="cert-item__info">
+                                <h4>Python Programming</h4>
+                                <p>GeeksforGeeks</p>
+                            </div>
+                        </div>
+                        <div class="cert-item__actions">
+                            <a href="python_GFG.pdf" target="_blank" title="View" data-cursor="button"><i class="fas fa-eye"></i></a>
+                            <a href="python_GFG.pdf" download title="Download" data-cursor="button"><i class="fas fa-download"></i></a>
+                        </div>
+                    </div>
+                    <div class="cert-item" data-cursor="card">
+                        <div class="cert-item__left">
+                            <span class="cert-item__emoji"><i class="fas fa-globe" style="color: #0056b3;"></i></span>
+                            <div class="cert-item__info">
+                                <h4>Web Development</h4>
+                                <p>Coursera</p>
+                            </div>
+                        </div>
+                        <div class="cert-item__actions">
+                            <a href="web_certificate_coursera.pdf" target="_blank" title="View" data-cursor="button"><i class="fas fa-eye"></i></a>
+                            <a href="web_certificate_coursera.pdf" download title="Download" data-cursor="button"><i class="fas fa-download"></i></a>
+                        </div>
+                    </div>
+                    <div class="cert-item" data-cursor="card">
+                        <div class="cert-item__left">
+                            <span class="cert-item__emoji"><i class="fab fa-java" style="color: #007396;"></i></span>
+                            <div class="cert-item__info">
+                                <h4>Java Fundamentals</h4>
+                                <p>Scaler</p>
+                            </div>
+                        </div>
+                        <div class="cert-item__actions">
+                            <a href="java_scaler.jpg" target="_blank" title="View" data-cursor="button"><i class="fas fa-eye"></i></a>
+                            <a href="java_scaler.jpg" download title="Download" data-cursor="button"><i class="fas fa-download"></i></a>
+                        </div>
+                    </div>
+                    <div class="cert-item" data-cursor="card">
+                        <div class="cert-item__left">
+                            <span class="cert-item__emoji"><i class="fas fa-cloud" style="color: #1f70c1;"></i></span>
+                            <div class="cert-item__info">
+                                <h4>Applied Cloud Computing</h4>
+                                <p>TCS iON</p>
+                            </div>
+                        </div>
+                        <div class="cert-item__actions">
+                            <a href="cloud_tcs.pdf" target="_blank" title="View" data-cursor="button"><i class="fas fa-eye"></i></a>
+                            <a href="cloud_tcs.pdf" download title="Download" data-cursor="button"><i class="fas fa-download"></i></a>
+                        </div>
+                    </div>
+                    <div class="cert-item" data-cursor="card">
+                        <div class="cert-item__left">
+                            <span class="cert-item__emoji"><i class="fas fa-copyright" style="color: #a8b9cc;"></i></span>
+                            <div class="cert-item__info">
+                                <h4>C Programming</h4>
+                                <p>Udemy</p>
+                            </div>
+                        </div>
+                        <div class="cert-item__actions">
+                            <a href="c_udemy.pdf" target="_blank" title="View" data-cursor="button"><i class="fas fa-eye"></i></a>
+                            <a href="c_udemy.pdf" download title="Download" data-cursor="button"><i class="fas fa-download"></i></a>
+                        </div>
+                    </div>
+                    <div class="cert-item" data-cursor="card">
+                        <div class="cert-item__left">
+                            <span class="cert-item__emoji"><i class="fas fa-plus" style="color: #00599c;"></i></span>
+                            <div class="cert-item__info">
+                                <h4>C++ Programming</h4>
+                                <p>Scaler</p>
+                            </div>
+                        </div>
+                        <div class="cert-item__actions">
+                            <a href="c++_scaler.png" target="_blank" title="View" data-cursor="button"><i class="fas fa-eye"></i></a>
+                            <a href="c++_scaler.pdf" download title="Download" data-cursor="button"><i class="fas fa-download"></i></a>
+                        </div>
+                    </div>
+                    <div class="cert-item" data-cursor="card">
+                        <div class="cert-item__left">
+                            <span class="cert-item__emoji"><i class="fas fa-database" style="color: #f29111;"></i></span>
+                            <div class="cert-item__info">
+                                <h4>SQL Fundamentals</h4>
+                                <p>Udemy</p>
+                            </div>
+                        </div>
+                        <div class="cert-item__actions">
+                            <a href="sql_udemy.pdf" target="_blank" title="View" data-cursor="button"><i class="fas fa-eye"></i></a>
+                            <a href="sql_udemy.pdf" download title="Download" data-cursor="button"><i class="fas fa-download"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     SECTION 7: THE CONNECTION
+     ============================================ -->
+<section class="story-section contact-section" id="contact" data-section="7">
+    <div class="container">
+        <div class="contact-center">
+            <div class="section-header">
+                <span class="section-eyebrow" data-reveal>Chapter Seven</span>
+                <h2 class="section-title" data-split>Let's Work Together</h2>
+                <p class="section-subtitle" data-reveal>Have a project in mind? Let's create something amazing.</p>
+            </div>
+
+            <div class="contact-cards">
+                <a href="mailto:yogeshwaranmuthuraman56@gmail.com" class="contact-card" data-reveal data-cursor="card">
+                    <div class="contact-card__glow"></div>
+                    <div class="contact-card__icon"><i class="fas fa-envelope"></i></div>
+                    <div class="contact-card__info">
+                        <span class="contact-card__label">Email</span>
+                        <span class="contact-card__value">yogeshwaranmuthuraman56@gmail.com</span>
+                    </div>
+                    <svg class="contact-card__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                    </svg>
+                </a>
+
+                <a href="https://www.linkedin.com/in/yogeshwaran-muthuraman-361912278" target="_blank" rel="noopener" class="contact-card" data-reveal data-cursor="card">
+                    <div class="contact-card__glow"></div>
+                    <div class="contact-card__icon contact-card__icon--linkedin"><i class="fab fa-linkedin-in"></i></div>
+                    <div class="contact-card__info">
+                        <span class="contact-card__label">LinkedIn</span>
+                        <span class="contact-card__value">Yogeshwaran Muthuraman</span>
+                    </div>
+                    <svg class="contact-card__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                    </svg>
+                </a>
+
+                <a href="https://github.com/Yoge-2004" target="_blank" rel="noopener" class="contact-card" data-reveal data-cursor="card">
+                    <div class="contact-card__glow"></div>
+                    <div class="contact-card__icon contact-card__icon--github"><i class="fab fa-github"></i></div>
+                    <div class="contact-card__info">
+                        <span class="contact-card__label">GitHub</span>
+                        <span class="contact-card__value">@Yoge-2004</span>
+                    </div>
+                    <svg class="contact-card__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+<footer class="site-footer">
+    <div class="footer-inner">
+        <p>© 2026 Yogeshwaran M. Crafted with <i class="fas fa-heart"></i> and code.</p>
+        <button class="top-button" id="topButton" type="button" data-cursor="button">
+            <span>Back to Top</span>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </div>
+</footer>
+
+<!-- ============================================
+     GSAP & PLUGINS (CDN)
+     ============================================ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+<script src="js/story.js"></script>
+</body>
+</html>
