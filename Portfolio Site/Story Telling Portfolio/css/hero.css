@@ -97,8 +97,7 @@
     border-radius: 27px;
     background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
     z-index: 2;
-    opacity: 0;
-    transform: scale(0.95);
+    /* opacity/transform owned by GSAP heroEntry — no CSS base state */
 }
 
 .hero-image__border.is-revealed {
@@ -113,7 +112,7 @@
     background: radial-gradient(circle, rgba(0, 229, 255, 0.15) 0%, transparent 70%);
     z-index: 1;
     filter: blur(40px);
-    opacity: 0;
+    /* opacity owned by GSAP heroEntry */
 }
 
 .hero-image__glow.is-revealed {
@@ -138,8 +137,7 @@
     font-family: var(--font-mono);
     z-index: 4;
     backdrop-filter: blur(10px);
-    opacity: 0;
-    transform: translateX(-50%) translateY(20px);
+    /* opacity/transform owned by GSAP heroEntry */
 }
 
 .hero-badge.is-revealed {
@@ -167,8 +165,7 @@
     align-items: center;
     gap: 16px;
     margin-bottom: 24px;
-    opacity: 0;
-    transform: translateX(-30px);
+    /* opacity/transform owned by GSAP heroEntry */
 }
 
 .hero-kicker.is-revealed {
@@ -229,8 +226,7 @@
     line-height: 1.8;
     max-width: 520px;
     margin-bottom: 40px;
-    opacity: 0;
-    transform: translateY(20px);
+    /* opacity/transform owned by GSAP heroEntry */
 }
 
 .hero-tagline.is-revealed {

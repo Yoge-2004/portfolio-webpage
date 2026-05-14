@@ -770,35 +770,63 @@ html, body {
 }
 /* ─────────────────────────────────────────────────────────────────
    MOBILE ANIMATION SAFETY NET  (≤ 768px)
-   GSAP sets opacity:0 as inline style before ScrollTrigger fires.
-   On mobile, triggers often don't fire (viewport math, fast load).
-   !important overrides GSAP inline styles, ensuring content always
-   shows. Animations are a luxury; content is a requirement.
+   GSAP sets opacity:0 / clipPath as inline styles before ScrollTrigger
+   fires. On mobile, triggers often don't fire. !important overrides
+   GSAP inline styles. Covers EVERY element animated in JS.
    ───────────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-    .origin-card,
-    .project-card,
-    .project-hero,
-    .battle-card,
-    .battle-featured,
-    .cert-item,
-    .skills-panel,
-    .certs-panel,
-    .narrative-block,
+    /* Hero */
+    .hero-image__border,
+    .hero-image__glow,
+    .hero-badge,
+    .hero-kicker,
+    .hero-headline,
+    .hero-tagline,
+    .hero-metrics,
+    .hero-cta,
+    .hero-scroll-hint,
+    /* Section headers */
+    .section-title,
     .section-eyebrow,
     .section-subtitle,
-    .result-card,
-    .research-paper,
+    /* Origin */
+    .narrative-block,
+    .origin-card,
+    /* Journey */
     .timeline-entry__card,
     .timeline-entry__marker,
-    .contact-card,
+    /* Quests */
+    .project-hero,
+    .project-hero__icon,
+    .tech-pill,
+    .project-card,
+    /* Battles */
+    .battle-featured,
+    .battle-card,
     .badge,
     .win-badge,
+    /* Discovery */
+    .research-paper,
+    .research-paper__venue,
+    .abstract-block,
+    .keywords-block,
+    .results-block,
+    .authors-block,
+    .project-link-block,
+    .paper-actions-row,
+    .flags-row,
+    .result-card,
     .kw-tag,
     .flag,
-    .tech-pill,
+    /* Credentials */
+    .skills-panel,
     .skill-group__header,
+    .certs-panel,
+    .cert-item,
     .panel-title,
+    /* Contact */
+    .contact-card,
+    /* Catch-all */
     [data-reveal] {
         opacity: 1 !important;
         transform: none !important;

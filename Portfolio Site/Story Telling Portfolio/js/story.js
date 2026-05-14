@@ -699,16 +699,20 @@ document.addEventListener('DOMContentLoaded', () => {
     let rt;
     window.addEventListener('resize', () => { clearTimeout(rt); rt=setTimeout(()=>ScrollTrigger.refresh(),300); }, { passive:true });
 
-    /* Hard fallback at 1.2s — catches any element GSAP set to opacity:0
-       whose ScrollTrigger never fired (already in viewport on load, slow device, etc.) */
+    /* Hard fallback at 1.2s — catches any element GSAP set to opacity:0 OR
+       clip-path-clipped (section-title uses clipPath with opacity:1 as start state) */
     setTimeout(() => {
         document.querySelectorAll('section *').forEach(el => {
             try {
                 const s = getComputedStyle(el);
-                if ((s.opacity === '0' || el.style.opacity === '0') && el.offsetParent !== null) {
-                    el.style.opacity = '1';
+                const hidden =
+                    s.opacity === '0' ||
+                    el.style.opacity === '0' ||
+                    (el.style.clipPath && el.style.clipPath !== 'none' && el.style.clipPath !== '');
+                if (hidden && el.offsetParent !== null) {
+                    el.style.opacity   = '1';
                     el.style.transform = 'none';
-                    el.style.clipPath = 'none';
+                    el.style.clipPath  = 'none';
                 }
             } catch(e) {}
         });

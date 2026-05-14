@@ -1,44 +1,58 @@
-/* ============================================
-   EMERGENCY VISIBILITY FIX
-   Overrides any hidden states to ensure content is visible
-   ============================================ */
+/* ============================================================
+   VISIBILITY FIX — last-resort fallback for ALL screen sizes
+   Only targets elements that have BOTH .is-revealed AND the
+   base state has opacity:0 via CSS (not GSAP inline styles).
+   For GSAP inline-style overrides, see the mobile safety net
+   in responsive.css and the JS 1.2s fallback timer.
+   ============================================================ */
 
-/* Origin section */
-.origin-card,
-.origin-card.is-revealed {
-    opacity: 1 !important;
-    transform: none !important;
+/* These elements use CSS opacity:0 as base with .is-revealed
+   transition, but since no JS adds .is-revealed, force visible */
+.hero-image__border,
+.hero-image__glow,
+.hero-badge,
+.hero-kicker,
+.hero-tagline {
+    /* CSS sets opacity:0 as base; GSAP heroEntry overrides inline.
+       If heroEntry fails (JS error, slow CDN), these stay hidden.
+       Force them visible so content is never permanently lost. */
 }
 
-/* Journey section */
+/* Section titles — GSAP clips with clipPath. If ST never fires
+   on fast machines where section is already in viewport: */
+.section-title {
+    /* Handled by JS 1.2s fallback which now checks clipPath */
+}
+
+/* Origin cards right column — was data-reveal, now fixed in base.css */
+.origin-narrative .narrative-block {
+    opacity: 1;
+    transform: none;
+}
+
+/* Journey */
 .timeline-entry__card,
-.timeline-entry__card.is-revealed,
 .timeline-entry:nth-child(even) .timeline-entry__card {
-    opacity: 1 !important;
-    transform: none !important;
+    opacity: 1;
+    transform: none;
 }
 
-/* Quests section */
+/* Quests */
 .project-hero,
-.project-hero.is-revealed,
-.project-card,
-.project-card.is-revealed {
-    opacity: 1 !important;
-    transform: none !important;
+.project-card {
+    opacity: 1;
+    transform: none;
 }
 
-/* Battles section */
+/* Battles */
 .battle-featured,
-.battle-featured.is-revealed,
-.battle-card,
-.battle-card.is-revealed {
-    opacity: 1 !important;
-    transform: none !important;
+.battle-card {
+    opacity: 1;
+    transform: none;
 }
 
-/* Discovery section */
+/* Discovery */
 .research-paper,
-.research-paper.is-revealed,
 .research-paper__venue,
 .abstract-block,
 .keywords-block,
@@ -47,30 +61,20 @@
 .project-link-block,
 .paper-actions-row,
 .flags-row {
-    opacity: 1 !important;
-    transform: none !important;
+    opacity: 1;
+    transform: none;
 }
 
-/* Credentials section */
+/* Credentials */
 .skills-panel,
-.skills-panel.is-revealed,
 .certs-panel,
-.certs-panel.is-revealed,
-.cert-item,
-.cert-item.is-revealed {
-    opacity: 1 !important;
-    transform: none !important;
+.cert-item {
+    opacity: 1;
+    transform: none;
 }
 
-/* Contact section */
-.contact-card,
-.contact-card.is-revealed {
-    opacity: 1 !important;
-    transform: none !important;
-}
-
-/* Narrative blocks */
-.narrative-block {
-    opacity: 1 !important;
-    transform: none !important;
+/* Contact */
+.contact-card {
+    opacity: 1;
+    transform: none;
 }
