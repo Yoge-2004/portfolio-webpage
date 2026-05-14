@@ -508,10 +508,9 @@ function initTilt() {
 
     /* Origin cards – subtle 3D tilt */
     VanillaTilt.init(document.querySelectorAll('.origin-card'), {
-        max: 12,
+        max: 10,
         speed: 600,
-        glare: true,
-        'max-glare': 0.15,
+        glare: false,
         perspective: 900,
         scale: 1.03,
         gyroscope: false,
@@ -519,10 +518,9 @@ function initTilt() {
 
     /* Project cards */
     VanillaTilt.init(document.querySelectorAll('.project-card'), {
-        max: 10,
+        max: 8,
         speed: 500,
-        glare: true,
-        'max-glare': 0.12,
+        glare: false,
         perspective: 1000,
         scale: 1.025,
         gyroscope: false,
@@ -530,10 +528,9 @@ function initTilt() {
 
     /* Battle cards */
     VanillaTilt.init(document.querySelectorAll('.battle-card'), {
-        max: 8,
+        max: 6,
         speed: 500,
-        glare: true,
-        'max-glare': 0.1,
+        glare: false,
         perspective: 1000,
         scale: 1.02,
         gyroscope: false,
@@ -738,35 +735,6 @@ function initCounterSparkle() {
 }
 
 /* ════════════════════════════════════════════════════════
-   21. SCROLL-TRIGGERED SKILL BAR ANIMATION (enhanced)
-   ════════════════════════════════════════════════════════ */
-function initSkillBarGlow() {
-    $$('.skill-bar__fill').forEach(fill => {
-        const pct = fill.style.width || fill.dataset.width;
-        fill.style.width = '0';
-        ScrollTrigger.create({
-            trigger: fill,
-            start: 'top 90%',
-            onEnter: () => {
-                gsap.to(fill, {
-                    width: pct,
-                    duration: 1.6,
-                    ease: 'power2.out',
-                    onComplete: () => {
-                        gsap.to(fill, {
-                            boxShadow: '0 0 10px rgba(102,231,242,0.6)',
-                            duration: 0.4,
-                            yoyo: true,
-                            repeat: 1,
-                        });
-                    },
-                });
-            },
-        });
-    });
-}
-
-/* ════════════════════════════════════════════════════════
    INIT
    ════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
@@ -791,7 +759,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initFloatingElements();
     initCardEntrances();
     initCounterSparkle();
-    initSkillBarGlow();
 
     document.fonts.ready.then(() => ScrollTrigger.refresh());
     let rt;

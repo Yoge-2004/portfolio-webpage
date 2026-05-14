@@ -121,9 +121,8 @@
     transition: all 0.6s var(--ease-out-expo);
 }
 
-/* ── VanillaTilt glare element ──────────────────────────── */
-.js-tilt-glare { border-radius: inherit; }
-.js-tilt-glare-inner { border-radius: inherit; }
+/* ── VanillaTilt – ensure border-radius preserved ──────── */
+.js-tilt { border-radius: inherit; }
 
 /* ── Typed.js cursor ────────────────────────────────────── */
 .typed-cursor {

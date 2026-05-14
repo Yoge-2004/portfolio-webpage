@@ -136,6 +136,7 @@
     border: 1px solid rgba(255,255,255,0.05);
     border-radius: 16px;
     padding: 28px;
+    overflow: hidden;          /* contains VanillaTilt glare within rounded corners */
     transition: all 0.5s var(--ease-out-expo);
     position: relative;
     z-index: 1;
