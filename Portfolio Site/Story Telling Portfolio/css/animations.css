@@ -156,15 +156,17 @@
 /* ── Magnetic button – no transform jump on init ────────── */
 .btn--primary, .btn--ghost, .btn--accent { will-change: transform; }
 
-/* ── Entrance: origin section subtitle reveal ──────────── */
-.origin-narrative .narrative-block {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
-}
-.origin-narrative .narrative-block.is-visible {
-    opacity: 1;
-    transform: none;
+/* ── Entrance: origin narrative reveal (desktop only) ─────── */
+@media (min-width: 769px) {
+    .origin-narrative .narrative-block {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+    }
+    .origin-narrative .narrative-block.is-visible {
+        opacity: 1;
+        transform: none;
+    }
 }
 
 /* ── Contact card hover ripple ─────────────────────────── */
@@ -182,3 +184,36 @@
     pointer-events: none;
 }
 .contact-card:hover::before { opacity: 1; }
+
+/* ── Safe card entrance (class-based, never hides elements) ─ */
+/* Cards are always visible. On desktop, this adds a subtle
+   lift+fade-in when they enter the viewport. Since the base
+   state is fully visible, a missed IntersectionObserver never
+   leaves the user staring at blank space.                      */
+@media (min-width: 769px) {
+    .origin-card,
+    .project-card,
+    .battle-card,
+    .cert-item {
+        transition:
+            transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+            box-shadow 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+            border-color 0.35s ease,
+            opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* card-entered is purely additive — base state is already visible */
+    .origin-card.card-entered,
+    .project-card.card-entered,
+    .battle-card.card-entered,
+    .cert-item.card-entered {
+        /* No opacity change needed — just a subtle nudge upward that
+           settles back; pure transform, never touches opacity.       */
+        animation: cardSettle 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+}
+
+@keyframes cardSettle {
+    from { transform: translateY(20px); opacity: 0.7; }
+    to   { transform: translateY(0);   opacity: 1; }
+}

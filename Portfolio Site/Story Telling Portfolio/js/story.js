@@ -622,27 +622,13 @@ function initMagneticButtons() {
    18. FLOATING HERO BADGE
    ════════════════════════════════════════════════════════ */
 function initFloatingElements() {
+    /* Hero badge gentle float */
     gsap.to('.hero-badge', {
         y: -8,
         duration: 2.4,
         ease: 'sine.inOut',
         yoyo: true,
         repeat: -1,
-    });
-
-    /* Tech pill pop on scroll */
-    gsap.utils.toArray('.tech-pill, .battle-card__tags span').forEach((pill, i) => {
-        gsap.from(pill, {
-            scale: 0,
-            opacity: 0,
-            duration: 0.5,
-            ease: 'back.out(1.7)',
-            scrollTrigger: {
-                trigger: pill,
-                start: 'top 92%',
-            },
-            delay: i * 0.04,
-        });
     });
 
     /* Contact card mouse ripple */
@@ -654,7 +640,7 @@ function initFloatingElements() {
         }, { passive: true });
     });
 
-    /* Narrative block stagger reveal */
+    /* Narrative block stagger reveal (only adds a class, never sets opacity:0) */
     $$('.narrative-block').forEach((block, i) => {
         ScrollTrigger.create({
             trigger: block,
@@ -667,71 +653,31 @@ function initFloatingElements() {
 }
 
 /* ════════════════════════════════════════════════════════
-   19. STAGGERED CARD ENTRANCE (GSAP)
+   19. SAFE CARD HOVER ENTRANCE (IntersectionObserver)
+   Uses class-based CSS transitions — never sets opacity:0 via JS,
+   so elements are always visible even if observer never fires.
    ════════════════════════════════════════════════════════ */
 function initCardEntrances() {
-    /* Origin cards */
-    gsap.from('.origin-card', {
-        y: 60,
-        opacity: 0,
-        duration: 0.9,
-        ease: 'power3.out',
-        stagger: 0.14,
-        scrollTrigger: {
-            trigger: '.origin-cards',
-            start: 'top 82%',
-        },
-    });
+    /* Only run on desktop — mobile already sees cards clearly */
+    if (mob()) return;
 
-    /* Project cards */
-    gsap.from('.project-card', {
-        y: 50,
-        opacity: 0,
-        duration: 0.85,
-        ease: 'power3.out',
-        stagger: 0.16,
-        scrollTrigger: {
-            trigger: '.project-grid',
-            start: 'top 85%',
-        },
-    });
+    const observe = (selector, cls, delay = 0) => {
+        const io = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const el = entry.target;
+                const idx = [...(el.parentElement?.children || [el])].indexOf(el);
+                setTimeout(() => el.classList.add(cls), delay + idx * 80);
+                obs.unobserve(el);
+            });
+        }, { threshold: 0.12 });
+        $$(selector).forEach(el => io.observe(el));
+    };
 
-    /* Battle cards */
-    gsap.from('.battle-card', {
-        x: 40,
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-        stagger: 0.13,
-        scrollTrigger: {
-            trigger: '.battle-grid',
-            start: 'top 85%',
-        },
-    });
-
-    /* Cert items */
-    gsap.from('.cert-item', {
-        x: -30,
-        opacity: 0,
-        duration: 0.7,
-        ease: 'power3.out',
-        stagger: 0.08,
-        scrollTrigger: {
-            trigger: '.certs-list',
-            start: 'top 88%',
-        },
-    });
-}
-
-/* ════════════════════════════════════════════════════════
-   20. COUNTER SPARKLE on section enter
-   ════════════════════════════════════════════════════════ */
-function initCounterSparkle() {
-    $$('.hero-metric__number').forEach(el => {
-        el.addEventListener('animationend', () => {
-            el.classList.add('sparkle-done');
-        });
-    });
+    observe('.origin-card',  'card-entered');
+    observe('.project-card', 'card-entered');
+    observe('.battle-card',  'card-entered');
+    observe('.cert-item',    'card-entered');
 }
 
 /* ════════════════════════════════════════════════════════
@@ -758,7 +704,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initMagneticButtons();
     initFloatingElements();
     initCardEntrances();
-    initCounterSparkle();
 
     document.fonts.ready.then(() => ScrollTrigger.refresh());
     let rt;
