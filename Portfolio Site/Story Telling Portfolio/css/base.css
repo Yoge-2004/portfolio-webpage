@@ -250,16 +250,18 @@ html { scrollbar-width: none; -ms-overflow-style: none; }
 .btn__icon { transition: transform 0.3s; }
 .btn:hover .btn__icon { transform: translateX(4px); }
 
-/* Reveal Animation Base */
+/* Reveal Animation Base — GSAP handles all entrance animation via
+   inline styles. [data-reveal] is a semantic marker only; we must
+   NOT set opacity:0 here because no code adds .is-revealed via JS. */
 [data-reveal] {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 1s var(--ease-out-expo);
+    opacity: 1;
+    transform: none;
+    transition: opacity 1s var(--ease-out-expo), transform 1s var(--ease-out-expo);
 }
 
 [data-reveal].is-revealed {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
 }
 
 /* Reduced Motion */

@@ -768,3 +768,41 @@ html, body {
         border-color: rgba(255,255,255,0.3);
     }
 }
+/* ─────────────────────────────────────────────────────────────────
+   MOBILE ANIMATION SAFETY NET  (≤ 768px)
+   GSAP sets opacity:0 as inline style before ScrollTrigger fires.
+   On mobile, triggers often don't fire (viewport math, fast load).
+   !important overrides GSAP inline styles, ensuring content always
+   shows. Animations are a luxury; content is a requirement.
+   ───────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .origin-card,
+    .project-card,
+    .project-hero,
+    .battle-card,
+    .battle-featured,
+    .cert-item,
+    .skills-panel,
+    .certs-panel,
+    .narrative-block,
+    .section-eyebrow,
+    .section-subtitle,
+    .result-card,
+    .research-paper,
+    .timeline-entry__card,
+    .timeline-entry__marker,
+    .contact-card,
+    .badge,
+    .win-badge,
+    .kw-tag,
+    .flag,
+    .tech-pill,
+    .skill-group__header,
+    .panel-title,
+    [data-reveal] {
+        opacity: 1 !important;
+        transform: none !important;
+        clip-path: none !important;
+        visibility: visible !important;
+    }
+}

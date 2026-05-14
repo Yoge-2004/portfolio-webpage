@@ -159,6 +159,14 @@ function initScrollScenes() {
     const expo = 'expo.out';
     const PO   = 'play none none none';
 
+    /* Global ScrollTrigger defaults — once:true ensures every animation
+       fires exactly once even on fast scroll; no element stays at opacity:0 */
+    ScrollTrigger.defaults({
+        once: true,
+        fastScrollEnd: true,
+        preventOverlaps: true,
+    });
+
     /* ── Section headers: wipe + eyebrow decode ── */
     $$('.section-title').forEach(el =>
         gsap.fromTo(el, { clipPath:'inset(0 100% 0 0)', opacity:1 },
@@ -653,31 +661,13 @@ function initFloatingElements() {
 }
 
 /* ════════════════════════════════════════════════════════
-   19. SAFE CARD HOVER ENTRANCE (IntersectionObserver)
-   Uses class-based CSS transitions — never sets opacity:0 via JS,
-   so elements are always visible even if observer never fires.
+   19. CARD ENTRANCES
+   GSAP (initScrollScenes) owns all opacity/transform animations.
+   This function only ensures z-index stacking is correct on hover.
    ════════════════════════════════════════════════════════ */
 function initCardEntrances() {
-    /* Only run on desktop — mobile already sees cards clearly */
-    if (mob()) return;
-
-    const observe = (selector, cls, delay = 0) => {
-        const io = new IntersectionObserver((entries, obs) => {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) return;
-                const el = entry.target;
-                const idx = [...(el.parentElement?.children || [el])].indexOf(el);
-                setTimeout(() => el.classList.add(cls), delay + idx * 80);
-                obs.unobserve(el);
-            });
-        }, { threshold: 0.12 });
-        $$(selector).forEach(el => io.observe(el));
-    };
-
-    observe('.origin-card',  'card-entered');
-    observe('.project-card', 'card-entered');
-    observe('.battle-card',  'card-entered');
-    observe('.cert-item',    'card-entered');
+    /* Nothing to do — GSAP handles entrance, CSS handles hover.
+       Left as a named function for clarity and future use. */
 }
 
 /* ════════════════════════════════════════════════════════
@@ -709,14 +699,19 @@ document.addEventListener('DOMContentLoaded', () => {
     let rt;
     window.addEventListener('resize', () => { clearTimeout(rt); rt=setTimeout(()=>ScrollTrigger.refresh(),300); }, { passive:true });
 
-    /* Hard fallback at 3s */
+    /* Hard fallback at 1.2s — catches any element GSAP set to opacity:0
+       whose ScrollTrigger never fired (already in viewport on load, slow device, etc.) */
     setTimeout(() => {
         document.querySelectorAll('section *').forEach(el => {
             try {
-                if (getComputedStyle(el).opacity === '0' && el.offsetParent !== null) {
-                    el.style.opacity='1'; el.style.transform='none'; el.style.clipPath='none';
+                const s = getComputedStyle(el);
+                if ((s.opacity === '0' || el.style.opacity === '0') && el.offsetParent !== null) {
+                    el.style.opacity = '1';
+                    el.style.transform = 'none';
+                    el.style.clipPath = 'none';
                 }
             } catch(e) {}
         });
-    }, 3000);
+        ScrollTrigger.refresh();
+    }, 1200);
 });
