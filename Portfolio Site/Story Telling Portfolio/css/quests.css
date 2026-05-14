@@ -23,14 +23,14 @@
     border-radius: 28px;
     overflow: hidden;
     transition: all 0.5s var(--ease-out-expo);
-    /* opacity/transform removed - GSAP handles animation */
+    position: relative;
+    z-index: 1;
 }
-
-/* .project-hero.is-revealed - animation handled by GSAP */
 
 .project-hero:hover {
     border-color: rgba(168, 85, 247, 0.2);
     box-shadow: 0 24px 64px rgba(168, 85, 247, 0.1);
+    z-index: 10;
 }
 
 .project-hero__visual {
@@ -183,16 +183,15 @@
     border-radius: 20px;
     overflow: hidden;
     transition: all 0.5s var(--ease-out-expo);
-    /* opacity/transform removed - GSAP handles animation */
+    position: relative;
+    z-index: 1;
 }
-
-/* .project-card.is-revealed - animation handled by GSAP */
-
 
 .project-card:hover {
     border-color: rgba(0, 229, 255, 0.15);
     transform: translateY(-8px);
     box-shadow: 0 20px 40px rgba(0, 229, 255, 0.06);
+    z-index: 10;
 }
 
 .project-card__visual {

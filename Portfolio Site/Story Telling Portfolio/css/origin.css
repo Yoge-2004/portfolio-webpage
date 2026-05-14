@@ -81,16 +81,15 @@
     position: relative;
     overflow: hidden;
     transition: all 0.5s var(--ease-out-expo);
+    z-index: 1;
     /* opacity/transform removed - GSAP handles animation */
 }
-
-/* .origin-card.is-revealed - animation handled by GSAP */
-
 
 .origin-card:hover {
     border-color: rgba(0, 229, 255, 0.2);
     transform: translateY(-8px) scale(1.02);
     box-shadow: 0 24px 48px rgba(0, 229, 255, 0.08);
+    z-index: 10;
 }
 
 .origin-card__shine {

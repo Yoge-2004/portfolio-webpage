@@ -61,10 +61,9 @@ body {
     color: var(--text-bright);
 }
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg-darkest); }
-::-webkit-scrollbar-thumb { background: var(--text-dim); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--accent-cyan); }
+/* ── Hide scrollbar completely ── */
+::-webkit-scrollbar { display: none; }
+html { scrollbar-width: none; -ms-overflow-style: none; }
 
 /* Utility Classes */
 .text-accent { color: var(--accent-cyan); font-weight: 500; }
@@ -86,7 +85,7 @@ body {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    overflow: hidden;
+    overflow: visible; /* cards can rise on hover without clipping */
 }
 
 @media (max-width: 768px) {

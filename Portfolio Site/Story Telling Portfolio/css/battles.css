@@ -22,14 +22,13 @@
     position: relative;
     overflow: hidden;
     transition: all 0.5s var(--ease-out-expo);
-    /* opacity/transform removed - GSAP handles animation */
+    z-index: 1;
 }
-
-/* .battle-featured.is-revealed - animation handled by GSAP */
 
 .battle-featured:hover {
     border-color: rgba(16, 185, 129, 0.25);
     box-shadow: 0 20px 60px rgba(16, 185, 129, 0.08);
+    z-index: 10;
 }
 
 .battle-featured__glow {
@@ -138,16 +137,15 @@
     border-radius: 16px;
     padding: 28px;
     transition: all 0.5s var(--ease-out-expo);
-    /* opacity/transform removed - GSAP handles animation */
+    position: relative;
+    z-index: 1;
 }
-
-/* .battle-card.is-revealed - animation handled by GSAP */
-
 
 .battle-card:hover {
     border-color: rgba(0, 229, 255, 0.15);
     transform: translateY(-4px);
     box-shadow: 0 12px 32px rgba(0, 229, 255, 0.05);
+    z-index: 10;
 }
 
 .battle-card__top {

@@ -500,18 +500,65 @@ function initSpotlight() {
 }
 
 /* ════════════════════════════════════════════════════════
-   14. CARD TILT
+   14. CARD TILT (VanillaTilt)
    ════════════════════════════════════════════════════════ */
 function initTilt() {
     if (mob()) return;
-    $$('.origin-card,.project-card,.battle-card').forEach(card => {
-        card.addEventListener('mousemove', e => {
-            const r = card.getBoundingClientRect();
-            const x = ((e.clientX-r.left)/r.width -.5)*10;
-            const y = ((e.clientY-r.top)/r.height-.5)*-10;
-            card.style.transform = `perspective(700px) rotateY(${x}deg) rotateX(${y}deg) scale(1.025)`;
-        }, { passive:true });
-        card.addEventListener('mouseleave', () => { card.style.transform=''; }, { passive:true });
+    if (typeof VanillaTilt === 'undefined') return;
+
+    /* Origin cards – subtle 3D tilt */
+    VanillaTilt.init(document.querySelectorAll('.origin-card'), {
+        max: 12,
+        speed: 600,
+        glare: true,
+        'max-glare': 0.15,
+        perspective: 900,
+        scale: 1.03,
+        gyroscope: false,
+    });
+
+    /* Project cards */
+    VanillaTilt.init(document.querySelectorAll('.project-card'), {
+        max: 10,
+        speed: 500,
+        glare: true,
+        'max-glare': 0.12,
+        perspective: 1000,
+        scale: 1.025,
+        gyroscope: false,
+    });
+
+    /* Battle cards */
+    VanillaTilt.init(document.querySelectorAll('.battle-card'), {
+        max: 8,
+        speed: 500,
+        glare: true,
+        'max-glare': 0.1,
+        perspective: 1000,
+        scale: 1.02,
+        gyroscope: false,
+    });
+}
+
+/* ════════════════════════════════════════════════════════
+   14b. TYPED.JS – Hero role typewriter
+   ════════════════════════════════════════════════════════ */
+function initTyped() {
+    const el = document.getElementById('typed-role');
+    if (!el || typeof Typed === 'undefined') return;
+    new Typed(el, {
+        strings: [
+            'Software Developer',
+            'ML & NLP Researcher',
+            'Full Stack Engineer',
+            'Spring Boot Architect',
+            'Open Source Builder',
+        ],
+        typeSpeed: 52,
+        backSpeed: 28,
+        backDelay: 2200,
+        loop: true,
+        smartBackspace: true,
     });
 }
 
@@ -555,10 +602,175 @@ function initModal() {
 }
 
 /* ════════════════════════════════════════════════════════
+   17. MAGNETIC BUTTONS
+   ════════════════════════════════════════════════════════ */
+function initMagneticButtons() {
+    if (mob()) return;
+    $$('.btn--primary, .btn--ghost, .btn--accent').forEach(btn => {
+        btn.addEventListener('mousemove', e => {
+            const r = btn.getBoundingClientRect();
+            const cx = r.left + r.width / 2;
+            const cy = r.top + r.height / 2;
+            const dx = (e.clientX - cx) * 0.28;
+            const dy = (e.clientY - cy) * 0.28;
+            gsap.to(btn, { x: dx, y: dy, duration: 0.35, ease: 'power2.out' });
+        });
+        btn.addEventListener('mouseleave', () => {
+            gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.5)' });
+        });
+    });
+}
+
+/* ════════════════════════════════════════════════════════
+   18. FLOATING HERO BADGE
+   ════════════════════════════════════════════════════════ */
+function initFloatingElements() {
+    gsap.to('.hero-badge', {
+        y: -8,
+        duration: 2.4,
+        ease: 'sine.inOut',
+        yoyo: true,
+        repeat: -1,
+    });
+
+    /* Tech pill pop on scroll */
+    gsap.utils.toArray('.tech-pill, .battle-card__tags span').forEach((pill, i) => {
+        gsap.from(pill, {
+            scale: 0,
+            opacity: 0,
+            duration: 0.5,
+            ease: 'back.out(1.7)',
+            scrollTrigger: {
+                trigger: pill,
+                start: 'top 92%',
+            },
+            delay: i * 0.04,
+        });
+    });
+
+    /* Contact card mouse ripple */
+    $$('.contact-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const r = card.getBoundingClientRect();
+            card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+            card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+        }, { passive: true });
+    });
+
+    /* Narrative block stagger reveal */
+    $$('.narrative-block').forEach((block, i) => {
+        ScrollTrigger.create({
+            trigger: block,
+            start: 'top 88%',
+            onEnter: () => {
+                setTimeout(() => block.classList.add('is-visible'), i * 120);
+            },
+        });
+    });
+}
+
+/* ════════════════════════════════════════════════════════
+   19. STAGGERED CARD ENTRANCE (GSAP)
+   ════════════════════════════════════════════════════════ */
+function initCardEntrances() {
+    /* Origin cards */
+    gsap.from('.origin-card', {
+        y: 60,
+        opacity: 0,
+        duration: 0.9,
+        ease: 'power3.out',
+        stagger: 0.14,
+        scrollTrigger: {
+            trigger: '.origin-cards',
+            start: 'top 82%',
+        },
+    });
+
+    /* Project cards */
+    gsap.from('.project-card', {
+        y: 50,
+        opacity: 0,
+        duration: 0.85,
+        ease: 'power3.out',
+        stagger: 0.16,
+        scrollTrigger: {
+            trigger: '.project-grid',
+            start: 'top 85%',
+        },
+    });
+
+    /* Battle cards */
+    gsap.from('.battle-card', {
+        x: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        stagger: 0.13,
+        scrollTrigger: {
+            trigger: '.battle-grid',
+            start: 'top 85%',
+        },
+    });
+
+    /* Cert items */
+    gsap.from('.cert-item', {
+        x: -30,
+        opacity: 0,
+        duration: 0.7,
+        ease: 'power3.out',
+        stagger: 0.08,
+        scrollTrigger: {
+            trigger: '.certs-list',
+            start: 'top 88%',
+        },
+    });
+}
+
+/* ════════════════════════════════════════════════════════
+   20. COUNTER SPARKLE on section enter
+   ════════════════════════════════════════════════════════ */
+function initCounterSparkle() {
+    $$('.hero-metric__number').forEach(el => {
+        el.addEventListener('animationend', () => {
+            el.classList.add('sparkle-done');
+        });
+    });
+}
+
+/* ════════════════════════════════════════════════════════
+   21. SCROLL-TRIGGERED SKILL BAR ANIMATION (enhanced)
+   ════════════════════════════════════════════════════════ */
+function initSkillBarGlow() {
+    $$('.skill-bar__fill').forEach(fill => {
+        const pct = fill.style.width || fill.dataset.width;
+        fill.style.width = '0';
+        ScrollTrigger.create({
+            trigger: fill,
+            start: 'top 90%',
+            onEnter: () => {
+                gsap.to(fill, {
+                    width: pct,
+                    duration: 1.6,
+                    ease: 'power2.out',
+                    onComplete: () => {
+                        gsap.to(fill, {
+                            boxShadow: '0 0 10px rgba(102,231,242,0.6)',
+                            duration: 0.4,
+                            yoyo: true,
+                            repeat: 1,
+                        });
+                    },
+                });
+            },
+        });
+    });
+}
+
+/* ════════════════════════════════════════════════════════
    INIT
    ════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
-    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, TextPlugin);
 
     initCursor();
     initParticles();
@@ -571,9 +783,15 @@ document.addEventListener('DOMContentLoaded', () => {
     initMarquee();
     initChapterFlash();
     initTilt();
+    initTyped();
     initGlitch();
     initSpotlight();
     initModal();
+    initMagneticButtons();
+    initFloatingElements();
+    initCardEntrances();
+    initCounterSparkle();
+    initSkillBarGlow();
 
     document.fonts.ready.then(() => ScrollTrigger.refresh());
     let rt;
