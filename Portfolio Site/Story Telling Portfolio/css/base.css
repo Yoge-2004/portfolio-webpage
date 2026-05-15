@@ -120,8 +120,7 @@ html { scrollbar-width: none; -ms-overflow-style: none; }
     letter-spacing: 4px;
     text-transform: uppercase;
     margin-bottom: 16px;
-    opacity: 0;
-    transform: translateY(20px);
+    /* opacity/transform owned by GSAP initScrollScenes */
 }
 
 .section-eyebrow.is-revealed {
@@ -141,9 +140,7 @@ html { scrollbar-width: none; -ms-overflow-style: none; }
 
 .section-title .char {
     display: inline-block;
-    opacity: 0;
-    transform: translateY(100%) rotateX(-90deg);
-    transform-origin: center top;
+    /* No char spans are created — dead selector, kept for future use */
 }
 
 .section-title.is-split .char {
@@ -157,8 +154,7 @@ html { scrollbar-width: none; -ms-overflow-style: none; }
     color: var(--text-secondary);
     max-width: 500px;
     line-height: 1.7;
-    opacity: 0;
-    transform: translateY(20px);
+    /* opacity/transform owned by GSAP initScrollScenes */
 }
 
 .section-subtitle.is-revealed {

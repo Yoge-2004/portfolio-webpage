@@ -203,8 +203,7 @@
 
 .hero-headline__word .char {
     display: inline-block;
-    opacity: 0;
-    transform: translateY(110%);
+    /* No SplitText running — no .char spans are created. Kept as future hook. */
 }
 
 .hero-headline__word.is-split .char {
@@ -244,8 +243,7 @@
     padding: 24px 0;
     border-top: 1px solid rgba(255,255,255,0.06);
     border-bottom: 1px solid rgba(255,255,255,0.06);
-    opacity: 0;
-    transform: translateY(20px);
+    /* opacity/transform owned by GSAP heroEntry */
 }
 
 .hero-metrics.is-revealed {
@@ -287,8 +285,7 @@
     display: flex;
     gap: 16px;
     flex-wrap: wrap;
-    opacity: 0;
-    transform: translateY(20px);
+    /* opacity/transform owned by GSAP heroEntry */
 }
 
 .hero-cta.is-revealed {
@@ -304,8 +301,7 @@
     align-items: center;
     gap: 12px;
     margin-top: 28px;
-    opacity: 0;
-    /* Removed absolute positioning — now flows inside hero-right */
+    /* opacity owned by GSAP heroEntry */
 }
 
 .hero-scroll-hint.is-revealed {
