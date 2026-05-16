@@ -8,21 +8,27 @@
 }
 
 .battles-layout {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 }
 
-/* Featured Battle */
+/* Featured Battle — full width across top */
 .battle-featured {
     background: var(--bg-card);
     border: 1px solid rgba(16, 185, 129, 0.12);
     border-radius: 24px;
-    padding: 40px;
+    padding: 48px;
     position: relative;
     overflow: hidden;
     transition: all 0.5s var(--ease-out-expo);
     z-index: 1;
+    /* Two-column inner layout: info left, meta right */
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto;
+    gap: 0 48px;
+    align-items: start;
 }
 
 .battle-featured:hover {
@@ -39,15 +45,17 @@
     height: 200%;
     background: radial-gradient(circle, rgba(16,185,129,0.05) 0%, transparent 60%);
     pointer-events: none;
+    grid-column: 1 / -1;
 }
 
 .battle-featured__header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     position: relative;
     z-index: 1;
+    grid-column: 1 / -1;
 }
 
 .battle-featured__icon {
@@ -77,41 +85,42 @@
     color: var(--accent-cyan);
 }
 
-.battle-featured__title {
-    font-family: var(--font-display);
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 12px;
-    color: var(--text-bright);
+/* Left column content */
+.battle-featured__body {
     position: relative;
     z-index: 1;
+}
+
+.battle-featured__title {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text-bright);
 }
 
 .battle-featured__org {
     font-size: 15px;
     color: var(--accent-cyan);
     margin-bottom: 16px;
-    position: relative;
-    z-index: 1;
 }
 
 .battle-featured__desc {
     font-size: 15px;
     color: var(--text-secondary);
     line-height: 1.8;
-    margin-bottom: 24px;
-    position: relative;
-    z-index: 1;
+    max-width: 680px;
 }
 
+/* Right column — date + actions */
 .battle-featured__footer {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-end;
     gap: 16px;
     position: relative;
     z-index: 1;
+    align-self: end;
 }
 
 .battle-featured__date {
@@ -125,9 +134,10 @@
     gap: 12px;
 }
 
-/* Battle Grid */
+/* Battle Grid — 2×2 below featured */
 .battle-grid {
     display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
 }
 
@@ -136,7 +146,7 @@
     border: 1px solid rgba(255,255,255,0.05);
     border-radius: 16px;
     padding: 28px;
-    overflow: hidden;          /* contains VanillaTilt glare within rounded corners */
+    overflow: hidden;
     transition: all 0.5s var(--ease-out-expo);
     position: relative;
     z-index: 1;
