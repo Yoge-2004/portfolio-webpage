@@ -198,15 +198,20 @@ class PortfolioApp {
             // Use scroll listener as primary detection (more reliable)
             const updateScrollspy = () => {
                 let current = null;
+                let currentTop = Infinity;
                 const navHeight = 100;
 
                 for (const [id, link] of Object.entries(sectionMap)) {
                     const section = document.getElementById(id);
                     if (!section) continue;
                     const rect = section.getBoundingClientRect();
-                    // Section is visible if its top is above viewport center
-                    if (rect.top <= window.innerHeight / 2 && rect.bottom > navHeight) {
-                        current = id;
+                    // Check if section is visible in viewport
+                    if (rect.bottom > navHeight && rect.top < window.innerHeight) {
+                        // Pick the one closest to top (most visible)
+                        if (rect.top < currentTop) {
+                            currentTop = rect.top;
+                            current = id;
+                        }
                     }
                 }
 
