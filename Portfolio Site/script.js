@@ -163,20 +163,49 @@ class PortfolioApp {
                 if (href && href.startsWith('#')) sectionMap[href.slice(1)] = l;
             });
 
+            const linksContainer = document.querySelector('.nav-links');
+            // Create animated underline indicator
+            let indicator = null;
+            if (linksContainer) {
+                indicator = document.createElement('span');
+                indicator.className = 'nav-underline';
+                linksContainer.style.position = linksContainer.style.position || 'relative';
+                linksContainer.appendChild(indicator);
+            }
+
+            const updateIndicator = (link) => {
+                if (!indicator || !linksContainer) return;
+                if (!link) {
+                    indicator.style.opacity = '0';
+                    return;
+                }
+                const linkRect = link.getBoundingClientRect();
+                const parentRect = linksContainer.getBoundingClientRect();
+                const left = linkRect.left - parentRect.left + linksContainer.scrollLeft;
+                indicator.style.width = linkRect.width + 'px';
+                indicator.style.transform = `translateX(${left}px)`;
+                indicator.style.opacity = '1';
+            };
+
             const observerOptions = {
                 root: null,
                 rootMargin: '-40% 0px -40% 0px',
                 threshold: 0
             };
 
+            let currentActive = null;
             const sectionObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     const id = entry.target && entry.target.id;
                     if (!id) return;
                     if (entry.isIntersecting) {
-                        navLinks.forEach(n => n.classList.remove('is-active'));
                         const link = sectionMap[id];
-                        if (link) link.classList.add('is-active');
+                        if (link) {
+                            navLinks.forEach(n => n.classList.remove('is-active'));
+                            link.classList.add('is-active');
+                            currentActive = link;
+                            updateIndicator(link);
+                        }
                     }
                 });
             }, observerOptions);
@@ -186,27 +215,43 @@ class PortfolioApp {
                 if (el) sectionObserver.observe(el);
             });
 
+            // Reposition underline on resize
+            window.addEventListener('resize', () => updateIndicator(currentActive), { passive: true });
+
             // Set initial active link on load
             setTimeout(() => {
                 const hash = location.hash ? location.hash.slice(1) : null;
                 if (hash && sectionMap[hash]) {
                     navLinks.forEach(n => n.classList.remove('is-active'));
                     sectionMap[hash].classList.add('is-active');
+                    currentActive = sectionMap[hash];
+                    updateIndicator(currentActive);
                     return;
                 }
 
                 // fallback: pick the section near the top of viewport
+                let found = false;
                 document.querySelectorAll('section[id]').forEach(s => {
                     const rect = s.getBoundingClientRect();
-                    if (rect.top <= 120 && rect.bottom > 120) {
+                    if (!found && rect.top <= 120 && rect.bottom > 120) {
                         const l = sectionMap[s.id];
                         if (l) {
                             navLinks.forEach(n => n.classList.remove('is-active'));
                             l.classList.add('is-active');
+                            currentActive = l;
+                            updateIndicator(l);
+                            found = true;
                         }
                     }
                 });
-            }, 100);
+
+                if (!found) updateIndicator(null);
+            }, 120);
+
+            // Also move underline on manual clicks (after smooth scroll)
+            navLinks.forEach(l => l.addEventListener('click', () => {
+                setTimeout(() => updateIndicator(l), 350);
+            }));
         })();
     }
 
