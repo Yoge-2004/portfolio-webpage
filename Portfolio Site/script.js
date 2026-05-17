@@ -194,20 +194,28 @@ class PortfolioApp {
             };
 
             let currentActive = null;
+            const sectionMap_reverse = {};
+            Object.keys(sectionMap).forEach(id => {
+                sectionMap_reverse[sectionMap[id].getAttribute('href')] = id;
+            });
+
             const sectionObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    const id = entry.target && entry.target.id;
-                    if (!id) return;
-                    if (entry.isIntersecting) {
-                        const link = sectionMap[id];
-                        if (link) {
-                            navLinks.forEach(n => n.classList.remove('is-active'));
-                            link.classList.add('is-active');
-                            currentActive = link;
-                            updateIndicator(link);
-                        }
-                    }
+                // Sort entries by position to find topmost visible section
+                const visibleEntries = entries.filter(e => e.isIntersecting).sort((a, b) => {
+                    return a.boundingClientRect.top - b.boundingClientRect.top;
                 });
+
+                if (visibleEntries.length > 0) {
+                    const topEntry = visibleEntries[0];
+                    const id = topEntry.target.id;
+                    const link = sectionMap[id];
+                    if (link) {
+                        navLinks.forEach(n => n.classList.remove('is-active'));
+                        link.classList.add('is-active');
+                        currentActive = link;
+                        updateIndicator(link);
+                    }
+                }
             }, observerOptions);
 
             Object.keys(sectionMap).forEach(id => {
