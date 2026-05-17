@@ -151,6 +151,11 @@ function initNav() {
             const topEntry = visibleEntries[0];
             $$('.nav-link').forEach(l => l.classList.remove('is-active'));
             linkMap[topEntry.target.id]?.classList.add('is-active');
+            
+            // Trigger GSAP ScrollTrigger refresh to ensure section-eyebrow animations fire
+            if (typeof ScrollTrigger !== 'undefined') {
+                ScrollTrigger.refresh();
+            }
         }
     }, { threshold:[0.1, 0.35, 0.5] });
     $$('.story-section[id]').forEach(s => obs.observe(s));
