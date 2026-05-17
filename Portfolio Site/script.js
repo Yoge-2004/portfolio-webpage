@@ -164,12 +164,11 @@ class PortfolioApp {
             });
 
             const linksContainer = document.querySelector('.nav-links');
-            // Create animated underline indicator
             let indicator = null;
             if (linksContainer) {
                 indicator = document.createElement('span');
                 indicator.className = 'nav-underline';
-                linksContainer.style.position = linksContainer.style.position || 'relative';
+                linksContainer.style.position = 'relative';
                 linksContainer.appendChild(indicator);
             }
 
@@ -187,79 +186,55 @@ class PortfolioApp {
                 indicator.style.opacity = '1';
             };
 
-            const observerOptions = {
-                root: null,
-                rootMargin: '-40% 0px -40% 0px',
-                threshold: 0
+            const setActive = (id) => {
+                const link = sectionMap[id];
+                if (link) {
+                    navLinks.forEach(n => n.classList.remove('is-active'));
+                    link.classList.add('is-active');
+                    updateIndicator(link);
+                }
             };
 
-            let currentActive = null;
-            const sectionMap_reverse = {};
-            Object.keys(sectionMap).forEach(id => {
-                sectionMap_reverse[sectionMap[id].getAttribute('href')] = id;
-            });
+            // Use scroll listener as primary detection (more reliable)
+            const updateScrollspy = () => {
+                let current = null;
+                const navHeight = 100;
 
-            const sectionObserver = new IntersectionObserver((entries) => {
-                // Sort entries by position to find topmost visible section
-                const visibleEntries = entries.filter(e => e.isIntersecting).sort((a, b) => {
-                    return a.boundingClientRect.top - b.boundingClientRect.top;
-                });
-
-                if (visibleEntries.length > 0) {
-                    const topEntry = visibleEntries[0];
-                    const id = topEntry.target.id;
-                    const link = sectionMap[id];
-                    if (link) {
-                        navLinks.forEach(n => n.classList.remove('is-active'));
-                        link.classList.add('is-active');
-                        currentActive = link;
-                        updateIndicator(link);
+                for (const [id, link] of Object.entries(sectionMap)) {
+                    const section = document.getElementById(id);
+                    if (!section) continue;
+                    const rect = section.getBoundingClientRect();
+                    // Section is visible if its top is above viewport center
+                    if (rect.top <= window.innerHeight / 2 && rect.bottom > navHeight) {
+                        current = id;
                     }
                 }
-            }, observerOptions);
 
-            Object.keys(sectionMap).forEach(id => {
-                const el = document.getElementById(id);
-                if (el) sectionObserver.observe(el);
-            });
+                if (current) setActive(current);
+            };
 
-            // Reposition underline on resize
-            window.addEventListener('resize', () => updateIndicator(currentActive), { passive: true });
+            // Initial setup on load
+            setTimeout(updateScrollspy, 100);
 
-            // Set initial active link on load
+            // Listen to scroll with throttling
+            let scrollTimeout;
+            const onScroll = () => {
+                if (scrollTimeout) clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(updateScrollspy, 50);
+            };
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', updateScrollspy, { passive: true });
+
+            // Also set initial active link
             setTimeout(() => {
                 const hash = location.hash ? location.hash.slice(1) : null;
                 if (hash && sectionMap[hash]) {
-                    navLinks.forEach(n => n.classList.remove('is-active'));
-                    sectionMap[hash].classList.add('is-active');
-                    currentActive = sectionMap[hash];
-                    updateIndicator(currentActive);
+                    setActive(hash);
                     return;
                 }
-
-                // fallback: pick the section near the top of viewport
-                let found = false;
-                document.querySelectorAll('section[id]').forEach(s => {
-                    const rect = s.getBoundingClientRect();
-                    if (!found && rect.top <= 120 && rect.bottom > 120) {
-                        const l = sectionMap[s.id];
-                        if (l) {
-                            navLinks.forEach(n => n.classList.remove('is-active'));
-                            l.classList.add('is-active');
-                            currentActive = l;
-                            updateIndicator(l);
-                            found = true;
-                        }
-                    }
-                });
-
-                if (!found) updateIndicator(null);
-            }, 120);
-
-            // Also move underline on manual clicks (after smooth scroll)
-            navLinks.forEach(l => l.addEventListener('click', () => {
-                setTimeout(() => updateIndicator(l), 350);
-            }));
+                updateScrollspy();
+            }, 150);
         })();
     }
 
