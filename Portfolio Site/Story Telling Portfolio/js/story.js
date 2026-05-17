@@ -59,6 +59,18 @@ function initLoading() {
    3. HERO ENTRY
    ════════════════════════════════════════════════════════ */
 function heroEntry() {
+    const scrollHint = $('.hero-scroll-hint');
+    const setScrollHintHidden = hidden => {
+        if (!scrollHint) return;
+        scrollHint.classList.toggle('is-scroll-hidden', hidden);
+        if (hidden) {
+            scrollHint.style.setProperty('display', 'none', 'important');
+        } else {
+            scrollHint.style.removeProperty('display');
+        }
+    };
+    const syncScrollHint = () => setScrollHintHidden(window.scrollY > 24);
+
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
     tl.fromTo('.hero-image__mask', { clipPath:'inset(100% 0 0 0)' }, { clipPath:'inset(0% 0 0 0)', duration:1.2, ease:'power4.inOut' }, 0)
         .fromTo('.hero-image__img',    { scale:1.1  },        { scale:1,        duration:1.6 }, 0)
@@ -94,9 +106,13 @@ function heroEntry() {
             start: '8% top',
             end:   '20% top',
             scrub: true,
-            onLeave: () => gsap.set('.hero-scroll-hint', { display:'none' })
+            onLeave: () => setScrollHintHidden(true),
+            onEnterBack: () => setScrollHintHidden(false)
         }
     });
+
+    window.addEventListener('scroll', syncScrollHint, { passive: true });
+    syncScrollHint();
 }
 
 /* ════════════════════════════════════════════════════════
@@ -126,12 +142,17 @@ function initNav() {
     const linkMap = {};
     $$('.nav-link[href^="#"]').forEach(l => { linkMap[l.getAttribute('href').slice(1)] = l; });
     const obs = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-            if (!e.isIntersecting) return;
-            $$('.nav-link').forEach(l => l.classList.remove('is-active'));
-            linkMap[e.target.id]?.classList.add('is-active');
+        // Filter only intersecting entries and pick the topmost one
+        const visibleEntries = entries.filter(e => e.isIntersecting).sort((a, b) => {
+            return a.boundingClientRect.top - b.boundingClientRect.top;
         });
-    }, { threshold:.35 });
+        
+        if (visibleEntries.length > 0) {
+            const topEntry = visibleEntries[0];
+            $$('.nav-link').forEach(l => l.classList.remove('is-active'));
+            linkMap[topEntry.target.id]?.classList.add('is-active');
+        }
+    }, { threshold:[0.1, 0.35, 0.5] });
     $$('.story-section[id]').forEach(s => obs.observe(s));
 
     const openMenu  = () => { menu?.classList.add('is-open');    toggle?.classList.add('is-open');    document.body.style.overflow='hidden'; };
