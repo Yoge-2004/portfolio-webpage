@@ -41,14 +41,14 @@
     z-index: 3;
     max-width: 1300px;
     margin: 0 auto;
-    padding: 140px 40px 100px;
+    padding: 120px 40px 80px;
     display: grid;
     grid-template-columns: 0.85fr 1.15fr;
     gap: 80px;
     align-items: center;
     width: 100%;
     box-sizing: border-box;
-    overflow: hidden;
+    overflow: hidden; /* clips hero image on narrow screens */
 }
 
 /* Hero Image */
@@ -294,13 +294,20 @@
     transition: all 0.8s var(--ease-out-expo) 1.2s;
 }
 
-/* Scroll Hint */
+/* Scroll Hint — fixed to viewport bottom so it's always visible on first load
+   regardless of how tall the hero content stacks on mobile/tablet.
+   GSAP fades it out as the user scrolls past the hero. */
 .hero-scroll-hint {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 12px;
-    margin-top: 28px;
+    z-index: 5; /* above hero-content but below nav (9999) */
+    pointer-events: none;
     /* opacity owned by GSAP heroEntry */
 }
 

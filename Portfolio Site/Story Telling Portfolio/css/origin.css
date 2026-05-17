@@ -72,7 +72,9 @@
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     overflow: visible;
-    padding-bottom: 20px; /* room for shadow on hover-lifted cards */
+    padding: 8px 8px 20px;
+    margin: 0 -8px;
+    box-sizing: border-box;
 }
 
 .origin-card {

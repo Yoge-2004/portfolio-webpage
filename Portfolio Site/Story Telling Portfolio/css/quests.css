@@ -176,7 +176,9 @@
     grid-template-columns: 1fr 1fr;
     gap: 24px;
     overflow: visible;
-    padding-bottom: 20px;
+    padding: 8px 8px 20px; /* horizontal padding gives shadow room on outer edges */
+    margin: 0 -8px;        /* negative margin compensates so grid still aligns with layout */
+    box-sizing: border-box;
 }
 
 .project-card {
