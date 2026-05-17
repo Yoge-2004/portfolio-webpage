@@ -203,8 +203,14 @@ class PortfolioApp {
 
                 for (const [id, link] of Object.entries(sectionMap)) {
                     const section = document.getElementById(id);
-                    if (!section) continue;
+                    if (!section) {
+                        console.warn(`Section #${id} not found`);
+                        continue;
+                    }
                     const rect = section.getBoundingClientRect();
+                    // Debug: log all section positions
+                    console.log(`Section ${id}: top=${rect.top}, bottom=${rect.bottom}, height=${rect.height}`);
+                    
                     // Check if section is visible in viewport
                     if (rect.bottom > navHeight && rect.top < window.innerHeight) {
                         // Pick the one closest to top (most visible)
@@ -215,6 +221,7 @@ class PortfolioApp {
                     }
                 }
 
+                console.log(`Current active: ${current}`);
                 if (current) setActive(current);
             };
 
