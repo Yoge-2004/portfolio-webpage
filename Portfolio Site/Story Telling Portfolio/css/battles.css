@@ -139,6 +139,8 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+    overflow: visible;
+    padding-bottom: 20px;
 }
 
 .battle-card {
@@ -150,6 +152,7 @@
     transition: all 0.5s var(--ease-out-expo);
     position: relative;
     z-index: 1;
+    isolation: isolate;
 }
 
 .battle-card:hover {

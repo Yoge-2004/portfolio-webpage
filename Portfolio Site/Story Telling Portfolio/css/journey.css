@@ -207,6 +207,13 @@
 
 .timeline-entry__actions {
     display: flex;
-    gap: 12px;
+    flex-wrap: wrap;
+    gap: 10px;
     margin-top: 16px;
+}
+
+.timeline-entry__actions .btn {
+    flex: 1;
+    min-width: 100px;
+    justify-content: center;
 }

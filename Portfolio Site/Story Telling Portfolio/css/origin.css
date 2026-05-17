@@ -71,6 +71,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
+    overflow: visible;
+    padding-bottom: 20px; /* room for shadow on hover-lifted cards */
 }
 
 .origin-card {
@@ -83,6 +85,8 @@
     transition: all 0.5s var(--ease-out-expo);
     z-index: 1;
     /* opacity/transform removed - GSAP handles animation */
+    /* isolation: isolate ensures the card stacks above its siblings on hover */
+    isolation: isolate;
 }
 
 .origin-card:hover {
