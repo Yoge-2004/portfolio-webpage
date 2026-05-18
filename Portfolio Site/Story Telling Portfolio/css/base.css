@@ -61,10 +61,12 @@ body {
     color: var(--text-bright);
 }
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg-darkest); }
-::-webkit-scrollbar-thumb { background: var(--text-dim); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--accent-cyan); }
+/* ── Hide scrollbar completely ── */
+::-webkit-scrollbar { display: none !important; width: 0 !important; }
+html, body {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
 
 /* Utility Classes */
 .text-accent { color: var(--accent-cyan); font-weight: 500; }
@@ -86,7 +88,7 @@ body {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    overflow: hidden;
+    overflow: visible; /* cards can rise on hover without clipping */
 }
 
 @media (max-width: 768px) {
@@ -121,8 +123,7 @@ body {
     letter-spacing: 4px;
     text-transform: uppercase;
     margin-bottom: 16px;
-    opacity: 0;
-    transform: translateY(20px);
+    /* opacity/transform owned by GSAP initScrollScenes */
 }
 
 .section-eyebrow.is-revealed {
@@ -142,9 +143,7 @@ body {
 
 .section-title .char {
     display: inline-block;
-    opacity: 0;
-    transform: translateY(100%) rotateX(-90deg);
-    transform-origin: center top;
+    /* No char spans are created — dead selector, kept for future use */
 }
 
 .section-title.is-split .char {
@@ -158,8 +157,7 @@ body {
     color: var(--text-secondary);
     max-width: 500px;
     line-height: 1.7;
-    opacity: 0;
-    transform: translateY(20px);
+    /* opacity/transform owned by GSAP initScrollScenes */
 }
 
 .section-subtitle.is-revealed {
@@ -251,16 +249,18 @@ body {
 .btn__icon { transition: transform 0.3s; }
 .btn:hover .btn__icon { transform: translateX(4px); }
 
-/* Reveal Animation Base */
+/* Reveal Animation Base — GSAP handles all entrance animation via
+   inline styles. [data-reveal] is a semantic marker only; we must
+   NOT set opacity:0 here because no code adds .is-revealed via JS. */
 [data-reveal] {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 1s var(--ease-out-expo);
+    opacity: 1;
+    transform: none;
+    transition: opacity 1s var(--ease-out-expo), transform 1s var(--ease-out-expo);
 }
 
 [data-reveal].is-revealed {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
 }
 
 /* Reduced Motion */

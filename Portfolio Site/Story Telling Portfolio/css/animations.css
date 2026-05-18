@@ -120,3 +120,69 @@
     transform: translateY(0);
     transition: all 0.6s var(--ease-out-expo);
 }
+
+/* ── VanillaTilt – ensure border-radius preserved ──────── */
+.js-tilt { border-radius: inherit; }
+
+/* ── Typed.js cursor ────────────────────────────────────── */
+.typed-cursor {
+    color: var(--accent-cyan);
+    font-weight: 300;
+    opacity: 1;
+    animation: typedBlink 0.7s step-end infinite;
+}
+@keyframes typedBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* ── Hero badge float ───────────────────────────────────── */
+@keyframes badgeFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* ── Neon border pulse on featured cards ───────────────── */
+@keyframes neonPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(102,231,242,0); }
+    50% { box-shadow: 0 0 16px 2px rgba(102,231,242,0.18); }
+}
+.project-hero:hover { animation: neonPulse 2.4s ease-in-out infinite; }
+.battle-featured:hover { animation: neonPulse 2.4s ease-in-out infinite; }
+
+/* ── Skill bar glow ─────────────────────────────────────── */
+.skill-bar__fill { transition: box-shadow 0.4s; }
+
+/* ── Magnetic button – no transform jump on init ────────── */
+.btn--primary, .btn--ghost, .btn--accent { will-change: transform; }
+
+/* ── Entrance: origin narrative reveal (desktop only) ─────── */
+@media (min-width: 769px) {
+    .origin-narrative .narrative-block {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+    }
+    .origin-narrative .narrative-block.is-visible {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ── Contact card hover ripple ─────────────────────────── */
+.contact-card {
+    position: relative;
+    overflow: hidden;
+}
+.contact-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(102,231,242,0.07) 0%, transparent 65%);
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
+}
+.contact-card:hover::before { opacity: 1; }
+
+/* ── Safe card entrance removed — GSAP owns all entrance animation ── */

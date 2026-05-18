@@ -9,15 +9,16 @@
 
 .will-reveal { transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
 
-.reveal-up    { opacity: 0; transform: translateY(48px); }
-.reveal-left  { opacity: 0; transform: translateX(-52px); }
-.reveal-right { opacity: 0; transform: translateX(52px); }
+/* .reveal-up/.reveal-left/.reveal-right — unused in HTML, kept as dead selectors */
+.reveal-up    { transform: translateY(48px); }
+.reveal-left  { transform: translateX(-52px); }
+.reveal-right { transform: translateX(52px); }
 .reveal-wipe  { opacity: 0; clip-path: inset(0 100% 0 0); transition: opacity .9s, clip-path 1s cubic-bezier(.16,1,.3,1), transform .7s; }
 
 .will-reveal.revealed { opacity: 1 !important; transform: none !important; clip-path: none !important; }
 
-/* Section eyebrow */
-.section-eyebrow { opacity: 0; transform: translateY(14px); letter-spacing: 14px;
+/* Section eyebrow — opacity/transform owned by GSAP initScrollScenes */
+.section-eyebrow { letter-spacing: 4px;
     transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s, letter-spacing .9s; }
 .section-eyebrow.is-revealed { opacity: 1; transform: none; letter-spacing: 4px; }
 
