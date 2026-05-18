@@ -141,6 +141,8 @@ function initNav() {
 
     const linkMap = {};
     $$('.nav-link[href^="#"]').forEach(l => { linkMap[l.getAttribute('href').slice(1)] = l; });
+    let lastActiveSection = null;
+    
     const obs = new IntersectionObserver(entries => {
         // Filter only intersecting entries and pick the topmost one
         const visibleEntries = entries.filter(e => e.isIntersecting).sort((a, b) => {
@@ -149,16 +151,24 @@ function initNav() {
         
         if (visibleEntries.length > 0) {
             const topEntry = visibleEntries[0];
-            $$('.nav-link').forEach(l => l.classList.remove('is-active'));
-            linkMap[topEntry.target.id]?.classList.add('is-active');
+            const sectionId = topEntry.target.id;
             
-            // Trigger GSAP ScrollTrigger refresh to ensure section-eyebrow animations fire
-            if (typeof ScrollTrigger !== 'undefined') {
-                ScrollTrigger.refresh();
+            // Only update if section changed
+            if (lastActiveSection !== sectionId) {
+                lastActiveSection = sectionId;
+                $$('.nav-link').forEach(l => l.classList.remove('is-active'));
+                linkMap[sectionId]?.classList.add('is-active');
             }
         }
-    }, { threshold:[0.1, 0.35, 0.5] });
+    }, { threshold:[0.05, 0.1, 0.35, 0.5] });
     $$('.story-section[id]').forEach(s => obs.observe(s));
+
+    // Continuous scroll listener to refresh ScrollTrigger for smooth animations
+    window.addEventListener('scroll', () => {
+        if (typeof ScrollTrigger !== 'undefined') {
+            ScrollTrigger.refresh();
+        }
+    }, { passive: true });
 
     const openMenu  = () => { menu?.classList.add('is-open');    toggle?.classList.add('is-open');    document.body.style.overflow='hidden'; };
     const closeMenu = () => { menu?.classList.remove('is-open'); toggle?.classList.remove('is-open'); document.body.style.overflow=''; };
