@@ -68,8 +68,6 @@
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/cinematic.css">
     <link rel="stylesheet" href="css/premium.css">
-    <!-- MUST be last: overrides any CSS-based opacity:0 states that GSAP didn't animate -->
-    <link rel="stylesheet" href="css/visibility-fix.css">
 </head>
 <body>
 <!-- ============================================
@@ -187,21 +185,13 @@
         <div class="hero-right">
             <div class="hero-kicker">
                 <span class="hero-kicker__line"></span>
-                <span class="hero-kicker__text"><span id="typed-role"></span></span>
+                <span class="hero-kicker__text">Software Developer & Researcher</span>
             </div>
 
             <h1 class="hero-headline">
                 <span class="hero-headline__word" data-split>YOGESHWARAN</span>
                 <span class="hero-headline__word hero-headline__word--accent" data-split>M</span>
             </h1>
-
-            <!-- Scroll hint is fixed on larger screens and flows here on phones -->
-            <div class="hero-scroll-hint">
-                <div class="hero-scroll-hint__mouse">
-                    <div class="hero-scroll-hint__wheel"></div>
-                </div>
-                <span class="hero-scroll-hint__text">Scroll to begin the story</span>
-            </div>
 
             <p class="hero-tagline" data-lines>
                 Crafting efficient, scalable software solutions and researching AI-driven fraud detection. Computer Science Engineering student based in Chennai, India.
@@ -242,9 +232,15 @@
                     <span class="btn__text">Resume</span>
                 </a>
             </div>
+            <!-- Scroll hint inside hero-right so mobile shows it below CTAs -->
+            <div class="hero-scroll-hint">
+                <div class="hero-scroll-hint__mouse">
+                    <div class="hero-scroll-hint__wheel"></div>
+                </div>
+                <span class="hero-scroll-hint__text">Scroll to begin the story</span>
+            </div>
         </div>
     </div>
-
 </section>
 
 <!-- ============================================
@@ -533,11 +529,9 @@
                         <span class="badge badge--oral">Oral Presentation</span>
                     </div>
                 </div>
-                <div class="battle-featured__body">
-                    <h3 class="battle-featured__title">ICISD'26 Conference</h3>
-                    <p class="battle-featured__org">SRM Institute of Science & Technology</p>
-                    <p class="battle-featured__desc">International Conference on Intelligent Systems. Presented research paper on Fake Job Detection using ML & NLP. <strong>Published in proceedings.</strong></p>
-                </div>
+                <h3 class="battle-featured__title">ICISD'26 Conference</h3>
+                <p class="battle-featured__org">SRM Institute of Science & Technology</p>
+                <p class="battle-featured__desc">International Conference on Intelligent Systems. Presented research paper on Fake Job Detection using ML & NLP. <strong>Published in proceedings.</strong></p>
                 <div class="battle-featured__footer">
                     <span class="battle-featured__date">Apr 6-7, 2026</span>
                     <div class="battle-featured__actions">
@@ -974,12 +968,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-<!-- Vanilla Tilt: 3D card tilt on hover -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-<!-- Typed.js: typewriter effect -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js"></script>
 
 <script src="js/story.js"></script>
 </body>

@@ -59,18 +59,6 @@ function initLoading() {
    3. HERO ENTRY
    ════════════════════════════════════════════════════════ */
 function heroEntry() {
-    const scrollHint = $('.hero-scroll-hint');
-    const setScrollHintHidden = hidden => {
-        if (!scrollHint) return;
-        scrollHint.classList.toggle('is-scroll-hidden', hidden);
-        if (hidden) {
-            scrollHint.style.setProperty('display', 'none', 'important');
-        } else {
-            scrollHint.style.removeProperty('display');
-        }
-    };
-    const syncScrollHint = () => setScrollHintHidden(window.scrollY > 24);
-
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
     tl.fromTo('.hero-image__mask', { clipPath:'inset(100% 0 0 0)' }, { clipPath:'inset(0% 0 0 0)', duration:1.2, ease:'power4.inOut' }, 0)
         .fromTo('.hero-image__img',    { scale:1.1  },        { scale:1,        duration:1.6 }, 0)
@@ -106,13 +94,9 @@ function heroEntry() {
             start: '8% top',
             end:   '20% top',
             scrub: true,
-            onLeave: () => setScrollHintHidden(true),
-            onEnterBack: () => setScrollHintHidden(false)
+            onLeave: () => gsap.set('.hero-scroll-hint', { display:'none' })
         }
     });
-
-    window.addEventListener('scroll', syncScrollHint, { passive: true });
-    syncScrollHint();
 }
 
 /* ════════════════════════════════════════════════════════
@@ -141,34 +125,14 @@ function initNav() {
 
     const linkMap = {};
     $$('.nav-link[href^="#"]').forEach(l => { linkMap[l.getAttribute('href').slice(1)] = l; });
-    let lastActiveSection = null;
-    
     const obs = new IntersectionObserver(entries => {
-        // Filter only intersecting entries and pick the topmost one
-        const visibleEntries = entries.filter(e => e.isIntersecting).sort((a, b) => {
-            return a.boundingClientRect.top - b.boundingClientRect.top;
+        entries.forEach(e => {
+            if (!e.isIntersecting) return;
+            $$('.nav-link').forEach(l => l.classList.remove('is-active'));
+            linkMap[e.target.id]?.classList.add('is-active');
         });
-        
-        if (visibleEntries.length > 0) {
-            const topEntry = visibleEntries[0];
-            const sectionId = topEntry.target.id;
-            
-            // Only update if section changed
-            if (lastActiveSection !== sectionId) {
-                lastActiveSection = sectionId;
-                $$('.nav-link').forEach(l => l.classList.remove('is-active'));
-                linkMap[sectionId]?.classList.add('is-active');
-            }
-        }
-    }, { threshold:[0.05, 0.1, 0.35, 0.5] });
+    }, { threshold:.35 });
     $$('.story-section[id]').forEach(s => obs.observe(s));
-
-    // Continuous scroll listener to refresh ScrollTrigger for smooth animations
-    window.addEventListener('scroll', () => {
-        if (typeof ScrollTrigger !== 'undefined') {
-            ScrollTrigger.refresh();
-        }
-    }, { passive: true });
 
     const openMenu  = () => { menu?.classList.add('is-open');    toggle?.classList.add('is-open');    document.body.style.overflow='hidden'; };
     const closeMenu = () => { menu?.classList.remove('is-open'); toggle?.classList.remove('is-open'); document.body.style.overflow=''; };
@@ -194,14 +158,6 @@ function initScrollScenes() {
     const pow  = 'power3.out';
     const expo = 'expo.out';
     const PO   = 'play none none none';
-
-    /* Global ScrollTrigger defaults — once:true ensures every animation
-       fires exactly once even on fast scroll; no element stays at opacity:0 */
-    ScrollTrigger.defaults({
-        once: true,
-        fastScrollEnd: true,
-        preventOverlaps: true,
-    });
 
     /* ── Section headers: wipe + eyebrow decode ── */
     $$('.section-title').forEach(el =>
@@ -544,62 +500,18 @@ function initSpotlight() {
 }
 
 /* ════════════════════════════════════════════════════════
-   14. CARD TILT (VanillaTilt)
+   14. CARD TILT
    ════════════════════════════════════════════════════════ */
 function initTilt() {
     if (mob()) return;
-    if (typeof VanillaTilt === 'undefined') return;
-
-    /* Origin cards – subtle 3D tilt */
-    VanillaTilt.init(document.querySelectorAll('.origin-card'), {
-        max: 10,
-        speed: 600,
-        glare: false,
-        perspective: 900,
-        scale: 1.03,
-        gyroscope: false,
-    });
-
-    /* Project cards */
-    VanillaTilt.init(document.querySelectorAll('.project-card'), {
-        max: 8,
-        speed: 500,
-        glare: false,
-        perspective: 1000,
-        scale: 1.025,
-        gyroscope: false,
-    });
-
-    /* Battle cards */
-    VanillaTilt.init(document.querySelectorAll('.battle-card'), {
-        max: 6,
-        speed: 500,
-        glare: false,
-        perspective: 1000,
-        scale: 1.02,
-        gyroscope: false,
-    });
-}
-
-/* ════════════════════════════════════════════════════════
-   14b. TYPED.JS – Hero role typewriter
-   ════════════════════════════════════════════════════════ */
-function initTyped() {
-    const el = document.getElementById('typed-role');
-    if (!el || typeof Typed === 'undefined') return;
-    new Typed(el, {
-        strings: [
-            'Software Developer',
-            'ML & NLP Researcher',
-            'Full Stack Engineer',
-            'Spring Boot Architect',
-            'Open Source Builder',
-        ],
-        typeSpeed: 52,
-        backSpeed: 28,
-        backDelay: 2200,
-        loop: true,
-        smartBackspace: true,
+    $$('.origin-card,.project-card,.battle-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const r = card.getBoundingClientRect();
+            const x = ((e.clientX-r.left)/r.width -.5)*10;
+            const y = ((e.clientY-r.top)/r.height-.5)*-10;
+            card.style.transform = `perspective(700px) rotateY(${x}deg) rotateX(${y}deg) scale(1.025)`;
+        }, { passive:true });
+        card.addEventListener('mouseleave', () => { card.style.transform=''; }, { passive:true });
     });
 }
 
@@ -643,74 +555,10 @@ function initModal() {
 }
 
 /* ════════════════════════════════════════════════════════
-   17. MAGNETIC BUTTONS
-   ════════════════════════════════════════════════════════ */
-function initMagneticButtons() {
-    if (mob()) return;
-    $$('.btn--primary, .btn--ghost, .btn--accent').forEach(btn => {
-        btn.addEventListener('mousemove', e => {
-            const r = btn.getBoundingClientRect();
-            const cx = r.left + r.width / 2;
-            const cy = r.top + r.height / 2;
-            const dx = (e.clientX - cx) * 0.28;
-            const dy = (e.clientY - cy) * 0.28;
-            gsap.to(btn, { x: dx, y: dy, duration: 0.35, ease: 'power2.out' });
-        });
-        btn.addEventListener('mouseleave', () => {
-            gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.5)' });
-        });
-    });
-}
-
-/* ════════════════════════════════════════════════════════
-   18. FLOATING HERO BADGE
-   ════════════════════════════════════════════════════════ */
-function initFloatingElements() {
-    /* Hero badge gentle float */
-    gsap.to('.hero-badge', {
-        y: -8,
-        duration: 2.4,
-        ease: 'sine.inOut',
-        yoyo: true,
-        repeat: -1,
-    });
-
-    /* Contact card mouse ripple */
-    $$('.contact-card').forEach(card => {
-        card.addEventListener('mousemove', e => {
-            const r = card.getBoundingClientRect();
-            card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
-            card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
-        }, { passive: true });
-    });
-
-    /* Narrative block stagger reveal (only adds a class, never sets opacity:0) */
-    $$('.narrative-block').forEach((block, i) => {
-        ScrollTrigger.create({
-            trigger: block,
-            start: 'top 88%',
-            onEnter: () => {
-                setTimeout(() => block.classList.add('is-visible'), i * 120);
-            },
-        });
-    });
-}
-
-/* ════════════════════════════════════════════════════════
-   19. CARD ENTRANCES
-   GSAP (initScrollScenes) owns all opacity/transform animations.
-   This function only ensures z-index stacking is correct on hover.
-   ════════════════════════════════════════════════════════ */
-function initCardEntrances() {
-    /* Nothing to do — GSAP handles entrance, CSS handles hover.
-       Left as a named function for clarity and future use. */
-}
-
-/* ════════════════════════════════════════════════════════
    INIT
    ════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
-    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, TextPlugin);
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
     initCursor();
     initParticles();
@@ -723,35 +571,22 @@ document.addEventListener('DOMContentLoaded', () => {
     initMarquee();
     initChapterFlash();
     initTilt();
-    initTyped();
     initGlitch();
     initSpotlight();
     initModal();
-    initMagneticButtons();
-    initFloatingElements();
-    initCardEntrances();
 
     document.fonts.ready.then(() => ScrollTrigger.refresh());
     let rt;
     window.addEventListener('resize', () => { clearTimeout(rt); rt=setTimeout(()=>ScrollTrigger.refresh(),300); }, { passive:true });
 
-    /* Hard fallback at 1.2s — catches any element GSAP set to opacity:0 OR
-       clip-path-clipped (section-title uses clipPath with opacity:1 as start state) */
+    /* Hard fallback at 3s */
     setTimeout(() => {
         document.querySelectorAll('section *').forEach(el => {
             try {
-                const s = getComputedStyle(el);
-                const hidden =
-                    s.opacity === '0' ||
-                    el.style.opacity === '0' ||
-                    (el.style.clipPath && el.style.clipPath !== 'none' && el.style.clipPath !== '');
-                if (hidden && el.offsetParent !== null) {
-                    el.style.opacity   = '1';
-                    el.style.transform = 'none';
-                    el.style.clipPath  = 'none';
+                if (getComputedStyle(el).opacity === '0' && el.offsetParent !== null) {
+                    el.style.opacity='1'; el.style.transform='none'; el.style.clipPath='none';
                 }
             } catch(e) {}
         });
-        ScrollTrigger.refresh();
-    }, 1200);
+    }, 3000);
 });
