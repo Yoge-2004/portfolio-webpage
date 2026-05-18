@@ -413,10 +413,7 @@ body {
     }
 
     .hero-scroll-hint {
-        position: static !important;
-        transform: none !important;
-        width: max-content;
-        max-width: calc(100vw - 32px);
-        margin: 8px auto 20px !important;
+        padding: 6px 10px !important;
+        gap: 6px !important;
     }
 }

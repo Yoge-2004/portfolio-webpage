@@ -277,127 +277,37 @@
 }
 
 /* ── Hero scroll hint: always visible at hero bottom ─────── */
-.hero-scroll-hint {
-    position: absolute;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    pointer-events: none;
-}
-/* Ensure hero section is relative so absolute child works */
+
+/* ══════════════════════════════════════════════════════════
+   CONSOLIDATED OVERRIDES  ·  Single source of truth
+   Replaces all previous PATCH v3–v6 + audit batches
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Scroll hint — ALWAYS fixed at viewport bottom ────────
+   The element lives outside .hero-content in HTML so it is
+   never clipped by the hero-content overflow:hidden.
+   position:fixed keeps it in the viewport regardless of
+   how tall the hero stacks on any screen size.
+   GSAP's heroEntry fades it in; ScrollTrigger fades it out. */
 .hero-section { position: relative; }
+.hero-scroll-hint {
+    position: fixed !important;
+    bottom: 28px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 6 !important;      /* above content, below nav (1000) */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 10px !important;
+    pointer-events: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+/* Never use position:relative/static — that puts it in the
+   document flow and it appears on EVERY section during scroll */
 
-/* On mobile the hero-content is single-column and tall — push hint below metrics not below fold */
-@media (max-width: 768px) {
-    .hero-scroll-hint {
-        position: relative;
-        bottom: auto;
-        left: auto;
-        transform: none;
-        margin: 0 auto;
-        padding-top: 24px;
-        padding-bottom: 20px;
-        order: 99; /* last flex child */
-    }
-    /* hero-content becomes flex column — hint needs to be inside it */
-}
-
-/* ── Project grid: no sideways scroll on mobile ─────────── */
-.project-grid {
-    overflow: visible !important;
-    overflow-x: visible !important;
-}
-@media (max-width: 768px) {
-    .project-grid {
-        grid-template-columns: 1fr !important;
-        gap: 18px;
-    }
-    .project-card { width: 100% !important; min-width: 0 !important; }
-}
-
-/* ── Credentials: prevent overflow on mobile ─────────────── */
-.credentials-section { overflow: hidden; }
-.credentials-layout  { overflow: hidden; }
-@media (max-width: 1024px) {
-    .credentials-layout { grid-template-columns: 1fr !important; }
-    .skills-panel, .certs-panel {
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-        min-width: 0 !important;
-    }
-}
-@media (max-width: 768px) {
-    .skill-row {
-        grid-template-columns: minmax(0,100px) 1fr 38px !important;
-        gap: 10px;
-    }
-    .skill-row > span:first-child { min-width: 0; font-size: 12px; }
-    .cert-item { padding: 14px 14px; gap: 10px; }
-    .cert-item__info h4 { font-size: 12px; white-space: normal; }
-}
-
-/* ── Credentials: more breathing room ───────────────────── */
-.skills-panel, .certs-panel { padding: 40px 36px; }
-.skill-group  { margin-bottom: 36px; }
-.skill-group__items { gap: 18px; }
-.cert-item    { padding: 18px 20px; }
-.certs-list   { gap: 12px; }
-@media (max-width: 1024px) {
-    .skills-panel, .certs-panel { padding: 28px 24px; }
-}
-@media (max-width: 768px) {
-    .skills-panel, .certs-panel { padding: 22px 18px; }
-    .skill-group  { margin-bottom: 24px; }
-    .skill-group__items { gap: 14px; }
-}
-
-/* ── Prevent ANY horizontal overflow sitewide ────────────── */
-.container, .story-section, .origin-layout,
-.battles-layout, .credentials-layout, .quests-showcase {
-    max-width: 100%;
-    overflow-x: hidden;
-}
-
-/* ── Mobile: section min-height — no huge blank gaps ─────── */
-@media (max-width: 768px) {
-    .story-section { min-height: auto !important; }
-    .hero-section  { min-height: 100svh !important; }
-    .origin-layout, .journey-section .timeline { overflow-x: hidden; }
-    .timeline-entry__card { box-sizing: border-box; max-width: 100%; }
-}
-
-/* ── Mobile animations — more dramatic to match desktop ──── */
-@media (max-width: 768px) {
-    /* Larger translate distances feel more cinematic on mobile */
-    .reveal-up   { transform: translateY(55px) !important; }
-    .reveal-left { transform: translateX(-45px) !important; }
-}
-
-/* ── Origin narrative: text-highlight and text-accent ───── */
-/* These classes must render styled, not as raw HTML */
-.narrative-text .text-highlight,
-.narrative-text strong.text-highlight { color: #fff; font-weight: 700; }
-.narrative-text .text-accent { color: #66e7f2; font-weight: 500; }
-
-/* ── Battle featured actions: wrap on small screens ─────── */
-@media (max-width: 600px) {
-    .battle-featured__actions { flex-direction: column; }
-    .battle-featured__actions .btn { width: 100%; justify-content: center; }
-    .battle-featured__footer { flex-direction: column; gap: 12px; }
-}
-
-/* ── Bottom nav safe area (iPhone home bar) ──────────────── */
-@media (max-width: 768px) {
-    .site-footer { padding-bottom: calc(36px + env(safe-area-inset-bottom, 0px)); }
-}
-
-/* ── Scroll hint text spacing ────────────────────────────── */
+/* ── Scroll hint text ──────────────────────────────────── */
 .hero-scroll-hint__text {
     font-family: var(--font-mono);
     font-size: 10px;
@@ -407,703 +317,217 @@
     white-space: nowrap;
 }
 
-/* ── Mobile hero: metrics 2×2 grid ──────────────────────── */
-@media (max-width: 768px) {
-    .hero-metrics {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        gap: 1px !important;
-        border: 1px solid rgba(255,255,255,.07) !important;
-        border-radius: 12px;
-        overflow: hidden;
-        max-width: 300px;
-        margin: 0 auto !important;
-    }
-    .hero-metric {
-        padding: 18px 12px !important;
-        background: rgba(255,255,255,.02);
-        border-right: 1px solid rgba(255,255,255,.05);
-        border-bottom: 1px solid rgba(255,255,255,.05);
-        text-align: center;
-    }
-    .hero-metric:nth-child(2n)  { border-right: none !important; }
-    .hero-metric:nth-last-child(-n+3) { border-bottom: none; }
-    .hero-metric__divider { display: none !important; }
-    .hero-metric__number  { font-size: 2rem !important; }
-    .hero-metric__label   { font-size: 9px !important; letter-spacing: 1px; }
-}
-
-/* ══════════════════════════════════════════════════════════
-   PATCH v4  —  Screenshot-verified fixes
-   ══════════════════════════════════════════════════════════ */
-
-/* ── Credentials: full width, generous space ────────────── */
-.credentials-section .container {
-    max-width: 1200px;
-}
-.credentials-layout {
-    grid-template-columns: 1.1fr 1fr;
-    gap: 40px;
-    align-items: start;
-    /* Remove any max-width constraint causing small panels */
-    width: 100%;
-}
-.skills-panel {
-    padding: 52px 48px !important;
-    min-height: 560px;
-}
-.certs-panel {
-    padding: 52px 48px !important;
-}
-.skill-group {
-    margin-bottom: 44px !important;
-}
-.skill-group:last-child { margin-bottom: 0 !important; }
-.skill-group__header {
-    font-size: 15px !important;
-    margin-bottom: 22px !important;
-    padding-bottom: 12px;
-    border-bottom: 1px solid rgba(255,255,255,.06);
-}
-.skill-group__icon { font-size: 20px !important; }
-.skill-group__items { gap: 20px !important; }
-.skill-row {
-    grid-template-columns: 120px 1fr 48px !important;
-    gap: 16px !important;
-}
-.skill-row > span:first-child {
-    font-size: 14px !important;
-    color: var(--text-secondary) !important;
-}
-.skill-bar { height: 8px !important; }
-.skill-row__pct { font-size: 12px !important; }
-.panel-title {
-    font-size: 1.8rem !important;
-    margin-bottom: 36px !important;
-    letter-spacing: -.01em;
-}
-.certs-list { gap: 14px !important; }
-.cert-item {
-    padding: 20px 24px !important;
-    gap: 16px !important;
-    border-radius: 14px !important;
-}
-.cert-item__emoji { font-size: 26px !important; width: 34px !important; }
-.cert-item__info h4 { font-size: 14px !important; margin-bottom: 4px !important; }
-.cert-item__info p  { font-size: 12px !important; }
-.cert-item__actions a {
-    width: 34px !important; height: 34px !important;
-    font-size: 14px !important; border-radius: 9px !important;
-}
-
-/* ── Result cards: perfect height alignment ──────────────── */
-.result-cards { align-items: stretch; }
+/* ── Result cards — uniform structure ──────────────────── */
 .result-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 200px;
+}
+.result-card__number { line-height: 1; margin-bottom: 0; }
+.result-card__unit   { line-height: 1.2; min-height: 1.4em; }
+.result-card__decimal{ line-height: 1.2; min-height: 1.4em; }
+.result-card__label  { margin-top: auto; padding-top: 8px; }
+.result-card__bar    { width: 100%; margin-top: 12px; overflow: hidden; }
+/* GSAP drives bar width via inline style — no CSS width override */
+
+/* ── Mobile menu: scrollable, no overflow issues ────────── */
+.mobile-menu__panel {
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+    gap: 0;
+}
+.mobile-menu__links { overflow-y: visible; flex-shrink: 0; }
+.mobile-menu__panel::before,
+.mobile-menu__panel::after { display: none; }
+.mobile-menu__social {
+    justify-content: center !important;
+    margin-top: auto;
+    flex-shrink: 0;
+}
+
+/* ── Narrative text classes ─────────────────────────────── */
+.narrative-text .text-highlight,
+.narrative-text strong.text-highlight { color: #fff; font-weight: 700; }
+.narrative-text .text-accent          { color: #66e7f2; font-weight: 500; }
+
+/* ── Project grid — card hover shadows need room ────────── */
+.quests-section,
+.quests-section .container,
+.quests-showcase { overflow: visible !important; }
+.project-grid {
+    overflow: visible !important;
+    padding: 8px 8px 24px !important;
+    margin: 0 -8px !important;
+    box-sizing: border-box !important;
+}
+@media (max-width: 768px) {
+    .project-grid {
+        grid-template-columns: 1fr !important;
+        padding: 4px 4px 20px !important;
+        margin: 0 -4px !important;
+    }
+    .project-card { width: 100% !important; min-width: 0 !important; }
+}
+
+/* ── Battles layout ─────────────────────────────────────── */
+.battles-section,
+.battles-section .container,
+.battles-layout,
+.battle-grid { overflow: visible !important; }
+
+/* Desktop: featured card full width, hackathon cards 2×2 */
+.battles-layout {
     display: flex !important;
     flex-direction: column !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    padding: 36px 28px 28px !important;
-    min-height: 220px !important;
+    align-items: stretch !important;
+    gap: clamp(24px, 2.5vw, 40px) !important;
 }
-.result-card__number {
-    font-size: 3.6rem !important;
-    line-height: 1 !important;
-    margin-bottom: 0 !important;
-}
-/* All cards have: number + unit row (height 1.8rem) + decimal row (height 1.8rem) + label + bar */
-.result-card__unit,
-.result-card__decimal {
-    font-size: 1.8rem !important;
-    line-height: 1 !important;
-    height: 2rem !important;   /* fixed height so ALL cards have same structure */
-    display: flex !important;
-    align-items: center !important;
-    margin-bottom: 0 !important;
-}
-.result-card__label {
-    font-size: 11px !important;
-    letter-spacing: 1.5px !important;
-    margin-top: 16px !important;
-    margin-bottom: 0 !important;
-    flex: 1 !important;        /* pushes bar to bottom */
-    display: flex !important;
-    align-items: flex-end !important;
-}
-.result-card__bar {
-    width: 100% !important;
-    margin-top: 12px !important;
-    height: 5px !important;
-    flex-shrink: 0 !important;
-}
-
-/* ── Discovery: sub-blocks force visible (fallback) ─────── */
-.abstract-block, .keywords-block, .results-block,
-.authors-block, .project-link-block, .paper-actions-row,
-.flags-row, .research-paper__venue {
-    opacity: 1 !important;
-    transform: none !important;
-}
-
-/* ── Mobile nav overlap fix on credentials ───────────────── */
-@media (max-width: 768px) {
-    .credentials-section { padding-top: 100px; }
-    .skills-panel { padding: 28px 20px !important; min-height: auto !important; }
-    .certs-panel  { padding: 28px 20px !important; }
-    .skill-row { grid-template-columns: 100px 1fr 36px !important; gap: 10px !important; }
-    .skill-row > span:first-child { font-size: 13px !important; }
-    .cert-item { padding: 16px 16px !important; gap: 12px !important; }
-    .panel-title { font-size: 1.5rem !important; margin-bottom: 24px !important; }
-}
-
-/* ── Mobile: quests project card visual height ───────────── */
-@media (max-width: 768px) {
-    .project-hero__visual { min-height: 160px !important; }
-    .project-card__visual { height: 120px !important; }
-}
-
-/* ── CINEMATIC ENHANCEMENTS ──────────────────────────────── */
-
-/* Floating glow rings on skill bars */
-.skill-bar__fill {
+.battle-featured {
     position: relative !important;
-    overflow: visible !important;
+    top: auto !important;
+    width: 100% !important;
+    align-self: stretch !important;
+    border-radius: 20px !important;
 }
-.skill-bar__fill::after {
-    content: '' !important;
-    position: absolute !important;
-    right: -3px !important; top: 50% !important;
-    transform: translateY(-50%) !important;
-    width: 12px !important; height: 12px !important;
-    border-radius: 50% !important;
-    background: #66e7f2 !important;
-    box-shadow: 0 0 8px #66e7f2, 0 0 18px rgba(102,231,242,.6) !important;
-    transition: opacity .3s !important;
+.battle-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: clamp(16px, 1.6vw, 24px) !important;
+    width: 100% !important;
+    padding: 8px 8px 24px !important;
+    margin: 0 -8px !important;
+    box-sizing: border-box !important;
+}
+.battle-card {
+    display: flex !important;
+    flex-direction: column !important;
+    min-width: 0 !important;
+    isolation: isolate !important;
+}
+.battle-card__footer { margin-top: auto !important; }
+
+@media (max-width: 768px) {
+    .battle-grid {
+        grid-template-columns: 1fr !important;
+        padding: 4px 4px 20px !important;
+        margin: 0 -4px !important;
+    }
+    .battle-featured__actions {
+        flex-wrap: wrap !important;
+    }
+    .battle-featured__actions .btn {
+        flex: 1 1 auto !important;
+        min-width: 100px !important;
+    }
 }
 
-/* Cert items: hover glow sweep */
+/* ── Card isolation — hover never overlaps siblings ─────── */
+.origin-card, .project-card, .battle-card,
+.timeline-entry__card, .cert-item,
+.contact-card, .result-card {
+    isolation: isolate;
+}
+.origin-card:hover, .project-card:hover,
+.battle-card:hover, .cert-item:hover,
+.contact-card:hover { z-index: 10 !important; }
+
+/* ── Credentials ────────────────────────────────────────── */
+.credentials-section { position: relative; overflow: hidden; }
+.credentials-layout {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 40px;
+    align-items: stretch !important;
+}
+.skills-panel, .certs-panel {
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+}
+.certs-list {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+}
+.cert-item {
+    position: relative;
+    overflow: hidden;
+    border-left: 3px solid rgba(102,231,242,.2) !important;
+}
+.cert-item:hover { border-left-color: #66e7f2 !important; }
+.cert-item__info h4 {
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    line-height: 1.4 !important;
+}
+
+/* Skill bar glow dot — desktop only */
+.skill-bar { overflow: visible; position: relative; }
+.skill-bar__fill { position: relative; overflow: visible; }
+@media (min-width: 769px) {
+    .skill-bar__fill::after {
+        content: '';
+        position: absolute;
+        right: -5px; top: 50%;
+        transform: translateY(-50%);
+        width: 12px; height: 12px;
+        border-radius: 50%;
+        background: #66e7f2;
+        box-shadow: 0 0 8px #66e7f2, 0 0 16px rgba(102,231,242,.6);
+        animation: dotPulse 2s ease-in-out infinite;
+    }
+}
+@keyframes dotPulse {
+    0%, 100% { opacity: 1; transform: translateY(-50%) scale(1); }
+    50%       { opacity: .5; transform: translateY(-50%) scale(.7); }
+}
+
+/* Credentials grid lines background */
+.credentials-section::before {
+    content: '';
+    position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+        linear-gradient(rgba(102,231,242,.022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(102,231,242,.022) 1px, transparent 1px);
+    background-size: 64px 64px;
+}
+.credentials-section .container { position: relative; z-index: 1; }
+
+/* Cert item sweep animation */
 .cert-item::before {
     content: '';
     position: absolute; inset: 0; border-radius: inherit;
-    background: linear-gradient(90deg, transparent 0%, rgba(102,231,242,.04) 50%, transparent 100%);
+    background: linear-gradient(90deg, transparent, rgba(102,231,242,.04), transparent);
     transform: translateX(-100%);
     transition: transform .55s ease;
     pointer-events: none;
 }
 .cert-item:hover::before { transform: translateX(100%); }
-.cert-item { position: relative; overflow: hidden; }
 
-/* Section background grid lines */
-.credentials-section::before {
-    content: '';
-    position: absolute; inset: 0; z-index: 0; pointer-events: none;
-    background-image:
-            linear-gradient(rgba(102,231,242,.025) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(102,231,242,.025) 1px, transparent 1px);
-    background-size: 60px 60px;
-}
-.credentials-section .container { position: relative; z-index: 1; }
-
-/* ── Journey markers: glowing rings ─────────────────────── */
-.timeline-entry__core--active {
-    box-shadow: 0 0 0 4px rgba(102,231,242,.2), 0 0 20px rgba(102,231,242,.4) !important;
-}
-
-/* ══════════════════════════════════════════════════════════
-   PATCH v5  —  Credentials max-width fill + nav scroll offset
-   ══════════════════════════════════════════════════════════ */
-
-/* Credentials: remove inner container constraint so panels fill full width */
-.credentials-section .container { max-width: 1320px; padding: 0 40px; }
-@media (min-width: 1025px) {
-    .credentials-layout {
-        grid-template-columns: 1.15fr 1fr !important;
-        gap: 36px !important;
+@media (max-width: 1024px) {
+    .credentials-layout { grid-template-columns: 1fr; gap: 24px; }
+    .skills-panel, .certs-panel {
+        width: 100% !important; max-width: 100% !important;
+        min-width: 0 !important; box-sizing: border-box !important;
     }
 }
-
-/* Section scroll-margin so nav doesn't cover title on jump */
-.story-section[id] { scroll-margin-top: 90px; }
-
-/* Credentials background grid */
-.credentials-section { position: relative; }
-
-/* ── Cinematic: animated gradient border on skills panel ── */
-.skills-panel {
-    position: relative;
-    background: linear-gradient(160deg, rgba(13,21,32,.95), rgba(8,15,24,.98)) !important;
-}
-.skills-panel::before {
-    content: '';
-    position: absolute; inset: 0;
-    border-radius: inherit;
-    background: linear-gradient(135deg, rgba(102,231,242,.12) 0%, transparent 50%, rgba(154,140,255,.08) 100%);
-    pointer-events: none;
-}
-
-/* ── Cinematic: cert items with category color bars ─────── */
-.cert-item {
-    border-left: 3px solid rgba(102,231,242,.25) !important;
-    transition: border-color .35s, transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s !important;
-}
-.cert-item:hover {
-    border-left-color: #66e7f2 !important;
-    box-shadow: 0 8px 30px rgba(102,231,242,.08), 4px 0 0 rgba(102,231,242,.2) !important;
-    transform: translateX(6px) !important;
-}
-
-/* ── Skill group: progress track glow ───────────────────── */
-.skill-bar {
-    position: relative;
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,.04) !important;
-}
-
-/* ── Floating number animation on result cards ───────────── */
-.result-card:hover .result-card__number {
-    text-shadow: 0 0 30px rgba(102,231,242,.5), 0 0 60px rgba(102,231,242,.2);
-    transition: text-shadow .3s;
-}
-
-/* ── Discovery: research paper wider on large screens ────── */
-@media (min-width: 1280px) {
-    .discovery-section .container { max-width: 1100px; }
-}
-
-/* ── Mobile: section title scroll margin ─────────────────── */
 @media (max-width: 768px) {
-    .story-section[id] { scroll-margin-top: 72px; }
-    .credentials-section .container { padding: 0 16px; }
-    .credentials-layout { grid-template-columns: 1fr !important; gap: 20px !important; }
-}
-
-/* ══════════════════════════════════════════════════════════
-   PATCH v6  —  Nav overlap fixes + cert text + final polish
-   ══════════════════════════════════════════════════════════ */
-
-/* Scroll margin on ALL sections so nav pill doesn't cover heading */
-.story-section { scroll-margin-top: 88px; }
-
-/* Mobile: cert item text wrap nicely */
-@media (max-width: 768px) {
-    .cert-item__info h4 {
-        white-space: normal !important;
-        overflow: visible !important;
-        text-overflow: unset !important;
-        line-height: 1.4 !important;
-    }
+    .credentials-section { padding-top: 100px !important; }
+    .skill-bar__fill::after { display: none; }
+    .cert-item__info h4 { font-size: 12px !important; }
     .cert-item { align-items: flex-start !important; }
-    .cert-item__emoji { padding-top: 2px; }
-
-    /* Credentials section: extra top padding so nav clears */
-    .credentials-section { padding-top: 110px !important; }
-
-    /* Skills bar glow dot: hide on mobile (too small) */
-    .skill-bar__fill::after { display: none !important; }
-}
-
-/* Desktop credentials: expand panels to use available space better */
-@media (min-width: 1025px) {
-    .credentials-section .container { max-width: 1260px; }
-    .skills-panel { padding: 56px 52px !important; }
-    .certs-panel  { padding: 56px 52px !important; }
-}
-
-/* Animated glow dot at end of skill bar — desktop only */
-@media (min-width: 769px) {
-    .skill-bar { overflow: visible !important; position: relative; }
-    .skill-bar__fill::after {
-        content: '' !important;
-        position: absolute !important;
-        right: -4px !important; top: 50% !important;
-        transform: translateY(-50%) !important;
-        width: 14px !important; height: 14px !important;
-        border-radius: 50% !important;
-        background: #66e7f2 !important;
-        box-shadow: 0 0 10px #66e7f2, 0 0 22px rgba(102,231,242,.7) !important;
-        display: block !important;
-        animation: dotPulse 2s ease-in-out infinite !important;
+    .skill-row {
+        grid-template-columns: minmax(0, 92px) minmax(0, 1fr) 34px !important;
+        gap: 8px !important;
     }
 }
 
-/* Cert items: left accent color bar + breathing gap */
-.cert-item + .cert-item { margin-top: 0; }
-
-/* Result cards: equal flex heights for aligned bars */
-.result-cards { align-items: stretch; }
-.result-card {
-    flex: 1;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-}
-.result-card__bar { margin-top: auto !important; padding-top: 14px !important; width: 100% !important; }
-
-/* Discovery section: slightly more breathing room */
-.research-paper { padding: 56px !important; }
-@media (max-width: 768px) {
-    .research-paper { padding: 24px !important; }
-}
-
-/* Hero section: content doesn't hide behind nav on page load */
-.hero-content { padding-top: 100px; }
-@media (max-width: 768px) { .hero-content { padding-top: 80px; } }
-
-/* Make project hero visual fill more space */
-.project-hero__visual { background: linear-gradient(135deg,rgba(0,229,255,.06) 0%,rgba(168,85,247,.06) 100%) !important; }
-
-/* Battle featured card: cinematic accent corner */
-.battle-featured { border-radius: 20px !important; }
-
-/* ══════════════════════════════════════════════════════════
-   LARGE DISPLAY SCALING  —  1440p · 2K · 4K · Ultrawide
-   Strategy: fluid container + clamp() type + wider grids
-   ══════════════════════════════════════════════════════════ */
-
-/* ── Fluid container that grows with the screen ─────────── */
-.container {
-    max-width: min(1400px, 92vw) !important;
-    padding: 0 clamp(24px, 4vw, 80px) !important;
-}
-
-/* ── 1440p (1440–1920px) ─────────────────────────────────── */
-@media (min-width: 1440px) {
-    .container { max-width: min(1440px, 90vw) !important; }
-
-    /* Hero */
-    .hero-content {
-        max-width: min(1500px, 92vw) !important;
-        gap: clamp(60px, 6vw, 100px) !important;
-        padding-left:  clamp(40px, 5vw, 80px) !important;
-        padding-right: clamp(40px, 5vw, 80px) !important;
-    }
-    .hero-image__frame { width: clamp(320px, 26vw, 440px) !important; height: auto !important; aspect-ratio: 360/460; }
-    .hero-headline     { font-size: clamp(4rem, 5.5vw, 5.5rem) !important; }
-    .hero-metric__number { font-size: clamp(2.6rem, 3.2vw, 3.5rem) !important; }
-
-    /* Sections */
-    .section-title    { font-size: clamp(3rem, 4.5vw, 5rem) !important; }
-    .section-subtitle { font-size: clamp(1rem, 1.2vw, 1.3rem) !important; }
-
-    /* Origin */
-    .origin-layout { gap: clamp(48px, 7vw, 120px) !important; }
-    .narrative-text { font-size: clamp(1rem, 1.1vw, 1.2rem) !important; line-height: 1.9 !important; }
-
-    /* Credentials */
-    .credentials-section .container { max-width: min(1600px, 90vw) !important; }
-    .credentials-layout { grid-template-columns: 1.2fr 1fr !important; gap: 48px !important; }
-    .skills-panel, .certs-panel { padding: 56px !important; }
-    .skill-row { grid-template-columns: 130px 1fr 52px !important; }
-
-    /* Journey */
-    .timeline { max-width: min(1100px, 85vw) !important; }
-
-    /* Quests */
-    .project-hero__name { font-size: clamp(2rem, 2.5vw, 2.8rem) !important; }
-
-    /* Discovery */
-    .research-paper { padding: 64px !important; }
-    .research-paper__title { font-size: clamp(1.6rem, 2vw, 2.2rem) !important; }
-}
-
-/* ── 1920p (1920–2560px) ─────────────────────────────────── */
-@media (min-width: 1920px) {
-    :root { font-size: 18px; }          /* Base scale-up — everything proportionally larger */
-
-    .container { max-width: min(1760px, 88vw) !important; }
-
-    .main-nav  {
-        left: clamp(24px, 3vw, 60px) !important;
-        right: clamp(24px, 3vw, 60px) !important;
-        height: 72px !important;
-        padding: 0 clamp(28px, 2.5vw, 52px) !important;
-    }
-    .nav-logo  { font-size: 16px !important; }
-    .nav-link  { font-size: 12px !important; gap: 8px !important; }
-    .nav-links { gap: 36px !important; }
-
-    /* Hero — fill the screen properly */
-    .hero-content {
-        max-width: min(1800px, 88vw) !important;
-        grid-template-columns: 1fr 1.3fr !important;
-        gap: clamp(80px, 7vw, 140px) !important;
-        padding: clamp(120px, 9vw, 160px) clamp(48px, 5vw, 100px) clamp(80px, 7vw, 120px) !important;
-    }
-    .hero-image__frame {
-        width: clamp(380px, 28vw, 560px) !important;
-        aspect-ratio: 360/460;
-        height: auto !important;
-    }
-    .hero-headline     { font-size: clamp(4.5rem, 5.8vw, 6.5rem) !important; }
-    .hero-tagline      { font-size: clamp(1.1rem, 1.2vw, 1.5rem) !important; max-width: 580px !important; }
-    .hero-metric__number { font-size: clamp(3rem, 3.5vw, 4rem) !important; }
-    .hero-metric__label  { font-size: 12px !important; }
-
-    /* Typography scale */
-    .section-title     { font-size: clamp(3.5rem, 5vw, 6rem) !important; }
-    .section-eyebrow   { font-size: 13px !important; }
-    .section-subtitle  { font-size: clamp(1.1rem, 1.3vw, 1.4rem) !important; }
-
-    /* Origin */
-    .origin-layout     { gap: clamp(80px, 8vw, 140px) !important; }
-    .narrative-text    { font-size: clamp(1.05rem, 1.1vw, 1.3rem) !important; }
-    .origin-card       { padding: 40px !important; }
-    .origin-card__title { font-size: 18px !important; }
-
-    /* Journey */
-    .timeline          { max-width: min(1200px, 80vw) !important; }
-    .timeline-entry__card { padding: 40px !important; }
-    .timeline-entry__title { font-size: 22px !important; }
-
-    /* Quests */
-    .project-hero__content { padding: 64px !important; }
-    .project-hero__name    { font-size: clamp(2.2rem, 2.8vw, 3.2rem) !important; }
-    .project-hero__body    { font-size: 17px !important; }
-
-    /* Battles */
-    .battle-featured   { padding: 52px !important; }
-    .battle-featured__title { font-size: 2.4rem !important; }
-
-    /* Discovery */
-    .research-paper    { padding: 72px !important; }
-    .research-paper__title { font-size: clamp(1.8rem, 2.2vw, 2.6rem) !important; }
-    .result-card__number   { font-size: 4.2rem !important; }
-
-    /* Credentials */
-    .credentials-section .container { max-width: min(1800px, 88vw) !important; }
-    .credentials-layout { grid-template-columns: 1.2fr 1fr !important; gap: 56px !important; }
-    .skills-panel, .certs-panel { padding: 68px 60px !important; }
-    .panel-title       { font-size: 2.2rem !important; }
-    .skill-row         { grid-template-columns: 150px 1fr 56px !important; gap: 20px !important; }
-    .skill-bar         { height: 10px !important; }
-    .skill-group__header { font-size: 16px !important; }
-    .skill-row > span:first-child { font-size: 15px !important; }
-    .skill-row__pct    { font-size: 13px !important; }
-    .cert-item         { padding: 24px 28px !important; }
-    .cert-item__info h4 { font-size: 15px !important; }
-    .cert-item__info p  { font-size: 13px !important; }
-
-    /* Contact */
-    .contact-card      { padding: 32px 40px !important; gap: 28px !important; }
-    .contact-card__value { font-size: 18px !important; }
-}
-
-/* ── 2560p / 2K (2560–3840px) ───────────────────────────── */
-@media (min-width: 2560px) {
-    :root { font-size: 20px; }
-
-    .container { max-width: min(2200px, 86vw) !important; }
-
-    .main-nav {
-        left: clamp(32px, 3vw, 80px) !important;
-        right: clamp(32px, 3vw, 80px) !important;
-        height: 80px !important;
-        border-radius: 18px !important;
-    }
-    .nav-logo  { font-size: 17px !important; letter-spacing: 4px !important; }
-    .nav-links { gap: 44px !important; }
-    .nav-link  { font-size: 13px !important; }
-
-    .hero-content {
-        max-width: min(2300px, 86vw) !important;
-        grid-template-columns: 1fr 1.35fr !important;
-        gap: clamp(100px, 8vw, 180px) !important;
-        padding: clamp(140px, 9vw, 200px) clamp(60px, 6vw, 120px) clamp(100px, 8vw, 160px) !important;
-    }
-    .hero-image__frame {
-        width: clamp(440px, 26vw, 680px) !important;
-        aspect-ratio: 360/460; height: auto !important;
-    }
-    .hero-image__frame .hero-image__mask,
-    .hero-image__frame .hero-image__border { border-radius: 28px !important; }
-    .hero-headline     { font-size: clamp(5rem, 6.5vw, 8rem) !important; }
-    .hero-tagline      { font-size: clamp(1.2rem, 1.4vw, 1.7rem) !important; max-width: 700px !important; }
-    .hero-metric__number { font-size: clamp(3.5rem, 4.2vw, 5rem) !important; }
-    .hero-metric__label  { font-size: 13px !important; }
-    .hero-badge        { padding: 14px 28px !important; font-size: 14px !important; }
-    .btn               { padding: 16px 32px !important; min-height: 56px !important; font-size: 15px !important; }
-
-    .section-title     { font-size: clamp(4.5rem, 6vw, 7.5rem) !important; }
-    .section-subtitle  { font-size: clamp(1.2rem, 1.4vw, 1.6rem) !important; }
-
-    .origin-layout     { gap: clamp(100px, 9vw, 180px) !important; }
-    .narrative-text    { font-size: clamp(1.1rem, 1.15vw, 1.4rem) !important; }
-    .origin-card       { padding: 52px !important; border-radius: 28px !important; }
-
-    .timeline          { max-width: min(1600px, 76vw) !important; }
-
-    .project-hero__content { padding: 80px !important; }
-    .project-hero__name    { font-size: clamp(2.8rem, 3.2vw, 4rem) !important; }
-
-    .battle-featured   { padding: 64px !important; border-radius: 28px !important; }
-
-    .research-paper    { padding: 88px !important; border-radius: 36px !important; }
-    .result-card       { padding: 48px 36px !important; }
-    .result-card__number { font-size: 5rem !important; }
-
-    .credentials-section .container { max-width: min(2300px, 86vw) !important; }
-    .credentials-layout { gap: 72px !important; }
-    .skills-panel, .certs-panel { padding: 80px 72px !important; border-radius: 28px !important; }
-    .panel-title       { font-size: 2.6rem !important; margin-bottom: 48px !important; }
-    .skill-group       { margin-bottom: 56px !important; }
-    .skill-row         { grid-template-columns: 180px 1fr 64px !important; gap: 24px !important; }
-    .skill-bar         { height: 12px !important; }
-    .skill-bar__fill::after { width: 18px !important; height: 18px !important; }
-    .skill-group__header { font-size: 18px !important; }
-    .skill-row > span:first-child { font-size: 17px !important; }
-    .cert-item         { padding: 28px 32px !important; border-radius: 18px !important; }
-    .cert-item__emoji  { font-size: 32px !important; width: 42px !important; }
-    .cert-item__info h4 { font-size: 17px !important; }
-    .cert-item__info p  { font-size: 14px !important; }
-    .cert-item__actions a { width: 42px !important; height: 42px !important; font-size: 17px !important; }
-    .certs-list        { gap: 18px !important; }
-
-    .contact-card      { padding: 40px 52px !important; border-radius: 24px !important; gap: 32px !important; }
-    .contact-card__value { font-size: 20px !important; }
-    .contact-card__label { font-size: 13px !important; }
-    .contact-card__icon  { font-size: 36px !important; }
-}
-
-/* ── 4K / UHD (3840px+) ─────────────────────────────────── */
-@media (min-width: 3840px) {
-    :root { font-size: 24px; }
-
-    .container { max-width: min(3200px, 84vw) !important; }
-
-    .main-nav {
-        height: 90px !important; border-radius: 22px !important;
-        left: clamp(40px, 3vw, 100px) !important;
-        right: clamp(40px, 3vw, 100px) !important;
-    }
-    .nav-logo  { font-size: 20px !important; }
-    .nav-links { gap: 56px !important; }
-    .nav-link  { font-size: 15px !important; }
-
-    .hero-content {
-        max-width: min(3300px, 84vw) !important;
-        gap: clamp(140px, 9vw, 260px) !important;
-        padding: clamp(180px, 9vw, 260px) clamp(80px, 7vw, 160px) clamp(140px, 9vw, 200px) !important;
-    }
-    .hero-image__frame {
-        width: clamp(560px, 24vw, 880px) !important;
-        aspect-ratio: 360/460; height: auto !important;
-    }
-    .hero-headline     { font-size: clamp(6rem, 7vw, 10rem) !important; }
-    .hero-tagline      { font-size: clamp(1.3rem, 1.5vw, 2rem) !important; max-width: 900px !important; }
-    .hero-metric__number { font-size: clamp(4rem, 5vw, 6rem) !important; }
-    .btn               { padding: 20px 40px !important; min-height: 66px !important; font-size: 18px !important; border-radius: 14px !important; }
-
-    .section-title     { font-size: clamp(5.5rem, 7vw, 9rem) !important; }
-    .section-subtitle  { font-size: clamp(1.3rem, 1.6vw, 1.9rem) !important; }
-
-    .credentials-section .container { max-width: min(3300px, 84vw) !important; }
-    .credentials-layout { gap: 96px !important; }
-    .skills-panel, .certs-panel { padding: 100px 88px !important; border-radius: 36px !important; }
-    .panel-title       { font-size: 3.2rem !important; }
-    .skill-bar         { height: 14px !important; }
-    .cert-item         { padding: 36px 40px !important; border-radius: 22px !important; }
-    .cert-item__info h4 { font-size: 20px !important; }
-    .result-card__number { font-size: 6.5rem !important; }
-}
-
-/* ── Ultrawide (21:9 and wider, any height) ──────────────── */
-@media (min-aspect-ratio: 21/9) {
-    /* Use horizontal centering with max-width to prevent over-stretching */
-    .hero-content { grid-template-columns: 0.8fr 1.2fr !important; }
-    .container { max-width: min(80vw, 2000px) !important; }
-
-    /* Prevent background orbs from bleeding too far */
-    .section-bg__orb--1 { right: -100px !important; }
-    .section-bg__orb--2 { left: -60px !important; }
-}
-
-/* ── Fluid typography clamp system across all sizes ─────── */
-@media (min-width: 1440px) {
-    /* Narrative text */
-    .battle-featured__desc,
-    .battle-card__desc,
-    .project-hero__body,
-    .abstract-block p {
-        font-size: clamp(14px, 1vw, 18px) !important;
-        line-height: 1.85 !important;
-    }
-
-    /* Section spacing scales with viewport */
-    .battles-section,
-    .journey-section,
-    .origin-section,
-    .quests-section,
-    .credentials-section,
-    .discovery-section {
-        padding: clamp(100px, 10vw, 200px) 0 !important;
-    }
-}
-
-/* ══ FIX: Battles featured card — don't stretch to grid height ══ */
-.battles-layout { align-items: start !important; }
-.battle-featured {
-    height: auto !important;
-    align-self: start !important;
-    position: sticky !important;
-    top: 90px !important;        /* sticks near top while grid scrolls */
-}
-
-/* ══ FIX: Credentials — equalise panel heights via stretch ══ */
-.credentials-layout { align-items: stretch !important; }
-.skills-panel  { display: flex !important; flex-direction: column !important; }
-.certs-panel   { display: flex !important; flex-direction: column !important; }
-.certs-list    { flex: 1 !important; display: flex !important; flex-direction: column !important; justify-content: space-between !important; }
-.skill-group:last-child { margin-bottom: 0 !important; }
-.skill-group__items { flex: 1; }
-
-/* ══ FIX: Result card bars — pure GSAP, no CSS width override ══ */
-.result-card__bar   { overflow: hidden !important; }
-/* DO NOT set width:0 here — GSAP controls it via inline style */
-/* .result-card__fill transition: controlled by GSAP, not CSS */
-
-/* ══════════════════════════════════════════════════════════
-   AUDIT FIX BATCH — All viewport issues resolved
-   ══════════════════════════════════════════════════════════ */
-
-/* ── 1. Nav overlap: scroll-margin-top on ALL sections ──── */
-/* Already set above, but ensure it's aggressive enough */
-.story-section { scroll-margin-top: 100px !important; }
-
-/* ── 2. Hero badge: never truncate ──────────────────────── */
-.hero-badge {
-    white-space: nowrap !important;
-    max-width: none !important;
-    width: auto !important;
-}
-@media (max-width: 480px) {
-    .hero-badge {
-        font-size: 10px !important;
-        padding: 8px 14px !important;
-        gap: 6px !important;
-    }
-}
-
-/* ── 3. Battles: sticky only on desktop, not mobile ─────── */
-@media (max-width: 1023px) {
-    .battle-featured {
-        position: static !important;
-        height: auto !important;
-        align-self: auto !important;
-    }
-    .battles-layout {
-        grid-template-columns: 1fr !important;
-    }
-}
-@media (min-width: 1024px) {
-    .battle-featured {
-        position: sticky !important;
-        top: 90px !important;
-        align-self: start !important;
-        height: auto !important;
-    }
-    .battles-layout { align-items: start !important; }
-}
-
-/* ── 4. Discovery: result cards on mobile ── 1 column ───── */
+/* ── Result cards mobile — horizontal layout ─────────────── */
 @media (max-width: 768px) {
     .result-cards {
         grid-template-columns: 1fr !important;
@@ -1112,193 +536,88 @@
     .result-card {
         flex-direction: row !important;
         align-items: center !important;
-        padding: 20px 24px !important;
+        padding: 18px 20px !important;
         min-height: auto !important;
-        gap: 16px !important;
+        gap: 14px !important;
         text-align: left !important;
     }
     .result-card__number { font-size: 2.4rem !important; flex-shrink: 0; }
-    .result-card__unit, .result-card__decimal { font-size: 1.4rem !important; height: auto !important; }
-    .result-card__label { margin-top: 0 !important; padding-top: 0 !important; font-size: 10px !important; }
-    .result-card__bar   { display: none !important; } /* hidden on mobile — numbers are enough */
+    .result-card__unit,
+    .result-card__decimal { font-size: 1.3rem !important; height: auto !important; }
+    .result-card__label { margin-top: 0 !important; font-size: 10px !important; }
+    .result-card__bar   { display: none !important; }
 }
 
-/* ── 5. Hero scroll hint: always inside viewport ─────────── */
-/* On tablet single-column, push hint into the flow */
-@media (max-width: 1024px) {
-    .hero-scroll-hint {
-        position: relative !important;
-        bottom: auto !important;
-        left: auto !important;
-        transform: none !important;
-        margin: 20px auto 0 !important;
-        display: flex !important;
-        opacity: 1 !important;
+/* ── Section scroll margin so nav doesn't cover headings ─── */
+.story-section { scroll-margin-top: 100px; }
+@media (max-width: 768px) { .story-section { scroll-margin-top: 76px; } }
+
+/* ── Hero metrics: 2×2 grid on tablet/mobile ─────────────── */
+@media (max-width: 1023px) {
+    .hero-metrics {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 1px !important;
+        border: 1px solid rgba(255,255,255,.07) !important;
+        border-radius: 12px !important;
+        overflow: hidden !important;
+        max-width: 400px !important;
+        width: 100% !important;
+        margin: 0 auto !important;
     }
+    .hero-metric {
+        padding: 18px 14px !important;
+        background: rgba(255,255,255,.02) !important;
+        border-right: 1px solid rgba(255,255,255,.05) !important;
+        border-bottom: 1px solid rgba(255,255,255,.05) !important;
+        text-align: center !important;
+    }
+    .hero-metric:nth-child(2n)    { border-right: none !important; }
+    .hero-metric:nth-last-child(-n+3) { border-bottom: none; }
+    .hero-metric__divider         { display: none !important; }
 }
 
-/* ── 6. Section title: starts below nav pill ─────────────── */
-/* The wipe animation starts from top — add padding to section header */
-.section-header {
-    padding-top: clamp(16px, 4vw, 40px);
-}
-
-/* ── 7. Credentials: mobile overflow fully blocked ───────── */
+/* ── Section spacing: no huge blank gaps on mobile ──────────*/
 @media (max-width: 768px) {
-    .credentials-section,
-    .credentials-layout,
-    .skills-panel,
-    .certs-panel {
-        overflow-x: hidden !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-    }
-    /* Tighten skill row on smallest phones */
-    .skill-row {
-        grid-template-columns: minmax(0, 90px) minmax(0, 1fr) 34px !important;
-        gap: 8px !important;
-    }
-}
-
-/* ── 8. 2K+ nav height matching ─────────────────────────── */
-@media (min-width: 1920px) {
-    .story-section { scroll-margin-top: 120px !important; }
-    .section-header { padding-top: 60px; }
-}
-@media (min-width: 2560px) {
-    .story-section { scroll-margin-top: 140px !important; }
-}
-
-/* ── 9. Mobile nav z-index: never obscure clickable content  */
-/* Nav is already z:1000 — ensure body content never goes above */
-.mobile-menu { z-index: 9990 !important; }
-.main-nav    { z-index: 1000 !important; }
-
-/* ── 10. Hero badge transform fix on mobile ─────────────── */
-@media (max-width: 768px) {
-    .hero-badge,
-    .hero-badge.is-revealed {
-        transform: translateX(-50%) !important;
-        left: 50% !important;
-        position: absolute !important;
-        bottom: -18px !important;
-    }
-    /* If hero-badge is now inside hero-right (flow), reset the absolute */
-    .hero-right .hero-badge {
-        position: relative !important;
-        left: auto !important;
-        transform: none !important;
-        bottom: auto !important;
-        margin: 12px auto 0 !important;
-        display: inline-flex !important;
-    }
-}
-
-/* ── 11. Mobile: section vertical spacing ───────────────── */
-@media (max-width: 768px) {
-    .battles-section,
-    .journey-section,
-    .origin-section,
-    .quests-section,
-    .discovery-section,
-    .credentials-section {
+    .story-section:not(.hero-section) { min-height: auto !important; }
+    .hero-section { min-height: 100svh !important; }
+    .battles-section, .journey-section, .origin-section,
+    .quests-section, .discovery-section, .credentials-section {
         padding: 80px 0 60px !important;
     }
     .contact-section { padding: 60px 0 !important; }
 }
 
-/* ── 12. Large screens: section titles don't overlap nav ── */
-@media (min-width: 1440px) {
-    .section-header { margin-top: 20px; }
+/* ── Hero headline: clamp prevents line break on 375px ─────── */
+.hero-headline {
+    font-size: clamp(2.2rem, 8vw, 5rem) !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
 }
 
-/* ── 13. Tab 768: hero metrics 2x2 grid ─────────────────── */
-@media (min-width: 601px) and (max-width: 1023px) {
-    .hero-metrics {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        max-width: 360px !important;
-        margin: 0 auto !important;
-        border: 1px solid rgba(255,255,255,.07) !important;
-        border-radius: 12px !important;
-        overflow: hidden !important;
-        gap: 1px !important;
-    }
-    .hero-metric {
-        padding: 20px 16px !important;
-        background: rgba(255,255,255,.02) !important;
-        text-align: center !important;
-    }
-    .hero-metric__divider { display: none !important; }
+/* ── Container fluid ────────────────────────────────────────  */
+.container {
+    max-width: min(1400px, 92vw) !important;
+    padding: 0 clamp(16px, 4vw, 80px) !important;
+    box-sizing: border-box !important;
 }
 
-/* ══ FINAL POLISH ══════════════════════════════════════════ */
+/* ── Prevent horizontal scroll sitewide ─────────────────── */
+html, body { overflow-x: hidden !important; max-width: 100% !important; }
+html { scrollbar-width: none !important; -ms-overflow-style: none !important; }
+html::-webkit-scrollbar { display: none !important; }
+body { overflow-y: scroll !important; }
 
-/* 2K: section title below nav — push header down more */
-@media (min-width: 1920px) {
-    .section-header { padding-top: 80px !important; }
-    .story-section  { scroll-margin-top: 130px !important; }
-}
-
-/* Mobile: bigger scroll margin + nav-aware padding */
-@media (max-width: 768px) {
-    .story-section  { scroll-margin-top: 80px !important; }
-    /* Prevent nav covering section titles on jump-to */
-    .section-eyebrow { padding-top: 0; }
-}
-
-/* Cert item: title truncation on very narrow screens */
-@media (max-width: 400px) {
-    .cert-item__info h4 {
-        font-size: 11px !important;
-        line-height: 1.3 !important;
+/* ── Journey timeline circle alignment ──────────────────── */
+@media (max-width: 1024px) {
+    .timeline__track {
+        left: 20px !important;
+        transform: none !important; /* left edge at 20px = center of 2px track at 21px */
     }
-    .cert-item { padding: 10px 12px !important; }
-    .cert-item__emoji { font-size: 16px !important; width: 20px !important; }
-}
-
-/* Result card fills: GSAP controls width via inline style */
-/* No CSS width override here — inline style from GSAP wins */
-
-/* Mobile: discovery result cards horizontal layout cleanup */
-@media (max-width: 768px) {
-    .result-card {
-        display: grid !important;
-        grid-template-columns: auto 1fr !important;
-        grid-template-rows: auto auto auto !important;
-        align-items: center !important;
-        column-gap: 16px !important;
-        row-gap: 2px !important;
+    .timeline-entry__marker {
+        left: 20px !important;
+        transform: translateX(-50%) !important; /* center 18px circle at 20px */
     }
-    .result-card__number {
-        grid-row: 1 / 3 !important;
-        font-size: 2.8rem !important;
-    }
-    .result-card__unit,
-    .result-card__decimal {
-        grid-column: 1 !important;
-        font-size: 1.2rem !important;
-        height: auto !important;
-    }
-    .result-card__label {
-        grid-column: 2 !important;
-        grid-row: 1 !important;
-        margin-top: 0 !important;
-        font-size: 11px !important;
-        letter-spacing: 1px !important;
-        align-items: flex-start !important;
-    }
-    .result-card__bar { display: none !important; }
-}
-
-/* Battles mobile: no extra top space */
-@media (max-width: 1023px) {
-    .battle-featured { margin-bottom: 0 !important; }
-}
-
-/* Journey: timeline track always visible on mobile */
-@media (max-width: 768px) {
-    .timeline__track { display: block !important; left: 20px !important; }
     .timeline-entry__card {
         width: calc(100% - 52px) !important;
         margin-left: 46px !important;
@@ -1306,246 +625,51 @@
     }
 }
 
+/* ── Safe area bottom (iPhone home bar) ─────────────────── */
+@media (max-width: 768px) {
+    .site-footer { padding-bottom: calc(36px + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* ── Mobile nav z-index ─────────────────────────────────── */
+.main-nav    { z-index: 1000 !important; }
+.mobile-menu { z-index: 9990 !important; }
+
 /* ══════════════════════════════════════════════════════════
-   ISSUE FIX BATCH  ·  All 7 reported problems resolved
+   LARGE DISPLAY SCALING — 1440p → 4K
    ══════════════════════════════════════════════════════════ */
-
-/* ── 1. SCROLLBAR — hide on all browsers ────────────────── */
-html {
-    scrollbar-width: none !important;   /* Firefox */
-    -ms-overflow-style: none !important; /* IE/Edge */
-}
-html::-webkit-scrollbar { display: none !important; } /* Chrome/Safari */
-body { overflow-y: scroll !important; } /* keep scroll capability */
-
-/* Project card hover shadows need local overflow room. The page still
-   keeps horizontal scroll locked on html/body, but the quests wrappers
-   should not clip the card glow into a visible rectangle. */
-.quests-section,
-.quests-section .container,
-.quests-showcase,
-.quests-showcase .project-grid {
-    overflow: visible !important;
-    overflow-x: visible !important;
-    overflow-y: visible !important;
-}
-
-.quests-showcase .project-grid {
-    width: 100% !important;
-    padding: 0 0 24px !important;
-    margin: 0 0 -24px !important;
-    box-sizing: border-box !important;
-}
-
-.quests-showcase .project-card:hover {
-    box-shadow:
-            0 24px 56px rgba(0, 0, 0, .34),
-            0 18px 46px rgba(102, 231, 242, .12),
-            0 0 0 1px rgba(102, 231, 242, .12);
-}
-
-@media (max-width: 768px) {
-    .quests-showcase .project-grid {
-        padding: 0 0 22px !important;
-        margin: 0 0 -22px !important;
+@media (min-width: 1440px) {
+    .container { max-width: min(1440px, 90vw) !important; }
+    .hero-content { max-width: min(1500px, 92vw) !important; }
+    .section-title { font-size: clamp(3rem, 4.5vw, 5rem) !important; }
+    .credentials-layout { grid-template-columns: 1.2fr 1fr !important; gap: 48px !important; }
+    .battle-featured__desc, .battle-card__desc,
+    .project-hero__body, .abstract-block p {
+        font-size: clamp(14px, 1vw, 18px) !important;
+        line-height: 1.85 !important;
+    }
+    .battles-section, .journey-section, .origin-section,
+    .quests-section, .credentials-section, .discovery-section {
+        padding: clamp(100px, 10vw, 200px) 0 !important;
     }
 }
-
-/* ── 2. CARD HOVER OVERLAP — isolation + z-index ─────────── */
-/* Cards lift on hover via transform:scale/translateY but need their own
-   stacking context so they don't clip over siblings */
-.origin-card,
-.project-card,
-.battle-card,
-.battle-featured,
-.timeline-entry__card,
-.cert-item,
-.contact-card,
-.result-card {
-    isolation: isolate !important;
-    transition: transform .4s cubic-bezier(.16,1,.3,1),
-    box-shadow .4s cubic-bezier(.16,1,.3,1),
-    border-color .4s !important;
+@media (min-width: 1920px) {
+    :root { font-size: 18px; }
+    .container { max-width: min(1760px, 88vw) !important; }
+    .hero-content { max-width: min(1800px, 88vw) !important; }
+    .section-title { font-size: clamp(3.5rem, 5vw, 6rem) !important; }
+    .story-section { scroll-margin-top: 120px !important; }
+    .skills-panel, .certs-panel { padding: 56px !important; }
 }
-/* Hovered card sits on top */
-.origin-card:hover,
-.project-card:hover,
-.battle-card:hover,
-.cert-item:hover,
-.contact-card:hover,
-.result-card:hover { z-index: 10 !important; }
-
-/* Gap between cards so hover transform has breathing room */
-.origin-cards   { gap: 24px !important; }
-.battle-grid    { gap: 20px !important; }
-.certs-list     { gap: 14px !important; }
-.result-cards   { gap: 20px !important; }
-.project-grid   { gap: 24px !important; }
-
-/* ── 3. BATTLES GRID — fill empty space ──────────────────── */
-/* Featured card and grid side-by-side.
-   When featured card is short, grid cards should NOT leave gap.
-   Use grid rows that auto-size to content. */
-.battles-layout {
-    grid-template-columns: 1.15fr 1fr !important;
-    align-items: start !important;
-    gap: 28px !important;
+@media (min-width: 2560px) {
+    :root { font-size: 20px; }
+    .container { max-width: min(2200px, 86vw) !important; }
+    .story-section { scroll-margin-top: 140px !important; }
+    .skills-panel, .certs-panel { padding: 80px 72px !important; border-radius: 28px !important; }
+    .battle-featured { padding: 64px !important; border-radius: 28px !important; }
 }
-.battle-grid {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 18px !important;
+@media (min-width: 3840px) {
+    :root { font-size: 24px; }
+    .container { max-width: min(3200px, 84vw) !important; }
+    .story-section { scroll-margin-top: 160px !important; }
+    .skills-panel, .certs-panel { padding: 100px 88px !important; border-radius: 36px !important; }
 }
-.battle-card {
-    flex: 0 0 auto !important;
-    /* No fixed height — grows to content */
-}
-
-/* ── 3b. Journey + Battles final layout repair ─────────────
-   GSAP/mobile safety rules can replace the marker transform, which
-   moves the circle's left edge onto the education line. Keep the line
-   and marker centered on the same x-coordinate on tablet/mobile. */
-@media (max-width: 1024px) {
-    .timeline__track {
-        left: 20px !important;
-        transform: translateX(-50%) !important;
-    }
-
-    .timeline-entry__marker {
-        left: 20px !important;
-        transform: translateX(-50%) !important;
-    }
-}
-
-/* Desktop Battles should be one full-width featured card followed by
-   a true 2-column grid. Earlier audit rules mixed sticky/flex/grid,
-   which made the hackathon cards stack into a narrow broken column. */
-.battles-section,
-.battles-section .container,
-.battles-layout,
-.battle-grid {
-    overflow: visible !important;
-    overflow-x: visible !important;
-    overflow-y: visible !important;
-}
-
-.battles-layout {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: stretch !important;
-    gap: clamp(28px, 3vw, 44px) !important;
-}
-
-.battle-featured {
-    position: relative !important;
-    top: auto !important;
-    width: 100% !important;
-    align-self: stretch !important;
-}
-
-.battle-grid {
-    display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: clamp(18px, 1.8vw, 28px) !important;
-    width: 100% !important;
-    padding: 0 0 24px !important;
-    margin: 0 0 -24px !important;
-    box-sizing: border-box !important;
-}
-
-.battle-card {
-    display: flex !important;
-    flex-direction: column !important;
-    min-width: 0 !important;
-    height: auto !important;
-}
-
-.battle-card__footer {
-    margin-top: auto !important;
-}
-
-@media (max-width: 768px) {
-    .battle-grid {
-        grid-template-columns: 1fr !important;
-        padding-bottom: 20px !important;
-        margin-bottom: -20px !important;
-    }
-}
-
-/* ── 4. CREDENTIALS — equal panel heights via CSS grid row ── */
-/* Use align-items:stretch (already set) + ensure both panels
-   use flex-column so inner content distributes */
-.credentials-layout {
-    align-items: stretch !important;
-}
-.skills-panel,
-.certs-panel {
-    display: flex !important;
-    flex-direction: column !important;
-    height: 100% !important;
-    box-sizing: border-box !important;
-}
-.skills-panel .skill-group:last-child {
-    margin-bottom: 0 !important;
-}
-/* Distribute cert items evenly */
-.certs-list {
-    flex: 1 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between !important;
-    gap: 10px !important;
-}
-.cert-item { flex: 1 1 auto !important; }
-
-/* ── 5. RESULT BARS — GSAP drives width, CSS stays out of way ── */
-/* No width override here — GSAP uses gsap.fromTo with inline styles.
-   The key: remove any previous !important width:0 from other rules.
-   The .result-card__fill starts hidden via GSAP set(), not CSS. */
-.result-card__bar { overflow: hidden !important; }
-
-/* ── 6. SCROLL HINT — always visible in hero viewport ──────── */
-/* Position at bottom of hero-right, not after viewport edge */
-.hero-scroll-hint {
-    display: flex !important;
-    align-items: center !important;
-    flex-direction: column !important;
-    gap: 10px !important;
-    margin-top: 24px !important;
-    opacity: 1 !important; /* GSAP controls this, just ensure visible on load */
-    pointer-events: none;
-    transition: opacity .3s, transform .3s !important;
-}
-/* On desktop: absolute at bottom of hero section */
-@media (min-width: 1024px) {
-    .hero-section { position: relative; }
-    .hero-scroll-hint {
-        position: absolute !important;
-        bottom: 28px !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        margin-top: 0 !important;
-    }
-}
-
-/* ── 7. SCROLL PROGRESS BAR — reach 100% at page bottom ───── */
-/* Ensure the fill has no max-width constraint */
-.scroll-progress__fill {
-    max-width: 100vw !important;
-    width: 0% !important; /* GSAP drives this via ScrollTrigger */
-}
-.scroll-progress {
-    width: 100% !important;
-    max-width: 100% !important;
-}
-
-/* ── Extra: Battles mobile - single column, no gap ─────────── */
-@media (max-width: 1023px) {
-    .battles-layout {
-        grid-template-columns: 1fr !important;
-        gap: 20px !important;
-    }
-    .battle-featured { position: static !important; }
-}
-
-/* GSAP inline styles drive result bar width */
