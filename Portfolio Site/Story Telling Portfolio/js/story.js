@@ -159,21 +159,29 @@ function initScrollScenes() {
     const expo = 'expo.out';
     const PO   = 'play none none none';
 
+    /* Global ScrollTrigger defaults — once:true ensures every animation
+       fires exactly once even on fast scroll; no element stays at opacity:0 */
+    ScrollTrigger.defaults({
+        once: true,
+        fastScrollEnd: true,
+        preventOverlaps: true,
+    });
+
     /* ── Section headers: wipe + eyebrow decode ── */
     $$('.section-title').forEach(el =>
         gsap.fromTo(el, { clipPath:'inset(0 100% 0 0)', opacity:1 },
             { clipPath:'inset(0 0% 0 0)', duration:1.1, ease:'power4.inOut',
-                scrollTrigger:{ trigger:el, start:'top 88%', toggleActions:PO } })
+                scrollTrigger:{ trigger:el, start:'top 95%', once:true } })
     );
     $$('.section-eyebrow').forEach(el =>
         gsap.fromTo(el, { opacity:0, y:14, letterSpacing:'14px' },
             { opacity:1, y:0, letterSpacing:'4px', duration:.9, ease:pow,
-                scrollTrigger:{ trigger:el, start:'top 90%', toggleActions:PO } })
+                scrollTrigger:{ trigger:el, start:'top 95%', once:true } })
     );
     $$('.section-subtitle').forEach(el =>
         gsap.fromTo(el, { opacity:0, y:20 },
             { opacity:1, y:0, duration:.9, delay:.2, ease:pow,
-                scrollTrigger:{ trigger:el, start:'top 90%', toggleActions:PO } })
+                scrollTrigger:{ trigger:el, start:'top 95%', once:true } })
     );
 
     /* ── ORIGIN ─── word-by-word narration reveal ── */
@@ -181,7 +189,7 @@ function initScrollScenes() {
         /* Reveal each block flying in from left — NO splitWords (breaks HTML tags) */
         gsap.fromTo(block, { opacity:0, x:-50 },
             { opacity:1, x:0, duration:.9, delay:bi*.08, ease:pow,
-                scrollTrigger:{ trigger:block, start:'top 86%', toggleActions:PO } });
+                scrollTrigger:{ trigger:block, start:'top 95%', once:true } });
     });
 
     /* Origin cards — dramatic 3D throw-in */
@@ -189,7 +197,7 @@ function initScrollScenes() {
         gsap.fromTo(card,
             { opacity:0, y:70, rotateX:25, scale:.88, transformPerspective:1000 },
             { opacity:1, y:0, rotateX:0, scale:1, duration:.9, delay:i*.12, ease:'back.out(1.3)',
-                scrollTrigger:{ trigger:'.origin-cards', start:'top 82%', toggleActions:PO } })
+                scrollTrigger:{ trigger:'.origin-cards', start:'top 92%', once:true } })
     );
 
     /* ── JOURNEY — timeline line draws itself ── */
@@ -203,58 +211,58 @@ function initScrollScenes() {
         gsap.fromTo(card,
             { opacity:0, x:fromX, y:tab()?50:0, scale:.94 },
             { opacity:1, x:0, y:0, scale:1, duration:.95, ease:pow,
-                scrollTrigger:{ trigger:card, start:'top 87%', toggleActions:PO } });
+                scrollTrigger:{ trigger:card, start:'top 95%', once:true } });
         if (marker) gsap.fromTo(marker, { opacity:0, scale:0 },
             { opacity:1, scale:1, duration:.6, ease:'back.out(2)',
-                scrollTrigger:{ trigger:card, start:'top 87%', toggleActions:PO } });
+                scrollTrigger:{ trigger:card, start:'top 95%', once:true } });
     });
 
     /* ── QUESTS — project hero zooms from depth ── */
     gsap.fromTo('.project-hero',
         { opacity:0, scale:.78, y:60, transformPerspective:1200 },
         { opacity:1, scale:1, y:0, duration:1.2, ease:expo,
-            scrollTrigger:{ trigger:'.project-hero', start:'top 82%', toggleActions:PO } });
+            scrollTrigger:{ trigger:'.project-hero', start:'top 92%', once:true } });
     /* Visual icon spins in */
     gsap.fromTo('.project-hero__icon',
         { opacity:0, scale:0, rotation:-90 },
         { opacity:1, scale:1, rotation:0, duration:1, ease:'back.out(1.6)', delay:.3,
-            scrollTrigger:{ trigger:'.project-hero', start:'top 78%', toggleActions:PO } });
+            scrollTrigger:{ trigger:'.project-hero', start:'top 92%', once:true } });
     /* Tech pills fly up one by one */
     gsap.fromTo('.tech-pill',
         { opacity:0, y:20, scale:.85 },
         { opacity:1, y:0, scale:1, stagger:.055, duration:.6, ease:pow,
-            scrollTrigger:{ trigger:'.project-hero__tech', start:'top 84%', toggleActions:PO } });
+            scrollTrigger:{ trigger:'.project-hero__tech', start:'top 92%', once:true } });
     /* Project grid cards thrown onto screen */
     $$('.project-card').forEach((c, i) => {
         const angle = i%2===0 ? -6 : 6;
         gsap.fromTo(c,
             { opacity:0, y:80, rotation:angle, scale:.85, transformPerspective:900 },
             { opacity:1, y:0, rotation:0, scale:1, duration:1, delay:i*.14, ease:expo,
-                scrollTrigger:{ trigger:'.project-grid', start:'top 83%', toggleActions:PO } });
+                scrollTrigger:{ trigger:'.project-grid', start:'top 92%', once:true } });
     });
 
     /* ── BATTLES ── featured card slams in left, grid stacks from right ── */
     gsap.fromTo('.battle-featured',
         { opacity:0, x:-80, scale:.95 },
         { opacity:1, x:0, scale:1, duration:1.1, ease:expo,
-            scrollTrigger:{ trigger:'.battles-section', start:'top 80%', toggleActions:PO } });
+            scrollTrigger:{ trigger:'.battles-section', start:'top 92%', once:true } });
     $$('.battle-card').forEach((c, i) =>
         gsap.fromTo(c,
             { opacity:0, x:70, scale:.94 },
             { opacity:1, x:0, scale:1, duration:.85, delay:i*.13, ease:pow,
-                scrollTrigger:{ trigger:'.battle-grid', start:'top 82%', toggleActions:PO } })
+                scrollTrigger:{ trigger:'.battle-grid', start:'top 92%', once:true } })
     );
     /* Badge chips scatter in */
     gsap.fromTo('.badge, .win-badge',
         { opacity:0, scale:0, y:10 },
         { opacity:1, scale:1, y:0, stagger:.04, duration:.5, ease:'back.out(2)',
-            scrollTrigger:{ trigger:'.battle-featured', start:'top 78%', toggleActions:PO } });
+            scrollTrigger:{ trigger:'.battle-featured', start:'top 92%', once:true } });
 
     /* ── DISCOVERY ── paper emerges from below ── */
     gsap.fromTo('.research-paper',
         { opacity:0, y:80, scale:.96 },
         { opacity:1, y:0, scale:1, duration:1.2, ease:expo,
-            scrollTrigger:{ trigger:'.research-paper', start:'top 82%', toggleActions:PO } });
+            scrollTrigger:{ trigger:'.research-paper', start:'top 92%', once:true } });
     /* Each sub-block staggers in */
     ['.research-paper__venue','.abstract-block','.keywords-block',
         '.results-block','.authors-block','.project-link-block','.paper-actions-row','.flags-row']
@@ -262,69 +270,69 @@ function initScrollScenes() {
             const el = $(sel); if (!el) return;
             gsap.fromTo(el, { opacity:0, y:30 },
                 { opacity:1, y:0, duration:.75, delay:i*.07, ease:'power2.out',
-                    scrollTrigger:{ trigger:'.research-paper', start:'top 72%', toggleActions:PO } });
+                    scrollTrigger:{ trigger:'.research-paper', start:'top 90%', once:true } });
         });
     /* Result cards pop individually */
     $$('.result-card').forEach((card, i) =>
         gsap.fromTo(card,
             { opacity:0, scale:.7, y:40, transformPerspective:800 },
             { opacity:1, scale:1, y:0, duration:.8, delay:i*.15, ease:'back.out(1.5)',
-                scrollTrigger:{ trigger:'.result-cards', start:'top 83%', toggleActions:PO } })
+                scrollTrigger:{ trigger:'.result-cards', start:'top 92%', once:true } })
     );
     /* Keyword chips scatter in */
     gsap.fromTo('.kw-tag',
         { opacity:0, scale:0.7, y:10 },
         { opacity:1, scale:1, y:0, stagger:.04, duration:.5, ease:'back.out(1.8)',
-            scrollTrigger:{ trigger:'.keywords-block', start:'top 84%', toggleActions:PO } });
+            scrollTrigger:{ trigger:'.keywords-block', start:'top 92%', once:true } });
     /* Flags */
     gsap.fromTo('.flag',
         { opacity:0, x:-16 },
         { opacity:1, x:0, stagger:.05, duration:.5, ease:pow,
-            scrollTrigger:{ trigger:'.flags-row', start:'top 85%', toggleActions:PO } });
+            scrollTrigger:{ trigger:'.flags-row', start:'top 92%', once:true } });
 
     /* ── CREDENTIALS ── panels slide in from sides ── */
     /* Skills panel: wipe from left like a loading bar itself */
     gsap.fromTo('.skills-panel',
         { opacity:0, x:-80, scale:.96 },
         { opacity:1, x:0, scale:1, duration:1.1, ease:expo,
-            scrollTrigger:{ trigger:'.credentials-section', start:'top 80%', toggleActions:PO } });
+            scrollTrigger:{ trigger:'.credentials-section', start:'top 92%', once:true } });
 
     /* Each skill group header slams in */
     $$('.skill-group__header').forEach((el,i) =>
         gsap.fromTo(el, { opacity:0, x:-30 },
             { opacity:1, x:0, duration:.7, delay:.3+i*.12, ease:pow,
-                scrollTrigger:{ trigger:'.skills-panel', start:'top 78%', toggleActions:PO } })
+                scrollTrigger:{ trigger:'.skills-panel', start:'top 92%', once:true } })
     );
 
     /* Certs panel: drops from above */
     gsap.fromTo('.certs-panel',
         { opacity:0, y:-60, scale:.96 },
         { opacity:1, y:0, scale:1, duration:1.1, delay:.1, ease:expo,
-            scrollTrigger:{ trigger:'.credentials-section', start:'top 80%', toggleActions:PO } });
+            scrollTrigger:{ trigger:'.credentials-section', start:'top 92%', once:true } });
 
     /* Each cert item: stagger from right with scale */
     $$('.cert-item').forEach((el, i) =>
         gsap.fromTo(el,
             { opacity:0, x:55, scale:.92, transformPerspective:600 },
             { opacity:1, x:0, scale:1, duration:.75, delay:i*.09, ease:'back.out(1.4)',
-                scrollTrigger:{ trigger:'.certs-panel', start:'top 82%', toggleActions:PO } })
+                scrollTrigger:{ trigger:'.certs-panel', start:'top 92%', once:true } })
     );
 
     /* Panel titles dramatic reveal */
     gsap.fromTo('.skills-panel .panel-title',
         { opacity:0, y:20, clipPath:'inset(0 100% 0 0)' },
         { opacity:1, y:0, clipPath:'inset(0 0% 0 0)', duration:.9, ease:'power4.inOut',
-            scrollTrigger:{ trigger:'.skills-panel', start:'top 82%', toggleActions:PO } });
+            scrollTrigger:{ trigger:'.skills-panel', start:'top 92%', once:true } });
     gsap.fromTo('.certs-panel .panel-title',
         { opacity:0, y:20, clipPath:'inset(0 100% 0 0)' },
         { opacity:1, y:0, clipPath:'inset(0 0% 0 0)', duration:.9, ease:'power4.inOut',
-            scrollTrigger:{ trigger:'.certs-panel', start:'top 82%', toggleActions:PO } });
+            scrollTrigger:{ trigger:'.certs-panel', start:'top 92%', once:true } });
 
     /* ── CONTACT ── cards cascade up ── */
     $$('.contact-card').forEach((el, i) =>
         gsap.fromTo(el, { opacity:0, y:50, scale:.95 },
             { opacity:1, y:0, scale:1, duration:.85, delay:i*.14, ease:expo,
-                scrollTrigger:{ trigger:'.contact-section', start:'top 80%', toggleActions:PO } })
+                scrollTrigger:{ trigger:'.contact-section', start:'top 92%', once:true } })
     );
 
     /* ── Section orb parallax ── */
@@ -500,18 +508,62 @@ function initSpotlight() {
 }
 
 /* ════════════════════════════════════════════════════════
-   14. CARD TILT
+   14. CARD TILT (VanillaTilt)
    ════════════════════════════════════════════════════════ */
 function initTilt() {
     if (mob()) return;
-    $$('.origin-card,.project-card,.battle-card').forEach(card => {
-        card.addEventListener('mousemove', e => {
-            const r = card.getBoundingClientRect();
-            const x = ((e.clientX-r.left)/r.width -.5)*10;
-            const y = ((e.clientY-r.top)/r.height-.5)*-10;
-            card.style.transform = `perspective(700px) rotateY(${x}deg) rotateX(${y}deg) scale(1.025)`;
-        }, { passive:true });
-        card.addEventListener('mouseleave', () => { card.style.transform=''; }, { passive:true });
+    if (typeof VanillaTilt === 'undefined') return;
+
+    /* Origin cards – subtle 3D tilt */
+    VanillaTilt.init(document.querySelectorAll('.origin-card'), {
+        max: 10,
+        speed: 600,
+        glare: false,
+        perspective: 900,
+        scale: 1.03,
+        gyroscope: false,
+    });
+
+    /* Project cards */
+    VanillaTilt.init(document.querySelectorAll('.project-card'), {
+        max: 8,
+        speed: 500,
+        glare: false,
+        perspective: 1000,
+        scale: 1.025,
+        gyroscope: false,
+    });
+
+    /* Battle cards */
+    VanillaTilt.init(document.querySelectorAll('.battle-card'), {
+        max: 6,
+        speed: 500,
+        glare: false,
+        perspective: 1000,
+        scale: 1.02,
+        gyroscope: false,
+    });
+}
+
+/* ════════════════════════════════════════════════════════
+   14b. TYPED.JS – Hero role typewriter
+   ════════════════════════════════════════════════════════ */
+function initTyped() {
+    const el = document.getElementById('typed-role');
+    if (!el || typeof Typed === 'undefined') return;
+    new Typed(el, {
+        strings: [
+            'Software Developer',
+            'ML & NLP Researcher',
+            'Full Stack Engineer',
+            'Spring Boot Architect',
+            'Open Source Builder',
+        ],
+        typeSpeed: 52,
+        backSpeed: 28,
+        backDelay: 2200,
+        loop: true,
+        smartBackspace: true,
     });
 }
 
@@ -555,10 +607,74 @@ function initModal() {
 }
 
 /* ════════════════════════════════════════════════════════
+   17. MAGNETIC BUTTONS
+   ════════════════════════════════════════════════════════ */
+function initMagneticButtons() {
+    if (mob()) return;
+    $$('.btn--primary, .btn--ghost, .btn--accent').forEach(btn => {
+        btn.addEventListener('mousemove', e => {
+            const r = btn.getBoundingClientRect();
+            const cx = r.left + r.width / 2;
+            const cy = r.top + r.height / 2;
+            const dx = (e.clientX - cx) * 0.28;
+            const dy = (e.clientY - cy) * 0.28;
+            gsap.to(btn, { x: dx, y: dy, duration: 0.35, ease: 'power2.out' });
+        });
+        btn.addEventListener('mouseleave', () => {
+            gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.5)' });
+        });
+    });
+}
+
+/* ════════════════════════════════════════════════════════
+   18. FLOATING HERO BADGE
+   ════════════════════════════════════════════════════════ */
+function initFloatingElements() {
+    /* Hero badge gentle float */
+    gsap.to('.hero-badge', {
+        y: -8,
+        duration: 2.4,
+        ease: 'sine.inOut',
+        yoyo: true,
+        repeat: -1,
+    });
+
+    /* Contact card mouse ripple */
+    $$('.contact-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const r = card.getBoundingClientRect();
+            card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+            card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+        }, { passive: true });
+    });
+
+    /* Narrative block stagger reveal (only adds a class, never sets opacity:0) */
+    $$('.narrative-block').forEach((block, i) => {
+        ScrollTrigger.create({
+            trigger: block,
+            start: 'top 88%',
+            onEnter: () => {
+                setTimeout(() => block.classList.add('is-visible'), i * 120);
+            },
+        });
+    });
+}
+
+/* ════════════════════════════════════════════════════════
+   19. CARD ENTRANCES
+   GSAP (initScrollScenes) owns all opacity/transform animations.
+   This function only ensures z-index stacking is correct on hover.
+   ════════════════════════════════════════════════════════ */
+function initCardEntrances() {
+    /* Nothing to do — GSAP handles entrance, CSS handles hover.
+       Left as a named function for clarity and future use. */
+}
+
+/* ════════════════════════════════════════════════════════
    INIT
    ════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
-    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, TextPlugin);
 
     initCursor();
     initParticles();
@@ -571,22 +687,43 @@ document.addEventListener('DOMContentLoaded', () => {
     initMarquee();
     initChapterFlash();
     initTilt();
+    initTyped();
     initGlitch();
     initSpotlight();
     initModal();
+    initMagneticButtons();
+    initFloatingElements();
+    initCardEntrances();
 
     document.fonts.ready.then(() => ScrollTrigger.refresh());
     let rt;
     window.addEventListener('resize', () => { clearTimeout(rt); rt=setTimeout(()=>ScrollTrigger.refresh(),300); }, { passive:true });
 
-    /* Hard fallback at 3s */
+    /* Hard fallback at 800ms — catches any element GSAP set to opacity:0 OR
+       clip-path-clipped whose ScrollTrigger never fired */
     setTimeout(() => {
+        /* First pass: explicitly fix section headers which use clipPath */
+        document.querySelectorAll('.section-title, .section-eyebrow, .section-subtitle').forEach(el => {
+            el.style.clipPath  = 'none';
+            el.style.opacity   = '1';
+            el.style.transform = 'none';
+            el.style.letterSpacing = '';
+        });
+        /* Second pass: any other animated element still invisible */
         document.querySelectorAll('section *').forEach(el => {
             try {
-                if (getComputedStyle(el).opacity === '0' && el.offsetParent !== null) {
-                    el.style.opacity='1'; el.style.transform='none'; el.style.clipPath='none';
+                const s = getComputedStyle(el);
+                const hidden =
+                    s.opacity === '0' ||
+                    el.style.opacity === '0' ||
+                    (el.style.clipPath && el.style.clipPath !== 'none' && el.style.clipPath !== '');
+                if (hidden && el.offsetParent !== null) {
+                    el.style.opacity   = '1';
+                    el.style.transform = 'none';
+                    el.style.clipPath  = 'none';
                 }
             } catch(e) {}
         });
-    }, 3000);
+        ScrollTrigger.refresh();
+    }, 800);
 });
