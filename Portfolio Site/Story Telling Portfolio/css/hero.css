@@ -137,6 +137,9 @@
     font-family: var(--font-mono);
     z-index: 4;
     backdrop-filter: blur(10px);
+    white-space: nowrap;       /* prevent text wrapping */
+    max-width: calc(100vw - 40px); /* never wider than viewport */
+    box-sizing: border-box;
     /* opacity/transform owned by GSAP heroEntry */
 }
 

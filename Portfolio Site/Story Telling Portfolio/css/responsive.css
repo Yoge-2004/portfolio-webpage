@@ -74,6 +74,7 @@ html, body {
 
     .hero-image-wrapper { order: 2; }
     .hero-right         { order: 1; }
+    .hero-left          { order: 2; } /* image below text on mobile */
 
     .hero-image__frame {
         width: 280px;
@@ -211,7 +212,7 @@ html, body {
 
     /* Hero */
     .hero-content {
-        padding: 100px 20px 60px;
+        padding: 110px 20px 60px; /* 110px clears nav (80px bottom) + breathing room */
         gap: 32px;
     }
 
@@ -486,7 +487,7 @@ html, body {
 
     /* Hero */
     .hero-content {
-        padding: 90px 16px 48px;
+        padding: 84px 16px 48px; /* 84px clears nav (62px) + breathing room */
     }
 
     .hero-image__frame {
