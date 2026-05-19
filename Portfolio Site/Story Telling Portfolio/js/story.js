@@ -585,16 +585,19 @@ function initTyped() {
     new Typed(el, {
         strings: [
             'Software Developer',
-            'ML & NLP Researcher',
+            'ML &amp; NLP Researcher',   /* &amp; avoids HTML entity parse issues */
             'Full Stack Engineer',
             'Spring Boot Architect',
             'Open Source Builder',
         ],
-        typeSpeed: 52,
-        backSpeed: 28,
-        backDelay: 2200,
+        typeSpeed: 42,        /* slightly faster — less wait feeling */
+        backSpeed: 32,        /* slightly faster backspace */
+        backDelay: 1800,      /* pause before backspacing */
+        startDelay: 600,      /* wait for hero entry animation */
         loop: true,
-        smartBackspace: true,
+        smartBackspace: false, /* disabled — causes abrupt show/hide on shared prefixes */
+        showCursor: true,
+        cursorChar: '|',
     });
 }
 
