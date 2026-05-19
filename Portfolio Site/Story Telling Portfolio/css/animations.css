@@ -186,3 +186,20 @@
 .contact-card:hover::before { opacity: 1; }
 
 /* ── Safe card entrance removed — GSAP owns all entrance animation ── */
+
+/* ── Hero badge float — CSS animation avoids GSAP transform conflict ── */
+/* The badge has transform:translateX(-50%) for centering. GSAP y-animation
+   replaces the full transform, losing the centering and causing jitter.
+   CSS @keyframes uses translate() separately, stacking cleanly. */
+@keyframes badgeFloatY {
+    0%, 100% { translate: 0 0px; }
+    50%       { translate: 0 -9px; }
+}
+.hero-badge.is-floating {
+    animation: badgeFloatY 2.8s ease-in-out infinite;
+    will-change: translate;
+}
+/* On reduced motion — disable the float */
+@media (prefers-reduced-motion: reduce) {
+    .hero-badge.is-floating { animation: none; }
+}

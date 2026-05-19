@@ -661,14 +661,13 @@ function initMagneticButtons() {
    18. FLOATING HERO BADGE
    ════════════════════════════════════════════════════════ */
 function initFloatingElements() {
-    /* Hero badge gentle float */
-    gsap.to('.hero-badge', {
-        y: -8,
-        duration: 2.4,
-        ease: 'sine.inOut',
-        yoyo: true,
-        repeat: -1,
-    });
+    /* Hero badge float: use CSS animation (not GSAP) because the badge
+       uses transform:translateX(-50%) for centering. GSAP's gsap.to() with y
+       rewrites the whole transform property, clobbering translateX(-50%) and
+       causing horizontal jitter. CSS @keyframes stacks on top of the inline
+       transform cleanly via the CSS animation-fill-mode. */
+    const badge = document.querySelector('.hero-badge');
+    if (badge) badge.classList.add('is-floating');
 
     /* Contact card mouse ripple */
     $$('.contact-card').forEach(card => {
