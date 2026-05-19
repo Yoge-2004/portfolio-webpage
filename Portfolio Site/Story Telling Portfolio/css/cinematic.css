@@ -557,24 +557,37 @@
     .hero-metrics {
         display: grid !important;
         grid-template-columns: 1fr 1fr !important;
+        grid-template-rows: 1fr 1fr !important; /* equal row heights */
         gap: 1px !important;
         border: 1px solid rgba(255,255,255,.07) !important;
         border-radius: 12px !important;
         overflow: hidden !important;
         max-width: 400px !important;
         width: 100% !important;
-        margin: 0 auto !important;
+        margin: 0 auto 32px !important; /* remove top gap, keep bottom */
+        padding: 0 !important; /* kill the 24px 0 padding that creates gaps */
     }
     .hero-metric {
-        padding: 18px 14px !important;
+        padding: 20px 14px !important;
         background: rgba(255,255,255,.02) !important;
         border-right: 1px solid rgba(255,255,255,.05) !important;
         border-bottom: 1px solid rgba(255,255,255,.05) !important;
         text-align: center !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important; /* vertically center content */
+        min-height: 80px !important;        /* equal minimum height */
     }
-    .hero-metric:nth-child(2n)    { border-right: none !important; }
-    .hero-metric:nth-last-child(-n+3) { border-bottom: none; }
-    .hero-metric__divider         { display: none !important; }
+    .hero-metric:nth-child(2n) { border-right: none !important; }
+    .hero-metric:nth-child(n+3) { border-bottom: none !important; }
+    .hero-metric__divider { display: none !important; }
+    .hero-metric__label {
+        white-space: nowrap !important; /* prevent "RESEARCH PAPER" wrap */
+        font-size: 9px !important;
+        letter-spacing: 1px !important;
+    }
+    .hero-metric__number { font-size: 2.2rem !important; }
 }
 
 /* ── Section spacing: no huge blank gaps on mobile ──────────*/

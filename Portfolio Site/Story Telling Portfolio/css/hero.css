@@ -250,7 +250,6 @@
     border-bottom: 1px solid rgba(255,255,255,0.06);
     /* opacity/transform owned by GSAP heroEntry */
 }
-
 .hero-metrics.is-revealed {
     opacity: 1;
     transform: translateY(0);
