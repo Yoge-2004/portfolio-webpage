@@ -193,10 +193,12 @@
 
 .hero-headline {
     font-family: var(--font-display);
-    font-size: clamp(3rem, 5.5vw, 5rem);
+    font-size: clamp(2rem, 8.5vw, 5rem); /* 8.5vw@320px=27px, fits 11-char name */
     font-weight: 300;
     line-height: 1.05;
     margin-bottom: 28px;
+    white-space: nowrap;        /* prevent mid-word wrap */
+    overflow: visible;
 }
 
 .hero-headline__word {

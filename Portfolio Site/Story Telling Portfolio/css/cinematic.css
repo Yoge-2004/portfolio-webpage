@@ -588,9 +588,11 @@
     .contact-section { padding: 60px 0 !important; }
 }
 
-/* ── Hero headline: clamp prevents line break on 375px ─────── */
+/* ── Hero headline: clamp prevents line break on 320px ─────── */
 .hero-headline {
-    font-size: clamp(2.2rem, 8vw, 5rem) !important;
+    font-size: clamp(2rem, 8.5vw, 5rem) !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
     word-break: normal !important;
     overflow-wrap: normal !important;
 }
