@@ -91,10 +91,15 @@ function heroEntry() {
     gsap.to('.hero-scroll-hint', { opacity:0, y:8, ease:'none',
         scrollTrigger: {
             trigger: '.hero-section',
-            start: '8% top',
-            end:   '20% top',
+            start: '5% top',
+            end:   '18% top',
             scrub: true,
-            onLeave: () => gsap.set('.hero-scroll-hint', { display:'none' })
+            onLeave: () => {
+                gsap.set('.hero-scroll-hint', { display:'none', visibility:'hidden' });
+            },
+            onEnterBack: () => {
+                gsap.set('.hero-scroll-hint', { display:'flex', visibility:'visible' });
+            }
         }
     });
 }

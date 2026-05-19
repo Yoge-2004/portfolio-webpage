@@ -790,7 +790,8 @@ html, body {
    ───────────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
     /* Scroll hint: only force opacity; transform:translateX(-50%) must stay for centering */
-    .hero-scroll-hint { opacity: 1 !important; visibility: visible !important; }
+    /* Note: .hero-scroll-hint intentionally excluded — GSAP controls its
+       opacity and display on scroll. CSS !important would prevent hiding. */
     /* Hero */
     .hero-image__border,
     .hero-image__glow,
