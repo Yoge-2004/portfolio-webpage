@@ -130,14 +130,24 @@ function initNav() {
 
     const linkMap = {};
     $$('.nav-link[href^="#"]').forEach(l => { linkMap[l.getAttribute('href').slice(1)] = l; });
-    const obs = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-            if (!e.isIntersecting) return;
+
+    /* Scroll-position scrollspy — works regardless of section height.
+       Picks the section whose top is closest to (but still above) the
+       nav bottom (~100px). Updates on every scroll frame. */
+    const sections = Array.from($$('.story-section[id]'));
+    function updateScrollspy() {
+        const scrollY = window.scrollY + 110;
+        let current = sections[0];
+        for (const sec of sections) {
+            if (sec.offsetTop <= scrollY) current = sec;
+        }
+        if (current) {
             $$('.nav-link').forEach(l => l.classList.remove('is-active'));
-            linkMap[e.target.id]?.classList.add('is-active');
-        });
-    }, { threshold:.35 });
-    $$('.story-section[id]').forEach(s => obs.observe(s));
+            linkMap[current.id]?.classList.add('is-active');
+        }
+    }
+    window.addEventListener('scroll', updateScrollspy, { passive: true });
+    setTimeout(updateScrollspy, 400);
 
     const openMenu  = () => { menu?.classList.add('is-open');    toggle?.classList.add('is-open');    document.body.style.overflow='hidden'; };
     const closeMenu = () => { menu?.classList.remove('is-open'); toggle?.classList.remove('is-open'); document.body.style.overflow=''; };
@@ -173,21 +183,37 @@ function initScrollScenes() {
     });
 
     /* ── Section headers: wipe + eyebrow decode ── */
-    $$('.section-title').forEach(el =>
+    $$('.section-title').forEach(el => {
+        // If already in viewport (page refresh mid-scroll), show immediately
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight) {
+            gsap.set(el, { clipPath:'inset(0 0% 0 0)', opacity:1 });
+            return;
+        }
         gsap.fromTo(el, { clipPath:'inset(0 100% 0 0)', opacity:1 },
             { clipPath:'inset(0 0% 0 0)', duration:1.1, ease:'power4.inOut',
-                scrollTrigger:{ trigger:el, start:'top 95%', once:true } })
-    );
-    $$('.section-eyebrow').forEach(el =>
+                scrollTrigger:{ trigger:el, start:'top bottom', once:true } });
+    });
+    $$('.section-eyebrow').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight) {
+            gsap.set(el, { opacity:1, y:0, letterSpacing:'4px' });
+            return;
+        }
         gsap.fromTo(el, { opacity:0, y:14, letterSpacing:'14px' },
             { opacity:1, y:0, letterSpacing:'4px', duration:.9, ease:pow,
-                scrollTrigger:{ trigger:el, start:'top 95%', once:true } })
-    );
-    $$('.section-subtitle').forEach(el =>
+                scrollTrigger:{ trigger:el, start:'top bottom', once:true } });
+    });
+    $$('.section-subtitle').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight) {
+            gsap.set(el, { opacity:1, y:0 });
+            return;
+        }
         gsap.fromTo(el, { opacity:0, y:20 },
             { opacity:1, y:0, duration:.9, delay:.2, ease:pow,
-                scrollTrigger:{ trigger:el, start:'top 95%', once:true } })
-    );
+                scrollTrigger:{ trigger:el, start:'top bottom', once:true } });
+    });
 
     /* ── ORIGIN ─── word-by-word narration reveal ── */
     $$('.narrative-block').forEach((block, bi) => {
