@@ -140,8 +140,8 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     overflow: visible;
-    padding: 8px 8px 20px;
-    margin: 0 -8px;
+    padding: 4px 0 16px; /* vertical padding only, no horizontal bleed */
+    margin: 0;
     box-sizing: border-box;
 }
 

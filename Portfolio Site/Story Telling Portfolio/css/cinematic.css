@@ -391,14 +391,15 @@
     width: 100% !important;
     align-self: stretch !important;
     border-radius: 20px !important;
+    box-sizing: border-box !important;
 }
 .battle-grid {
     display: grid !important;
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     gap: clamp(16px, 1.6vw, 24px) !important;
     width: 100% !important;
-    padding: 8px 8px 24px !important;
-    margin: 0 -8px !important;
+    padding: 0 !important;   /* remove padding so grid edges align with featured card */
+    margin: 0 !important;    /* remove negative margin — no bleed needed */
     box-sizing: border-box !important;
 }
 .battle-card {
@@ -412,8 +413,6 @@
 @media (max-width: 768px) {
     .battle-grid {
         grid-template-columns: 1fr !important;
-        padding: 4px 4px 20px !important;
-        margin: 0 -4px !important;
     }
     .battle-featured__actions {
         flex-wrap: wrap !important;
