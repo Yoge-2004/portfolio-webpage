@@ -1,0 +1,171 @@
+/* ============================================
+   RESPONSIVE — Structural breakpoints only.
+   Typography, spacing and grids are fluid via
+   clamp() and auto-fit in every component CSS.
+   Only truly structural layout shifts live here.
+   ============================================ */
+
+/* ════════════════════════════════════════════════════════════
+   NAV — collapse to hamburger
+   ════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+    .nav-links { display: none; }
+    .menu-toggle { display: flex; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   HERO — stack image above text on small screens
+   ════════════════════════════════════════════════════════════ */
+@media (max-width: 820px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+        padding-top: clamp(72px, 14vw, 100px);
+    }
+    .hero-image-wrapper { order: -1; }
+    .hero-image__frame  { width: clamp(160px, 55vw, 280px); }
+    .hero-tagline, .hero-metrics, .hero-cta { max-width: 100%; }
+    .hero-cta { justify-content: center; }
+    .hero-kicker { justify-content: center; }
+    .hero-metric { padding: 0 clamp(10px, 2vw, 20px); }
+    .hero-headline { text-align: center; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   SECTION min-height — sections don't need full viewport on mobile
+   ════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    .story-section { min-height: auto; }
+    .hero-section  { min-height: 100svh; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   TIMELINE — center-split to single left-aligned on mobile
+   ════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    .timeline { max-width: 100%; }
+
+    .timeline__track {
+        left: 20px;
+        transform: none;
+    }
+
+    .timeline-entry,
+    .timeline-entry:nth-child(even) {
+        flex-direction: row;
+        align-items: flex-start;
+        padding-left: 52px;
+    }
+
+    .timeline-entry__marker {
+        left: 20px;
+        transform: translateX(-50%);
+        top: 24px;
+    }
+
+    .timeline-entry__card {
+        width: 100%;
+    }
+
+    .timeline-entry:nth-child(even) .timeline-entry__card {
+        transform: none;
+    }
+}
+
+/* ════════════════════════════════════════════════════════════
+   ORIGIN — narrative before cards stacks naturally via auto-fit
+   Force narrative text center on very small screens
+   ════════════════════════════════════════════════════════════ */
+@media (max-width: 600px) {
+    .origin-narrative { order: 2; }
+    .origin-cards     { order: 1; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   BATTLE FEATURED — collapse two-column meta to single column
+   ════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    .battle-featured {
+        grid-template-columns: 1fr;
+        gap: clamp(16px, 3vw, 24px) 0;
+    }
+    .battle-featured__header { grid-column: 1 / -1; }
+    .battle-featured__body   { grid-column: 1 / -1; }
+    .battle-featured__footer { grid-column: 1 / -1; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   PROJECT HERO — visual panel min-height on small screens
+   ════════════════════════════════════════════════════════════ */
+@media (max-width: 600px) {
+    .project-hero__visual { min-height: clamp(120px, 30vw, 200px); }
+}
+
+/* ════════════════════════════════════════════════════════════
+   CONTACT — centre-align footer text
+   ════════════════════════════════════════════════════════════ */
+@media (max-width: 600px) {
+    .footer-inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+}
+
+/* ════════════════════════════════════════════════════════════
+   CERT ITEM — stack icon+info and actions vertically on narrow
+   ════════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+    .cert-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .cert-item__left  { width: 100%; }
+    .cert-item__actions { width: 100%; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   MOBILE NAV MENU
+   ════════════════════════════════════════════════════════════ */
+.mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    background: rgba(7,7,13,0.97);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(8px, 1.5vw, 16px);
+}
+.mobile-menu.is-open { display: flex; }
+
+.mobile-link {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 6vw, 3rem);
+    color: var(--text-primary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+.mobile-link:hover,
+.mobile-link.is-active { color: var(--accent-cyan); }
+.mobile-link span {
+    font-family: var(--font-mono);
+    font-size: clamp(9px, 1.5vw, 11px);
+    color: var(--accent-cyan);
+    letter-spacing: 2px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   BUTTONS — full-width on tiny screens
+   ════════════════════════════════════════════════════════════ */
+@media (max-width: 360px) {
+    .hero-cta .btn { width: 100%; justify-content: center; }
+}

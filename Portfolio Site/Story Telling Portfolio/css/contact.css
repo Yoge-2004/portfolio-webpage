@@ -1,0 +1,189 @@
+/* ============================================
+   CONTACT SECTION & FOOTER - Chapter Seven
+   ============================================ */
+
+.contact-section {
+    background: var(--bg-dark);
+    padding: var(--section-py) 0 clamp(60px,8vw,100px);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.contact-center {
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.contact-cards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--grid-gap);
+    margin-top: 56px;
+}
+
+.contact-card {
+    display: flex;
+    align-items: center;
+    gap: clamp(14px,2vw,24px);
+    padding: clamp(16px,2.5vw,28px) clamp(16px,3.5vw,36px);
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 18px;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.5s var(--ease-out-expo), box-shadow 0.5s var(--ease-out-expo);
+    -webkit-tap-highlight-color: transparent;  /* kill iOS blue flash */
+    outline: none;                              /* kill desktop focus ring */
+}
+.contact-card:focus,
+.contact-card:focus-visible {
+    outline: 2px solid var(--accent-cyan);     /* accessible — only on keyboard focus */
+    outline-offset: 2px;
+}
+@media (hover: none) {
+    /* remove translateX hover on touch — it mis-aligns on mobile */
+    .contact-card:hover { transform: none !important; }
+    html[data-theme="light"] .contact-card:hover { transform: none !important; }
+}
+
+/* .contact-card.is-revealed - animation handled by GSAP */
+
+
+.contact-card:hover {
+    border-color: rgba(0, 229, 255, 0.2);
+    box-shadow: 0 12px 40px rgba(0, 229, 255, 0.08);
+}
+
+.contact-card__glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 0% 50%, rgba(0,229,255,0.05) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.contact-card:hover .contact-card__glow {
+    opacity: 1;
+}
+
+.contact-card__icon {
+    font-size: 28px;
+    width: 52px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    color: var(--accent-cyan);
+    transition: transform 0.4s var(--ease-out-expo);
+}
+
+.contact-card:hover .contact-card__icon {
+    transform: scale(1.1);
+}
+
+.contact-card__icon--linkedin {
+    color: #0a66c2;
+}
+
+.contact-card__icon--github {
+    color: var(--text-primary);
+}
+
+.contact-card__info {
+    flex: 1;
+    text-align: left;
+    position: relative;
+    z-index: 2;
+}
+
+.contact-card__label {
+    display: block;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+    font-family: var(--font-mono);
+}
+
+.contact-card__value {
+    display: block;
+    font-size: clamp(12px, 1.4vw, 16px);
+    color: var(--text-bright);
+    font-weight: 600;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+    min-width: 0;
+}
+
+.contact-card__arrow {
+    color: var(--text-dim);
+    transition: all 0.4s var(--ease-out-expo);
+    position: relative;
+    z-index: 2;
+}
+
+.contact-card:hover .contact-card__arrow {
+    color: var(--accent-cyan);
+    transform: translate(6px, -6px);
+}
+
+/* Footer */
+.site-footer {
+    padding: 40px;
+    background: var(--bg-darkest);
+    border-top: 1px solid rgba(255,255,255,0.04);
+}
+
+.footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-inner p {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.footer-inner .fa-heart {
+    color: var(--accent-pink);
+    animation: heartbeat 2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+.top-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 100px;
+    color: var(--text-secondary);
+    font-family: var(--font-body);
+    font-size: 13px;
+    cursor: none;
+    transition: all 0.4s var(--ease-out-expo);
+}
+
+.top-button:hover {
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+    background: rgba(0, 229, 255, 0.05);
+    transform: translateY(-2px);
+}
+/* ── Fluid contact typography ────────────────────────────── */
+.contact-card__icon  { font-size: clamp(20px, 2.5vw, 28px); }
+.contact-card__label { font-size: clamp(9px, 0.9vw, 11px); }
+.contact-card__value { font-size: clamp(13px, 1.4vw, 16px); }
+.site-footer         { padding: clamp(20px, 4vw, 40px) var(--container-px); }

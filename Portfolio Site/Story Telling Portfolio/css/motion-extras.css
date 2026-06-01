@@ -1,0 +1,676 @@
+/* ============================================================
+   MOTION EXTRAS — Additional animations & transitions
+   Builds on top of animations.css without duplicating anything.
+   All keyframes use transform/opacity only (GPU composited).
+   Every block respects prefers-reduced-motion at the bottom.
+   ============================================================ */
+
+/* ══════════════════════════════════════════════════════════
+   1. CARD INNER SHIMMER SWEEP
+   A diagonal light streak crosses each card on hover.
+   ══════════════════════════════════════════════════════════ */
+.origin-card,
+.project-card,
+.battle-card,
+.cert-item,
+.contact-card,
+.timeline-entry__card,
+.result-card {
+    --shimmer-x: -100%;
+    isolation: isolate;
+}
+
+.origin-card::before,
+.project-card::before,
+.battle-card::before,
+.timeline-entry__card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        105deg,
+        transparent 20%,
+        rgba(255, 255, 255, 0.055) 50%,
+        transparent 80%
+    );
+    transform: translateX(-110%);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+    z-index: 1;
+    border-radius: inherit;
+}
+
+.origin-card:hover::before,
+.project-card:hover::before,
+.battle-card:hover::before,
+.timeline-entry__card:hover::before {
+    transform: translateX(110%);
+}
+
+/* ══════════════════════════════════════════════════════════
+   2. CARD CURSOR INNER GLOW
+   A soft radial glow follows the cursor inside every card.
+   CSS custom properties --cx/--cy are set by JS.
+   ══════════════════════════════════════════════════════════ */
+.origin-card::after,
+.project-card::after,
+.battle-card::after,
+.cert-item::after,
+.contact-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+        circle 120px at var(--cx, 50%) var(--cy, 50%),
+        rgba(102, 231, 242, 0.07) 0%,
+        transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.origin-card:hover::after,
+.project-card:hover::after,
+.battle-card:hover::after,
+.cert-item:hover::after,
+.contact-card:hover::after {
+    opacity: 1;
+}
+
+/* ══════════════════════════════════════════════════════════
+   3. TECH PILL STAGGER ENTRANCE
+   Pills fly in one by one when the project section enters.
+   ══════════════════════════════════════════════════════════ */
+@keyframes pillPop {
+    from { opacity: 0; transform: translateY(10px) scale(0.85); }
+    to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+.is-revealed .tech-pill,
+.project-hero.is-revealed ~ .project-hero__tech .tech-pill,
+.project-hero__tech .tech-pill {
+    animation: pillPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.tech-pill:nth-child(1)  { animation-delay: 0.05s; }
+.tech-pill:nth-child(2)  { animation-delay: 0.10s; }
+.tech-pill:nth-child(3)  { animation-delay: 0.15s; }
+.tech-pill:nth-child(4)  { animation-delay: 0.20s; }
+.tech-pill:nth-child(5)  { animation-delay: 0.25s; }
+.tech-pill:nth-child(6)  { animation-delay: 0.30s; }
+.tech-pill:nth-child(7)  { animation-delay: 0.35s; }
+.tech-pill:nth-child(8)  { animation-delay: 0.40s; }
+
+.tech-pill:hover {
+    background: rgba(0, 229, 255, 0.14);
+    border-color: rgba(0, 229, 255, 0.35);
+    transform: translateY(-3px) scale(1.04);
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Project card tech tag hover */
+.project-card__tech span {
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: default;
+}
+.project-card:hover .project-card__tech span:nth-child(1) { transition-delay: 0.00s; transform: translateY(-2px); }
+.project-card:hover .project-card__tech span:nth-child(2) { transition-delay: 0.04s; transform: translateY(-2px); }
+.project-card:hover .project-card__tech span:nth-child(3) { transition-delay: 0.08s; transform: translateY(-2px); }
+.project-card:hover .project-card__tech span:nth-child(4) { transition-delay: 0.12s; transform: translateY(-2px); }
+
+/* ══════════════════════════════════════════════════════════
+   4. ORIGIN CARD ICON BOUNCE
+   The icon bounces when the card enters the viewport.
+   ══════════════════════════════════════════════════════════ */
+@keyframes iconBounce {
+    0%   { transform: scale(0.6) translateY(8px); opacity: 0; }
+    60%  { transform: scale(1.15) translateY(-4px); opacity: 1; }
+    80%  { transform: scale(0.95) translateY(2px); }
+    100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.origin-card.mob-visible .origin-card__icon,
+.origin-card.is-visible .origin-card__icon {
+    animation: iconBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.origin-card:nth-child(2) .origin-card__icon { animation-delay: 0.08s; }
+.origin-card:nth-child(3) .origin-card__icon { animation-delay: 0.16s; }
+.origin-card:nth-child(4) .origin-card__icon { animation-delay: 0.24s; }
+
+.origin-card:hover .origin-card__icon {
+    animation: iconBounce 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ══════════════════════════════════════════════════════════
+   5. TIMELINE MARKER ACTIVE PING
+   A ripple ring expands from the active timeline dot.
+   ══════════════════════════════════════════════════════════ */
+@keyframes markerPing {
+    0%   { transform: translateX(-50%) scale(1); opacity: 0.8; }
+    100% { transform: translateX(-50%) scale(2.6); opacity: 0; }
+}
+
+.timeline-entry__marker::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-cyan);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.timeline-entry.is-active .timeline-entry__marker::after,
+.timeline-entry__marker:hover::after {
+    animation: markerPing 1.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* ══════════════════════════════════════════════════════════
+   6. WIN BADGE SPARKLE
+   Small stars radiate out from the win badge on hover.
+   ══════════════════════════════════════════════════════════ */
+@keyframes sparkleOrbit {
+    0%   { transform: rotate(var(--sa)) translateX(0px) scale(0); opacity: 1; }
+    60%  { opacity: 1; }
+    100% { transform: rotate(var(--sa)) translateX(18px) scale(1); opacity: 0; }
+}
+
+.win-badge {
+    position: relative;
+}
+
+.win-badge::before {
+    content: '✦';
+    position: absolute;
+    top: 50%; left: 50%;
+    font-size: 8px;
+    color: var(--accent-green);
+    opacity: 0;
+    pointer-events: none;
+    --sa: 0deg;
+    transform-origin: 0 0;
+}
+
+.win-badge:hover::before {
+    animation: sparkleOrbit 0.6s ease forwards;
+}
+
+@keyframes winGlow {
+    0%, 100% { text-shadow: 0 0 0 transparent; }
+    50%       { text-shadow: 0 0 12px rgba(34, 211, 238, 0.7); }
+}
+
+.win-badge {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.win-badge:hover {
+    transform: scale(1.12) rotate(-3deg);
+    animation: winGlow 1.2s ease infinite;
+}
+
+/* ══════════════════════════════════════════════════════════
+   7. BATTLE CARD SCAN LINE
+   A horizontal scan line sweeps down the featured battle card on hover.
+   ══════════════════════════════════════════════════════════ */
+@keyframes scanSweep {
+    0%   { top: -2px; opacity: 0.7; }
+    100% { top: 100%;  opacity: 0; }
+}
+
+.battle-featured {
+    position: relative;
+    overflow: hidden;
+}
+
+.battle-featured::before {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; top: -2px;
+    height: 2px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(102, 231, 242, 0.6) 30%,
+        rgba(154, 140, 255, 0.6) 70%,
+        transparent 100%
+    );
+    opacity: 0;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.battle-featured:hover::before {
+    animation: scanSweep 1.8s linear infinite;
+}
+
+/* ══════════════════════════════════════════════════════════
+   8. MARQUEE ITEM HOVER ENLARGE
+   Individual marquee tech items scale up on hover.
+   ══════════════════════════════════════════════════════════ */
+.marquee-inner span {
+    transition: color 0.25s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: inline-block;
+}
+
+.marquee-inner span:hover {
+    color: var(--accent-cyan);
+    transform: scale(1.18) translateY(-2px);
+}
+
+/* ══════════════════════════════════════════════════════════
+   9. KEYWORD CLOUD STAGGER FLOAT
+   Research keywords appear one by one and gently float.
+   ══════════════════════════════════════════════════════════ */
+@keyframes kwDrift {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-4px); }
+}
+
+@keyframes kwAppear {
+    from { opacity: 0; transform: scale(0.75) translateY(8px); }
+    to   { opacity: 1; transform: scale(1)    translateY(0);   }
+}
+
+.kw-tag {
+    animation: kwAppear 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.kw-tag:nth-child(1)  { animation-delay: 0.05s; }
+.kw-tag:nth-child(2)  { animation-delay: 0.10s; }
+.kw-tag:nth-child(3)  { animation-delay: 0.15s; }
+.kw-tag:nth-child(4)  { animation-delay: 0.20s; }
+.kw-tag:nth-child(5)  { animation-delay: 0.25s; }
+.kw-tag:nth-child(6)  { animation-delay: 0.30s; }
+.kw-tag:nth-child(7)  { animation-delay: 0.35s; }
+.kw-tag:nth-child(8)  { animation-delay: 0.40s; }
+
+.kw-tag:hover {
+    animation: kwDrift 2s ease-in-out infinite;
+    background: rgba(168, 85, 247, 0.18);
+    border-color: rgba(168, 85, 247, 0.4);
+}
+
+/* ══════════════════════════════════════════════════════════
+   10. PROJECT CARD VISUAL ICON FLOAT ON HOVER
+   The large icon in each grid project card lifts and glows.
+   ══════════════════════════════════════════════════════════ */
+@keyframes iconFloat {
+    0%, 100% { transform: translateY(0) scale(1); filter: drop-shadow(0 0 0 transparent); }
+    50%       { transform: translateY(-8px) scale(1.08); filter: drop-shadow(0 0 16px rgba(0,229,255,0.4)); }
+}
+
+.project-card__icon {
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.project-card:hover .project-card__icon {
+    animation: iconFloat 2s ease-in-out infinite;
+}
+
+/* ══════════════════════════════════════════════════════════
+   11. RESULT CARD SPRING POP
+   Result metrics pop in with a spring bounce.
+   ══════════════════════════════════════════════════════════ */
+@keyframes resultSpring {
+    0%   { transform: scale(0.5) translateY(16px); opacity: 0; }
+    65%  { transform: scale(1.08) translateY(-4px); opacity: 1; }
+    82%  { transform: scale(0.96); }
+    100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.result-card.mob-visible .result-card__number,
+.result-card.is-counting .result-card__number {
+    animation: resultSpring 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.result-card:nth-child(1) .result-card__number { animation-delay: 0.00s; }
+.result-card:nth-child(2) .result-card__number { animation-delay: 0.10s; }
+.result-card:nth-child(3) .result-card__number { animation-delay: 0.20s; }
+
+.result-card {
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                border-color 0.3s ease,
+                box-shadow 0.4s ease;
+}
+.result-card:hover {
+    transform: translateY(-6px) scale(1.03);
+    border-color: rgba(0, 229, 255, 0.28);
+    box-shadow: 0 16px 40px rgba(0, 229, 255, 0.1);
+}
+
+/* ══════════════════════════════════════════════════════════
+   12. NAV LOGO BRACKET MORPH
+   The brackets animate outward on hover.
+   ══════════════════════════════════════════════════════════ */
+.nav-logo {
+    transition: letter-spacing 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+}
+.nav-logo:hover {
+    letter-spacing: 4px;
+}
+
+.nav-logo__bracket {
+    display: inline-block;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease;
+}
+.nav-logo:hover .nav-logo__bracket:first-child { transform: translateX(-3px); color: var(--accent-cyan); }
+.nav-logo:hover .nav-logo__bracket:last-child  { transform: translateX(3px);  color: var(--accent-cyan); }
+
+/* ══════════════════════════════════════════════════════════
+   13. CONTACT CARD ICON SPIN + BOUNCE
+   ══════════════════════════════════════════════════════════ */
+@keyframes iconSpin {
+    0%   { transform: rotate(0deg) scale(1); }
+    40%  { transform: rotate(20deg) scale(1.2); }
+    70%  { transform: rotate(-8deg) scale(1.1); }
+    100% { transform: rotate(0deg) scale(1); }
+}
+
+.contact-card__icon {
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease;
+    display: inline-block;
+}
+
+.contact-card:hover .contact-card__icon {
+    animation: iconSpin 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    color: var(--accent-cyan);
+}
+
+/* ══════════════════════════════════════════════════════════
+   14. CERT ITEM LEFT BORDER ANIMATED REVEAL
+   The left accent stripe grows from 0 on hover.
+   ══════════════════════════════════════════════════════════ */
+.cert-item {
+    position: relative;
+}
+
+.cert-item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 50%;
+    width: 3px;
+    height: 0;
+    background: var(--accent-cyan);
+    border-radius: 2px;
+    transform: translateY(-50%);
+    transition: height 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.cert-item:hover::before {
+    height: 60%;
+}
+
+/* ══════════════════════════════════════════════════════════
+   15. SECTION AMBIENT COLOR PULSE PER SECTION
+   Each section has its own accent color that pulses subtly.
+   ══════════════════════════════════════════════════════════ */
+@keyframes sectionAmbient {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50%       { opacity: 0.7; transform: scale(1.1); }
+}
+
+.origin-section    .section-bg__orb { animation: sectionAmbient 8s ease-in-out infinite; --orb-color: rgba(0, 229, 255, 0.06); }
+.journey-section   .section-bg__orb { animation: sectionAmbient 9s ease-in-out infinite 1s; --orb-color: rgba(154, 140, 255, 0.06); }
+.quests-section    .section-bg__orb { animation: sectionAmbient 7s ease-in-out infinite 2s; --orb-color: rgba(168, 85, 247, 0.06); }
+.battles-section   .section-bg__orb { animation: sectionAmbient 8s ease-in-out infinite 0.5s; --orb-color: rgba(16, 185, 129, 0.06); }
+.discovery-section .section-bg__orb { animation: sectionAmbient 10s ease-in-out infinite 3s; --orb-color: rgba(251, 191, 36, 0.05); }
+.contact-section   .section-bg__orb { animation: sectionAmbient 7s ease-in-out infinite 1.5s; --orb-color: rgba(244, 114, 182, 0.05); }
+
+/* ══════════════════════════════════════════════════════════
+   16. ACTIVE SECTION HIGHLIGHT — nav dot glow
+   ══════════════════════════════════════════════════════════ */
+@keyframes navDotPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(102, 231, 242, 0); }
+    50%       { box-shadow: 0 0 0 4px rgba(102, 231, 242, 0.2); }
+}
+
+.nav-link.is-active .nav-link__num {
+    animation: navDotPulse 2s ease-in-out infinite;
+}
+
+/* ══════════════════════════════════════════════════════════
+   17. HERO HEADLINE LETTER-SPACING ENTRANCE
+   ══════════════════════════════════════════════════════════ */
+@keyframes headlineArrive {
+    from { letter-spacing: 0.2em; opacity: 0; filter: blur(4px); }
+    to   { letter-spacing: normal; opacity: 1; filter: blur(0); }
+}
+
+.hero-headline {
+    animation: headlineArrive 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+
+/* ══════════════════════════════════════════════════════════
+   18. PAPER BADGE PULSE GLOW
+   ══════════════════════════════════════════════════════════ */
+@keyframes badgePulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(102, 231, 242, 0); }
+    50%       { box-shadow: 0 0 0 3px rgba(102, 231, 242, 0.2); }
+}
+
+.paper-badge--type {
+    animation: badgePulse 3s ease-in-out infinite;
+}
+
+/* ══════════════════════════════════════════════════════════
+   19. BATTLE CARD TAGS STAGGER
+   ══════════════════════════════════════════════════════════ */
+@keyframes tagSlide {
+    from { opacity: 0; transform: translateX(-8px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+.battle-card__tags span {
+    animation: tagSlide 0.4s ease both;
+}
+.battle-card__tags span:nth-child(1) { animation-delay: 0.05s; }
+.battle-card__tags span:nth-child(2) { animation-delay: 0.10s; }
+.battle-card__tags span:nth-child(3) { animation-delay: 0.15s; }
+.battle-card__tags span:nth-child(4) { animation-delay: 0.20s; }
+
+/* ══════════════════════════════════════════════════════════
+   20. SKILL GROUP HEADER UNDERLINE
+   A line draws across the skill group title on hover.
+   ══════════════════════════════════════════════════════════ */
+.skill-group__header {
+    position: relative;
+    cursor: default;
+}
+
+.skill-group__header::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    height: 1px;
+    width: 0;
+    background: linear-gradient(90deg, var(--accent-cyan), transparent);
+    transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skill-group:hover .skill-group__header::after {
+    width: 100%;
+}
+
+/* ══════════════════════════════════════════════════════════
+   21. SCROLL PROGRESS NEON INTENSIFY
+   The progress bar glows harder as you scroll deeper.
+   ══════════════════════════════════════════════════════════ */
+.scroll-progress__fill {
+    box-shadow: 0 0 clamp(4px, 1vw, 10px) rgba(102, 231, 242, 0.6),
+                0 0 clamp(1px, 0.5vw, 3px) rgba(154, 140, 255, 0.4);
+    transition: width 0.1s linear, box-shadow 0.3s ease;
+}
+
+/* ══════════════════════════════════════════════════════════
+   22. JOURNEY SECTION — timeline card border trace
+   ══════════════════════════════════════════════════════════ */
+@keyframes cardBorderTrace {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.timeline-entry__card {
+    position: relative;
+}
+
+.timeline-entry__card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(var(--accent-cyan), var(--accent-purple), var(--accent-cyan));
+    background-size: 300% 300%;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    padding: 1px;
+    pointer-events: none;
+}
+
+.timeline-entry__card:hover::after {
+    opacity: 1;
+    animation: cardBorderTrace 3s linear infinite;
+}
+
+/* ══════════════════════════════════════════════════════════
+   23. SECTION HEADER EYEBROW DOT BLINK
+   ══════════════════════════════════════════════════════════ */
+@keyframes eyebrowDot {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.2; }
+}
+
+.section-eyebrow::before {
+    content: '▸';
+    margin-right: 6px;
+    display: inline-block;
+    animation: eyebrowDot 1.6s ease-in-out infinite;
+}
+
+/* ══════════════════════════════════════════════════════════
+   24. HERO IMAGE DEPTH SHIFT
+   The image shifts very slightly against the cursor (enhanced by JS).
+   ══════════════════════════════════════════════════════════ */
+.hero-image__frame {
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+}
+
+/* ══════════════════════════════════════════════════════════
+   25. BACK TO TOP BUTTON — magnetic + glow
+   ══════════════════════════════════════════════════════════ */
+@keyframes topBtnGlow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(102, 231, 242, 0); }
+    50%       { box-shadow: 0 0 16px 4px rgba(102, 231, 242, 0.25); }
+}
+
+.top-button {
+    animation: topBtnGlow 3s ease-in-out infinite;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease, border-color 0.3s ease;
+}
+.top-button:hover {
+    animation-play-state: paused;
+    transform: translateY(-4px) scale(1.1);
+}
+
+/* ══════════════════════════════════════════════════════════
+   26. HERO BADGE ENTRANCE SPRING
+   ══════════════════════════════════════════════════════════ */
+@keyframes badgeSpring {
+    0%   { transform: translateX(-50%) scale(0) rotate(-8deg); opacity: 0; }
+    60%  { transform: translateX(-50%) scale(1.1) rotate(2deg); opacity: 1; }
+    80%  { transform: translateX(-50%) scale(0.95) rotate(-1deg); }
+    100% { transform: translateX(-50%) scale(1) rotate(0deg); opacity: 1; }
+}
+
+.hero-badge {
+    animation: badgeSpring 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 1.2s both;
+}
+
+/* ══════════════════════════════════════════════════════════
+   27. LOADING SCREEN EXIT SWEEP
+   ══════════════════════════════════════════════════════════ */
+@keyframes loaderExit {
+    to { clip-path: inset(0 0 100% 0); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   28. BATTLE SECTION — cards stagger entrance
+   (Applies direction: alternating from left and right)
+   ══════════════════════════════════════════════════════════ */
+@keyframes battleCardFromLeft  { from { opacity:0; transform: translateX(-40px) scale(0.95); } to { opacity:1; transform: translateX(0) scale(1); } }
+@keyframes battleCardFromRight { from { opacity:0; transform: translateX(40px)  scale(0.95); } to { opacity:1; transform: translateX(0) scale(1); } }
+
+.battle-grid .battle-card:nth-child(odd)  { animation: battleCardFromLeft  0.6s cubic-bezier(0.16,1,0.3,1) both; }
+.battle-grid .battle-card:nth-child(even) { animation: battleCardFromRight 0.6s cubic-bezier(0.16,1,0.3,1) both; }
+.battle-grid .battle-card:nth-child(1) { animation-delay: 0.05s; }
+.battle-grid .battle-card:nth-child(2) { animation-delay: 0.10s; }
+.battle-grid .battle-card:nth-child(3) { animation-delay: 0.15s; }
+.battle-grid .battle-card:nth-child(4) { animation-delay: 0.20s; }
+
+/* ══════════════════════════════════════════════════════════
+   29. SECTION DIVIDER GLOW SWEEP
+   ══════════════════════════════════════════════════════════ */
+@keyframes dividerSweep {
+    0%   { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.story-section + .story-section::before {
+    content: '';
+    display: block;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(102, 231, 242, 0.15) 30%,
+        rgba(154, 140, 255, 0.15) 70%,
+        transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: dividerSweep 6s linear infinite;
+    position: relative;
+    z-index: 10;
+}
+
+/* ══════════════════════════════════════════════════════════
+   30. MOBILE — enhanced enter transitions (direction-aware)
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+    .mob-entering.origin-card:nth-child(odd)  { transform: translateX(-20px); opacity: 0; }
+    .mob-entering.origin-card:nth-child(even) { transform: translateX(20px);  opacity: 0; }
+    .mob-entering.mob-visible.origin-card     { transform: translateX(0); opacity: 1; }
+
+    .mob-entering.project-card:nth-child(odd)  { transform: translateX(-20px); opacity: 0; }
+    .mob-entering.project-card:nth-child(even) { transform: translateX(20px);  opacity: 0; }
+    .mob-entering.mob-visible.project-card     { transform: translateX(0); opacity: 1; }
+
+    .mob-entering.contact-card { transform: translateY(20px) scale(0.97); opacity: 0; }
+    .mob-entering.mob-visible.contact-card { transform: translateY(0) scale(1); opacity: 1; }
+
+    .mob-entering.result-card { transform: scale(0.85); opacity: 0; }
+    .mob-entering.mob-visible.result-card { transform: scale(1); opacity: 1; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   REDUCED MOTION — kill decorative-only animations
+   ══════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+    .hero-headline { animation: none; opacity: 1; letter-spacing: normal; filter: none; }
+    .hero-badge { animation: none; opacity: 1; transform: translateX(-50%) scale(1); }
+    .battle-featured::before { animation: none; }
+    .win-badge:hover { animation: none; transform: none; }
+    .kw-tag { animation: none; opacity: 1; transform: none; }
+    .tech-pill, .kw-tag, .battle-card, .battle-card__tags span { animation: none; opacity: 1; transform: none; }
+    .project-card:hover .project-card__icon { animation: none; }
+    .story-section + .story-section::before { animation: none; }
+    .origin-card::before, .project-card::before, .battle-card::before, .timeline-entry__card::before { display: none; }
+    .marquee-inner span:hover { transform: none; }
+    .top-button { animation: none; }
+    .paper-badge--type { animation: none; }
+}
