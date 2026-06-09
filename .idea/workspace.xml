@@ -4,18 +4,81 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="485996c5-e91c-4b53-bc5b-3c1ec0a5b0f7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-    </list>
+    <list default="true" id="485996c5-e91c-4b53-bc5b-3c1ec0a5b0f7" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="77" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.1454848036627312" />
+      <entry key="MS500" value="2.820057718032678" />
+      <entry key="S2" value="10.645137017478056" />
+      <entry key="S5" value="26.17524466045752" />
+      <entry key="S10" value="47.052207278986614" />
+      <entry key="S30" value="96.74501938101879" />
+      <entry key="S60" value="126.60714531541126" />
+      <entry key="M2" value="147.47305982660342" />
+      <entry key="M5" value="162.60445809366288" />
+      <entry key="M10" value="168.1614154670029" />
+      <entry key="M15" value="170.07552699955008" />
+      <entry key="M30" value="172.02151897730508" />
+      <entry key="H1" value="173.0066598394764" />
+      <entry key="H2" value="173.50230015004416" />
+      <entry key="H4" value="173.75089202274108" />
+      <entry key="D1" value="173.95844611130784" />
+      <entry key="W1" value="173.9940628505101" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="0.0" />
+      <entry key="S60" value="0.0" />
+      <entry key="M2" value="0.0" />
+      <entry key="M5" value="0.0" />
+      <entry key="M10" value="0.0" />
+      <entry key="M15" value="0.0" />
+      <entry key="M30" value="0.0" />
+      <entry key="H1" value="0.0" />
+      <entry key="H2" value="0.0" />
+      <entry key="H4" value="0.0" />
+      <entry key="D1" value="0.0" />
+      <entry key="W1" value="0.0" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="1.0632575241199864" />
+      <entry key="MS500" value="2.7821023365059787" />
+      <entry key="S2" value="10.61094390186011" />
+      <entry key="S5" value="26.140666284657915" />
+      <entry key="S10" value="47.019783032555196" />
+      <entry key="S30" value="96.72008844241648" />
+      <entry key="S60" value="126.58987932755294" />
+      <entry key="M2" value="147.46266351959326" />
+      <entry key="M5" value="162.59977359396524" />
+      <entry key="M10" value="168.15897526900815" />
+      <entry key="M15" value="170.07387760149032" />
+      <entry key="M30" value="172.02068276289737" />
+      <entry key="H1" value="173.00623881227355" />
+      <entry key="H2" value="173.50208890123494" />
+      <entry key="H4" value="173.75078621387956" />
+      <entry key="D1" value="173.9584284508231" />
+      <entry key="W1" value="173.99406032695416" />
+    </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2,
@@ -30,6 +93,7 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Node.js.index.js.executor": "Run",
+    "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
@@ -53,7 +117,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-3bd3a6803838-JavaScript-WS-261.22158.274" />
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-WS-261.25134.101" />
       </set>
     </attachedChunks>
   </component>
@@ -68,6 +132,7 @@
       <workItem from="1774248836754" duration="7000" />
       <workItem from="1774423412262" duration="826000" />
       <workItem from="1774600383231" duration="348000" />
+      <workItem from="1781019399482" duration="593000" />
     </task>
     <servers />
   </component>

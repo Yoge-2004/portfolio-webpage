@@ -871,20 +871,9 @@ function initTheme() {
     const btn    = document.getElementById('themeToggle');
     const STORAGE_KEY = 'yoge-theme';
 
-    const updateThemeMeta = (theme) => {
-        let meta = document.querySelector('meta[name="theme-color"]');
-        if (!meta) {
-            meta = document.createElement('meta');
-            meta.name = 'theme-color';
-            document.head.appendChild(meta);
-        }
-        meta.content = theme === 'light' ? '#fafaf9' : '#07070d';
-    };
-
     /* Restore saved preference — default to dark */
     const saved = localStorage.getItem(STORAGE_KEY) || 'dark';
     html.setAttribute('data-theme', saved);
-    updateThemeMeta(saved);
 
     if (!btn) return;
 
@@ -892,7 +881,6 @@ function initTheme() {
         const current = html.getAttribute('data-theme') || 'dark';
         const next    = current === 'dark' ? 'light' : 'dark';
         html.setAttribute('data-theme', next);
-        updateThemeMeta(next);
         localStorage.setItem(STORAGE_KEY, next);
 
         /* Re-apply accent-colour lerp so hue-shift works on light bg too */
