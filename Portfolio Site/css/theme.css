@@ -1,0 +1,741 @@
+/* ════════════════════════════════════════════════════════════
+   LIGHT THEME  —  designed ground-up, not "dark with white paint"
+   
+   Palette:
+     Body bg:     #fafaf9  (warm off-white)
+     Section alt: #f5f4f2  (warm parchment)
+     Cards:       #ffffff  with real box-shadow elevation
+     Accent:      #0891b2  (cyan-600 — reads on white)
+     Text dark:   #111827  (near black, warm)
+     Text mid:    #374151
+     Text muted:  #6b7280
+     Border:      rgba(0,0,0,0.08)
+
+   Specificity: html[data-theme="light"] = 0-1-1
+   beats :root in premium.css          = 0-1-0
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Smooth theme transition ───────────────────────────── */
+html { transition: background-color 0.4s ease; }
+
+body,
+.main-nav,
+.story-section,
+.hero-section,
+.battle-card, .battle-featured,
+.project-card, .project-hero,
+.origin-card,
+.timeline-entry__card,
+.skills-panel, .certs-panel, .cert-item,
+.result-card, .research-paper,
+.contact-card,
+.site-footer,
+.mobile-menu__panel {
+    transition:
+        background-color 0.4s ease,
+        background 0.4s ease,
+        border-color 0.4s ease,
+        box-shadow 0.4s ease,
+        color 0.4s ease !important;
+}
+
+/* ════════════════════════════════════════════════════════════
+   VARIABLES  (overrides premium.css :root via higher specificity)
+   ════════════════════════════════════════════════════════════ */
+html[data-theme="light"] {
+    --bg-darkest:    #fafaf9 !important;
+    --bg-dark:       #f5f4f2 !important;
+    --bg-mid:        #eeede9 !important;
+    --bg-light:      #e7e5e0 !important;
+    --bg-card:       #ffffff !important;
+    --bg-card-hover: #f9f9f8 !important;
+
+    --text-bright:    #030712 !important;
+    --text-primary:   #111827 !important;
+    --text-secondary: #374151 !important;
+    --text-muted:     #6b7280 !important;
+    --text-dim:       #9ca3af !important;
+
+    --surface-line:        rgba(0,0,0,0.08) !important;
+    --surface-line-strong: rgba(0,0,0,0.14) !important;
+    --surface-shadow:      0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06) !important;
+
+    --accent-cyan:     #0891b2 !important;
+    --accent-cyan-dim: #0e7490 !important;
+
+    color-scheme: light !important;
+}
+
+/* ════════════════════════════════════════════════════════════
+   BODY  (beats premium.css body background !important)
+   ════════════════════════════════════════════════════════════ */
+html[data-theme="light"] body {
+    background:
+        linear-gradient(rgba(0,0,0,0.012) 1px, transparent 1px) 0 0 / 72px 72px,
+        linear-gradient(90deg, rgba(0,0,0,0.010) 1px, transparent 1px) 0 0 / 72px 72px,
+        #fafaf9 !important;
+    color: #111827 !important;
+}
+
+/* ════════════════════════════════════════════════════════════
+   NAV
+   ════════════════════════════════════════════════════════════ */
+html[data-theme="light"] .main-nav {
+    background: rgba(250,250,249,0.92) !important;
+    border-color: rgba(0,0,0,0.08) !important;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.06),
+                0 4px 16px rgba(0,0,0,0.06) !important;
+}
+html[data-theme="light"] .main-nav.is-scrolled {
+    background: rgba(250,250,249,0.98) !important;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.08),
+                0 8px 24px rgba(0,0,0,0.08) !important;
+}
+html[data-theme="light"] .nav-logo__text,
+html[data-theme="light"] .nav-logo__bracket { color: #111827 !important; }
+html[data-theme="light"] .nav-logo__dot     { color: #0891b2 !important; }
+html[data-theme="light"] .nav-link__text    { color: #374151 !important; }
+html[data-theme="light"] .nav-link__num     { color: #0891b2 !important; opacity: 0.8 !important; }
+html[data-theme="light"] .nav-link:hover .nav-link__text,
+html[data-theme="light"] .nav-link.is-active .nav-link__text { color: #0891b2 !important; }
+html[data-theme="light"] .menu-toggle__line { background: #111827 !important; }
+html[data-theme="light"] .scroll-progress   { background: rgba(0,0,0,0.06) !important; }
+html[data-theme="light"] .scroll-progress__fill {
+    background: linear-gradient(90deg, #0891b2, #6366f1, #f59e0b) !important;
+}
+
+/* ════════════════════════════════════════════════════════════
+   HERO  (beats premium.css .hero-section background !important)
+   ════════════════════════════════════════════════════════════ */
+html[data-theme="light"] .hero-section {
+    background:
+        radial-gradient(ellipse 80% 50% at 20% 40%, rgba(8,145,178,0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 60%, rgba(99,102,241,0.08) 0%, transparent 55%),
+        linear-gradient(160deg, #f0f9ff 0%, #fafaf9 50%, #fdf4ff 100%) !important;
+}
+html[data-theme="light"] .hero-vignette {
+    background:
+        linear-gradient(90deg, rgba(240,249,255,0.6), transparent 40%, rgba(240,249,255,0.4)),
+        linear-gradient(180deg, rgba(240,249,255,0.1), rgba(240,249,255,0.7)) !important;
+}
+/* Hero image — light frame */
+html[data-theme="light"] .hero-image__frame {
+    filter: drop-shadow(0 20px 50px rgba(0,0,0,0.15)) !important;
+}
+html[data-theme="light"] .hero-image__mask {
+    background: linear-gradient(145deg, rgba(8,145,178,0.08), rgba(99,102,241,0.06)) !important;
+    box-shadow: inset 0 0 0 1px rgba(8,145,178,0.20) !important;
+}
+html[data-theme="light"] .hero-image__border {
+    background: linear-gradient(135deg, #0891b2, #6366f1 48%, #f59e0b) !important;
+    opacity: 0.5 !important;
+}
+/* Hero text */
+html[data-theme="light"] .hero-headline     { color: #111827 !important; }
+html[data-theme="light"] .hero-tagline      { color: #374151 !important; }
+html[data-theme="light"] .hero-kicker__text { color: #6b7280 !important; }
+
+/* ── "AI Researcher & Developer" floating badge ─────────────
+   Use border shorthand (not just border-color) so it beats the
+   same-!important border shorthand in premium.css.
+   Disable backdrop-filter: on a light bg it creates a washed-out
+   white haze instead of frosted-glass.                         */
+html[data-theme="light"] .hero-badge {
+    background: rgba(8,145,178,0.10) !important;
+    border: 1px solid rgba(8,145,178,0.28) !important;
+    color: #0891b2 !important;
+    box-shadow:
+        0 2px 8px rgba(8,145,178,0.12),
+        0 6px 20px rgba(0,0,0,0.06) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+/* Pulse dot: switch from bright cyan to the darker light-mode cyan */
+html[data-theme="light"] .hero-badge__pulse {
+    background: #0891b2 !important;
+}
+/* Hero image glow: the radial cyan blob is invisible on dark but
+   creates a harsh cyan stain on the warm-white hero background   */
+html[data-theme="light"] .hero-image__glow {
+    opacity: 0.10 !important;
+    background: radial-gradient(circle, rgba(8,145,178,0.20) 0%, transparent 70%) !important;
+    filter: blur(30px) !important;
+}
+/* Scroll mouse border — becomes visible on the light hero bg */
+html[data-theme="light"] .hero-scroll-hint__mouse {
+    border-color: rgba(8,145,178,0.35) !important;
+}
+html[data-theme="light"] .hero-scroll-hint__wheel {
+    background: #0891b2 !important;
+}
+
+/* Hero metrics bar */
+html[data-theme="light"] .hero-metrics {
+    background: rgba(255,255,255,0.80) !important;
+    border-color: rgba(0,0,0,0.08) !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.05) !important;
+}
+html[data-theme="light"] .hero-metric + .hero-metric { border-left-color: rgba(0,0,0,0.08) !important; }
+html[data-theme="light"] .hero-metric__number { color: #111827 !important; }
+html[data-theme="light"] .hero-metric__label  { color: #6b7280 !important; }
+/* Scroll hint */
+html[data-theme="light"] .hero-scroll-hint {
+    background: rgba(255,255,255,0.90) !important;
+    border-color: rgba(0,0,0,0.10) !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08) !important;
+    color: #6b7280 !important;
+}
+html[data-theme="light"] .hero-scroll-hint__text { color: #6b7280 !important; }
+
+/* ════════════════════════════════════════════════════════════
+   SECTION BACKGROUNDS  (warm alternating)
+   ════════════════════════════════════════════════════════════ */
+html[data-theme="light"] .origin-section      { background: #f5f4f2 !important; }
+html[data-theme="light"] .journey-section     { background: #fafaf9 !important; }
+html[data-theme="light"] .quests-section      { background: #f5f4f2 !important; }
+html[data-theme="light"] .battles-section     { background: #fafaf9 !important; }
+html[data-theme="light"] .discovery-section   { background: #f5f4f2 !important; }
+html[data-theme="light"] .credentials-section { background: #fafaf9 !important; }
+html[data-theme="light"] .contact-section     { background: #f5f4f2 !important; }
+
+/* ════════════════════════════════════════════════════════════
+   SECTION HEADERS
+   ════════════════════════════════════════════════════════════ */
+html[data-theme="light"] .section-eyebrow {
+    color: #0891b2 !important;
+    opacity: 1 !important;
+    background: rgba(8,145,178,0.08) !important;
+    border-color: rgba(8,145,178,0.20) !important;
+}
+html[data-theme="light"] .section-title    { color: #111827 !important; text-shadow: none !important; }
+html[data-theme="light"] .section-subtitle { color: #374151 !important; }
+
+/* ════════════════════════════════════════════════════════════
+   CARD ELEVATION MIXIN  (shared shadow system)
+   ════════════════════════════════════════════════════════════ */
+html[data-theme="light"] .battle-card,
+html[data-theme="light"] .project-card,
+html[data-theme="light"] .origin-card,
+html[data-theme="light"] .timeline-entry__card,
+html[data-theme="light"] .result-card,
+html[data-theme="light"] .contact-card,
+html[data-theme="light"] .battle-featured,
+html[data-theme="light"] .research-paper,
+html[data-theme="light"] .skills-panel,
+html[data-theme="light"] .certs-panel,
+html[data-theme="light"] .project-hero {
+    background: #ffffff !important;
+    border-color: rgba(0,0,0,0.07) !important;
+    box-shadow:
+        0 1px 2px rgba(0,0,0,0.04),
+        0 4px 12px rgba(0,0,0,0.07),
+        0 12px 32px rgba(0,0,0,0.05) !important;
+}
+
+/* Hover — deeper shadow, no glow */
+html[data-theme="light"] .battle-card:hover,
+html[data-theme="light"] .project-card:hover,
+html[data-theme="light"] .origin-card:hover,
+html[data-theme="light"] .timeline-entry__card:hover,
+html[data-theme="light"] .contact-card:hover {
+    box-shadow:
+        0 2px 4px rgba(0,0,0,0.06),
+        0 8px 24px rgba(0,0,0,0.10),
+        0 24px 48px rgba(0,0,0,0.08) !important;
+    border-color: rgba(8,145,178,0.25) !important;
+    transform: translateY(-3px) !important;
+}
+
+/* ════════════════════════════════════════════════════════════
+   ORIGIN
+   ════════════════════════════════════════════════════════════ */
+html[data-theme="light"] .narrative-text       { color: #374151 !important; }
+html[data-theme="light"] .narrative-text--lead { color: #111827 !important; font-weight: 500 !important; }
+html[data-theme="light"] .text-highlight,
+html[data-theme="light"] .narrative-text strong { color: #0891b2 !important; }
+html[data-theme="light"] .narrative-text a      { color: #0891b2 !important; }
+html[data-theme="light"] .origin-card__icon    { opacity: 0.8 !important; }
+html[data-theme="light"] .origin-card__title   { color: #6b7280 !important; }
+html[data-theme="light"] .origin-card__main    { color: #111827 !important; }
+
+/* ════════════════════════════════════════════════════════════
+   JOURNEY / TIMELINE
+   ════════════════════════════════════════════════════════════ */
+html[data-theme="light"] .timeline__line { background: rgba(0,0,0,0.10) !important; }
+html[data-theme="light"] .timeline-entry__core {
+    background: #ffffff !important;
+    border-color: #0891b2 !important;
+    box-shadow: 0 0 0 4px rgba(8,145,178,0.12) !important;
+}
+html[data-theme="light"] .timeline-entry__core--active {
+    background: #0891b2 !important;
+    box-shadow: 0 0 0 4px rgba(8,145,178,0.20) !important;
+}
+html[data-theme="light"] .timeline-entry__ring { border-color: rgba(8,145,178,0.30) !important; }
+html[data-theme="light"] .timeline-entry__title  { color: #111827 !important; }
+html[data-theme="light"] .timeline-entry__desc   { color: #374151 !important; }
+html[data-theme="light"] .timeline-entry__period { color: #6b7280 !important; }
+html[data-theme="light"] .timeline-entry__org    { color: #6b7280 !important; }
+html[data-theme="light"] .timeline-entry__score-value        { color: #111827 !important; }
+html[data-theme="light"] .timeline-entry__score-value--highlight { color: #0891b2 !important; }
+html[data-theme="light"] .timeline-entry__status--done,
+html[data-theme="light"] .timeline-entry__status--active {
+    background: rgba(8,145,178,0.10) !important;
+    color: #0e7490 !important;
+    border-color: rgba(8,145,178,0.20) !important;
+}
+
+/* ════════════════════════════════════════════════════════════
+   QUESTS / PROJECTS
+   ════════════════════════════════════════════════════════════ */
+html[data-theme="light"] .project-hero__left  { border-right-color: rgba(0,0,0,0.07) !important; }
+html[data-theme="light"] .project-hero__name  { color: #111827 !important; }
+html[data-theme="light"] .project-hero__hook  { color: #6b7280 !important; }
+html[data-theme="light"] .project-hero__body  { color: #374151 !important; }
+html[data-theme="light"] .project-hero__icon  { opacity: 0.6 !important; }
+html[data-theme="light"] .project-card h4     { color: #111827 !important; }
+html[data-theme="light"] .project-card p      { color: #374151 !important; }
+html[data-theme="light"] .tech-pill {
+    background: rgba(0,0,0,0.04) !important;
+    border-color: rgba(0,0,0,0.10) !important;
+    color: #374151 !important;
+}
+/* Tone down glow blobs */
+html[data-theme="light"] [class*="orb"],
+html[data-theme="light"] [class*="glow-blob"],
+html[data-theme="light"] .project-orb         { opacity: 0.12 !important; }
+
+/* ════════════════════════════════════════════════════════════
+   BATTLES
+   ════════════════════════════════════════════════════════════ */
+html[data-theme="light"] .battle-featured__title { color: #111827 !important; }
+html[data-theme="light"] .battle-featured__desc  { color: #374151 !important; }
+html[data-theme="light"] .battle-card h4     { color: #111827 !important; }
+html[data-theme="light"] .battle-card__desc  { color: #374151 !important; }
+html[data-theme="light"] .battle-card__date,
+html[data-theme="light"] .battle-card__meta  { color: #6b7280 !important; }
+html[data-theme="light"] .badge {
+    background: rgba(0,0,0,0.05) !important;
+    border-color: rgba(0,0,0,0.10) !important;
+    color: #374151 !important;
+}
+html[data-theme="light"] .badge--win,
+html[data-theme="light"] .badge--1st,
+html[data-theme="light"] .win-badge {
+    background: rgba(8,145,178,0.10) !important;
+    border-color: rgba(8,145,178,0.24) !important;
+    color: #0e7490 !important;
+}
+
+/* ════════════════════════════════════════════════════════════
+   DISCOVERY / RESEARCH
+   ════════════════════════════════════════════════════════════ */
+html[data-theme="light"] .research-paper__title      { color: #111827 !important; }
+html[data-theme="light"] .abstract-block p            { color: #374151 !important; }
+html[data-theme="light"] .research-paper__venue-name { color: #6b7280 !important; }
+html[data-theme="light"] .research-paper__venue-conf { color: #374151 !important; }
+html[data-theme="light"] .result-card__number { color: #0891b2 !important; }
+html[data-theme="light"] .result-card__unit   { color: #0891b2 !important; }
+html[data-theme="light"] .result-card__label  { color: #6b7280 !important; }
+html[data-theme="light"] .kw-tag {
+    background: rgba(0,0,0,0.04) !important;
+    border-color: rgba(0,0,0,0.09) !important;
+    color: #374151 !important;
+}
+
+/* ════════════════════════════════════════════════════════════
+   CREDENTIALS
+   ════════════════════════════════════════════════════════════ */
+html[data-theme="light"] .panel-title          { color: #111827 !important; }
+html[data-theme="light"] .skill-group__header  { color: #374151 !important; }
+html[data-theme="light"] .skill-group__icon    { opacity: 0.75 !important; }
+html[data-theme="light"] .skill-row > span:first-child { color: #374151 !important; }
+html[data-theme="light"] .skill-row__pct       { color: #6b7280 !important; }
+html[data-theme="light"] .skill-bar {
+    background: #e5e7eb !important; /* visible gray track */
+}
+/* cert items — slightly elevated on the panel */
+html[data-theme="light"] .cert-item {
+    background: #f9fafb !important;
+    border-color: rgba(0,0,0,0.07) !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04) !important;
+}
+html[data-theme="light"] .cert-item:hover {
+    background: #f3f4f6 !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
+    border-color: rgba(8,145,178,0.20) !important;
+}
+html[data-theme="light"] .cert-item__info h4 { color: #111827 !important; }
+html[data-theme="light"] .cert-item__info p  { color: #6b7280 !important; }
+html[data-theme="light"] .cert-item__actions a {
+    background: rgba(0,0,0,0.05) !important;
+    border-color: rgba(0,0,0,0.09) !important;
+    color: #374151 !important;
+}
+
+/* ════════════════════════════════════════════════════════════
+   BUTTONS
+   ════════════════════════════════════════════════════════════ */
+html[data-theme="light"] .btn--ghost {
+    color: #111827 !important;
+    border-color: rgba(0,0,0,0.18) !important;
+    background: transparent !important;
+}
+html[data-theme="light"] .btn--ghost:hover {
+    color: #0891b2 !important;
+    border-color: #0891b2 !important;
+    background: rgba(8,145,178,0.06) !important;
+}
+
+/* ════════════════════════════════════════════════════════════
+   CONTACT
+   ════════════════════════════════════════════════════════════ */
+html[data-theme="light"] .contact-section .section-title    { color: #111827 !important; }
+html[data-theme="light"] .contact-section .section-subtitle { color: #374151 !important; }
+html[data-theme="light"] .contact-card__icon           { color: #0891b2 !important; }
+html[data-theme="light"] .contact-card__icon--github   { color: #111827 !important; }
+html[data-theme="light"] .contact-card__icon--linkedin { color: #0a66c2 !important; }
+html[data-theme="light"] .contact-card__value  { color: #111827 !important; }
+html[data-theme="light"] .contact-card__label  { color: #6b7280 !important; }
+html[data-theme="light"] .contact-card__arrow  { color: #9ca3af !important; }
+html[data-theme="light"] .contact-card:hover .contact-card__arrow { color: #0891b2 !important; }
+
+/* ════════════════════════════════════════════════════════════
+   FOOTER
+   ════════════════════════════════════════════════════════════ */
+html[data-theme="light"] .site-footer {
+    background: #eeede9 !important;
+    border-top-color: rgba(0,0,0,0.08) !important;
+}
+html[data-theme="light"] .footer__copy { color: #6b7280 !important; }
+html[data-theme="light"] .fa-heart     { color: #0891b2 !important; }
+
+/* ════════════════════════════════════════════════════════════
+   MISC
+   ════════════════════════════════════════════════════════════ */
+/* Marquee: stronger background tint + readable text in light */
+html[data-theme="light"] .marquee-strip {
+    background: rgba(8,145,178,0.07) !important;
+    border-top-color: rgba(8,145,178,0.22) !important;
+    border-bottom-color: rgba(8,145,178,0.22) !important;
+}
+html[data-theme="light"] .marquee-inner span {
+    color: rgba(8,145,178,0.60) !important; /* readable cyan on light bg */
+}
+html[data-theme="light"] .marquee-item     { color: #6b7280 !important; }
+html[data-theme="light"] .mobile-menu__panel { background: #ffffff !important; }
+html[data-theme="light"] .mobile-link {
+    color: #111827 !important;
+    border-bottom-color: rgba(0,0,0,0.07) !important;
+}
+html[data-theme="light"] .mobile-menu__backdrop { background: rgba(0,0,0,0.30) !important; }
+html[data-theme="light"] .cursor__dot  { background: #0891b2 !important; }
+html[data-theme="light"] .cursor__ring { border-color: #0891b2 !important; }
+
+/* ════════════════════════════════════════════════════════════
+   THEME TOGGLE BUTTON
+   ════════════════════════════════════════════════════════════ */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none !important;
+    border: none;
+    outline: none;
+    cursor: none;
+    padding: 4px;
+    margin-right: 4px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1002;
+    pointer-events: auto;
+    -webkit-tap-highlight-color: transparent;
+    transition: none !important;
+}
+.theme-toggle:focus,
+.theme-toggle:focus-visible { outline: none !important; box-shadow: none !important; }
+
+/* Track */
+.theme-toggle__track {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 52px;
+    height: 28px;
+    border-radius: 100px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.20);
+    padding: 0 4px;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: background 0.3s ease, border-color 0.3s ease !important;
+}
+.theme-toggle__track:hover {
+    border-color: rgba(0,229,255,0.55) !important;
+    background: rgba(255,255,255,0.18) !important;
+}
+
+html[data-theme="light"] .theme-toggle__track {
+    background: #e0f2fe !important;   /* sky-100 */
+    border-color: #7dd3fc !important; /* sky-300 */
+}
+html[data-theme="light"] .theme-toggle__track:hover {
+    background: #bae6fd !important;   /* sky-200 */
+    border-color: #0891b2 !important;
+}
+
+/* Thumb */
+.theme-toggle__thumb {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.22);
+    box-shadow: 0 1px 6px rgba(0,0,0,0.35);
+    left: 4px;
+    z-index: 1;
+    transition:
+        transform 0.3s cubic-bezier(0.34,1.56,0.64,1),
+        background-color 0.3s ease !important;
+}
+html[data-theme="light"] .theme-toggle__thumb {
+    transform: translateX(24px) !important;
+    background: #0891b2 !important;
+    box-shadow: 0 1px 6px rgba(8,145,178,0.50) !important;
+}
+
+/* Icons */
+.theme-toggle__icon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    z-index: 2;
+    pointer-events: none;
+    transition: opacity 0.25s ease, color 0.25s ease !important;
+}
+.theme-toggle__icon svg { width: 12px; height: 12px; stroke-width: 2.2; }
+
+/* Moon — left */
+.theme-toggle__icon--dark {
+    left: 7px;
+    color: rgba(255,255,255,0.80);
+    opacity: 1;
+}
+/* Sun — right
+   right: 5px so icon centre (50-5-7=38px) matches thumb centre
+   in light mode: left:4px + translateX(24px) + 10px radius = 38px
+   (50px = track 52px - 1px border × 2; positions are padding-box relative) */
+.theme-toggle__icon--light {
+    right: 5px;
+    color: #fbbf24; /* amber-400 */
+    opacity: 0.40;
+}
+
+/* Light mode: moon dims, sun is bright amber */
+html[data-theme="light"] .theme-toggle__icon--dark {
+    opacity: 0.30 !important;
+    color: #6b7280 !important;
+}
+html[data-theme="light"] .theme-toggle__icon--light {
+    opacity: 1 !important;
+    color: #f59e0b !important; /* amber-500 */
+}
+
+@media (max-width: 480px) {
+    .theme-toggle__track  { width: 44px; height: 24px; }
+    .theme-toggle__thumb  { width: 16px; height: 16px; }
+    html[data-theme="light"] .theme-toggle__thumb { transform: translateX(20px) !important; }
+    /* Small track: padding-box = 42px. Sun right:5px → centre 42-5-7=30px
+       Thumb: 4px + 20px + 8px = 32px. Close enough at small size. */
+    .theme-toggle__icon--light { right: 4px; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   LIGHT THEME — ANIMATION & EFFECT OVERRIDES
+   Re-tune the dark-mode RGB-var glow system to work on warm-white
+   ════════════════════════════════════════════════════════════ */
+
+/* Override the live accent CSS vars so all rgba(var(--ar),…) rules
+   render in a deeper, visible cyan on light backgrounds */
+html[data-theme="light"] {
+    --ar: 8 !important;
+    --ag: 145 !important;
+    --ab: 178 !important;
+}
+
+/* ── Card hover box-shadows — cyan-on-white, not glow-on-dark ── */
+html[data-theme="light"] .origin-card:hover,
+html[data-theme="light"] .project-card:hover,
+html[data-theme="light"] .battle-card:hover,
+html[data-theme="light"] .timeline-entry__card:hover,
+html[data-theme="light"] .contact-card:hover {
+    box-shadow:
+        0 2px 4px rgba(0,0,0,0.06),
+        0 8px 28px rgba(8,145,178,0.14),
+        0 24px 52px rgba(8,145,178,0.08) !important;
+    border-color: rgba(8,145,178,0.30) !important;
+}
+
+html[data-theme="light"] .project-hero:hover,
+html[data-theme="light"] .battle-featured:hover,
+html[data-theme="light"] .research-paper:hover {
+    box-shadow:
+        0 0 0 1.5px rgba(8,145,178,0.30),
+        0 0 28px rgba(8,145,178,0.10),
+        0 24px 56px rgba(0,0,0,0.10) !important;
+}
+
+/* ── Corner bracket accent color ────────────────────────────── */
+html[data-theme="light"] .project-hero::before,
+html[data-theme="light"] .battle-featured::before,
+html[data-theme="light"] .research-paper::before,
+html[data-theme="light"] .project-hero::after,
+html[data-theme="light"] .battle-featured::after,
+html[data-theme="light"] .research-paper::after {
+    border-color: rgba(8,145,178,0.40) !important;
+}
+
+/* ── Section title underline — adapt gradient to light ─────── */
+html[data-theme="light"] .section-title::after {
+    background: linear-gradient(90deg, #0891b2, #6366f1) !important;
+}
+
+/* ── Card inner shine sweep — lighter wash on white cards ──── */
+html[data-theme="light"] .origin-card::before,
+html[data-theme="light"] .project-card::before,
+html[data-theme="light"] .battle-card::before,
+html[data-theme="light"] .cert-item::before,
+html[data-theme="light"] .contact-card::before,
+html[data-theme="light"] .timeline-entry__card::before {
+    background: linear-gradient(
+        115deg,
+        transparent 0%,
+        rgba(8,145,178,0.04) 40%,
+        rgba(8,145,178,0.09) 50%,
+        rgba(8,145,178,0.04) 60%,
+        transparent 100%
+    ) !important;
+}
+
+/* ── Skill bar glow on hover — visible cyan shadow ─────────── */
+html[data-theme="light"] .skill-group:hover .skill-bar__fill {
+    box-shadow: 0 0 14px rgba(8,145,178,0.35) !important;
+}
+
+/* ── Skill bar glow dot (::after) — light palette ─────────── */
+html[data-theme="light"] .skill-bar__fill::after {
+    background: #0891b2 !important;
+    box-shadow: 0 0 8px #0891b2, 0 0 16px rgba(8,145,178,0.5) !important;
+}
+
+/* ── Contact card left accent bar ───────────────────────────── */
+html[data-theme="light"] .contact-card::after {
+    background: #0891b2 !important;
+}
+
+/* ── Narrative block left border on hover ──────────────────── */
+html[data-theme="light"] .narrative-block:hover {
+    border-left-color: rgba(8,145,178,0.45) !important;
+}
+
+/* ── Badge + win-badge hover shadow ────────────────────────── */
+html[data-theme="light"] .win-badge:hover,
+html[data-theme="light"] .badge:hover {
+    box-shadow: 0 8px 24px rgba(8,145,178,0.20) !important;
+}
+
+/* ── Result card number hover glow ─────────────────────────── */
+html[data-theme="light"] .result-card:hover .result-card__number {
+    text-shadow: 0 0 24px rgba(8,145,178,0.40) !important;
+}
+
+/* ── Hero badge — light theme glow pulse ────────────────────────
+   IMPORTANT: Do NOT override the animation shorthand on .hero-badge
+   itself — that would kill the badgeFloatY float (set via .is-floating).
+   Instead, stack a second animation-name only on .is-floating so both
+   the float AND the glow pulse run simultaneously.                   */
+html[data-theme="light"] .hero-badge.is-floating {
+    animation-name: badgeFloatY, badgeGlowLight !important;
+    animation-duration: 2.8s, 3s !important;
+    animation-timing-function: ease-in-out, ease-in-out !important;
+    animation-iteration-count: infinite, infinite !important;
+}
+@keyframes badgeGlowLight {
+    0%, 100% { box-shadow: 0 2px 8px rgba(8,145,178,0.12), 0 6px 20px rgba(0,0,0,0.06); }
+    50%       { box-shadow: 0 6px 18px rgba(8,145,178,0.22), 0 12px 28px rgba(0,0,0,0.08); }
+}
+
+/* ── Timeline entry hover shadow ────────────────────────────── */
+html[data-theme="light"] .timeline-entry__card:hover {
+    box-shadow:
+        0 8px 32px rgba(8,145,178,0.12),
+        0 4px 12px rgba(0,0,0,0.07) !important;
+}
+
+/* ── Timeline period color on card hover ────────────────────── */
+html[data-theme="light"] .timeline-entry__card:hover .timeline-entry__period {
+    color: #0891b2 !important;
+}
+
+/* ── Skill group header underline ───────────────────────────── */
+html[data-theme="light"] .skill-group__header::after {
+    background: #0891b2 !important;
+}
+
+/* ── Research paper title hover color ───────────────────────── */
+html[data-theme="light"] .research-paper:hover .research-paper__title {
+    color: #0891b2 !important;
+}
+
+/* ── Tech pill / kw-tag hover on light ─────────────────────── */
+html[data-theme="light"] .tech-pill:hover,
+html[data-theme="light"] .kw-tag:hover,
+html[data-theme="light"] .flag:hover {
+    border-color: rgba(8,145,178,0.50) !important;
+    color: #0891b2 !important;
+    background: rgba(8,145,178,0.07) !important;
+}
+
+/* ── Contact card icon bounce accent ────────────────────────── */
+html[data-theme="light"] .contact-card__icon {
+    transition: color 0.3s ease !important;
+}
+
+/* ── Section bg orbs — reduced on light to avoid clashing ──── */
+html[data-theme="light"] .section-bg__orb {
+    opacity: 0.25 !important;
+}
+
+/* ── Contact section ambient orb — toned down ──────────────── */
+html[data-theme="light"] .contact-section::before {
+    background: radial-gradient(
+        ellipse,
+        rgba(8,145,178,0.07) 0%,
+        rgba(99,102,241,0.04) 40%,
+        transparent 70%
+    ) !important;
+}
+
+/* ── Project card tech pill hover on parent hover ──────────── */
+html[data-theme="light"] .project-card:hover .tech-pill {
+    background: rgba(8,145,178,0.10) !important;
+}
+
+/* ── Chapter indicator title text ───────────────────────────── */
+html[data-theme="light"] .chapter-indicator__title {
+    color: #374151 !important;
+}
+
+/* ── Chapter flash overlay — light palette ──────────────────── */
+html[data-theme="light"] #chflash {
+    background: #fafaf9 !important;
+}
+html[data-theme="light"] .cf-t {
+    color: #111827 !important;
+}
+html[data-theme="light"] .cf-n {
+    color: #0891b2 !important;
+}

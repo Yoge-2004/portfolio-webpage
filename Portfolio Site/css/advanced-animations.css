@@ -1,0 +1,821 @@
+/* ============================================
+   ADVANCED ANIMATIONS & TRANSITIONS
+   Smooth, cinematic effects for modern web
+   ============================================ */
+
+/* ════════════════════════════════════════════════════════════
+   SMOOTH SCROLL & SCROLL-DRIVEN ANIMATIONS
+   ════════════════════════════════════════════════════════════ */
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* NOTE: scroll-behavior on <a> tags is invalid CSS — only scroll
+   containers respect this property. Smooth scrolling is handled
+   via JS (scrollIntoView in story.js). */
+
+/* ════════════════════════════════════════════════════════════
+   ENHANCED MICRO-INTERACTIONS
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Text link hover effects ──────────────────────────────── */
+a:not(.btn):not(.nav-link):not(.mobile-link):not(.project-card__link):not([data-cursor="button"]) {
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+a:not(.btn):not(.nav-link):not(.mobile-link):not(.project-card__link):not([data-cursor="button"]):hover {
+    color: var(--accent-cyan);
+}
+
+/* ── Enhanced card transitions ────────────────────────────── */
+.origin-card,
+.project-card,
+.battle-card,
+.cert-item,
+.contact-card,
+.timeline-entry__card {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+.origin-card:hover,
+.project-card:hover,
+.battle-card:hover,
+.cert-item:hover,
+.contact-card:hover {
+    transform: translateY(-6px) scale(1.01);
+}
+
+/* ── Button state transitions ───────────────────────────── */
+.btn {
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 100%
+    );
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+    pointer-events: none;
+}
+
+.btn:hover::before {
+    transform: translateX(100%);
+}
+
+/* ── Icon rotation on hover ──────────────────────────────── */
+.btn__icon,
+.project-card__link i,
+.battle-card__mini-actions a i {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                color 0.3s ease;
+}
+
+.btn:hover .btn__icon {
+    transform: translateX(6px) rotate(0deg);
+}
+
+.project-card:hover .btn__icon,
+.button:hover i {
+    transform: rotate(45deg) translateX(2px);
+}
+
+/* ════════════════════════════════════════════════════════════
+   SECTION TRANSITION ENHANCEMENTS
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Section background vignette fade ────────────────────── */
+.story-section {
+    position: relative;
+    scroll-behavior: smooth;
+}
+
+.story-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(var(--ar, 102), var(--ag, 231), var(--ab, 242), 0) 0%,
+        rgba(var(--ar, 102), var(--ag, 231), var(--ab, 242), 0.01) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.story-section.is-active::before {
+    opacity: 1;
+}
+
+/* ── Section title entrance animation ────────────────────── */
+.section-title {
+    position: relative;
+    animation: titleFadeIn 0.9s var(--ease-out-expo) 0.2s both;
+}
+
+@keyframes titleFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+        letter-spacing: -0.08em;
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        letter-spacing: normal;
+    }
+}
+
+/* ── Underline decoration reveal ─────────────────────────── */
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background: linear-gradient(90deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
+    transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s;
+    border-radius: 1px;
+}
+
+.section-title.is-visible::after {
+    width: 100%;
+}
+
+/* ── Eyebrow animation ──────────────────────────────────── */
+.section-eyebrow {
+    animation: eyebrowReveal 0.7s ease 0.1s both;
+}
+
+@keyframes eyebrowReveal {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ════════════════════════════════════════════════════════════
+   HEADING INTERACTIONS
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Card title hover effect ─────────────────────────────── */
+.origin-card__title,
+.project-card h4,
+.battle-card h4,
+.cert-item__info h4 {
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.origin-card__title::before,
+.project-card h4::before,
+.battle-card h4::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1.5px;
+    width: 0;
+    background: var(--accent-cyan);
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.origin-card:hover .origin-card__title::before,
+.project-card:hover h4::before,
+.battle-card:hover h4::before {
+    width: 100%;
+}
+
+/* ════════════════════════════════════════════════════════════
+   FLOATING & BREATHING ELEMENTS
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Subtle floating animation on hover ──────────────────── */
+@keyframes floatSubtle {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+/* Float plays only on hover — paused by default so it doesn't
+   conflict with GSAP entrance animations or mobile IO system. */
+.origin-card,
+.project-card,
+.battle-card,
+.cert-item {
+    animation: floatSubtle 4s ease-in-out infinite;
+    animation-play-state: paused;
+}
+
+.origin-card:hover,
+.project-card:hover,
+.battle-card:hover,
+.cert-item:hover {
+    animation-play-state: running;
+}
+
+/* ── Badge breathing animation ───────────────────────────── */
+@keyframes badgeBreath {
+    0%, 100% {
+        opacity: 0.6;
+        box-shadow: 0 0 8px rgba(0, 229, 255, 0);
+    }
+    50% {
+        opacity: 1;
+        box-shadow: 0 0 16px rgba(0, 229, 255, 0.3);
+    }
+}
+
+.hero-badge {
+    animation: badgeBreath 3s ease-in-out infinite;
+}
+
+/* ════════════════════════════════════════════════════════════
+   INPUT & INTERACTIVE ELEMENT FEEDBACK
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Active state ripple effect ──────────────────────────── */
+.btn:active,
+.origin-card:active,
+.project-card:active,
+.battle-card:active {
+    transform: scale(0.98);
+}
+
+/* ── Focus state for accessibility ───────────────────────── */
+.btn:focus-visible,
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--accent-cyan);
+    outline-offset: 2px;
+    border-radius: 4px;
+    transition: outline 0.2s ease;
+}
+
+/* ════════════════════════════════════════════════════════════
+   PARALLAX & DEPTH EFFECTS
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Hero image scale — handled via GSAP ScrollTrigger in story.js ── */
+.hero-image__mask {
+    transition: transform 0.8s ease;
+}
+
+/* NOTE: transform: scale() with a JavaScript expression is not valid CSS.
+   The hero parallax is animated by GSAP in story.js via ScrollTrigger. */
+
+/* ── Background orb movement ─────────────────────────────── */
+.section-bg__orb {
+    animation: orbFloat 8s ease-in-out infinite;
+}
+
+.section-bg__orb--1 {
+    animation-delay: 0s;
+}
+
+.section-bg__orb--2 {
+    animation-delay: 2s;
+}
+
+@keyframes orbFloat {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(30px, -30px);
+    }
+}
+
+/* ════════════════════════════════════════════════════════════
+   TEXT EFFECTS — subtle, non-highlighted
+   ════════════════════════════════════════════════════════════ */
+
+/* ── text-accent: same weight as surrounding text, no gradient,
+   no glow — just a calm tonal shift to avoid visual noise ── */
+.text-accent {
+    color: var(--text-secondary);
+    font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+/* ── text-highlight: slightly brighter, no glow or shadow ── */
+.text-highlight {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* ── Underline animation for links ───────────────────────── */
+.project-card__link,
+.link-highlight {
+    position: relative;
+    text-decoration: none;
+    color: var(--accent-cyan);
+}
+
+.project-card__link::after,
+.link-highlight::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-cyan);
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card__link:hover::after,
+.link-highlight:hover::after {
+    width: 100%;
+}
+
+/* ════════════════════════════════════════════════════════════
+   LOADING & SKELETON ANIMATIONS
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Shimmer loading effect ──────────────────────────────── */
+@keyframes shimmerLoad {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.loading-placeholder {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.05),
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.05)
+    );
+    background-size: 200% 100%;
+    animation: shimmerLoad 2s infinite;
+}
+
+/* ════════════════════════════════════════════════════════════
+   PROGRESS INDICATORS
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Smooth skill bar fill ───────────────────────────────── */
+.skill-bar__fill {
+    transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                box-shadow 0.4s ease;
+}
+
+/* ── Result card counter animation ──────────────────────── */
+.result-card__number {
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.result-card.is-visible .result-card__number {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* ════════════════════════════════════════════════════════════
+   NAVIGATION ENHANCEMENTS
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Nav link advanced hover ─────────────────────────────── */
+.nav-link {
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent 0%, var(--accent-cyan) 50%, transparent 100%);
+    transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-link:hover::before {
+    left: 100%;
+}
+
+/* ── Menu toggle animation ────────────────────────────── */
+.menu-toggle {
+    transition: transform 0.3s ease;
+}
+
+.menu-toggle:hover {
+    transform: scale(1.1);
+}
+
+.menu-toggle__line {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-origin: center;
+}
+
+.menu-toggle.is-active .menu-toggle__line:nth-child(1) {
+    transform: rotate(45deg) translateY(8px);
+}
+
+.menu-toggle.is-active .menu-toggle__line:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.is-active .menu-toggle__line:nth-child(3) {
+    transform: rotate(-45deg) translateY(-8px);
+}
+
+/* ════════════════════════════════════════════════════════════
+   MODAL & POPUP TRANSITIONS
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Modal entrance/exit ─────────────────────────────────── */
+.modal-backdrop {
+    animation: backdropFadeIn 0.3s ease forwards;
+}
+
+@keyframes backdropFadeIn {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0);
+    }
+    to {
+        opacity: 1;
+        backdrop-filter: blur(4px);
+    }
+}
+
+.modal-inner {
+    animation: modalSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ════════════════════════════════════════════════════════════
+   ACCESSIBILITY ANIMATIONS
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Reduced motion respect ──────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    /* Keep essential state transitions */
+    .btn,
+    .nav-link,
+    a {
+        transition: color 0.01ms ease !important;
+    }
+}
+
+/* ── High contrast adjustments ────────────────────────────── */
+@media (prefers-contrast: high) {
+    .origin-card,
+    .project-card,
+    .battle-card,
+    .cert-item {
+        border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn--ghost {
+        border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+}
+
+/* ════════════════════════════════════════════════════════════
+   PAINT & COMPOSITE OPTIMIZATIONS
+   ════════════════════════════════════════════════════════════ */
+
+/* ── GPU acceleration for smooth animations ──────────────── */
+.btn,
+.nav-link,
+.origin-card,
+.project-card,
+.battle-card,
+.cert-item,
+.hero-image__mask,
+.section-bg__orb {
+    will-change: auto;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* ── Reduce paint areas ──────────────────────────────────── */
+[data-reveal],
+.mob-entering {
+    will-change: opacity, transform;
+}
+
+/* ════════════════════════════════════════════════════════════
+   DEVICE-SPECIFIC ANIMATION TWEAKS
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Slower animations on touch devices ──────────────────── */
+@media (hover: none) and (pointer: coarse) {
+    .btn,
+    a,
+    .origin-card,
+    .project-card,
+    .battle-card,
+    .cert-item {
+        transition-duration: 0.2s;
+    }
+
+    /* Remove float animations on mobile for performance */
+    .origin-card,
+    .project-card,
+    .battle-card,
+    .cert-item {
+        animation: none !important;
+    }
+
+    /* ── Enhanced touch interactions ─────────────────────────── */
+    /* Ripple effect on tap */
+    .origin-card::after,
+    .project-card::after,
+    .battle-card::after,
+    .cert-item::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(102, 231, 242, 0.3) 0%, transparent 70%);
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+    }
+
+    /* Tap feedback animations */
+    .origin-card:active,
+    .project-card:active,
+    .battle-card:active,
+    .cert-item:active,
+    .contact-card:active {
+        transform: scale(0.96);
+        box-shadow: 0 4px 16px rgba(0, 229, 255, 0.1);
+    }
+
+    /* Mobile link slide on tap */
+    .mobile-link:active {
+        transform: translateX(12px) scale(1.02);
+        color: var(--accent-cyan);
+    }
+
+    /* Enhanced Touch Scroll Hint */
+    .scroll-progress__fill {
+        box-shadow: 0 0 12px rgba(102, 231, 242, 0.8) !important;
+        transition: width 0.1s linear, box-shadow 0.2s ease;
+    }
+
+    /* Swipe hint animations for cards */
+    @keyframes subtleSwipeHint {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(4px); }
+    }
+    
+    .origin-card, .project-card, .battle-card {
+        animation: subtleSwipeHint 3s ease-in-out infinite;
+        animation-delay: calc(var(--animation-order, 0) * 0.5s);
+    }
+    
+    /* Interactive Touch Feedback */
+    .btn:active,
+    .origin-card:active,
+    .project-card:active,
+    .battle-card:active,
+    .cert-item:active,
+    .contact-card:active {
+        transform: scale(0.95);
+        opacity: 0.85;
+        transition-duration: 0.1s !important;
+    }
+
+    /* Smooth scroll snap for sections */
+    html {
+        scroll-snap-type: y proximity;
+        scroll-behavior: smooth;
+    }
+
+    .story-section {
+        scroll-snap-align: start;
+        scroll-snap-stop: auto;
+    }
+
+    /* Touch target size enhancement */
+    .btn,
+    .nav-link,
+    .mobile-link,
+    .cert-item__actions a,
+    button {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* Long press animation */
+    .btn:active,
+    .cert-item:active {
+        animation: longPress 0.2s ease forwards;
+    }
+
+    @keyframes longPress {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(0.97);
+        }
+        100% {
+            transform: scale(0.96);
+        }
+    }
+
+    /* Momentum-based scroll enhancement */
+    .story-section {
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Touch highlight customization */
+    .origin-card,
+    .project-card,
+    .battle-card,
+    .cert-item,
+    .btn {
+        -webkit-tap-highlight-color: rgba(102, 231, 242, 0.1);
+    }
+
+    /* Pan animation for cards on swipe */
+    @keyframes panIn {
+        from {
+            opacity: 0;
+            transform: translateX(100px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .origin-card.swiped-in,
+    .project-card.swiped-in,
+    .battle-card.swiped-in {
+        animation: panIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Pinch-friendly text */
+    body {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+
+    /* Disable auto-zoom on input focus */
+    input,
+    select,
+    textarea {
+        font-size: 16px;
+    }
+
+    /* Enhanced button feedback */
+    .btn {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.4s, height 0.4s;
+    }
+
+    .btn:active::before {
+        width: 100px;
+        height: 100px;
+    }
+
+    /* Smooth scrollbar appearance on mobile */
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(102, 231, 242, 0.3) transparent;
+    }
+
+    /* Prevent text selection on double tap */
+    .origin-card,
+    .project-card,
+    .battle-card,
+    .cert-item,
+    .btn {
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-user-drag: none;
+        /* user-drag is non-standard; only -webkit-user-drag is valid */
+    }
+
+    /* Touch-friendly typography */
+    body {
+        -webkit-font-smoothing: antialiased;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    /* Vibration feedback simulation */
+    .btn:active,
+    .cert-item:active,
+    .origin-card:active {
+        box-shadow: 0 2px 8px rgba(102, 231, 242, 0.15);
+    }
+}
+
+/* ── Landscape orientation on touch devices ──────────────── */
+@media (hover: none) and (pointer: coarse) and (orientation: landscape) {
+    .hero-section {
+        min-height: 100vh;
+    }
+
+    .story-section {
+        min-height: auto;
+    }
+
+    .hero-headline {
+        font-size: clamp(2rem, 4vw, 2.6rem);
+    }
+}
+
+/* ── Smooth animations on high refresh devices ────────────── */
+@media (update: fast) {
+    .btn,
+    a,
+    [data-reveal] {
+        transition-duration: 0.25s;
+    }
+}
+
+/* ════════════════════════════════════════════════════════════
+   MOTION CURVES & EASING UTILITIES
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Smooth easing for common transitions ──────────────────── */
+.ease-in {
+    transition-timing-function: cubic-bezier(0.42, 0, 1, 1);
+}
+
+.ease-out {
+    transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
+}
+
+.ease-in-out {
+    transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+.ease-smooth {
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ease-bounce {
+    transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}

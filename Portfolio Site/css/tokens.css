@@ -1,0 +1,78 @@
+/* ==========================================================================
+   tokens.css — Single Source of Design Truth
+   All CSS custom properties for the portfolio site.
+   Loaded first in the CSS dependency chain.
+   NOTE: --ar, --ag, --ab are NOT defined here — they are set by JS at runtime.
+   ========================================================================== */
+
+:root {
+
+  /* -------------------------------------------------------------------------
+     Color Tokens — Background Scale
+     ------------------------------------------------------------------------- */
+  --bg-darkest:    #07070d;
+  --bg-dark:       #0a0a14;
+  --bg-mid:        #13131f;
+  --bg-light:      #1a1a2a;
+  --bg-card:       #161622;
+  --bg-card-hover: #1e1e30;
+
+  /* -------------------------------------------------------------------------
+     Color Tokens — Accent Palette
+     ------------------------------------------------------------------------- */
+  --accent-cyan:   #00e5ff;
+  --accent-purple: #a855f7;
+  --accent-pink:   #f472b6;
+  --accent-green:  #22d3ee;
+  --accent-amber:  #fbbf24;
+
+  /* -------------------------------------------------------------------------
+     Color Tokens — Text Scale
+     ------------------------------------------------------------------------- */
+  --text-bright:    #ffffff;
+  --text-primary:   #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted:     #64748b;
+  --text-dim:       #475569;
+
+  /* -------------------------------------------------------------------------
+     Typography — Font Family Tokens
+     ------------------------------------------------------------------------- */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', monospace;
+
+  /* -------------------------------------------------------------------------
+     Easing Tokens
+     ------------------------------------------------------------------------- */
+  --ease-out-expo:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart:   cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-circ: cubic-bezier(0.85, 0, 0.15, 1);
+
+  /* -------------------------------------------------------------------------
+     Fluid Spacing Tokens — clamp(min, preferred, max)
+     All values satisfy: min ≤ preferred ≤ max
+     ------------------------------------------------------------------------- */
+  --space-2xs:    clamp(4px, 0.5vw, 8px);
+  --space-xs:     clamp(8px, 1vw, 12px);
+  --space-sm:     clamp(10px, 1.5vw, 16px);
+  --space-md:     clamp(16px, 2vw, 24px);
+  --space-lg:     clamp(20px, 3vw, 32px);
+  --space-xl:     clamp(28px, 4vw, 48px);
+  --space-2xl:    clamp(40px, 6vw, 80px);
+  --space-3xl:    clamp(56px, 9vw, 140px);
+  --section-py:   clamp(56px, 9vw, 140px);
+  --container-px: clamp(16px, 5vw, 80px);
+  --nav-height:   70px;
+
+  /* -------------------------------------------------------------------------
+     Breakpoint Tokens
+     (CSS custom properties cannot be used in media query expressions directly,
+     but are defined here as a reference for JS and documentation purposes.)
+     ------------------------------------------------------------------------- */
+  --bp-mobile: 768px;
+  --bp-tablet: 1024px;
+  --bp-wide:   1440px;
+  --bp-4k:     2560px;
+
+}

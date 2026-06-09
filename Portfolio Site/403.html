@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>403 - Forbidden | YOGE.DEV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --text: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent: #ef4444;
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .container {
+            text-align: center;
+            max-width: 600px;
+        }
+        .lock {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+        .lock-shackle {
+            width: 40px;
+            height: 40px;
+            border: 6px solid var(--accent);
+            border-bottom: none;
+            border-radius: 20px 20px 0 0;
+            margin: 0 auto;
+            transform-origin: bottom center;
+            animation: shake 2s infinite;
+        }
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            10%, 30%, 50% { transform: rotate(-10deg); }
+            20%, 40% { transform: rotate(10deg); }
+        }
+        .lock-body {
+            width: 60px;
+            height: 50px;
+            background: var(--accent);
+            border-radius: 10px;
+            margin: -5px auto 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        .code {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            margin: 0.5rem;
+            transition: transform 0.2s;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn-outline {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lock">
+            <div class="lock-shackle"></div>
+            <div class="lock-body"><i class="fas fa-ban"></i></div>
+        </div>
+        <div class="code">403</div>
+        <h1>Forbidden</h1>
+        <p>You don't have permission to access this resource. Your account may lack the necessary privileges.</p>
+        <div>
+            <a href="/" class="btn"><i class="fas fa-home"></i> Home</a>
+            <button onclick="history.back()" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Back</button>
+        </div>
+    </div>
+</body>
+</html>

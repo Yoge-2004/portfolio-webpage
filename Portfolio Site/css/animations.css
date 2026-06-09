@@ -1,0 +1,545 @@
+/* ============================================
+   ANIMATIONS - Keyframes & Motion
+   ============================================ */
+
+/* Floating shapes */
+@keyframes float1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -20px) scale(1.05); }
+    66% { transform: translate(-20px, 15px) scale(0.95); }
+}
+
+@keyframes float2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-25px, -30px) scale(1.08); }
+}
+
+@keyframes float3 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(15px, 20px) rotate(3deg); }
+}
+
+/* Glow pulse */
+@keyframes glowPulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+/* Border glow */
+@keyframes borderGlow {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+}
+
+/* Particle drift */
+@keyframes particleDrift {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
+}
+
+/* Shimmer effect */
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Text glow */
+@keyframes textGlow {
+    0%, 100% { text-shadow: 0 0 20px rgba(0, 229, 255, 0.2); }
+    50% { text-shadow: 0 0 40px rgba(0, 229, 255, 0.4), 0 0 80px rgba(0, 229, 255, 0.1); }
+}
+
+/* Rotate slow */
+@keyframes rotateSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Scale breathe */
+@keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+}
+
+/* Slide up fade */
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Cursor expand */
+@keyframes cursorExpand {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.5); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+/* Line draw */
+@keyframes lineDraw {
+    from { stroke-dashoffset: 1000; }
+    to { stroke-dashoffset: 0; }
+}
+
+/* Gradient shift */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Magnetic hover effect base */
+.magnetic {
+    transition: transform 0.3s var(--ease-out-expo);
+}
+
+/* Stagger children utility */
+.stagger-children > * {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.stagger-children.is-active > *:nth-child(1) { transition-delay: 0.05s; }
+.stagger-children.is-active > *:nth-child(2) { transition-delay: 0.1s; }
+.stagger-children.is-active > *:nth-child(3) { transition-delay: 0.15s; }
+.stagger-children.is-active > *:nth-child(4) { transition-delay: 0.2s; }
+.stagger-children.is-active > *:nth-child(5) { transition-delay: 0.25s; }
+.stagger-children.is-active > *:nth-child(6) { transition-delay: 0.3s; }
+.stagger-children.is-active > *:nth-child(7) { transition-delay: 0.35s; }
+.stagger-children.is-active > *:nth-child(8) { transition-delay: 0.4s; }
+
+.stagger-children.is-active > * {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.6s var(--ease-out-expo);
+}
+
+/* ── VanillaTilt – ensure border-radius preserved ──────── */
+.js-tilt { border-radius: inherit; }
+
+/* ── Typed.js cursor ────────────────────────────────────── */
+.typed-cursor {
+    color: var(--accent-cyan);
+    font-weight: 300;
+    opacity: 1;
+    animation: typedBlink 0.7s step-end infinite;
+}
+@keyframes typedBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* ── Hero badge float ───────────────────────────────────── */
+@keyframes badgeFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* ── Neon border pulse on featured cards ───────────────── */
+@keyframes neonPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(102,231,242,0); }
+    50% { box-shadow: 0 0 16px 2px rgba(102,231,242,0.18); }
+}
+.project-hero:hover { animation: neonPulse 2.4s ease-in-out infinite; }
+.battle-featured:hover { animation: neonPulse 2.4s ease-in-out infinite; }
+
+/* ── Skill bar glow ─────────────────────────────────────── */
+.skill-bar__fill { transition: box-shadow 0.4s; }
+
+/* ── Magnetic button – no transform jump on init ────────── */
+/* Removed will-change: transform to fix stacking context bug with VanillaTilt */
+
+/* ── Entrance: origin narrative reveal (desktop only) ─────── */
+@media (min-width: 769px) {
+    .origin-narrative .narrative-block {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+    }
+    .origin-narrative .narrative-block.is-visible {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ── Contact card hover ripple ─────────────────────────── */
+.contact-card {
+    position: relative;
+    overflow: hidden;
+}
+.contact-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(102,231,242,0.07) 0%, transparent 65%);
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
+}
+.contact-card:hover::before { opacity: 1; }
+
+/* ── Safe card entrance removed — GSAP owns all entrance animation ── */
+
+/* ── Hero badge float — CSS animation avoids GSAP transform conflict ── */
+/* The badge has transform:translateX(-50%) for centering. GSAP y-animation
+   replaces the full transform, losing the centering and causing jitter.
+   CSS @keyframes uses translate() separately, stacking cleanly. */
+@keyframes badgeFloatY {
+    0%, 100% { translate: 0 0px; }
+    50%       { translate: 0 -9px; }
+}
+.hero-badge.is-floating {
+    animation: badgeFloatY 2.8s ease-in-out infinite;
+}
+/* On reduced motion — disable the float */
+@media (prefers-reduced-motion: reduce) {
+    .hero-badge.is-floating { animation: none; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   LIFE & ENERGY — Micro-animations, entrance effects, ambience
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Nav link hover: underline slide-in ─────────────────── */
+.nav-link {
+    position: relative;
+    transition: color 0.25s ease;
+}
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 1.5px;
+    background: var(--accent-cyan);
+    transition: width 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+.nav-link:hover::after,
+.nav-link.is-active::after { width: 100%; }
+
+/* ── Section eyebrow: shimmer on load ───────────────────── */
+.section-eyebrow {
+    position: relative;
+    overflow: hidden;
+}
+.section-eyebrow::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(102,231,242,0.35) 50%, transparent 100%);
+    transform: translateX(-100%);
+    animation: eyebrowShimmer 1.6s ease forwards;
+    animation-delay: 0.5s;
+}
+@keyframes eyebrowShimmer {
+    to { transform: translateX(200%); }
+}
+
+/* ── Stat number count-up glow ──────────────────────────── */
+@keyframes statGlow {
+    0%   { text-shadow: none; }
+    50%  { text-shadow: 0 0 20px rgba(102,231,242,0.6); }
+    100% { text-shadow: 0 0 8px rgba(102,231,242,0.2); }
+}
+.hero-metric__number {
+    animation: statGlow 1.8s ease forwards;
+    animation-delay: 1.5s;
+}
+
+/* ── Card enter: fade + float up ────────────────────────── */
+@keyframes cardEnter {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.origin-card.is-visible,
+.project-card.is-visible,
+.battle-card.is-visible,
+.cert-item.is-visible {
+    animation: cardEnter 0.65s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+/* ── Timeline card pulse on enter ──────────────────────── */
+@keyframes timelinePop {
+    0%   { opacity:0; transform: translateX(-20px) scale(0.97); }
+    60%  { transform: translateX(3px) scale(1.01); }
+    100% { opacity:1; transform: translateX(0) scale(1); }
+}
+.timeline-entry__card.is-visible {
+    animation: timelinePop 0.7s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+/* ── Section title underline animate ───────────────────── */
+.section-title-underline {
+    display: block;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s;
+    margin-top: 8px;
+    width: 60px;
+    border-radius: 2px;
+}
+.section-title.is-visible + .section-title-underline,
+.section-header:has(.section-title.is-visible) .section-title-underline {
+    transform: scaleX(1);
+}
+
+/* ── Origin card: corner accent on hover ───────────────── */
+.origin-card {
+    transition: transform 0.45s cubic-bezier(0.16,1,0.3,1),
+                box-shadow 0.45s ease,
+                border-color 0.3s ease;
+}
+.origin-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 0; height: 0;
+    border-style: solid;
+    border-width: 0 0 28px 28px;
+    border-color: transparent transparent rgba(102,231,242,0.12) transparent;
+    transition: border-width 0.35s ease;
+}
+.origin-card:hover::after { border-width: 0 0 40px 40px; }
+
+/* ── Skill bar pulse on fill complete ───────────────────── */
+@keyframes barFilled {
+    0%   { box-shadow: none; }
+    50%  { box-shadow: 0 0 12px rgba(102,231,242,0.5); }
+    100% { box-shadow: 0 0 4px rgba(102,231,242,0.15); }
+}
+.skill-bar__fill.is-filled {
+    animation: barFilled 1s ease forwards;
+}
+
+/* ── Button: inner glow pulse on primary ────────────────── */
+@keyframes btnBreath {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(102,231,242,0); }
+    50%       { box-shadow: 0 0 18px 2px rgba(102,231,242,0.18); }
+}
+.btn--primary {
+    animation: btnBreath 3s ease-in-out infinite;
+}
+.btn--primary:hover { animation: none; }
+
+/* ── Contact card border trace ──────────────────────────── */
+.contact-card {
+    position: relative;
+}
+.contact-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(var(--accent-cyan), var(--accent-purple), var(--accent-pink), var(--accent-cyan));
+    background-size: 300% 300%;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    padding: 1px;
+}
+.contact-card:hover::before {
+    opacity: 1;
+    animation: borderTrace 3s linear infinite;
+}
+@keyframes borderTrace {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ── Chapter flash: stronger entrance ───────────────────── */
+.chapter-flash {
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+
+/* ── Result card number: animate on enter ──────────────── */
+@keyframes resultPop {
+    from { transform: scale(0.7); opacity: 0; }
+    to   { transform: scale(1);   opacity: 1; }
+}
+.result-card__number {
+    animation: resultPop 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+    animation-delay: 0.2s;
+}
+
+/* ── Marquee: faster + stronger contrast ────────────────── */
+.marquee-track { animation-duration: 28s !important; }
+
+/* ── Scroll progress bar: glow ──────────────────────────── */
+.scroll-progress__fill {
+    box-shadow: 0 0 8px rgba(102,231,242,0.5);
+}
+
+/* ── Page transition fade-in on load ────────────────────── */
+@keyframes pageFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+body {
+    animation: pageFadeIn 0.5s ease both;
+}
+
+/* ════════════════════════════════════════════════════════════
+   MOBILE & TABLET ANIMATIONS  ·  ≤ 1024px
+   Full animation parity with desktop — adapted for touch/no-hover
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Touch ripple on card tap ───────────────────────────── */
+@media (max-width: 1024px) {
+    .origin-card,
+    .project-card,
+    .battle-card,
+    .cert-item {
+        position: relative;
+        overflow: hidden;
+        -webkit-tap-highlight-color: transparent;
+        transition: transform 0.22s cubic-bezier(0.16,1,0.3,1),
+                    box-shadow  0.22s ease,
+                    border-color 0.22s ease !important;
+    }
+
+    /* Tap = quick scale-down then bounce back */
+    .origin-card:active,
+    .project-card:active,
+    .battle-card:active,
+    .cert-item:active {
+        transform: scale(0.97) !important;
+        box-shadow: 0 4px 20px rgba(0,229,255,0.12) !important;
+        border-color: rgba(102,231,242,0.3) !important;
+    }
+
+    /* Ripple layer on tap */
+    .origin-card::before,
+    .project-card::before,
+    .battle-card::before,
+    .cert-item::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 50%,
+            rgba(102,231,242,0.08) 0%, transparent 70%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        pointer-events: none;
+        z-index: 0;
+    }
+    .origin-card:active::before,
+    .project-card:active::before,
+    .battle-card:active::before { opacity: 1; }
+}
+
+/* ── Stagger card entrance on mobile via IntersectionObserver class ─── */
+/* SAFE approach: elements start VISIBLE. JS adds .mob-entering BEFORE 
+   they enter the viewport (via rootMargin), which triggers the animation.
+   If IO never fires, elements remain visible — never blank. */
+@media (max-width: 1024px) {
+    /* Pre-animation state — only applied via JS class, never by default */
+    .mob-entering.origin-card,
+    .mob-entering.project-card,
+    .mob-entering.battle-card,
+    .mob-entering.cert-item,
+    .mob-entering.result-card,
+    .mob-entering.timeline-entry__card,
+    .mob-entering.contact-card,
+    .mob-entering.battle-featured,
+    .mob-entering.research-paper {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.55s cubic-bezier(0.16,1,0.3,1),
+                    transform 0.55s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    /* Revealed state */
+    .mob-entering.mob-visible.origin-card,
+    .mob-entering.mob-visible.project-card,
+    .mob-entering.mob-visible.battle-card,
+    .mob-entering.mob-visible.cert-item,
+    .mob-entering.mob-visible.result-card,
+    .mob-entering.mob-visible.timeline-entry__card,
+    .mob-entering.mob-visible.contact-card,
+    .mob-entering.mob-visible.battle-featured,
+    .mob-entering.mob-visible.research-paper {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Section header mobile entrance ────────────────────── */
+@media (max-width: 1024px) {
+    .mob-entering.section-eyebrow {
+        opacity: 0;
+        transform: translateY(12px);
+        transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1);
+    }
+    .mob-entering.mob-visible.section-eyebrow {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .mob-entering.section-title {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.7s ease 0.1s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s;
+    }
+    .mob-entering.mob-visible.section-title {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .mob-entering.section-subtitle {
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity 0.6s ease 0.2s, transform 0.6s cubic-bezier(0.16,1,0.3,1) 0.2s;
+    }
+    .mob-entering.mob-visible.section-subtitle {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Narrative blocks slide in ──────────────────────────── */
+@media (max-width: 1024px) {
+    .mob-entering.narrative-block {
+        opacity: 0;
+        transform: translateX(-16px);
+        transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1);
+    }
+    .mob-entering.mob-visible.narrative-block {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ── Timeline markers pop in ────────────────────────────── */
+@media (max-width: 1024px) {
+    .mob-entering.timeline-entry__marker {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.4);
+        transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .mob-entering.mob-visible.timeline-entry__marker {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+/* ── Hero kicker line animate ────────────────────────────── */
+@media (max-width: 1024px) {
+    .hero-kicker__line {
+        width: 0;
+        transition: width 0.8s cubic-bezier(0.16,1,0.3,1) 0.8s;
+    }
+    .hero-kicker__line.mob-visible,
+    body.page-loaded .hero-kicker__line {
+        width: 32px;
+    }
+}

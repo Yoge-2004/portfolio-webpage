@@ -1,0 +1,110 @@
+/* ==========================================================================
+   base.css — Reset, Global Defaults, and Utility Classes
+   Depends on: tokens.css (must be loaded first)
+   No hard-coded literal values for colors, spacing, or fonts — all values
+   reference CSS custom properties defined in tokens.css.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Modern CSS Reset
+   -------------------------------------------------------------------------- */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Global HTML / Body Defaults
+   -------------------------------------------------------------------------- */
+
+html {
+  font-family: var(--font-body);
+  background-color: var(--bg-darkest);
+  color: var(--text-primary);
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Hide scrollbar — Firefox */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-darkest);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   Hidden Scrollbar — WebKit / Blink
+   -------------------------------------------------------------------------- */
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Selection Highlight
+   -------------------------------------------------------------------------- */
+
+::selection {
+  background-color: var(--accent-cyan);
+  color: var(--bg-darkest);
+}
+
+::-moz-selection {
+  background-color: var(--accent-cyan);
+  color: var(--bg-darkest);
+}
+
+/* --------------------------------------------------------------------------
+   Utility Classes
+   -------------------------------------------------------------------------- */
+
+/* Dynamic accent color driven by --ar, --ag, --ab set at runtime by JS */
+.text-accent {
+  color: rgb(var(--ar), var(--ag), var(--ab));
+}
+
+/* Static cyan highlight */
+.text-highlight {
+  color: var(--accent-cyan);
+}
+
+/* Screen-reader only — visually hidden but accessible to assistive tech */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Centered page container with fluid horizontal padding */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--container-px);
+}
+
+/* --------------------------------------------------------------------------
+   Reduced Motion — Accessibility
+   Suppresses all decorative CSS animations and transitions when the OS
+   reports prefers-reduced-motion: reduce (Requirement 12.1).
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,886 @@
+/* ============================================
+   MEDIUM DISPLAY ENHANCEMENTS
+   Optimized for tablets, small laptops (1024px - 2560px)
+   ============================================ */
+
+/* ─────────────────────────────────────────────
+   1200px - 1600px : Large desktop optimizations
+   ───────────────────────────────────────────── */
+@media (min-width: 1200px) and (max-width: 1600px) {
+    .container {
+        max-width: 1100px;
+        padding: 0 48px;
+    }
+
+    .hero-headline {
+        font-size: clamp(3.6rem, 5.2vw, 4.4rem);
+    }
+
+    .section-title {
+        font-size: clamp(3.2rem, 4.8vw, 4rem);
+    }
+
+    .hero-image__frame {
+        width: 380px;
+        height: 490px;
+    }
+
+    /* Smooth transitions for large displays */
+    .origin-card,
+    .project-card,
+    .battle-card,
+    .cert-item {
+        transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                    box-shadow 0.45s ease,
+                    border-color 0.35s ease;
+    }
+
+    .btn {
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Enhanced hover effects */
+    .origin-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 16px 48px rgba(0, 229, 255, 0.15);
+    }
+
+    .project-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 16px 48px rgba(102, 231, 242, 0.12);
+    }
+
+    .battle-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 16px 48px rgba(102, 231, 242, 0.1);
+    }
+
+    .btn--primary:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 48px rgba(0, 229, 255, 0.3);
+    }
+}
+
+/* ─────────────────────────────────────────────
+   1024px - 1200px : Tablet landscape
+   ───────────────────────────────────────────── */
+@media (min-width: 1024px) and (max-width: 1200px) {
+    .container {
+        max-width: 960px;
+        padding: 0 40px;
+    }
+
+    .hero-headline {
+        font-size: clamp(3.2rem, 4.8vw, 3.8rem);
+    }
+
+    .section-title {
+        font-size: clamp(2.8rem, 4.2vw, 3.6rem);
+    }
+
+    .hero-image__frame {
+        width: 340px;
+        height: 440px;
+    }
+
+    /* Slightly faster animations for medium screens */
+    .origin-card,
+    .project-card,
+    .battle-card,
+    .cert-item {
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                    box-shadow 0.35s ease,
+                    border-color 0.3s ease;
+    }
+
+    .btn {
+        transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .origin-card:hover {
+        transform: translateY(-6px) scale(1.015);
+    }
+
+    .project-card:hover {
+        transform: translateY(-6px) scale(1.015);
+    }
+
+    .battle-card:hover {
+        transform: translateY(-6px) scale(1.015);
+    }
+}
+
+/* ─────────────────────────────────────────────
+   768px - 1024px : Tablet portrait & large mobile
+   ───────────────────────────────────────────── */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .container {
+        max-width: 100%;
+        padding: 0 32px;
+    }
+
+    .hero-headline {
+        font-size: clamp(2.2rem, 6vw, 2.8rem);
+    }
+
+    .section-title {
+        font-size: clamp(1.8rem, 5vw, 2.4rem);
+    }
+
+    .hero-image__frame {
+        width: 280px;
+        height: 360px;
+    }
+
+    /* Optimized animations for tablet */
+    .origin-card,
+    .project-card,
+    .battle-card,
+    .cert-item {
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                    box-shadow 0.3s ease,
+                    border-color 0.25s ease;
+    }
+
+    .btn {
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .origin-card:hover,
+    .project-card:hover,
+    .battle-card:hover,
+    .cert-item:hover {
+        transform: translateY(-4px) scale(1.01);
+    }
+
+    /* Enhanced section spacing */
+    .story-section {
+        padding: 80px 0;
+    }
+
+    .section-header {
+        margin-bottom: 48px;
+    }
+
+    /* Improve touch targets */
+    .btn {
+        padding: 14px 24px;
+        min-height: 48px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Better grid layouts */
+    .origin-cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .project-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+
+    .battle-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .certs-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    /* Stagger animations for tablet */
+    .origin-card:nth-child(1) {
+        animation-delay: 0ms;
+    }
+
+    .origin-card:nth-child(2) {
+        animation-delay: 60ms;
+    }
+
+    .origin-card:nth-child(3) {
+        animation-delay: 120ms;
+    }
+
+    .origin-card:nth-child(4) {
+        animation-delay: 180ms;
+    }
+
+    .result-cards {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+
+    .result-card {
+        padding: 20px;
+    }
+}
+
+/* ─────────────────────────────────────────────
+   480px - 768px : Mobile devices
+   ───────────────────────────────────────────── */
+@media (min-width: 480px) and (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    .hero-headline {
+        font-size: clamp(1.8rem, 7vw, 2.4rem);
+    }
+
+    .section-title {
+        font-size: clamp(1.6rem, 5.5vw, 2.2rem);
+    }
+
+    /* Fast, responsive animations */
+    .origin-card,
+    .project-card,
+    .battle-card,
+    .cert-item {
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .btn {
+        transition: all 0.25s ease;
+    }
+
+    .origin-card:active,
+    .project-card:active,
+    .battle-card:active,
+    .cert-item:active {
+        transform: scale(0.96);
+    }
+
+    /* Single column layouts on mobile */
+    .origin-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .battle-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .certs-list {
+        grid-template-columns: 1fr;
+    }
+
+    .result-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .contact-card:active {
+        transform: scale(0.97);
+    }
+
+    /* Reduce animation durations */
+    @keyframes cardEnter {
+        from {
+            opacity: 0;
+            transform: translateY(16px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .origin-card.is-visible,
+    .project-card.is-visible,
+    .battle-card.is-visible,
+    .cert-item.is-visible {
+        animation: cardEnter 0.4s ease both;
+    }
+
+    /* ── Touch-specific animations for mobile ──────────────── */
+    
+    /* Pull-to-refresh style animation */
+    @keyframes pullAnimation {
+        0% {
+            transform: translateY(0) scale(1);
+        }
+        50% {
+            transform: translateY(8px) scale(0.98);
+        }
+        100% {
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    /* Scroll momentum animation */
+    .story-section {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+    }
+
+    /* Touch feedback for list items */
+    .origin-card.touch-active,
+    .project-card.touch-active,
+    .battle-card.touch-active,
+    .cert-item.touch-active {
+        box-shadow: 0 4px 16px rgba(102, 231, 242, 0.1);
+        border-color: rgba(102, 231, 242, 0.15);
+    }
+
+    /* Bounce animation on card tap */
+    @keyframes tapBounce {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(0.96);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .origin-card:active,
+    .project-card:active,
+    .battle-card:active,
+    .cert-item:active,
+    .contact-card:active {
+        animation: tapBounce 0.3s ease;
+    }
+
+    /* Swipe hint animation */
+    @keyframes swipeSlide {
+        0%, 100% {
+            transform: translateX(0);
+        }
+        50% {
+            transform: translateX(12px);
+        }
+    }
+
+    .swipe-hint {
+        animation: swipeSlide 1.5s ease infinite;
+    }
+
+    /* Page transition animation */
+    @keyframes pageSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .story-section {
+        animation: pageSlideIn 0.6s ease forwards;
+    }
+
+    .story-section:nth-child(n+2) {
+        animation-delay: 0.1s;
+    }
+
+    /* Fast icon animations on mobile */
+    .btn__icon {
+        transition: transform 0.2s ease;
+    }
+
+    .btn:active .btn__icon {
+        transform: scale(0.9);
+    }
+
+    /* Mobile-friendly dropdown hint */
+    @keyframes dropdownHint {
+        0% {
+            opacity: 0.4;
+            transform: translateY(-4px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .dropdown-item {
+        animation: dropdownHint 0.3s ease;
+    }
+
+    /* Scroll snap for better mobile UX */
+    html {
+        scroll-snap-type: y proximity;
+    }
+
+    .story-section {
+        scroll-snap-align: start;
+    }
+
+    /* Long-press hold feedback */
+    @keyframes longPressHold {
+        0% {
+            box-shadow: 0 2px 8px rgba(102, 231, 242, 0.05);
+        }
+        100% {
+            box-shadow: 0 8px 24px rgba(102, 231, 242, 0.15);
+        }
+    }
+
+    .cert-item.held {
+        animation: longPressHold 0.5s ease forwards;
+    }
+
+    /* Smooth scroll progress */
+    .scroll-progress__fill {
+        transition: width 0.08s ease;
+    }
+
+    /* Mobile section transitions */
+    @keyframes sectionFadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    .story-section.visible {
+        animation: sectionFadeIn 0.5s ease;
+    }
+
+    /* Gesture-friendly button sizes */
+    .btn {
+        min-height: 48px;
+        transition: all 0.2s ease;
+    }
+
+    /* Smooth navbar scroll effect */
+    .main-nav {
+        transition: all 0.3s ease;
+    }
+
+    .main-nav.nav-scroll-down {
+        transform: translateY(-70px);
+    }
+
+    .main-nav.nav-scroll-up {
+        transform: translateY(0);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Mobile card swipe animation */
+    @keyframes cardSwipeIn {
+        from {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .card-swiped-in {
+        animation: cardSwipeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Floating action button for mobile */
+    @keyframes fabFloat {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-6px);
+        }
+    }
+
+    .fab {
+        animation: fabFloat 2.5s ease-in-out infinite;
+    }
+
+    /* Mobile menu item stagger */
+    .mobile-link {
+        animation: mobileMenuSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes mobileMenuSlide {
+        from {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .mobile-link:nth-child(1) { animation-delay: 0.05s; }
+    .mobile-link:nth-child(2) { animation-delay: 0.1s; }
+    .mobile-link:nth-child(3) { animation-delay: 0.15s; }
+    .mobile-link:nth-child(4) { animation-delay: 0.2s; }
+    .mobile-link:nth-child(5) { animation-delay: 0.25s; }
+    .mobile-link:nth-child(6) { animation-delay: 0.3s; }
+    .mobile-link:nth-child(7) { animation-delay: 0.35s; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   SMOOTH SCROLLING HINTS & INDICATORS
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Scroll hint animation ──────────────────────────────── */
+.hero-scroll-hint {
+    animation: scrollHintBounce 2s ease-in-out infinite;
+}
+
+@keyframes scrollHintBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(8px);
+    }
+}
+
+.hero-scroll-hint__wheel {
+    animation: wheelScroll 1.8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+/* ── Scroll progress indicator ──────────────────────────– */
+.scroll-progress__fill {
+    transition: width 0.1s ease, height 0.3s ease;
+    border-radius: 10px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   ENHANCED TEXT ANIMATIONS
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Narrative text fade-in ─────────────────────────── */
+.narrative-block {
+    animation: narrativeReveal 0.7s ease forwards;
+}
+
+.narrative-block:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.narrative-block:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.narrative-block:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+@keyframes narrativeReveal {
+    from {
+        opacity: 0;
+        transform: translateX(-12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ── Text highlight on scroll ───────────────────────– */
+.text-accent,
+.text-highlight {
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* ════════════════════════════════════════════════════════════
+   TIMELINE ENHANCEMENTS
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Timeline entry stagger ─────────────────────────– */
+.timeline-entry {
+    animation: timelineSlide 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.timeline-entry:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.timeline-entry:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.timeline-entry:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.timeline-entry:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+@keyframes timelineSlide {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* ── Timeline progress bar ──────────────────────────– */
+#timelineProgress {
+    transition: height 0.2s ease;
+}
+
+/* ════════════════════════════════════════════════════════════
+   SKILL BAR ENHANCEMENTS
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Skill bar progressive fill ─────────────────────– */
+/* NOTE: width is driven by JS initSkillBars() reading data-width attribute.
+   The old CSS-only animation was falling back to 100% for every bar because
+   --width was never set. Delays are kept for stagger but width is JS-controlled. */
+.skill-bar__fill {
+    /* no animation override — GSAP sets width from data-width */
+}
+
+.skill-row:nth-child(1) .skill-bar__fill { transition-delay: 0.1s; }
+.skill-row:nth-child(2) .skill-bar__fill { transition-delay: 0.2s; }
+.skill-row:nth-child(3) .skill-bar__fill { transition-delay: 0.3s; }
+
+/* ════════════════════════════════════════════════════════════
+   CONTACT FORM ENHANCEMENTS
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Contact cards stagger entry ────────────────────– */
+.contact-card {
+    animation: contactCardReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.contact-card:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.contact-card:nth-child(2) {
+    animation-delay: 0.35s;
+}
+
+.contact-card:nth-child(3) {
+    animation-delay: 0.5s;
+}
+
+@keyframes contactCardReveal {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Contact card arrow animation ────────────────── */
+.contact-card__arrow {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-card:hover .contact-card__arrow {
+    transform: translateX(4px) translateY(-4px);
+}
+
+/* ════════════════════════════════════════════════════════════
+   BADGE & ACCENT ANIMATIONS
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Badge special effects ──────────────────────── */
+.hero-badge__pulse {
+    animation: pulseBeatStrong 2s ease-in-out infinite;
+}
+
+@keyframes pulseBeatStrong {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.3);
+        opacity: 0.6;
+    }
+}
+
+/* ── Tech pills hover ────────────────────────────– */
+.tech-pill {
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.project-card:hover .tech-pill {
+    transform: translateY(-2px);
+    background: rgba(102, 231, 242, 0.15);
+}
+
+/* ════════════════════════════════════════════════════════════
+   WIN BADGE EFFECTS
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Win badge animation ────────────────────────── */
+.win-badge {
+    animation: winBadgeFloat 3s ease-in-out infinite;
+}
+
+.win-badge:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.win-badge:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+@keyframes winBadgeFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+/* ════════════════════════════════════════════════════════════
+   RESEARCH PAPER ANIMATIONS
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Research paper sections stagger ────────────– */
+.abstract-block,
+.keywords-block,
+.results-block,
+.authors-block,
+.paper-actions-row,
+.flags-row {
+    animation: researchReveal 0.6s ease forwards;
+}
+
+.abstract-block {
+    animation-delay: 0.1s;
+}
+
+.keywords-block {
+    animation-delay: 0.2s;
+}
+
+.results-block {
+    animation-delay: 0.3s;
+}
+
+.authors-block {
+    animation-delay: 0.4s;
+}
+
+.paper-actions-row {
+    animation-delay: 0.5s;
+}
+
+.flags-row {
+    animation-delay: 0.6s;
+}
+
+@keyframes researchReveal {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Flag animations ────────────────────────────– */
+.flag {
+    animation: flagPulse 0.6s ease forwards;
+    animation-delay: 0.6s;
+}
+
+.flag:nth-child(1) {
+    animation-delay: 0.65s;
+}
+
+.flag:nth-child(2) {
+    animation-delay: 0.75s;
+}
+
+.flag:nth-child(3) {
+    animation-delay: 0.85s;
+}
+
+.flag:nth-child(4) {
+    animation-delay: 0.95s;
+}
+
+@keyframes flagPulse {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ════════════════════════════════════════════════════════════
+   FOOTER ANIMATIONS
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Back to top button bounce ──────────────────– */
+.top-button {
+    animation: buttoBounce 2s ease-in-out infinite;
+    transition: all 0.3s ease;
+}
+
+@keyframes buttoBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+.top-button:hover {
+    animation-play-state: paused;
+    transform: scale(1.1);
+}
+
+/* ════════════════════════════════════════════════════════════
+   SMOOTH COLOR TRANSITIONS
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Accent color breathing ────────────────────– */
+@keyframes accentBreathe {
+    0%, 100% {
+        color: var(--accent-cyan);
+    }
+    50% {
+        color: var(--accent-purple);
+    }
+}
+
+.text-accent.breathing {
+    animation: accentBreathe 3s ease-in-out infinite;
+}
+
+/* ════════════════════════════════════════════════════════════
+   OPTIMIZED TRANSITIONS FOR PERFORMANCE
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Use transform + opacity for best performance – */
+* {
+    --transition-fast: all 0.2s ease;
+    --transition-base: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-slow: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}

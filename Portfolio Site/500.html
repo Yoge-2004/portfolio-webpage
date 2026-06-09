@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500 - Server Error | YOGE.DEV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --text: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent: #dc2626;
+            --glass: rgba(255, 255, 255, 0.03);
+            --terminal: #0d1117;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .container {
+            text-align: center;
+            max-width: 700px;
+        }
+        .icon {
+            width: 80px;
+            height: 80px;
+            background: var(--glass);
+            border: 2px solid var(--accent);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 2.5rem;
+            color: var(--accent);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
+            50% { box-shadow: 0 0 0 20px rgba(220, 38, 38, 0); }
+        }
+        .code {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        .terminal {
+            background: var(--terminal);
+            border: 1px solid var(--glass);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: left;
+            font-family: 'Courier New', monospace;
+        }
+        .terminal-header {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--glass);
+        }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #27c93f; }
+        .terminal-content {
+            color: #7ee787;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+        .terminal-line {
+            opacity: 0;
+            animation: typeLine 0.5s forwards;
+        }
+        .terminal-line:nth-child(1) { animation-delay: 0.2s; }
+        .terminal-line:nth-child(2) { animation-delay: 0.7s; }
+        .terminal-line:nth-child(3) { animation-delay: 1.2s; }
+        @keyframes typeLine { to { opacity: 1; } }
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background: #7ee787;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+            margin-left: 4px;
+        }
+        @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            margin: 0.5rem;
+            transition: transform 0.2s;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn-outline {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon"><i class="fas fa-server"></i></div>
+        <div class="code">500</div>
+        <h1>Internal Server Error</h1>
+        <p>Something went wrong on our end. Our team has been notified and is working on a fix.</p>
+        
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="dot red"></div>
+                <div class="dot yellow"></div>
+                <div class="dot green"></div>
+            </div>
+            <div class="terminal-content">
+                <div class="terminal-line">[ERROR] Exception thrown at server core</div>
+                <div class="terminal-line">[ERROR] Code: 500 - Internal Server Error</div>
+                <div class="terminal-line">[INFO] Admin notified, tracking ID: #<span id="track-id"></span><span class="cursor"></span></div>
+            </div>
+        </div>
+        
+        <div>
+            <a href="/" class="btn"><i class="fas fa-home"></i> Home</a>
+            <button onclick="location.reload()" class="btn btn-outline"><i class="fas fa-rotate-right"></i> Retry</button>
+        </div>
+    </div>
+    <script>
+        document.getElementById('track-id').textContent = Math.random().toString(36).substr(2, 9).toUpperCase();
+    </script>
+</body>
+</html>

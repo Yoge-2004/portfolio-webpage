@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>503 - Service Unavailable | YOGE.DEV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --text: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent: #7c3aed;
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .container {
+            text-align: center;
+            max-width: 600px;
+        }
+        .gears {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+        .gear {
+            position: absolute;
+            color: var(--accent);
+        }
+        .gear.big {
+            font-size: 3.5rem;
+            top: 0;
+            left: 0;
+            animation: spin 4s linear infinite;
+        }
+        .gear.small {
+            font-size: 2rem;
+            bottom: 0;
+            right: 0;
+            animation: spin-reverse 3s linear infinite;
+        }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes spin-reverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+        .code {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        .status-box {
+            background: var(--glass);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .status-bar {
+            height: 4px;
+            background: var(--glass);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+        .status-progress {
+            height: 100%;
+            width: 0%;
+            background: var(--accent);
+            border-radius: 2px;
+            animation: loading 2s infinite;
+        }
+        @keyframes loading {
+            0% { width: 0%; }
+            50% { width: 70%; }
+            100% { width: 100%; }
+        }
+        .status-text {
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            margin: 0.5rem;
+            transition: transform 0.2s;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn-outline {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="gears">
+            <i class="fas fa-gear gear big"></i>
+            <i class="fas fa-gear gear small"></i>
+        </div>
+        <div class="code">503</div>
+        <h1>Service Unavailable</h1>
+        <p>The server is temporarily unable to handle your request due to maintenance or high traffic.</p>
+        
+        <div class="status-box">
+            <div class="status-bar">
+                <div class="status-progress"></div>
+            </div>
+            <div class="status-text"><i class="fas fa-wrench"></i> Maintenance in progress</div>
+        </div>
+        
+        <div>
+            <a href="/" class="btn"><i class="fas fa-home"></i> Home</a>
+            <button onclick="location.reload()" class="btn btn-outline"><i class="fas fa-rotate-right"></i> Retry</button>
+        </div>
+    </div>
+</body>
+</html>

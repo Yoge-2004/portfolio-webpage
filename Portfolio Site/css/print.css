@@ -1,0 +1,489 @@
+/* Print Styles for Yogeshwaran M Portfolio */
+
+@media print {
+    @page {
+        margin: 1.2cm;
+        size: A4 portrait;
+    }
+
+    /* Reset all elements: default to white/transparent background, black text, and reset transitions/GSAP transforms */
+    *,
+    *::before,
+    *::after {
+        background-color: transparent !important;
+        background-image: none !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+        transition: none !important;
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        clip-path: none !important;
+        filter: none !important;
+        box-sizing: border-box !important;
+    }
+
+    body,
+    html {
+        background-color: #fff !important;
+        background: #fff !important;
+        color: #000 !important;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+        font-size: 10pt !important;
+        line-height: 1.4 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        height: auto !important;
+        min-height: 0 !important;
+    }
+
+    /* Hide unnecessary interactive/animated/decorative elements */
+    #loadingScreen,
+    #cursor,
+    #scrollProgress,
+    #mainNav,
+    #mobileMenu,
+    .hero-particles,
+    .hero-scroll-hint,
+    .section-bg,
+    .cursor,
+    .scroll-progress,
+    .main-nav,
+    .mobile-menu,
+    .hero-vignette,
+    .project-hero__orb,
+    .hero-image__glow,
+    .hero-badge__pulse,
+    .origin-card__shine,
+    .battle-featured__glow,
+    .loading-screen,
+    .menu-toggle,
+    .marquee-strip,
+    .chflash,
+    #chflash,
+    .skills-panel::before,
+    .certs-panel::before {
+        display: none !important;
+    }
+
+    /* Ensure sections wrap clean and have no SVH height constraints */
+    .hero-section,
+    .story-section {
+        background-color: #fff !important;
+        background: #fff !important;
+        background-image: none !important;
+        padding: 15px 0 !important;
+        min-height: 0 !important;
+        height: auto !important;
+        display: block !important;
+        page-break-inside: auto !important;
+    }
+
+    .container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* Headings & Typography */
+    h1, h2, h3, h4, h5, h6 {
+        page-break-after: avoid;
+        page-break-inside: avoid;
+        color: #000 !important;
+        font-weight: 700 !important;
+        margin-top: 12px !important;
+        margin-bottom: 6px !important;
+    }
+
+    h1 {
+        font-size: 22pt !important;
+        margin-bottom: 10px !important;
+    }
+
+    h2 {
+        font-size: 16pt !important;
+        border-bottom: 1px solid #ddd !important;
+        padding-bottom: 4px !important;
+        margin-top: 20px !important;
+    }
+
+    h3 {
+        font-size: 12pt !important;
+    }
+
+    p {
+        margin: 0 0 8px 0 !important;
+        color: #000 !important;
+    }
+
+    /* Specific overrides for Hero text */
+    .hero-headline__word--accent {
+        color: #000 !important;
+        -webkit-text-fill-color: #000 !important;
+        background: transparent !important;
+        font-style: normal !important;
+    }
+
+    .hero-tagline {
+        color: #000 !important;
+        font-size: 10.5pt !important;
+        max-width: 100% !important;
+    }
+
+    /* Hero layout */
+    .hero-layout {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 30px !important;
+        page-break-inside: avoid !important;
+    }
+
+    .hero-left {
+        flex: 1 !important;
+    }
+
+    .hero-right {
+        flex: 0 0 180px !important;
+        display: block !important;
+    }
+
+    .hero-image__frame {
+        width: 100% !important;
+        max-width: 180px !important;
+        height: auto !important;
+        border: 1px solid #ccc !important;
+        border-radius: 8px !important;
+        overflow: hidden !important;
+    }
+
+    .hero-image__img {
+        width: 100% !important;
+        height: auto !important;
+        display: block !important;
+    }
+
+    .hero-metrics {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        gap: 15px !important;
+        margin: 15px 0 !important;
+        padding: 10px !important;
+        border: 1px solid #ddd !important;
+        border-radius: 6px !important;
+        width: auto !important;
+        background-color: #fff !important;
+        background: #fff !important;
+    }
+
+    .hero-metric {
+        flex: 1 1 auto !important;
+        padding: 5px !important;
+        text-align: center !important;
+        background-color: #fff !important;
+        background: #fff !important;
+    }
+
+    .hero-metric__number {
+        font-size: 14pt !important;
+        font-weight: 700 !important;
+        color: #000 !important;
+    }
+
+    .hero-metric__label {
+        font-size: 7.5pt !important;
+        color: #555 !important;
+        text-transform: uppercase !important;
+    }
+
+    .hero-metric__divider {
+        width: 1px !important;
+        background-color: #ddd !important;
+        align-self: stretch !important;
+        display: block !important;
+    }
+
+    /* Buttons / CTAs - Outlined and clickable */
+    .btn,
+    .btn--primary,
+    .btn--ghost {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 5px 10px !important;
+        border: 1px solid #0056b3 !important;
+        border-radius: 4px !important;
+        background-color: #fff !important;
+        background: #fff !important;
+        background-image: none !important;
+        color: #0056b3 !important;
+        text-decoration: none !important;
+        font-weight: 600 !important;
+        font-size: 9pt !important;
+        margin: 4px 6px 4px 0 !important;
+        page-break-inside: avoid !important;
+    }
+
+    .btn *,
+    .btn span,
+    .btn i {
+        color: #0056b3 !important;
+        text-decoration: none !important;
+    }
+
+    /* Hyperlinks */
+    a,
+    a:visited {
+        color: #0056b3 !important;
+        text-decoration: underline !important;
+    }
+
+    /* Keep internal navigation links plain and non-underlined */
+    a[href^="#"],
+    a[href^="#"] * {
+        color: #000 !important;
+        text-decoration: none !important;
+    }
+
+    /* Origin section */
+    .origin-layout {
+        display: block !important;
+    }
+
+    .origin-narrative {
+        margin-bottom: 20px !important;
+    }
+
+    .origin-cards {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        gap: 15px !important;
+    }
+
+    /* Cards Styling */
+    .origin-card,
+    .project-card,
+    .battle-card,
+    .cert-item,
+    .contact-card,
+    .result-card,
+    .project-hero,
+    .battle-featured,
+    .research-paper,
+    .skills-panel,
+    .certs-panel {
+        flex: 1 1 calc(50% - 15px) !important;
+        background-color: #fff !important;
+        background: #fff !important;
+        border: 1px solid #ccc !important;
+        border-radius: 6px !important;
+        padding: 12px !important;
+        margin-bottom: 12px !important;
+        page-break-inside: avoid !important;
+        box-shadow: none !important;
+        display: block !important;
+    }
+
+    /* Highlight featured/hero containers but keep them clean */
+    .project-hero,
+    .battle-featured,
+    .research-paper {
+        flex: 1 1 100% !important;
+        border: 1.5px solid #333 !important;
+    }
+
+    .project-hero__visual,
+    .project-card__visual {
+        display: none !important; /* Hide giant colored SVGs inside card previews to save space and ink */
+    }
+
+    /* Technical skill pills */
+    .project-card__tech span,
+    .tech-pill,
+    .project-card__tag,
+    .battle-card__tags span,
+    .badge,
+    .timeline-entry__status,
+    .origin-card__stat,
+    .kw-tag,
+    .flag {
+        display: inline-block !important;
+        border: 1px solid #ddd !important;
+        background-color: #f7f7f7 !important;
+        background: #f7f7f7 !important;
+        color: #333 !important;
+        padding: 2px 6px !important;
+        margin: 2px !important;
+        border-radius: 3px !important;
+        font-size: 8pt !important;
+    }
+
+    /* Timeline Section (Education/Experience) */
+    .timeline__track,
+    .timeline__line,
+    .timeline__progress,
+    .timeline-entry__marker {
+        display: none !important;
+    }
+
+    .timeline__entries {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+
+    .timeline-entry {
+        display: block !important;
+        page-break-inside: avoid !important;
+    }
+
+    .timeline-entry__card {
+        background-color: #fff !important;
+        background: #fff !important;
+        border: 1px solid #ddd !important;
+        padding: 10px !important;
+    }
+
+    /* Credentials Panels layout */
+    .credentials-grid {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        gap: 15px !important;
+    }
+
+    .skills-panel,
+    .certs-panel {
+        flex: 1 1 calc(50% - 15px) !important;
+        min-width: 280px !important;
+    }
+
+    .skills-list,
+    .certs-list {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
+
+    /* Skill row (bars) optimization */
+    .skill-row {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 4px 0 !important;
+    }
+
+    .skill-bar {
+        display: none !important; /* Hide visual colored bars */
+    }
+
+    .skill-row__pct {
+        font-weight: 700 !important;
+        color: #333 !important;
+    }
+
+    /* Certification layout */
+    .cert-item {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 6px 10px !important;
+        margin-bottom: 0 !important;
+        border: 1px solid #eee !important;
+        border-radius: 4px !important;
+    }
+
+    .cert-item__left {
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+    }
+
+    .cert-item__info h4 {
+        margin: 0 !important;
+        font-size: 9.5pt !important;
+    }
+
+    .cert-item__info p {
+        margin: 0 !important;
+        font-size: 8pt !important;
+        color: #666 !important;
+    }
+
+    .cert-item__actions {
+        display: flex !important;
+        gap: 8px !important;
+    }
+
+    .cert-item__actions a {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 22px !important;
+        height: 22px !important;
+        border: 1px solid #0056b3 !important;
+        border-radius: 4px !important;
+        color: #0056b3 !important;
+        font-size: 8.5pt !important;
+        text-decoration: none !important;
+    }
+
+    /* Abstract & Research paper styling */
+    .abstract-block {
+        border-left: 3px solid #666 !important;
+        padding-left: 12px !important;
+        margin: 10px 0 !important;
+        font-style: italic !important;
+    }
+
+    /* Research paper key results numbers wrapping fix */
+    .result-card__number {
+        font-size: 18pt !important;
+        display: inline !important;
+    }
+    .result-card__unit,
+    .result-card__decimal {
+        font-size: 14pt !important;
+        display: inline !important;
+    }
+
+    /* Contact layout */
+    .contact-grid {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        gap: 15px !important;
+    }
+
+    .contact-card {
+        flex: 1 1 calc(33.333% - 15px) !important;
+        text-align: center !important;
+    }
+
+    /* Page breaks optimization */
+    .section-header {
+        page-break-inside: avoid !important;
+        page-break-after: avoid !important;
+    }
+
+    /* Add page breaks before each main storytelling chapter */
+    .origin-section,
+    .journey-section,
+    .quests-section,
+    .battles-section,
+    .discovery-section,
+    .credentials-section,
+    .contact-section {
+        page-break-before: always !important;
+    }
+
+    /* Prevent breaking inside cards */
+    .origin-card, .project-card, .battle-card, .cert-item, .contact-card, .timeline-entry {
+        page-break-inside: avoid !important;
+    }
+}

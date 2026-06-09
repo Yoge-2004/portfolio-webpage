@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://yogeresume.great-site.net/sitemap.xml
