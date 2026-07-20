@@ -4,6 +4,7 @@
 
 .battles-section {
     background: var(--bg-darkest);
+    background: color-mix(in srgb, var(--bg-darkest) 93%, transparent);
     padding: var(--section-py) 0;
 }
 

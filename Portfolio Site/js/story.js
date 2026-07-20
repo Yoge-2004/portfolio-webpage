@@ -177,6 +177,28 @@ function initScrollScenes() {
         /* Journey timeline line draws itself on scroll even on mobile/tablet */
         gsap.to('.timeline__progress', { height:'100%', ease:'none',
             scrollTrigger:{ trigger:'.timeline', start:'top 65%', end:'bottom 35%', scrub:1 } });
+
+        /* ── Lightweight mobile/tablet parallax ──
+           Small-travel drift restricted to elements the mobile reveal
+           engine (initMobileAnimations) never touches — purely decorative
+           layers, so there's no fight with the .mob-visible CSS
+           transitions driving text/card entrances on small screens. ── */
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            const mobileDrift = [
+                { sel: '.section-bg__orb',            y: -22, scrub: 1.5 },
+                { sel: '.project-hero__orb--cyan',    y: -20, scrub: 1.5 },
+                { sel: '.project-hero__orb--purple',  y:  18, scrub: 1.5 },
+                { sel: '.battle-featured__glow',      y: -16, scrub: 1.5 },
+                { sel: '.contact-card__glow',         y:  16, scrub: 1.5 },
+                { sel: '.section-header',             y: -12, scrub: 1.2 }
+            ];
+            mobileDrift.forEach(({ sel, y, scrub }) => {
+                $$(sel).forEach(el =>
+                    gsap.to(el, { y, ease: 'none',
+                        scrollTrigger: { trigger: el.closest('.story-section') || el, start: 'top bottom', end: 'bottom top', scrub } })
+                );
+            });
+        }
         return;
     }
 
@@ -382,7 +404,7 @@ function initScrollScenes() {
             gsap.to(o, { y: i%2===0 ? -55 : -35, ease:'none',
                 scrollTrigger:{ trigger:o.closest('section'), start:'top bottom', end:'bottom top', scrub:2 } })
         );
-        
+
         /* Desktop/4K subtle card parallax for fluid motion */
         $$('.project-card, .battle-card, .origin-card').forEach((card, i) => {
             gsap.to(card, { 
@@ -396,8 +418,42 @@ function initScrollScenes() {
                 } 
             });
         });
+
+        /* ── Extra decorative layers: more objects drifting at their own
+           speed + a slow rotation, so the page reads as many independent
+           moving planes rather than one flat parallax pass. Each targets
+           properties (y/x/rotate) untouched by any entrance tween above,
+           so nothing here fights an existing animation. ── */
+        const driftLayers = [
+            { sel: '.project-hero__orb--cyan',   y: -90,  rotate:  30, scrub: 1.8 },
+            { sel: '.project-hero__orb--purple', y:  70,  rotate: -24, scrub: 2.2 },
+            { sel: '.battle-featured__glow',     y: -60,  rotate:  16, scrub: 1.6 },
+            { sel: '.hero-image__glow',          y:  35,  rotate:  -8, scrub: 1.2 },
+            { sel: '.research-paper__badges',    y: -18,  x: 10,       scrub: 1.0 }
+        ];
+        driftLayers.forEach(({ sel, y = 0, x = 0, rotate = 0, scrub }) => {
+            $$(sel).forEach(el =>
+                gsap.to(el, { y, x, rotate, ease: 'none',
+                    scrollTrigger: { trigger: el.closest('.story-section') || el, start: 'top bottom', end: 'bottom top', scrub } })
+            );
+        });
+
+        /* Contact card glows — alternate direction + gentle spin */
+        $$('.contact-card__glow').forEach((glow, i) =>
+            gsap.to(glow, { y: i % 2 === 0 ? -45 : 45, rotate: i % 2 === 0 ? 20 : -20, ease:'none',
+                scrollTrigger:{ trigger: glow.closest('.story-section'), start:'top bottom', end:'bottom top', scrub: 1.8 } })
+        );
+
+        /* Whole text stack (eyebrow + title + subtitle together) drifts as
+           one calm layer — its own tween on the wrapper only, so the
+           per-child reveal animations above stay untouched. */
+        $$('.section-header').forEach(header =>
+            gsap.to(header, { y: -30, ease:'none',
+                scrollTrigger:{ trigger: header.closest('.story-section'), start:'top bottom', end:'bottom top', scrub: 1.2 } })
+        );
     }
 }
+
 
 /* ════════════════════════════════════════════════════════
    7. RESULT CARDS — robust bar + counter animation

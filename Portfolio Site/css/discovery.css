@@ -4,6 +4,7 @@
 
 .discovery-section {
     background: var(--bg-dark);
+    background: color-mix(in srgb, var(--bg-dark) 93%, transparent);
     padding: var(--section-py) 0;
 }
 

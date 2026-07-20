@@ -4,6 +4,7 @@
 
 .contact-section {
     background: var(--bg-dark);
+    background: color-mix(in srgb, var(--bg-dark) 93%, transparent);
     padding: var(--section-py) 0 clamp(60px,8vw,100px);
     min-height: 100vh;
     display: flex;
