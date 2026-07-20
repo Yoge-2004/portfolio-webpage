@@ -136,15 +136,38 @@
     gap: 12px;
 }
 
-/* Battle Grid — 2×2 below featured */
+/* Battle Grid — bento mosaic: tall featured tile on the left,
+   two small squares top-right, one wide tile bottom-right */
 .battle-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    grid-template-columns: 1.3fr 1fr 1fr;
+    grid-template-rows: auto auto;
     gap: var(--grid-gap);
     overflow: visible;
     padding: 4px 0 16px;
     margin: 0;
     box-sizing: border-box;
+}
+
+.battle-card--featured {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    justify-content: center;
+}
+
+.battle-card--wide {
+    grid-column: 2 / 4;
+    grid-row: 2;
+}
+
+@media (max-width: 900px) {
+    .battle-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .battle-card--featured, .battle-card--wide { grid-column: 1 / 3; grid-row: auto; }
+}
+
+@media (max-width: 640px) {
+    .battle-grid { grid-template-columns: 1fr; }
+    .battle-card--featured, .battle-card--wide { grid-column: 1; }
 }
 
 .battle-card {

@@ -178,15 +178,24 @@
     gap: 14px;
 }
 
-/* Project Grid */
+/* Project Grid — bento: featured card takes more width */
 .project-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    grid-template-columns: 1.6fr 1fr;
     gap: var(--grid-gap);
     overflow: visible;
     padding: 8px 8px 20px;
     margin: 0 -8px;
     box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .project-grid { grid-template-columns: 1fr; }
+}
+
+.project-card--featured { order: -1; }
+.project-card--featured .project-card__visual {
+    height: clamp(120px, 18vw, 200px);
 }
 
 .project-card {
