@@ -29,6 +29,7 @@
         if (!renderer) return;
 
         renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        renderer.setClearColor(0x000000, 0);
 
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);

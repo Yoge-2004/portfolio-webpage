@@ -30,6 +30,7 @@
             return;
         }
         renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isSmallScreen ? 1.5 : 2));
+        renderer.setClearColor(0x000000, 0);
 
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 120);
@@ -60,10 +61,10 @@
         pointsGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
         const pointsMat = new THREE.PointsMaterial({
             color: 0x61e8f4,
-            size: isSmallScreen ? 0.05 : 0.06,
+            size: isSmallScreen ? 2.2 : 2.6,
             transparent: true,
             opacity: 0.85,
-            sizeAttenuation: true
+            sizeAttenuation: false
         });
         const points = new THREE.Points(pointsGeo, pointsMat);
         group.add(points);
