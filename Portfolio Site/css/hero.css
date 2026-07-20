@@ -64,9 +64,27 @@
 
 .hero-image__frame {
     position: relative;
+    z-index: 1;
     width: clamp(180px, 30vw, 360px);
     height: auto;
     aspect-ratio: 360 / 460;
+}
+
+/* 3D scene — sits behind/around the portrait frame */
+.hero-3d-canvas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 165%;
+    height: 165%;
+    z-index: 0;
+    pointer-events: none;
+    display: block;
+}
+
+@media (max-width: 640px) {
+    .hero-3d-canvas { width: 145%; height: 145%; }
 }
 
 .hero-image__mask {
