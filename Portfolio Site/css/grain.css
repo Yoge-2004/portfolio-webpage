@@ -1,0 +1,46 @@
+/* ============================================
+   GRAIN + COLOR GRADE
+   A fixed, pointer-events:none overlay pair sitting
+   above every section (below the loading screen) that
+   adds a subtle film-grain texture and a soft vignette.
+   Cheap, GPU-friendly, no JS — pure CSS/SVG.
+   ============================================ */
+
+.grain-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%25" height="100%25" filter="url(%23n)"/></svg>');
+    background-repeat: repeat;
+}
+
+.grade-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9997;
+    pointer-events: none;
+    background:
+        radial-gradient(120% 90% at 50% 8%, rgba(97,232,244,0.05), transparent 55%),
+        radial-gradient(140% 100% at 50% 100%, rgba(0,0,0,0.35), transparent 60%),
+        radial-gradient(160% 120% at 50% 50%, transparent 55%, rgba(0,0,0,0.28) 100%);
+    mix-blend-mode: multiply;
+}
+
+html[data-theme="light"] .grade-overlay {
+    background:
+        radial-gradient(120% 90% at 50% 8%, rgba(8,145,178,0.04), transparent 55%),
+        radial-gradient(140% 100% at 50% 100%, rgba(0,0,0,0.06), transparent 60%),
+        radial-gradient(160% 120% at 50% 50%, transparent 60%, rgba(0,0,0,0.05) 100%);
+    mix-blend-mode: normal;
+}
+
+@media (max-width: 640px) {
+    .grain-overlay { opacity: 0.035; }
+}
+
+@media print {
+    .grain-overlay, .grade-overlay { display: none; }
+}
