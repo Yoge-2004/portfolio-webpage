@@ -18,19 +18,33 @@
         el.textContent = '';
         el.setAttribute('aria-label', text);
         const chars = [];
-        for (const ch of text) {
-            if (ch === ' ') {
-                el.appendChild(document.createTextNode(' '));
-                continue;
+        const words = text.split(' ');
+
+        words.forEach((word, wi) => {
+            // Each word is its own inline-block "no-break" unit so the
+            // browser can only wrap between words, never inside one —
+            // the individual character spans inside can't be separated
+            // across a line break because they never leave this box.
+            const wordSpan = document.createElement('span');
+            wordSpan.style.display = 'inline-block';
+            wordSpan.className = 'kword';
+
+            for (const ch of word) {
+                const span = document.createElement('span');
+                span.textContent = ch;
+                span.className = 'kchar';
+                span.style.display = 'inline-block';
+                span.setAttribute('aria-hidden', 'true');
+                wordSpan.appendChild(span);
+                chars.push(span);
             }
-            const span = document.createElement('span');
-            span.textContent = ch;
-            span.className = 'kchar';
-            span.style.display = 'inline-block';
-            span.setAttribute('aria-hidden', 'true');
-            el.appendChild(span);
-            chars.push(span);
-        }
+            el.appendChild(wordSpan);
+
+            if (wi < words.length - 1) {
+                el.appendChild(document.createTextNode(' '));
+            }
+        });
+
         return chars;
     }
 
