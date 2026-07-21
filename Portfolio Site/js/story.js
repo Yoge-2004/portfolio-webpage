@@ -159,13 +159,29 @@ function initNav() {
     bd?.addEventListener('click', closeMenu);
     $$('.mobile-link').forEach(l => l.addEventListener('click', () => {
         const id = l.getAttribute('href'); closeMenu();
-        setTimeout(() => $(id)?.scrollIntoView({ behavior:'smooth', block:'start' }), 300);
+        setTimeout(() => {
+            const target = $(id);
+            if (!target) return;
+            if (window.__lenis) window.__lenis.scrollTo(target, { offset: -70, duration: 1.2 });
+            else target.scrollIntoView({ behavior:'smooth', block:'start' });
+        }, 300);
     }));
     $$('.nav-link[href^="#"]').forEach(l => l.addEventListener('click', e => {
-        e.preventDefault(); $(l.getAttribute('href'))?.scrollIntoView({ behavior:'smooth', block:'start' });
+        e.preventDefault();
+        const target = $(l.getAttribute('href'));
+        if (!target) return;
+        if (window.__lenis) window.__lenis.scrollTo(target, { offset: -70, duration: 1.2 });
+        else target.scrollIntoView({ behavior:'smooth', block:'start' });
     }));
-    $('.nav-logo')?.addEventListener('click', e => { e.preventDefault(); window.scrollTo({ top:0, behavior:'smooth' }); });
-    $('.top-button')?.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+    $('.nav-logo')?.addEventListener('click', e => {
+        e.preventDefault();
+        if (window.__lenis) window.__lenis.scrollTo(0, { duration: 1.2 });
+        else window.scrollTo({ top:0, behavior:'smooth' });
+    });
+    $('.top-button')?.addEventListener('click', () => {
+        if (window.__lenis) window.__lenis.scrollTo(0, { duration: 1.2 });
+        else window.scrollTo({ top:0, behavior:'smooth' });
+    });
 }
 
 /* ════════════════════════════════════════════════════════
