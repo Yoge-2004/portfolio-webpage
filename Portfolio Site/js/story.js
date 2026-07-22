@@ -279,22 +279,55 @@ function initScrollScenes() {
                 scrollTrigger:{ trigger:'.origin-cards', start:'top 92%', once:true } })
     );
 
-    /* ── JOURNEY — timeline line draws itself ── */
-    gsap.to('.timeline__progress', { height:'100%', ease:'none',
-        scrollTrigger:{ trigger:'.timeline', start:'top 65%', end:'bottom 35%', scrub:1 } });
-    $$('.timeline-entry').forEach((entry, i) => {
-        const card   = $('.timeline-entry__card', entry);
-        const marker = $('.timeline-entry__marker', entry);
-        if (!card) return;
-        const fromX = tab() ? 0 : (i%2===0 ? -65 : 65);
-        gsap.fromTo(card,
-            { opacity:0, x:fromX, y:tab()?50:0, scale:.94 },
-            { opacity:1, x:0, y:0, scale:1, duration:.95, ease:pow,
-                scrollTrigger:{ trigger:card, start:'top 95%', once:true } });
-        if (marker) gsap.fromTo(marker, { opacity:0, scale:0 },
-            { opacity:1, scale:1, duration:.6, ease:'back.out(2)',
-                scrollTrigger:{ trigger:card, start:'top 95%', once:true } });
-    });
+    /* ── JOURNEY — pinned multi-beat timeline reveal ──
+       The section locks in place while the timeline draws itself and
+       each entry reveals in its own beat, then releases to Quests.
+       Desktop only (this whole function already returned early for
+       tab() above) — mobile/tablet keeps the simpler per-card reveal
+       via initMobileAnimations(), untouched. */
+    const journeyEntries = $$('.timeline-entry');
+    const journeyCards   = journeyEntries.map(e => $('.timeline-entry__card', e));
+    const journeyMarkers = journeyEntries.map(e => $('.timeline-entry__marker', e));
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        // No pin, no scrub — just make sure everything is visible.
+        gsap.set(journeyCards, { opacity: 1, x: 0, scale: 1 });
+        gsap.set(journeyMarkers, { opacity: 1, scale: 1 });
+        gsap.set('.timeline__progress', { height: '100%' });
+    } else {
+        gsap.set(journeyCards, { opacity: 0, scale: .94 });
+        gsap.set(journeyMarkers, { opacity: 0, scale: 0 });
+
+        const journeyBeats = gsap.timeline();
+        journeyEntries.forEach((entry, i) => {
+            const card = journeyCards[i], marker = journeyMarkers[i];
+            if (!card) return;
+            const fromX = i % 2 === 0 ? -65 : 65;
+            const beatStart = i * 1.0;
+            journeyBeats
+                .fromTo(card, { opacity: 0, x: fromX, scale: .94 },
+                    { opacity: 1, x: 0, scale: 1, duration: .7, ease: pow }, beatStart)
+                .fromTo(marker, { opacity: 0, scale: 0 },
+                    { opacity: 1, scale: 1, duration: .45, ease: 'back.out(2)' }, beatStart);
+        });
+
+        const journeyPinDistance = Math.max(window.innerHeight * 1.6, journeyEntries.length * 420);
+
+        ScrollTrigger.create({
+            trigger: '.journey-section',
+            start: 'top top',
+            end: '+=' + journeyPinDistance,
+            pin: true,
+            pinSpacing: true,
+            scrub: 1,
+            anticipatePin: 1,
+            animation: journeyBeats
+        });
+
+        gsap.to('.timeline__progress', { height: '100%', ease: 'none',
+            scrollTrigger: { trigger: '.journey-section', start: 'top top',
+                end: '+=' + journeyPinDistance, scrub: 1 } });
+    }
 
     /* ── QUESTS — project hero zooms from depth ── */
     gsap.fromTo('.project-hero',
