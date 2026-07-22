@@ -182,10 +182,15 @@
         gap: 24px;
     }
 
-    .battle-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-    }
+    /* .battle-grid intentionally NOT overridden here anymore — this
+       used to force a bare 2-column layout, which conflicted with the
+       bento grid's 3-column definition and its featured/wide tiles'
+       explicit grid-column spans (grid-column:2/4 needs 3 columns to
+       resolve against). The mismatch forced the browser to auto-generate
+       an implicit 3rd column with content-based (not minmax(0,...))
+       sizing, which spiraled into ~5000px tall cards at this exact
+       viewport range. battles.css's own breakpoints (900px, 640px)
+       already handle this range correctly on their own. */
 
     .certs-list {
         display: grid;

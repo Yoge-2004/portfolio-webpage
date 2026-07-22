@@ -140,7 +140,7 @@
    two small squares top-right, one wide tile bottom-right */
 .battle-grid {
     display: grid;
-    grid-template-columns: 1.3fr 1fr 1fr;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1fr);
     grid-template-rows: auto auto;
     align-items: start;
     gap: var(--grid-gap);
@@ -177,6 +177,10 @@
     background: var(--bg-card);
     border: 1px solid rgba(255,255,255,0.05);
     border-radius: clamp(12px, 1.5vw, 16px);
+    min-width: 0; /* grid items default to min-width:auto, which refuses
+                     to shrink below content size — without this, text
+                     content can force the column wider than intended,
+                     or (worse) starve a sibling column to near-zero. */
     padding: clamp(16px, 2.5vw, 28px);
     overflow: hidden; /* clips ::before shine sweep in resting state */
     transition: border-color 0.5s var(--ease-out-expo), box-shadow 0.5s var(--ease-out-expo);

@@ -533,7 +533,7 @@ body {
 }
 
 .project-grid {
-    grid-template-columns: 1.6fr 1fr !important;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) !important;
 }
 
 @media (max-width: 768px) {
@@ -579,13 +579,23 @@ body {
     max-width: 58rem !important;
 }
 
-.battle-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-}
+/* .battle-grid grid-template-columns override removed — this was a
+   global (unguarded) !important rule, which meant it was ALSO beating
+   battles.css's own @media(max-width:900px)/@media(max-width:640px)
+   breakpoint rules, not just the desktop base case (!important always
+   wins over a non-important rule regardless of which media query
+   either is in). battles.css's own column definitions — base 3-column
+   bento, 2-column at ≤900px, 1-column at ≤640px — are correctly
+   scoped and don't need a duplicate here. */
 
-.battle-card {
-    min-height: 100%;
-}
+/* min-height:100% removed here — it fought the bento grid's
+   align-items:start (which lets short cards like Naan Mudhalvan size
+   to their own content instead of stretching), creating a circular
+   height dependency between grid-row auto-sizing and this card's own
+   min-height that blew up to ~5000px at specific viewport widths
+   (960–1024px). .battle-card--featured/--wide use align-self:stretch
+   in battles.css where filling their larger allocated space is
+   actually wanted. */
 
 /* Discovery */
 .research-paper {

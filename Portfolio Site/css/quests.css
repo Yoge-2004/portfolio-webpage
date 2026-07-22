@@ -181,7 +181,7 @@
 /* Project Grid — bento: featured card takes more width */
 .project-grid {
     display: grid;
-    grid-template-columns: 1.6fr 1fr;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
     gap: var(--grid-gap);
     overflow: visible;
     padding: 8px 8px 20px;
@@ -202,6 +202,7 @@
     background: var(--bg-card);
     border: 1px solid rgba(255,255,255,0.05);
     border-radius: clamp(12px, 1.5vw, 20px);
+    min-width: 0;
     overflow: hidden;
     transition: border-color 0.5s var(--ease-out-expo), box-shadow 0.5s var(--ease-out-expo);
     position: relative;

@@ -377,7 +377,9 @@
 }
 .battle-grid {
     display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1fr) !important;
+    grid-template-rows: auto auto !important;
+    align-items: start !important;
     gap: clamp(16px, 1.6vw, 24px) !important;
     width: 100% !important;
     padding: 0 !important;   /* remove padding so grid edges align with featured card */
