@@ -298,13 +298,27 @@ function initScrollScenes() {
         gsap.set(journeyCards, { opacity: 0, scale: .94 });
         gsap.set(journeyMarkers, { opacity: 0, scale: 0 });
 
+        const timelineEl = $('.timeline');
+        // Each entry's viewport-relative top BEFORE any translation, all
+        // captured at the same instant so their DIFFERENCES are reliable
+        // regardless of the page's actual scroll position when this runs
+        // (an absolute reference like "header bottom" measured here would
+        // reflect page-load scroll position, not the pinned position —
+        // relative deltas between entries sidestep that entirely).
+        const entryNaturalTops = journeyCards.map(c => c.getBoundingClientRect().top);
+
         const journeyBeats = gsap.timeline();
         journeyEntries.forEach((entry, i) => {
             const card = journeyCards[i], marker = journeyMarkers[i];
             if (!card) return;
             const fromX = i % 2 === 0 ? -65 : 65;
             const beatStart = i * 1.0;
+            // Shift the whole timeline up so entry i lands exactly where
+            // entry 0 naturally sits — entry 0 needs no shift, each later
+            // entry is pulled up by its distance below entry 0.
+            const targetY = 90 - (entryNaturalTops[i] - entryNaturalTops[0]);
             journeyBeats
+                .to(timelineEl, { y: targetY, duration: .8, ease: pow }, beatStart)
                 .fromTo(card, { opacity: 0, x: fromX, scale: .94 },
                     { opacity: 1, x: 0, scale: 1, duration: .7, ease: pow }, beatStart)
                 .fromTo(marker, { opacity: 0, scale: 0 },
