@@ -235,12 +235,17 @@ function initScrollScenes() {
         // If already in viewport (page refresh mid-scroll), show immediately
         const rect = el.getBoundingClientRect();
         if (rect.top < window.innerHeight) {
-            gsap.set(el, { clipPath:'inset(0 0% 0 0)', opacity:1 });
+            gsap.set(el, { clipPath:'none', opacity:1 });
             return;
         }
         gsap.fromTo(el, { clipPath:'inset(0 100% 0 0)', opacity:1 },
             { clipPath:'inset(0 0% 0 0)', duration:1.1, ease:'power4.inOut',
-                scrollTrigger:{ trigger:el, start:'top bottom', once:true } });
+                scrollTrigger:{ trigger:el, start:'top bottom', once:true },
+                // The wipe's job is done once revealed — clipPath:none removes
+                // the zero-vertical-padding inset box entirely, so kinetic.js's
+                // per-character ripple (which moves letters up/down) doesn't
+                // get its tops/bottoms clipped by a box with no vertical room.
+                onComplete: () => gsap.set(el, { clipPath:'none' }) });
     });
     $$('.section-eyebrow').forEach(el => {
         const rect = el.getBoundingClientRect();
