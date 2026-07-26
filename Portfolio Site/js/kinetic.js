@@ -61,9 +61,9 @@
 
         gsap.registerPlugin(ScrollTrigger);
         const isMobile = window.innerWidth < 640;
-        const amp = isMobile ? 5 : 10;      // px vertical ripple
-        const skewAmp = isMobile ? 3 : 7;   // deg shear
-        const scaleAmp = 0.06;
+        const amp = isMobile ? 12 : 32;      // px vertical ripple
+        const skewAmp = isMobile ? 6 : 16;   // deg shear
+        const scaleAmp = 0.16;
 
         rigs.forEach(({ el, chars }) => {
             if (!chars.length) return;

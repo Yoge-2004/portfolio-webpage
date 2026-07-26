@@ -417,7 +417,7 @@ function initScrollScenes() {
     /* ── Section orb parallax ── */
     if (!mob()) {
         $$('.section-bg__orb').forEach((o, i) =>
-            gsap.to(o, { y: i%2===0 ? -55 : -35, ease:'none',
+            gsap.to(o, { y: i%2===0 ? -110 : -70, ease:'none',
                 scrollTrigger:{ trigger:o.closest('section'), start:'top bottom', end:'bottom top', scrub:2 } })
         );
 
@@ -441,10 +441,10 @@ function initScrollScenes() {
            properties (y/x/rotate) untouched by any entrance tween above,
            so nothing here fights an existing animation. ── */
         const driftLayers = [
-            { sel: '.project-hero__orb--cyan',   y: -90,  rotate:  30, scrub: 1.8 },
-            { sel: '.project-hero__orb--purple', y:  70,  rotate: -24, scrub: 2.2 },
-            { sel: '.battle-featured__glow',     y: -60,  rotate:  16, scrub: 1.6 },
-            { sel: '.hero-image__glow',          y:  35,  rotate:  -8, scrub: 1.2 },
+            { sel: '.project-hero__orb--cyan',   y: -180,  rotate:  55, scrub: 1.8 },
+            { sel: '.project-hero__orb--purple', y:  150,  rotate: -45, scrub: 2.2 },
+            { sel: '.battle-featured__glow',     y: -130,  rotate:  38, scrub: 1.6 },
+            { sel: '.hero-image__glow',          y:  70,  rotate:  -18, scrub: 1.2 },
             { sel: '.research-paper__badges',    y: -18,  x: 10,       scrub: 1.0 }
         ];
         driftLayers.forEach(({ sel, y = 0, x = 0, rotate = 0, scrub }) => {
