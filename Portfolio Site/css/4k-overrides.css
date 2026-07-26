@@ -21,8 +21,8 @@
     --hero-copy-max: 760px;
     --timeline-max: 1040px;
 
-    --fs-hero: 4.5rem;
-    --fs-title: 3.25rem;
+    --fs-hero: 5.8rem;
+    --fs-title: 4.2rem;
     --fs-panel: 1.45rem;
     --fs-card-title: 1.08rem;
     --fs-body-lg: 1.08rem;
@@ -81,7 +81,7 @@ body {
 .timeline-entry__title,
 .project-card h4,
 .battle-card h4 {
-    font-family: var(--font-body) !important;
+    font-family: var(--font-display) !important;
 }
 
 .container,
@@ -710,8 +710,8 @@ body {
         --hero-media: 390px;
         --hero-copy-max: 800px;
         --timeline-max: 1120px;
-        --fs-hero: 4.85rem;
-        --fs-title: 3.55rem;
+        --fs-hero: 6.2rem;
+        --fs-title: 4.6rem;
     }
 
     html { font-size: 16px !important; }
@@ -726,8 +726,8 @@ body {
         --hero-media: 440px;
         --hero-copy-max: 860px;
         --timeline-max: 1280px;
-        --fs-hero: 5.15rem;
-        --fs-title: 3.85rem;
+        --fs-hero: 6.6rem;
+        --fs-title: 5rem;
         --fs-body-lg: 1.12rem;
     }
 
@@ -749,8 +749,8 @@ body {
         --hero-gap: 128px;
         --hero-copy-max: 900px;
         --timeline-max: 1440px;
-        --fs-hero: 5.45rem;
-        --fs-title: 4.2rem;
+        --fs-hero: 7rem;
+        --fs-title: 5.4rem;
         --fs-panel: 1.55rem;
         --fs-body-lg: 1.16rem;
         --fs-body: 1rem;
@@ -803,8 +803,8 @@ body {
         --hero-media: 540px;
         --hero-gap: 148px;
         --timeline-max: 1540px;
-        --fs-hero: 5.7rem;
-        --fs-title: 4.45rem;
+        --fs-hero: 7.3rem;
+        --fs-title: 5.7rem;
     }
 }
 
@@ -821,8 +821,8 @@ body {
         --hero-media: 560px;
         --hero-gap: 160px;
         --timeline-max: 1600px;
-        --fs-hero: 5.85rem;
-        --fs-title: 4.65rem;
+        --fs-hero: 7.5rem;
+        --fs-title: 6rem;
     }
 
     .main-nav {
@@ -842,8 +842,8 @@ body {
         --layout-gap: 36px;
         --hero-media: 250px;
         --hero-gap: 28px;
-        --fs-hero: 3.45rem;
-        --fs-title: 2.9rem;
+        --fs-hero: 4.2rem;
+        --fs-title: 3.5rem;
         --fs-body-lg: 1rem;
     }
 
@@ -942,8 +942,8 @@ body {
         --card-px: 18px;
         --card-py: 18px;
         --hero-media: 190px;
-        --fs-hero: 2.45rem;
-        --fs-title: 2.25rem;
+        --fs-hero: 2.2rem;
+        --fs-title: 2.7rem;
         --fs-panel: 1.25rem;
         --fs-body-lg: 0.96rem;
         --fs-body: 0.9rem;
@@ -1098,8 +1098,8 @@ body {
     :root {
         --container-px: 14px;
         --hero-media: 150px;
-        --fs-hero: 2rem;
-        --fs-title: 1.95rem;
+        --fs-hero: 1.7rem;
+        --fs-title: 2.2rem;
         --fs-body-lg: 0.9rem;
     }
 

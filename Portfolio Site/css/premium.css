@@ -130,7 +130,7 @@ body {
 }
 
 .hero-headline {
-    font-family: var(--font-body) !important;
+    font-family: var(--font-display) !important;
     font-weight: 800 !important;
     line-height: .96 !important;
     letter-spacing: 0 !important;
@@ -238,7 +238,7 @@ body {
 }
 
 .section-title {
-    font-family: var(--font-body) !important;
+    font-family: var(--font-display) !important;
     font-weight: 800 !important;
     letter-spacing: 0 !important;
 }
