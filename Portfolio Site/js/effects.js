@@ -96,8 +96,10 @@ function initSectionColors() {
     document.querySelectorAll('.story-section[id]').forEach(sec => {
         ScrollTrigger.create({
             trigger: sec, start: 'top 55%',
-            onEnter:     () => { accentTarget = MAP[sec.id] || accentTarget; },
-            onEnterBack: () => { accentTarget = MAP[sec.id] || accentTarget; },
+            onEnter:     () => { accentTarget = MAP[sec.id] || accentTarget; sec.classList.add('is-active'); },
+            onEnterBack: () => { accentTarget = MAP[sec.id] || accentTarget; sec.classList.add('is-active'); },
+            onLeave:     () => { sec.classList.remove('is-active'); },
+            onLeaveBack: () => { sec.classList.remove('is-active'); },
         });
     });
 }
@@ -254,10 +256,13 @@ function initTypewriter() {
 
 /* ════════════════════════════════════════════════════════
    CSS 3D TILT — no GSAP, pure style.transform
+   Scoped to cert-item/contact-card only — origin/project/battle
+   cards already get tilt from VanillaTilt.init() in story.js,
+   and running both on the same element fights over style.transform.
    ════════════════════════════════════════════════════════ */
 function initTilt() {
     if (window.matchMedia('(pointer:coarse)').matches) return;
-    const SEL = '.origin-card,.project-card,.battle-card,.cert-item,.contact-card';
+    const SEL = '.cert-item,.contact-card';
     document.querySelectorAll(SEL).forEach(card => {
         card.addEventListener('mousemove', e => {
             const r  = card.getBoundingClientRect();
@@ -275,6 +280,10 @@ function initTilt() {
 
 /* ════════════════════════════════════════════════════════
    MAGNETIC BUTTONS — pure style.transform
+   NOT called from boot() — js/magnetic.js (loaded separately)
+   already handles every .btn with a more complete implementation
+   (scale + lift + elastic release). Kept here only so nothing
+   else in this file that might reference it breaks.
    ════════════════════════════════════════════════════════ */
 function initMagnetic() {
     if (window.matchMedia('(pointer:coarse)').matches) return;
@@ -295,18 +304,17 @@ function initMagnetic() {
 
 /* ════════════════════════════════════════════════════════
    INIT
+   story.js is a later rewrite that already includes its own
+   versions of marquee/spotlight/chapterFlash/glitch/tilt — only
+   call what ISN'T duplicated there, or everything doubles up.
    ════════════════════════════════════════════════════════ */
 function boot() {
-    initMasterLoop();    /* single RAF for trail + color lerp */
-    initSectionColors(); /* sets accentTarget on scroll */
-    initSpotlight();
-    initMarquee();
-    initChapterFlash();
-    initGlitch();
-    initParticles();
-    initTypewriter();
-    initTilt();
-    initMagnetic();
+    initMasterLoop();    /* single RAF for trail + color lerp — not in story.js */
+    initSectionColors(); /* sets accentTarget + is-active on scroll — not in story.js */
+    initTypewriter();    /* loading subtitle cycling — not in story.js */
+    /* initSpotlight/initMarquee/initChapterFlash/initGlitch/initTilt/
+       initMagnetic intentionally NOT called — story.js and magnetic.js
+       already own these. */
 }
 
 document.readyState === 'loading'
