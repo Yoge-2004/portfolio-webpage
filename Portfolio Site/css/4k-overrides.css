@@ -21,7 +21,7 @@
     --hero-copy-max: 760px;
     --timeline-max: 1040px;
 
-    --fs-hero: 5.8rem;
+    --fs-hero: 4rem;
     --fs-title: 4.2rem;
     --fs-panel: 1.45rem;
     --fs-card-title: 1.08rem;
@@ -710,7 +710,7 @@ body {
         --hero-media: 390px;
         --hero-copy-max: 800px;
         --timeline-max: 1120px;
-        --fs-hero: 6.2rem;
+        --fs-hero: 5rem;
         --fs-title: 4.6rem;
     }
 
@@ -726,7 +726,7 @@ body {
         --hero-media: 440px;
         --hero-copy-max: 860px;
         --timeline-max: 1280px;
-        --fs-hero: 6.6rem;
+        --fs-hero: 5.2rem;
         --fs-title: 5rem;
         --fs-body-lg: 1.12rem;
     }
@@ -749,7 +749,7 @@ body {
         --hero-gap: 128px;
         --hero-copy-max: 900px;
         --timeline-max: 1440px;
-        --fs-hero: 7rem;
+        --fs-hero: 5rem;
         --fs-title: 5.4rem;
         --fs-panel: 1.55rem;
         --fs-body-lg: 1.16rem;
@@ -803,7 +803,7 @@ body {
         --hero-media: 540px;
         --hero-gap: 148px;
         --timeline-max: 1540px;
-        --fs-hero: 7.3rem;
+        --fs-hero: 5rem;
         --fs-title: 5.7rem;
     }
 }
@@ -821,7 +821,7 @@ body {
         --hero-media: 560px;
         --hero-gap: 160px;
         --timeline-max: 1600px;
-        --fs-hero: 7.5rem;
+        --fs-hero: 5rem;
         --fs-title: 6rem;
     }
 
