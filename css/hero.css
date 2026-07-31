@@ -37,6 +37,21 @@
     pointer-events: none;
 }
 
+/* Cinematic opening exit — see initHeroCinematic() in story.js.
+   Starts transparent, GSAP scrubs it to opacity:1 as the pinned
+   hero sequence resolves, bridging into the Origin section.
+   Opacity-only so it's cheap: no layout/paint cost beyond the
+   compositor, same contract as everything else scroll-tied here. */
+.hero-exit-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    background: var(--bg-darkest);
+    opacity: 0;
+    pointer-events: none;
+    will-change: opacity;
+}
+
 /* Hero Content Grid */
 .hero-content {
     position: relative;

@@ -79,32 +79,66 @@ function heroEntry() {
             onUpdate() { el.textContent = Math.round(obj.v); } }, 1.0);
     });
 
-    /* Hero parallax depth on scroll */
-    if (!tab()) {
-        gsap.to('.hero-image__frame', { yPercent:-14, ease:'none',
-            scrollTrigger: { trigger:'.hero-section', start:'top top', end:'bottom top', scrub:true } });
-        gsap.to('.hero-kicker, .hero-headline, .hero-tagline', { yPercent:-8, ease:'none',
-            scrollTrigger: { trigger:'.hero-section', start:'top top', end:'bottom top', scrub:true } });
-    }
+    /* ── Cinematic opening ────────────────────────────────
+       Desktop/tablet-up, motion-safe only: pins the hero for
+       an extra stretch of scroll and scrubs a single timeline
+       through it — portrait pushes in like a camera dolly,
+       copy drifts up and away beat by beat, then fades to
+       black bridging into Origin. One ScrollTrigger driving
+       one timeline, transform/opacity only (no filter, no
+       layout-triggering properties), so it's cheap regardless
+       of how long the pin holds.
+       Smaller viewports / prefers-reduced-motion: skip the
+       pin entirely and fall back to the older, lighter
+       parallax-only treatment — pinning is disorienting on
+       already-cramped mobile layouts and reduced-motion users
+       don't want a scroll-locked scene either. */
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    /* Scroll hint: fade out as soon as user scrolls, then hide completely.
-       once:false explicitly overrides ScrollTrigger.defaults({ once:true })
-       so onEnterBack fires when the user scrolls back to the top. */
-    gsap.fromTo('.hero-scroll-hint', { opacity: 1, y: 0 }, { opacity:0, y:8, ease:'none',
-        scrollTrigger: {
-            trigger: '.hero-section',
-            start: '5% top',
-            end:   '18% top',
-            scrub: true,
-            once: false,
-            onLeave: () => {
-                document.querySelector('.hero-scroll-hint')?.classList.add('is-scroll-hidden');
-            },
-            onEnterBack: () => {
-                document.querySelector('.hero-scroll-hint')?.classList.remove('is-scroll-hidden');
+    if (!tab() && !reduceMotion) {
+        gsap.timeline({
+            defaults: { ease: 'none' },
+            scrollTrigger: {
+                trigger: '.hero-section',
+                start: 'top top',
+                end: '+=90%',
+                scrub: 0.6,
+                pin: true,
+                pinSpacing: true,
+                anticipatePin: 1,
+                onLeave: () => document.querySelector('.hero-scroll-hint')?.classList.add('is-scroll-hidden'),
+                onEnterBack: () => document.querySelector('.hero-scroll-hint')?.classList.remove('is-scroll-hidden')
             }
+        })
+            .to('.hero-scroll-hint', { opacity: 0, y: 8 }, 0)
+            .to('.hero-image-wrapper', { scale: 1.12, yPercent: -6 }, 0)
+            .to('.hero-badge', { opacity: 0, scale: 0.9 }, 0.15)
+            .to('.hero-kicker', { yPercent: -30, opacity: 0 }, 0.05)
+            .to('.hero-headline', { yPercent: -22, opacity: 0 }, 0.1)
+            .to('.hero-tagline', { yPercent: -18, opacity: 0 }, 0.16)
+            .to('.hero-metrics', { yPercent: -14, opacity: 0 }, 0.22)
+            .to('.hero-cta', { yPercent: -10, opacity: 0 }, 0.28)
+            .to('.hero-exit-overlay', { opacity: 1 }, 0.55);
+    } else {
+        /* Fallback: light parallax only, no pin. */
+        if (!tab()) {
+            gsap.to('.hero-image__frame', { yPercent: -14, ease: 'none',
+                scrollTrigger: { trigger: '.hero-section', start: 'top top', end: 'bottom top', scrub: true } });
+            gsap.to('.hero-kicker, .hero-headline, .hero-tagline', { yPercent: -8, ease: 'none',
+                scrollTrigger: { trigger: '.hero-section', start: 'top top', end: 'bottom top', scrub: true } });
         }
-    });
+        gsap.fromTo('.hero-scroll-hint', { opacity: 1, y: 0 }, { opacity: 0, y: 8, ease: 'none',
+            scrollTrigger: {
+                trigger: '.hero-section',
+                start: '5% top',
+                end: '18% top',
+                scrub: true,
+                once: false,
+                onLeave: () => document.querySelector('.hero-scroll-hint')?.classList.add('is-scroll-hidden'),
+                onEnterBack: () => document.querySelector('.hero-scroll-hint')?.classList.remove('is-scroll-hidden')
+            }
+        });
+    }
 }
 
 /* ════════════════════════════════════════════════════════
@@ -114,43 +148,73 @@ function initNav() {
     const nav = $('.main-nav'), toggle = $('#menuToggle'), menu = $('#mobileMenu');
     const closeB = $('#mobileClose'), bd = $('.mobile-menu__backdrop');
 
-    window.addEventListener('scroll', () => {
-        nav?.classList.toggle('is-scrolled', window.scrollY > 50);
-    }, { passive:true });
-
-    /* Scroll progress: use window.scroll listener for pixel-perfect accuracy */
-    function updateProgress() {
-        const scrolled = window.scrollY;
-        const total    = document.documentElement.scrollHeight - window.innerHeight;
-        if (total <= 0) return;
-        const pct = Math.min(100, (scrolled / total) * 100);
-        const fill = document.querySelector('.scroll-progress__fill');
-        if (fill) fill.style.width = pct + '%';
-    }
-    window.addEventListener('scroll', updateProgress, { passive: true });
-    /* Initial call after everything settles */
-    setTimeout(updateProgress, 3200);
-
+    /* ── Unified scroll handler ──────────────────────────
+       Previously: three separate native `scroll` listeners
+       (nav toggle, progress bar, scrollspy), each reading
+       and writing the DOM independently on every scroll
+       event. Scrollspy also re-read `offsetTop` on every
+       section on every event (forced synchronous layout),
+       and the progress bar re-queried the DOM each time
+       instead of caching it. That's real layout-thrashing
+       cost stacked on top of everything else competing for
+       the frame budget. Merged into one handler, rAF-gated
+       so it runs at most once per frame regardless of how
+       many scroll events fire, with cached refs and cached
+       section offsets recomputed only on resize/load. */
+    const progressFill = $('.scroll-progress__fill');
+    const navLinks = $$('.nav-link');
     const linkMap = {};
     $$('.nav-link[href^="#"]').forEach(l => { linkMap[l.getAttribute('href').slice(1)] = l; });
 
-    /* Scroll-position scrollspy — works regardless of section height.
-       Picks the section whose top is closest to (but still above) the
-       nav bottom (~100px). Updates on every scroll frame. */
     const sections = Array.from($$('.story-section[id]'));
-    function updateScrollspy() {
-        const scrollY = window.scrollY + 110;
+    let sectionTops = sections.map(sec => sec.offsetTop);
+
+    function recomputeSectionTops() {
+        sectionTops = sections.map(sec => sec.offsetTop);
+    }
+    window.addEventListener('resize', recomputeSectionTops);
+    window.addEventListener('load', recomputeSectionTops);
+    /* Pinning (the cinematic hero sequence) inserts a spacer that
+       shifts every section's offsetTop below it. ScrollTrigger fires
+       'refresh' whenever it recalculates pinned layout, so hook into
+       that rather than relying on resize/load alone. */
+    if (window.ScrollTrigger) {
+        ScrollTrigger.addEventListener('refresh', recomputeSectionTops);
+    }
+
+    let ticking = false;
+    function updateOnScroll() {
+        ticking = false;
+        const scrollY = window.scrollY;
+
+        nav?.classList.toggle('is-scrolled', scrollY > 50);
+
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        if (total > 0 && progressFill) {
+            const pct = Math.min(100, (scrollY / total) * 100);
+            progressFill.style.width = pct + '%';
+        }
+
+        const spyY = scrollY + 110;
         let current = sections[0];
-        for (const sec of sections) {
-            if (sec.offsetTop <= scrollY) current = sec;
+        for (let i = 0; i < sections.length; i++) {
+            if (sectionTops[i] <= spyY) current = sections[i];
         }
         if (current) {
-            $$('.nav-link').forEach(l => l.classList.remove('is-active'));
+            navLinks.forEach(l => l.classList.remove('is-active'));
             linkMap[current.id]?.classList.add('is-active');
         }
     }
-    window.addEventListener('scroll', updateScrollspy, { passive: true });
-    setTimeout(updateScrollspy, 400);
+    function onScroll() {
+        if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(updateOnScroll);
+        }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    /* Initial call after everything settles */
+    setTimeout(() => { recomputeSectionTops(); updateOnScroll(); }, 3200);
+
 
     const openMenu  = () => { menu?.classList.add('is-open');    toggle?.classList.add('is-open');    document.body.style.overflow='hidden'; };
     const closeMenu = () => { menu?.classList.remove('is-open'); toggle?.classList.remove('is-open'); document.body.style.overflow=''; };
