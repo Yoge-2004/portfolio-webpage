@@ -193,8 +193,7 @@
             renderer.render(scene, camera);
         }
 
-        function tick() {
-            requestAnimationFrame(tick);
+        function frameFn() {
             if (!isActive) return;
             const dt = clock.getDelta();
 
@@ -214,8 +213,10 @@
             // Static + scroll-linked only: update on scroll, no idle animation loop.
             window.addEventListener('scroll', applyFrame, { passive: true });
             applyFrame();
+        } else if (window.RenderLoop) {
+            window.RenderLoop.register(frameFn);
         } else {
-            tick();
+            (function tick() { requestAnimationFrame(tick); frameFn(); })();
         }
     }
 

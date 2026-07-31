@@ -20,19 +20,22 @@
         };
     }
 
-    function makeRenderer(canvas, isSmallScreen) {
+    function makeRenderer(canvas) {
         let renderer;
         try {
             renderer = new THREE.WebGLRenderer({
                 canvas,
                 alpha: true,
-                antialias: !isSmallScreen,
+                antialias: false, // wireframe/points scenes don't need it; cuts GPU cost
                 powerPreference: 'high-performance'
             });
         } catch (e) {
             return null;
         }
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        // Capped lower than hero3d — these are ambient background layers,
+        // not the focal point, and every extra concurrent WebGL context
+        // adds up against the frame budget Lenis's smooth scroll needs.
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
         renderer.setClearColor(0x000000, 0);
         return renderer;
     }
@@ -76,7 +79,7 @@
         const isSmallScreen = window.innerWidth < 640;
         if (isSmallScreen) return; // ambient-only extra; skip on small screens for perf
 
-        const renderer = makeRenderer(canvas, isSmallScreen);
+        const renderer = makeRenderer(canvas);
         if (!renderer) return;
 
         const scene = new THREE.Scene();
@@ -132,8 +135,7 @@
             renderer.render(scene, camera);
         }
 
-        function tick() {
-            requestAnimationFrame(tick);
+        function frameFn() {
             if (!getVisible()) return;
             const dt = clock.getDelta();
             gems.forEach((g) => {
@@ -144,7 +146,13 @@
             renderer.render(scene, camera);
         }
 
-        if (reduceMotion) { renderStatic(); } else { tick(); }
+        if (reduceMotion) {
+            renderStatic();
+        } else if (window.RenderLoop) {
+            window.RenderLoop.register(frameFn);
+        } else {
+            (function tick() { requestAnimationFrame(tick); frameFn(); })();
+        }
     }
 
     /* ── Journey: a drifting particle constellation ───────
@@ -160,7 +168,7 @@
         const isSmallScreen = window.innerWidth < 640;
         if (isSmallScreen) return;
 
-        const renderer = makeRenderer(canvas, isSmallScreen);
+        const renderer = makeRenderer(canvas);
         if (!renderer) return;
 
         const scene = new THREE.Scene();
@@ -227,8 +235,7 @@
             renderer.render(scene, camera);
         }
 
-        function tick() {
-            requestAnimationFrame(tick);
+        function frameFn() {
             if (!getVisible()) return;
             const dt = clock.getDelta();
             points.rotation.y += dt * 0.05;
@@ -236,7 +243,13 @@
             renderer.render(scene, camera);
         }
 
-        if (reduceMotion) { renderStatic(); } else { tick(); }
+        if (reduceMotion) {
+            renderStatic();
+        } else if (window.RenderLoop) {
+            window.RenderLoop.register(frameFn);
+        } else {
+            (function tick() { requestAnimationFrame(tick); frameFn(); })();
+        }
     }
 
     function init() {

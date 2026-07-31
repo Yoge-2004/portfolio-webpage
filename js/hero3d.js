@@ -147,8 +147,7 @@
             renderer.render(scene, camera);
         }
 
-        function tick() {
-            requestAnimationFrame(tick);
+        function frameFn() {
             if (!isVisible) return;
 
             frameCount++;
@@ -173,8 +172,10 @@
         if (reduceMotion) {
             resize();
             renderStatic();
+        } else if (window.RenderLoop) {
+            window.RenderLoop.register(frameFn);
         } else {
-            tick();
+            (function tick() { requestAnimationFrame(tick); frameFn(); })();
         }
     }
 
