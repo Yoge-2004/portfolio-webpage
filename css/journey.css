@@ -223,18 +223,3 @@
 .timeline-entry__desc   { font-size: clamp(12px, 1.3vw, 14px); }
 .timeline-entry__score-value { font-size: clamp(20px, 3vw, 28px); }
 
-/* ── Ambient 3D canvas (see js/section3d.js) ─────────────── */
-.journey-section .section-3d-canvas {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-    display: block;
-    opacity: 0.55;
-}
-
-@media (max-width: 900px) {
-    .journey-section .section-3d-canvas { display: none; }
-}
