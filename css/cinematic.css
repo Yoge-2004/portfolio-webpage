@@ -4,31 +4,14 @@
           no backdrop-filter on cards · no grain animation
    ============================================================ */
 
-/* ── Reveal animation classes ────────────────────────────── */
-/* Default: elements ARE visible. JS adds .will-reveal to opt-in. */
+/* ── Reveal animation — GSAP handles all entrance animation via
+   inline styles; nothing here needs to be class-driven ────── */
 
-.will-reveal { transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
-
-/* .reveal-up/.reveal-left/.reveal-right — unused in HTML, kept as dead selectors */
-.reveal-up    { transform: translateY(48px); }
-.reveal-left  { transform: translateX(-52px); }
-.reveal-right { transform: translateX(52px); }
-.reveal-wipe  { opacity: 0; clip-path: inset(0 100% 0 0); transition: opacity .9s, clip-path 1s cubic-bezier(.16,1,.3,1), transform .7s; }
-
-.will-reveal.revealed { opacity: 1 !important; transform: none !important; clip-path: none !important; }
 
 /* Section eyebrow — opacity/transform owned by GSAP initScrollScenes */
 .section-eyebrow { letter-spacing: 4px;
     transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s, letter-spacing .9s; }
-.section-eyebrow.is-revealed { opacity: 1; transform: none; letter-spacing: 4px; }
 
-/* ── Particle rise keyframe ──────────────────────────────── */
-@keyframes pRise {
-    0%   { transform: translateY(0)      translateX(0);    opacity: 0; }
-    8%   { opacity: .8; }
-    92%  { opacity: .4; }
-    100% { transform: translateY(-110vh) translateX(12px); opacity: 0; }
-}
 
 /* ── Cursor ──────────────────────────────────────────────── */
 .cursor { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 99999; }
@@ -230,9 +213,7 @@
     .btn, a, button { cursor: pointer !important; }
 }
 @media (prefers-reduced-motion: reduce) {
-    .will-reveal { transition: none !important; }
     .marquee-inner { animation: none !important; }
-    .will-reveal { opacity: 1 !important; transform: none !important; clip-path: none !important; }
 }
 
 .result-card {

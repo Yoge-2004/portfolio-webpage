@@ -89,8 +89,6 @@
     to   { opacity: 1; transform: translateY(0)    scale(1);    }
 }
 
-.is-revealed .tech-pill,
-.project-hero.is-revealed ~ .project-hero__tech .tech-pill,
 .project-hero__tech .tech-pill {
     animation: pillPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
@@ -590,13 +588,6 @@
 
 .hero-badge {
     animation: badgeSpring 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 1.2s both;
-}
-
-/* ══════════════════════════════════════════════════════════
-   27. LOADING SCREEN EXIT SWEEP
-   ══════════════════════════════════════════════════════════ */
-@keyframes loaderExit {
-    to { clip-path: inset(0 0 100% 0); }
 }
 
 /* ══════════════════════════════════════════════════════════

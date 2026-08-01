@@ -108,7 +108,6 @@ html, body {
 /* Utility Classes */
 .text-accent { color: var(--text-secondary); font-weight: 400; }
 .text-highlight { color: var(--text-primary); font-weight: 500; }
-.text-muted { color: var(--text-muted); }
 
 .container {
     max-width: 1200px;
@@ -177,16 +176,6 @@ html, body {
     line-height: 1.05;
     color: var(--text-bright);
     margin-bottom: clamp(10px, 1.5vw, 16px);
-}
-
-.section-title .char {
-    display: inline-block;
-}
-
-.section-title.is-split .char {
-    opacity: 1;
-    transform: translateY(0) rotateX(0);
-    transition: all 0.8s var(--ease-out-expo);
 }
 
 .section-subtitle {

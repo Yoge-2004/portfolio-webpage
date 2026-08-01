@@ -309,19 +309,6 @@
     }
 
     /* ── Touch-specific animations for mobile ──────────────── */
-    
-    /* Pull-to-refresh style animation */
-    @keyframes pullAnimation {
-        0% {
-            transform: translateY(0) scale(1);
-        }
-        50% {
-            transform: translateY(8px) scale(0.98);
-        }
-        100% {
-            transform: translateY(0) scale(1);
-        }
-    }
 
     /* Scroll momentum animation */
     .story-section {
@@ -360,20 +347,6 @@
         animation: tapBounce 0.3s ease;
     }
 
-    /* Swipe hint animation */
-    @keyframes swipeSlide {
-        0%, 100% {
-            transform: translateX(0);
-        }
-        50% {
-            transform: translateX(12px);
-        }
-    }
-
-    .swipe-hint {
-        animation: swipeSlide 1.5s ease infinite;
-    }
-
     /* Page transition animation */
     @keyframes pageSlideIn {
         from {
@@ -401,22 +374,6 @@
 
     .btn:active .btn__icon {
         transform: scale(0.9);
-    }
-
-    /* Mobile-friendly dropdown hint */
-    @keyframes dropdownHint {
-        0% {
-            opacity: 0.4;
-            transform: translateY(-4px);
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .dropdown-item {
-        animation: dropdownHint 0.3s ease;
     }
 
     /* Scroll snap for better mobile UX */
@@ -482,21 +439,6 @@
     }
 
     /* Mobile card swipe animation */
-    @keyframes cardSwipeIn {
-        from {
-            opacity: 0;
-            transform: translateX(100%);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-
-    .card-swiped-in {
-        animation: cardSwipeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
     /* Floating action button for mobile */
     @keyframes fabFloat {
         0%, 100% {

@@ -275,11 +275,9 @@ html[data-theme="light"] .timeline-entry__ring { border-color: rgba(8,145,178,0.
 html[data-theme="light"] .timeline-entry__title  { color: #111827 !important; }
 html[data-theme="light"] .timeline-entry__desc   { color: #374151 !important; }
 html[data-theme="light"] .timeline-entry__period { color: #6b7280 !important; }
-html[data-theme="light"] .timeline-entry__org    { color: #6b7280 !important; }
 html[data-theme="light"] .timeline-entry__score-value        { color: #111827 !important; }
 html[data-theme="light"] .timeline-entry__score-value--highlight { color: #0891b2 !important; }
-html[data-theme="light"] .timeline-entry__status--done,
-html[data-theme="light"] .timeline-entry__status--active {
+html[data-theme="light"] .timeline-entry__status--done {
     background: rgba(8,145,178,0.10) !important;
     color: #0e7490 !important;
     border-color: rgba(8,145,178,0.20) !important;
@@ -288,7 +286,6 @@ html[data-theme="light"] .timeline-entry__status--active {
 /* ════════════════════════════════════════════════════════════
    QUESTS / PROJECTS
    ════════════════════════════════════════════════════════════ */
-html[data-theme="light"] .project-hero__left  { border-right-color: rgba(0,0,0,0.07) !important; }
 html[data-theme="light"] .project-hero__name  { color: #111827 !important; }
 html[data-theme="light"] .project-hero__hook  { color: #6b7280 !important; }
 html[data-theme="light"] .project-hero__body  { color: #374151 !important; }
@@ -302,8 +299,7 @@ html[data-theme="light"] .tech-pill {
 }
 /* Tone down glow blobs */
 html[data-theme="light"] [class*="orb"],
-html[data-theme="light"] [class*="glow-blob"],
-html[data-theme="light"] .project-orb         { opacity: 0.12 !important; }
+html[data-theme="light"] [class*="glow-blob"] { opacity: 0.12 !important; }
 
 /* ════════════════════════════════════════════════════════════
    BATTLES
@@ -312,15 +308,11 @@ html[data-theme="light"] .battle-featured__title { color: #111827 !important; }
 html[data-theme="light"] .battle-featured__desc  { color: #374151 !important; }
 html[data-theme="light"] .battle-card h4     { color: #111827 !important; }
 html[data-theme="light"] .battle-card__desc  { color: #374151 !important; }
-html[data-theme="light"] .battle-card__date,
-html[data-theme="light"] .battle-card__meta  { color: #6b7280 !important; }
 html[data-theme="light"] .badge {
     background: rgba(0,0,0,0.05) !important;
     border-color: rgba(0,0,0,0.10) !important;
     color: #374151 !important;
 }
-html[data-theme="light"] .badge--win,
-html[data-theme="light"] .badge--1st,
 html[data-theme="light"] .win-badge {
     background: rgba(8,145,178,0.10) !important;
     border-color: rgba(8,145,178,0.24) !important;
@@ -333,7 +325,6 @@ html[data-theme="light"] .win-badge {
 html[data-theme="light"] .research-paper__title      { color: #111827 !important; }
 html[data-theme="light"] .abstract-block p            { color: #374151 !important; }
 html[data-theme="light"] .research-paper__venue-name { color: #6b7280 !important; }
-html[data-theme="light"] .research-paper__venue-conf { color: #374151 !important; }
 html[data-theme="light"] .result-card__number { color: #0891b2 !important; }
 html[data-theme="light"] .result-card__unit   { color: #0891b2 !important; }
 html[data-theme="light"] .result-card__label  { color: #6b7280 !important; }
@@ -407,7 +398,6 @@ html[data-theme="light"] .site-footer {
     background: #eeede9 !important;
     border-top-color: rgba(0,0,0,0.08) !important;
 }
-html[data-theme="light"] .footer__copy { color: #6b7280 !important; }
 html[data-theme="light"] .fa-heart     { color: #0891b2 !important; }
 
 /* ════════════════════════════════════════════════════════════
@@ -422,7 +412,6 @@ html[data-theme="light"] .marquee-strip {
 html[data-theme="light"] .marquee-inner span {
     color: rgba(8,145,178,0.60) !important; /* readable cyan on light bg */
 }
-html[data-theme="light"] .marquee-item     { color: #6b7280 !important; }
 /* Fix: outer .mobile-menu overlay was still dark in light mode (responsive.css sets
    background: rgba(7,7,13,0.97)), causing a visible dark strip on screens wider than 420px */
 html[data-theme="light"] .mobile-menu {
@@ -727,11 +716,6 @@ html[data-theme="light"] .contact-section::before {
 /* ── Project card tech pill hover on parent hover ──────────── */
 html[data-theme="light"] .project-card:hover .tech-pill {
     background: rgba(8,145,178,0.10) !important;
-}
-
-/* ── Chapter indicator title text ───────────────────────────── */
-html[data-theme="light"] .chapter-indicator__title {
-    color: #374151 !important;
 }
 
 /* ── Chapter flash overlay — light palette ──────────────────── */

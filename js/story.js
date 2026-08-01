@@ -823,18 +823,6 @@ function initParticles() {
     wrap.appendChild(f);
 }
 
-/* ════════════════════════════════════════════════════════
-   16. MODAL
-   ════════════════════════════════════════════════════════ */
-function initModal() {
-    const ov = $('.modal-overlay'); if (!ov) return;
-    const close = () => { ov.classList.remove('is-active'); document.body.style.overflow=''; };
-    const open  = () => { ov.classList.add('is-active');    document.body.style.overflow='hidden'; };
-    $('.modal-close-btn')?.addEventListener('click', close);
-    ov.addEventListener('click', e => e.target===ov && close());
-    document.addEventListener('keydown', e => e.key==='Escape' && close());
-    $$('[data-modal-open]').forEach(b => b.addEventListener('click', open));
-}
 
 /* ════════════════════════════════════════════════════════
    17. MAGNETIC BUTTONS
@@ -1050,7 +1038,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initTyped();
     initGlitch();
     initSpotlight();
-    initModal();
     initMagneticButtons();
     initFloatingElements();
     initMobileAnimations(); /* CSS-class-based entrance animations for mobile/tablet */

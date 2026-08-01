@@ -151,11 +151,6 @@
     color: var(--text-muted);
 }
 
-.timeline-entry__status--active {
-    background: rgba(0,229,255,0.1);
-    color: var(--accent-cyan);
-}
-
 .timeline-entry__status--intern {
     background: rgba(34,211,238,0.1);
     color: var(--accent-green);

@@ -60,7 +60,6 @@
     .loading-screen,
     .menu-toggle,
     .marquee-strip,
-    .chflash,
     #chflash,
     .skills-panel::before,
     .certs-panel::before {
@@ -133,7 +132,7 @@
     }
 
     /* Hero layout */
-    .hero-layout {
+    .hero-content {
         display: flex !important;
         flex-direction: row !important;
         align-items: center !important;
@@ -349,7 +348,7 @@
     }
 
     /* Credentials Panels layout */
-    .credentials-grid {
+    .credentials-layout {
         display: flex !important;
         flex-direction: row !important;
         flex-wrap: wrap !important;
@@ -362,7 +361,7 @@
         min-width: 280px !important;
     }
 
-    .skills-list,
+    .skill-group__items,
     .certs-list {
         display: flex !important;
         flex-direction: column !important;
@@ -453,7 +452,7 @@
     }
 
     /* Contact layout */
-    .contact-grid {
+    .contact-cards {
         display: flex !important;
         flex-direction: row !important;
         flex-wrap: wrap !important;

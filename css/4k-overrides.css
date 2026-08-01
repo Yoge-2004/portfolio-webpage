@@ -515,9 +515,7 @@ body {
     min-height: 24rem !important;
 }
 
-.project-hero__content,
-.project-hero__left,
-.project-hero__right {
+.project-hero__content {
     padding: var(--card-py) var(--card-px) !important;
 }
 

@@ -87,8 +87,7 @@ a:not(.btn):not(.nav-link):not(.mobile-link):not(.project-card__link):not([data-
     transform: translateX(6px) rotate(0deg);
 }
 
-.project-card:hover .btn__icon,
-.button:hover i {
+.project-card:hover .btn__icon {
     transform: rotate(45deg) translateX(2px);
 }
 
@@ -352,31 +351,6 @@ button:focus-visible {
 }
 
 /* ════════════════════════════════════════════════════════════
-   LOADING & SKELETON ANIMATIONS
-   ════════════════════════════════════════════════════════════ */
-
-/* ── Shimmer loading effect ──────────────────────────────── */
-@keyframes shimmerLoad {
-    0% {
-        background-position: -200% 0;
-    }
-    100% {
-        background-position: 200% 0;
-    }
-}
-
-.loading-placeholder {
-    background: linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0.05),
-        rgba(255, 255, 255, 0.1),
-        rgba(255, 255, 255, 0.05)
-    );
-    background-size: 200% 100%;
-    animation: shimmerLoad 2s infinite;
-}
-
-/* ════════════════════════════════════════════════════════════
    PROGRESS INDICATORS
    ════════════════════════════════════════════════════════════ */
 
@@ -445,41 +419,6 @@ button:focus-visible {
 
 .menu-toggle.is-active .menu-toggle__line:nth-child(3) {
     transform: rotate(-45deg) translateY(-8px);
-}
-
-/* ════════════════════════════════════════════════════════════
-   MODAL & POPUP TRANSITIONS
-   ════════════════════════════════════════════════════════════ */
-
-/* ── Modal entrance/exit ─────────────────────────────────── */
-.modal-backdrop {
-    animation: backdropFadeIn 0.3s ease forwards;
-}
-
-@keyframes backdropFadeIn {
-    from {
-        opacity: 0;
-        backdrop-filter: blur(0);
-    }
-    to {
-        opacity: 1;
-        backdrop-filter: blur(4px);
-    }
-}
-
-.modal-inner {
-    animation: modalSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes modalSlideIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px) scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -795,27 +734,3 @@ button:focus-visible {
     }
 }
 
-/* ════════════════════════════════════════════════════════════
-   MOTION CURVES & EASING UTILITIES
-   ════════════════════════════════════════════════════════════ */
-
-/* ── Smooth easing for common transitions ──────────────────── */
-.ease-in {
-    transition-timing-function: cubic-bezier(0.42, 0, 1, 1);
-}
-
-.ease-out {
-    transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
-}
-
-.ease-in-out {
-    transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
-}
-
-.ease-smooth {
-    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.ease-bounce {
-    transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
-}

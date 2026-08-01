@@ -9,15 +9,6 @@
     --ar: 102; --ag: 231; --ab: 242;
 }
 
-/* ── Particle rise keyframe ──────────────────────────────── */
-@keyframes pRise {
-    0%   { transform: translateY(0)      translateX(0);   opacity: 0; }
-    8%   { opacity: 1; }
-    50%  { transform: translateY(-48vh)  translateX(14px); }
-    92%  { opacity: .5; }
-    100% { transform: translateY(-106vh) translateX(-10px); opacity: 0; }
-}
-
 /* ── Marquee ─────────────────────────────────────────────── */
 .marquee-strip {
     overflow: hidden;
@@ -57,12 +48,6 @@
     opacity: 0;
 }
 
-#chflash.show {
-    display: flex;
-    opacity: 1;
-    animation: chFlashReveal 0.5s ease forwards;
-}
-
 @keyframes chFlashReveal {
     0% {
         opacity: 0;
@@ -72,55 +57,6 @@
     }
 }
 
-/* Fade out animation */
-#chflash.fade-out {
-    animation: chFlashFade 0.4s ease forwards;
-}
-
-@keyframes chFlashFade {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
-}
-
-/* Fixed chapter indicator in corner */
-.chapter-indicator {
-    position: fixed;
-    top: 80px;
-    right: 24px;
-    z-index: 1000;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: rgba(var(--ar), var(--ag), var(--ab), 0.6);
-    text-transform: uppercase;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    opacity: 0;
-    transform: translateY(-10px);
-    pointer-events: none;
-}
-
-.chapter-indicator.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.chapter-indicator__number {
-    font-size: 9px;
-    color: rgba(var(--ar), var(--ag), var(--ab), 0.4);
-    letter-spacing: 1px;
-}
-
-.chapter-indicator__title {
-    font-family: var(--font-display);
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.7);
-    margin-top: 2px;
-    letter-spacing: 0.5px;
-}
 .cf-n {
     font-family: var(--font-mono);
     font-size: clamp(10px, 1.5vw, 13px); letter-spacing: .5em;
@@ -502,14 +438,6 @@ html[data-theme="light"] .skill-bar__fill {
     transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* Battle card title color shift */
-.battle-card__title {
-    transition: color 0.3s ease;
-}
-.battle-card:hover .battle-card__title {
-    color: rgb(var(--ar), var(--ag), var(--ab));
-}
-
 /* ══════════════════════════════════════════════════════════
    DISCOVERY — Paper hover interactions
    ══════════════════════════════════════════════════════════ */
@@ -530,13 +458,6 @@ html[data-theme="light"] .skill-bar__fill {
 /* ══════════════════════════════════════════════════════════
    CREDENTIALS — Cert item hover reveal
    ══════════════════════════════════════════════════════════ */
-.cert-item__name {
-    transition: color 0.3s ease;
-}
-.cert-item:hover .cert-item__name {
-    color: rgb(var(--ar), var(--ag), var(--ab));
-}
-
 /* Skill bar glow on hover */
 .skill-group:hover .skill-bar__fill {
     box-shadow: 0 0 16px rgba(var(--ar), var(--ag), var(--ab), 0.4);

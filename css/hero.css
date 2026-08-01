@@ -21,14 +21,6 @@
     pointer-events: none;
 }
 
-.hero-particle {
-    position: absolute;
-    border-radius: 50%;
-    background: var(--accent-cyan);
-    pointer-events: none;
-    will-change: transform;
-}
-
 .hero-vignette {
     position: absolute;
     inset: 0;
@@ -248,17 +240,6 @@
 .hero-headline__word {
     display: block;
     overflow: hidden;
-}
-
-.hero-headline__word .char {
-    display: inline-block;
-    /* No SplitText running — no .char spans are created. Kept as future hook. */
-}
-
-.hero-headline__word.is-split .char {
-    opacity: 1;
-    transform: translateY(0);
-    transition: all 0.8s var(--ease-out-expo);
 }
 
 .hero-headline__word--accent {
