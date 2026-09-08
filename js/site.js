@@ -1,81 +1,72 @@
 (() => {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const canvas = document.getElementById('scene');
+  const menu = document.querySelector('.menu-toggle');
+  const masthead = document.querySelector('.masthead');
+  const nav = document.getElementById('primary-nav');
+  if (menu && masthead && nav) {
+    menu.addEventListener('click', () => {
+      const open = masthead.classList.toggle('nav-open');
+      menu.setAttribute('aria-expanded', String(open));
+    });
+    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      masthead.classList.remove('nav-open'); menu.setAttribute('aria-expanded','false');
+    }));
+  }
+  const revealAll = () => document.querySelectorAll('.reveal').forEach(el => el.classList.add('seen'));
+  if (window.IntersectionObserver && !reduce) {
+    const io = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('seen'); io.unobserve(entry.target); }
+    }), { threshold: .12, rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  } else revealAll();
   if (!canvas || !window.THREE) return;
 
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 1.8));
-  renderer.setSize(innerWidth, innerHeight);
-  renderer.outputEncoding = THREE.sRGBEncoding;
+  try {
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+    renderer.setSize(innerWidth, innerHeight, false);
+    if ('outputEncoding' in renderer) renderer.outputEncoding = THREE.sRGBEncoding;
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(42, innerWidth / innerHeight, .1, 60);
+    camera.position.set(0, 0, 8);
+    const world = new THREE.Group(); scene.add(world);
+    scene.add(new THREE.AmbientLight(0xffffff, .22));
+    const key = new THREE.PointLight(0xd6ff3f, 12, 18); key.position.set(3,2,4); scene.add(key);
+    const rim = new THREE.PointLight(0x9da391, 7, 15); rim.position.set(-4,-2,2); scene.add(rim);
 
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(38, innerWidth / innerHeight, .1, 100);
-  camera.position.set(0, 0, 8);
+    const pts = [];
+    for (let i=0;i<260;i++) { const r=4+Math.random()*6,a=Math.random()*Math.PI*2; pts.push(Math.cos(a)*r,(Math.random()-.5)*7,Math.sin(a)*r); }
+    const pg=new THREE.BufferGeometry(); pg.setAttribute('position',new THREE.Float32BufferAttribute(pts,3));
+    const stars=new THREE.Points(pg,new THREE.PointsMaterial({color:0xd8dccd,size:.022,transparent:true,opacity:.42})); world.add(stars);
 
-  const world = new THREE.Group();
-  scene.add(world);
-  scene.add(new THREE.AmbientLight(0xffffff, .18));
-  const key = new THREE.PointLight(0xd6ff3f, 18, 18); key.position.set(3, 2, 4); scene.add(key);
-  const rim = new THREE.PointLight(0x8a8f83, 10, 16); rim.position.set(-4, -3, 2); scene.add(rim);
+    const outer=new THREE.Mesh(new THREE.IcosahedronGeometry(1.65,2),new THREE.MeshBasicMaterial({color:0xd6ff3f,wireframe:true,transparent:true,opacity:.25}));
+    const inner=new THREE.Mesh(new THREE.IcosahedronGeometry(1.28,1),new THREE.MeshBasicMaterial({color:0xe9e7df,wireframe:true,transparent:true,opacity:.1})); world.add(outer,inner);
+    const rings=new THREE.Group();
+    [2.2,2.55,2.9].forEach((radius,i)=>{const r=new THREE.Mesh(new THREE.TorusGeometry(radius,.009+i*.002,8,128),new THREE.MeshBasicMaterial({color:i===0?0xd6ff3f:0x7b8174,transparent:true,opacity:.36-i*.08}));r.rotation.set(i*.55,i*.8,i*.35);rings.add(r);});
+    world.add(rings);
 
-  const field = new THREE.Group();
-  const points = [];
-  for (let i = 0; i < 420; i++) {
-    const r = 4 + Math.random() * 7;
-    const a = Math.random() * Math.PI * 2;
-    const y = (Math.random() - .5) * 8;
-    points.push(Math.cos(a) * r, y, Math.sin(a) * r);
-  }
-  const pg = new THREE.BufferGeometry();
-  pg.setAttribute('position', new THREE.Float32BufferAttribute(points, 3));
-  const pm = new THREE.PointsMaterial({ color: 0xc7cfb0, size: .018, transparent: true, opacity: .48 });
-  field.add(new THREE.Points(pg, pm));
-  world.add(field);
+    let pointerX=0,pointerY=0,targetScroll=0,currentScroll=0,t=0;
+    addEventListener('pointermove',e=>{pointerX=(e.clientX/innerWidth-.5);pointerY=(e.clientY/innerHeight-.5);},{passive:true});
+    addEventListener('scroll',()=>{targetScroll=scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight);},{passive:true});
+    const resize=()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight,false);}; addEventListener('resize',resize);
 
-  const geometry = new THREE.IcosahedronGeometry(1.75, 2);
-  const wire = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ color: 0xd6ff3f, wireframe: true, transparent: true, opacity: .27 }));
-  const inner = new THREE.Mesh(new THREE.IcosahedronGeometry(1.38, 2), new THREE.MeshBasicMaterial({ color: 0xe9e7df, wireframe: true, transparent: true, opacity: .08 }));
-  world.add(wire, inner);
-
-  const ringGroup = new THREE.Group();
-  for (let i = 0; i < 3; i++) {
-    const ring = new THREE.Mesh(new THREE.TorusGeometry(2.35 + i * .28, .008 + i * .003, 8, 160), new THREE.MeshBasicMaterial({ color: i === 0 ? 0xd6ff3f : 0x7c8275, transparent: true, opacity: .42 - i * .1 }));
-    ring.rotation.set(i * .7, i * .45, i * .3); ringGroup.add(ring);
-  }
-  world.add(ringGroup);
-
-  const target = { x: 0, y: 0, scroll: 0 };
-  let scroll = 0;
-  addEventListener('pointermove', e => { target.x = (e.clientX / innerWidth - .5) * 2; target.y = (e.clientY / innerHeight - .5) * 2; });
-  addEventListener('scroll', () => { scroll = scrollY / Math.max(1, document.body.scrollHeight - innerHeight); }, { passive: true });
-
-  function resize() { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); renderer.setPixelRatio(Math.min(devicePixelRatio, 1.8)); }
-  addEventListener('resize', resize);
-
-  let t = 0;
-  function render() {
-    t += .006;
-    const motion = reduce ? 0 : 1;
-    wire.rotation.x += .0018 * motion; wire.rotation.y += .0028 * motion;
-    inner.rotation.x -= .0012 * motion; inner.rotation.y -= .002 * motion;
-    ringGroup.rotation.z += .0015 * motion;
-    field.rotation.y += .00035 * motion;
-    const sx = target.x * .28, sy = target.y * .16;
-    world.rotation.y += (sx + scroll * 1.3 - world.rotation.y) * .025;
-    world.rotation.x += (-sy + scroll * .35 - world.rotation.x) * .025;
-    world.position.y += (-scroll * 2.5 - world.position.y) * .018;
-    camera.position.x += (target.x * .22 - camera.position.x) * .02;
-    camera.position.y += (-target.y * .12 - camera.position.y) * .02;
-    camera.lookAt(world.position.x, world.position.y, world.position.z);
-    key.position.x = 3 + Math.sin(t) * 1.2;
-    key.position.y = 2 + Math.cos(t * .8);
-    renderer.render(scene, camera);
-    requestAnimationFrame(render);
-  }
-  render();
-
-  if (!reduce && window.IntersectionObserver) {
-    const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('seen'); }), { threshold: .12 });
-    document.querySelectorAll('.section, .project, .number-grid>div, .timeline-list>div').forEach(el => observer.observe(el));
+    const animate=()=>{
+      t+=.005; currentScroll += (targetScroll-currentScroll)*.045;
+      const motion=reduce?0:1;
+      outer.rotation.x+=.0014*motion; outer.rotation.y+=.0024*motion; inner.rotation.x-=.001*motion; inner.rotation.y-=.0018*motion; rings.rotation.z+=.0012*motion; stars.rotation.y+=.00025*motion;
+      world.rotation.y += (pointerX*.25 + currentScroll*1.15 - world.rotation.y)*.025;
+      world.rotation.x += (-pointerY*.12 + currentScroll*.25 - world.rotation.x)*.025;
+      world.position.y += (-currentScroll*2.0-world.position.y)*.018;
+      camera.position.x += (pointerX*.18-camera.position.x)*.02;
+      camera.position.y += (-pointerY*.1-camera.position.y)*.02;
+      camera.lookAt(0,world.position.y,0);
+      key.position.x=3+Math.sin(t)*1.2; key.position.y=2+Math.cos(t*.8);
+      renderer.render(scene,camera); requestAnimationFrame(animate);
+    };
+    animate();
+  } catch (error) {
+    canvas.style.display='none';
+    console.warn('WebGL enhancement disabled:', error);
   }
 })();
