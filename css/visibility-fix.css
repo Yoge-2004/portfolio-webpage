@@ -1,57 +1,21 @@
 /* ============================================================
    VISIBILITY FIX — last-resort fallback for ALL screen sizes
-   Only targets elements that have BOTH .is-revealed AND the
-   base state has opacity:0 via CSS (not GSAP inline styles).
-   For GSAP inline-style overrides, see the mobile safety net
-   in responsive.css and the JS 1.2s fallback timer.
    ============================================================ */
-
-/* These elements use CSS opacity:0 as base with .is-revealed
-   transition, but since no JS adds .is-revealed, force visible */
 .hero-image__border,
 .hero-image__glow,
 .hero-badge,
 .hero-kicker,
-.hero-tagline {
-    /* CSS sets opacity:0 as base; GSAP heroEntry overrides inline.
-       If heroEntry fails (JS error, slow CDN), these stay hidden.
-       Force them visible so content is never permanently lost. */
-}
+.hero-tagline { }
 
-/* Section titles — GSAP clips with clipPath. If ST never fires
-   on fast machines where section is already in viewport: */
-.section-title {
-    /* Handled by JS 1.2s fallback which now checks clipPath */
-}
+.section-title { }
 
-/* Origin cards right column — was data-reveal, now fixed in base.css */
-.origin-narrative .narrative-block {
-    opacity: 1;
-    transform: none;
-}
-
-/* Journey */
+.origin-narrative .narrative-block { opacity: 1; transform: none; }
 .timeline-entry__card,
-.timeline-entry:nth-child(even) .timeline-entry__card {
-    opacity: 1;
-    transform: none;
-}
-
-/* Quests */
+.timeline-entry:nth-child(even) .timeline-entry__card { opacity: 1; transform: none; }
 .project-hero,
-.project-card {
-    opacity: 1;
-    transform: none;
-}
-
-/* Battles */
+.project-card { opacity: 1; transform: none; }
 .battle-featured,
-.battle-card {
-    opacity: 1;
-    transform: none;
-}
-
-/* Discovery */
+.battle-card { opacity: 1; transform: none; }
 .research-paper,
 .research-paper__venue,
 .abstract-block,
@@ -60,21 +24,202 @@
 .authors-block,
 .project-link-block,
 .paper-actions-row,
-.flags-row {
-    opacity: 1;
-    transform: none;
-}
-
-/* Credentials */
+.flags-row { opacity: 1; transform: none; }
 .skills-panel,
 .certs-panel,
-.cert-item {
-    opacity: 1;
-    transform: none;
+.cert-item { opacity: 1; transform: none; }
+.contact-card { opacity: 1; transform: none; }
+
+/* ============================================================
+   IMMERSIVE 3D REDESIGN — final override layer
+   ============================================================ */
+:root {
+    --scene-border: rgba(255,255,255,.09);
+    --scene-glass: rgba(8,13,19,.58);
 }
 
-/* Contact */
-.contact-card {
-    opacity: 1;
-    transform: none;
+html { scroll-behavior: smooth; }
+body { perspective: 1400px; }
+
+.scroll-3d-canvas,
+.hero-3d-canvas {
+    transform: translateZ(0);
+    will-change: transform;
+    contain: strict;
+}
+
+.scroll-3d-canvas {
+    opacity: .92;
+    mix-blend-mode: screen;
+}
+
+.story-section {
+    transform-style: preserve-3d;
+    isolation: isolate;
+}
+
+.story-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(34,242,255,.08), transparent 28%),
+        radial-gradient(circle at 85% 75%, rgba(139,92,246,.07), transparent 30%);
+    opacity: .7;
+    z-index: -1;
+}
+
+.container,
+.hero-content { transform: translateZ(18px); }
+
+.project-card,
+.quest-card,
+.battle-card,
+.credential-card,
+.contact-card,
+.origin-card,
+.timeline-entry__card,
+.research-paper,
+.project-hero,
+.battle-featured,
+.skills-panel,
+.certs-panel {
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    transition: transform .55s cubic-bezier(.2,.75,.2,1), box-shadow .55s ease, border-color .35s ease;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.018)),
+        var(--bg-card, rgba(15,22,30,.78));
+    border-color: var(--scene-border) !important;
+    box-shadow: 0 24px 80px rgba(0,0,0,.30), inset 0 1px 0 rgba(255,255,255,.055);
+}
+
+.project-card:hover,
+.quest-card:hover,
+.battle-card:hover,
+.credential-card:hover,
+.contact-card:hover,
+.origin-card:hover,
+.timeline-entry__card:hover,
+.research-paper:hover,
+.project-hero:hover,
+.battle-featured:hover,
+.skills-panel:hover,
+.certs-panel:hover {
+    transform: translate3d(0,-8px,28px) rotateX(1deg);
+    border-color: rgba(34,242,255,.20) !important;
+    box-shadow: 0 32px 90px rgba(0,0,0,.40), 0 18px 50px rgba(34,242,255,.08), inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+.hero-image-wrapper { transform-style: preserve-3d; }
+.hero-image__frame,
+.hero-image__mask { transform-style: preserve-3d; }
+.hero-image__frame {
+    filter: drop-shadow(0 28px 70px rgba(0,0,0,.42));
+    box-shadow: 0 30px 90px rgba(0,0,0,.38), inset 0 0 40px rgba(34,242,255,.08);
+}
+
+.hero-image__mask {
+    border-radius: 18px !important;
+    background: linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+}
+
+.hero-image__border {
+    border-radius: 21px !important;
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green) 48%, var(--accent-amber)) !important;
+    opacity: .7 !important;
+}
+
+.hero-badge,
+.section-eyebrow {
+    border: 1px solid rgba(34,242,255,.18) !important;
+    background: rgba(34,242,255,.075) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 12px 34px rgba(0,0,0,.20);
+}
+
+.hero-headline {
+    font-weight: 800 !important;
+    line-height: .96 !important;
+    letter-spacing: 0 !important;
+}
+
+.hero-headline__word--accent {
+    color: transparent !important;
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green), var(--accent-amber));
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: none !important;
+}
+
+.hero-metrics {
+    padding: 16px !important;
+    border: 1px solid rgba(255,255,255,.08) !important;
+    border-radius: 16px;
+    background: rgba(255,255,255,.035);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 22px 60px rgba(0,0,0,.22);
+}
+
+.btn { border-radius: 999px !important; }
+.btn--primary {
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green) 52%, var(--accent-amber)) !important;
+    color: #041014 !important;
+    box-shadow: 0 18px 44px rgba(34,242,255,.20), inset 0 1px 0 rgba(255,255,255,.45) !important;
+}
+.btn--ghost {
+    background: rgba(255,255,255,.045) !important;
+    border-color: rgba(255,255,255,.12) !important;
+}
+
+.hero-scroll-hint {
+    position: fixed !important;
+    left: 50% !important;
+    bottom: max(16px, env(safe-area-inset-bottom, 0px)) !important;
+    transform: translateX(-50%) !important;
+    margin: 0 !important;
+    padding: 8px 12px !important;
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 999px;
+    background: rgba(5,8,12,.58);
+    box-shadow: 0 16px 42px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.08);
+    backdrop-filter: blur(16px) saturate(145%);
+    -webkit-backdrop-filter: blur(16px) saturate(145%);
+    z-index: 80 !important;
+}
+
+@media (max-width: 700px) {
+    body { perspective: none; }
+    .scroll-3d-canvas { opacity: .52; }
+    .container,
+    .hero-content { transform: none; }
+    .project-card:hover,
+    .quest-card:hover,
+    .battle-card:hover,
+    .credential-card:hover,
+    .contact-card:hover,
+    .origin-card:hover,
+    .timeline-entry__card:hover,
+    .research-paper:hover,
+    .project-hero:hover,
+    .battle-featured:hover,
+    .skills-panel:hover,
+    .certs-panel:hover { transform: translateY(-4px); }
+    .hero-metrics { border-radius: 14px !important; padding: 0 !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .project-card,
+    .quest-card,
+    .battle-card,
+    .credential-card,
+    .contact-card,
+    .origin-card,
+    .timeline-entry__card,
+    .research-paper,
+    .project-hero,
+    .battle-featured,
+    .skills-panel,
+    .certs-panel { transition: none; }
 }
