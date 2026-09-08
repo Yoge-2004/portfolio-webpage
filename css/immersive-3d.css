@@ -1,0 +1,95 @@
+/* Immersive 3D presentation layer */
+:root {
+  --scene-glass: color-mix(in srgb, var(--bg-dark) 58%, transparent);
+  --scene-border: color-mix(in srgb, var(--text-primary) 14%, transparent);
+}
+
+html { scroll-behavior: smooth; }
+body { perspective: 1400px; }
+
+.scroll-3d-canvas,
+.hero-3d-canvas {
+  transform: translateZ(0);
+  will-change: transform;
+  contain: strict;
+}
+
+.scroll-3d-canvas {
+  opacity: .92;
+  mix-blend-mode: screen;
+}
+
+.story-section {
+  transform-style: preserve-3d;
+  isolation: isolate;
+}
+
+.story-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 15% 20%, color-mix(in srgb, var(--accent-cyan) 8%, transparent), transparent 28%),
+    radial-gradient(circle at 85% 75%, color-mix(in srgb, var(--accent-purple) 7%, transparent), transparent 30%);
+  opacity: .7;
+  z-index: -1;
+}
+
+.container,
+.hero-content {
+  transform: translateZ(18px);
+}
+
+.project-card,
+.quest-card,
+.battle-card,
+.credential-card,
+.contact-card {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transition: transform .55s cubic-bezier(.2,.75,.2,1), box-shadow .55s ease, border-color .35s ease;
+}
+
+.project-card:hover,
+.quest-card:hover,
+.battle-card:hover,
+.credential-card:hover,
+.contact-card:hover {
+  transform: translate3d(0,-8px,28px) rotateX(1deg);
+  box-shadow: 0 28px 80px color-mix(in srgb, #000 38%, transparent), 0 0 45px color-mix(in srgb, var(--accent-cyan) 9%, transparent);
+}
+
+.hero-image-wrapper {
+  transform-style: preserve-3d;
+}
+
+.hero-image__frame,
+.hero-image__mask {
+  transform-style: preserve-3d;
+}
+
+.hero-image__frame {
+  box-shadow: 0 30px 90px color-mix(in srgb, #000 38%, transparent), inset 0 0 40px color-mix(in srgb, var(--accent-cyan) 8%, transparent);
+}
+
+@media (max-width: 700px) {
+  body { perspective: none; }
+  .scroll-3d-canvas { opacity: .52; }
+  .container,
+  .hero-content { transform: none; }
+  .project-card:hover,
+  .quest-card:hover,
+  .battle-card:hover,
+  .credential-card:hover,
+  .contact-card:hover { transform: translateY(-4px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .project-card,
+  .quest-card,
+  .battle-card,
+  .credential-card,
+  .contact-card { transition: none; }
+}
