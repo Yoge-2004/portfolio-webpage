@@ -68,7 +68,7 @@ header{position:fixed;z-index:60;top:0;left:0;right:0;height:80px;padding:0 var(
 .mobile-nav a{display:flex;align-items:baseline;gap:18px;padding:20px 2px;font:600 clamp(2.2rem,9vw,3.4rem) 'Space Grotesk';letter-spacing:-.03em;text-transform:uppercase}
 .mobile-nav a b{font:400 11px 'DM Mono';color:var(--muted);letter-spacing:.1em}
 .mobile-nav a:hover,.mobile-nav a:focus-visible{color:var(--acid)}
-.mobile-contact{margin-top:34px;display:flex;gap:26px;font:400 10px 'DM Mono';text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.mobile-contact{margin-top:34px;display:flex;flex-wrap:wrap;gap:16px 26px;font:400 10px 'DM Mono';text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
 .mobile-contact a:hover{color:var(--acid)}
 
 /* ---------- chrome ---------- */
@@ -118,6 +118,8 @@ main{position:relative;z-index:2}
 .project-info{order:2}
 .project-art{order:1;position:relative;height:min(46vw,600px);min-height:340px}
 .screen-frame{position:absolute;inset:6% 4%;border:1px solid rgba(255,255,255,.16);background:#0a0b08;overflow:hidden;box-shadow:38px 42px 90px rgba(0,0,0,.3)}
+.screen-frame::before{content:attr(data-fallback);position:absolute;left:6%;top:10%;right:6%;font:600 clamp(20px,2.4vw,34px)/1.15 'Space Grotesk',sans-serif;color:#f2f0e6;opacity:.5;z-index:0}
+.screen-frame canvas{position:relative;z-index:1}
 .screen-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .screen-index{position:absolute;right:2%;bottom:.5%;font:400 8px 'DM Mono';color:#6c6d64}
 .project-no{font:400 8px 'DM Mono';letter-spacing:.16em;text-transform:uppercase;opacity:.6}
@@ -176,11 +178,12 @@ footer{position:relative;z-index:3;padding:26px var(--pad);display:flex;flex-wra
   header{height:66px}
   .status,.desktop-nav{display:none}
   .menu-toggle{display:flex}
-  .act{padding:100px var(--pad) 90px}
+  .act{padding:100px var(--pad) 90px;flex-direction:column;align-items:flex-start}
+  .hero{align-items:flex-start}
   .act-label{position:static;writing-mode:initial;margin-bottom:38px}
   .copy-wrap,.research-grid,.timeline-list,.metric-grid,.contact .act-inner{margin-left:0}
   .hero h1{font-size:11.5vw}
-  .hero-meta{position:static;width:auto;margin-top:60px}
+  .hero-meta{position:static;width:100%;flex:none;margin-top:60px}
   .facts{grid-template-columns:1fr 1fr}
   .gallery{padding-top:104px}
   .gallery-head{margin-left:0;padding-bottom:64px}
@@ -299,7 +302,7 @@ footer{position:relative;z-index:3;padding:26px var(--pad);display:flex;flex-wra
 
     <article class="project">
       <div class="project-art reveal">
-        <div class="screen-frame" id="screen1" role="img" aria-label="JobGuard AI dashboard mockup"></div>
+        <div class="screen-frame" id="screen1" role="img" aria-label="JobGuard AI dashboard mockup" data-fallback="JobGuard AI — verify the listing."></div>
         <span class="screen-index mono">001 / 03</span>
       </div>
       <div class="project-info">
@@ -313,7 +316,7 @@ footer{position:relative;z-index:3;padding:26px var(--pad);display:flex;flex-wra
 
     <article class="project">
       <div class="project-art reveal">
-        <div class="screen-frame" id="screen2" role="img" aria-label="Library OS dashboard mockup"></div>
+        <div class="screen-frame" id="screen2" role="img" aria-label="Library OS dashboard mockup" data-fallback="Library OS — run the branch."></div>
         <span class="screen-index mono">002 / 03</span>
       </div>
       <div class="project-info">
@@ -327,7 +330,7 @@ footer{position:relative;z-index:3;padding:26px var(--pad);display:flex;flex-wra
 
     <article class="project">
       <div class="project-art reveal">
-        <div class="screen-frame" id="screen3" role="img" aria-label="Expense Tracker dashboard mockup"></div>
+        <div class="screen-frame" id="screen3" role="img" aria-label="Expense Tracker dashboard mockup" data-fallback="Expense Tracker — plan the month."></div>
         <span class="screen-index mono">003 / 03</span>
       </div>
       <div class="project-info">
@@ -404,16 +407,19 @@ footer{position:relative;z-index:3;padding:26px var(--pad);display:flex;flex-wra
   <span>© 2026 — built with intent</span>
 </footer>
 
+<script type="importmap">
+{ "imports": { "three": "./vendor/three/build/three.module.js" } }
+</script>
 <script type="module">
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js';
-import {EffectComposer} from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/postprocessing/EffectComposer.js';
-import {RenderPass} from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/postprocessing/RenderPass.js';
-import {UnrealBloomPass} from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/postprocessing/UnrealBloomPass.js';
-import {OutputPass} from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/postprocessing/OutputPass.js';
-import {ShaderPass} from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/postprocessing/ShaderPass.js';
-import {gsap} from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js';
-import {ScrollTrigger} from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js';
-import Lenis from 'https://cdn.jsdelivr.net/npm/lenis@1.1.20/+esm';
+import * as THREE from './vendor/three/build/three.module.js';
+import {EffectComposer} from './vendor/three/examples/jsm/postprocessing/EffectComposer.js';
+import {RenderPass} from './vendor/three/examples/jsm/postprocessing/RenderPass.js';
+import {UnrealBloomPass} from './vendor/three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import {OutputPass} from './vendor/three/examples/jsm/postprocessing/OutputPass.js';
+import {ShaderPass} from './vendor/three/examples/jsm/postprocessing/ShaderPass.js';
+import {gsap} from './vendor/gsap/index.js';
+import {ScrollTrigger} from './vendor/gsap/ScrollTrigger.js';
+import Lenis from './vendor/lenis/lenis.mjs';
 
 gsap.registerPlugin(ScrollTrigger);
 window.__moduleBooted = true;
