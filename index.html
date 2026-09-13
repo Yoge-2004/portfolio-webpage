@@ -34,7 +34,8 @@ button{font:inherit;background:none;border:0;color:inherit;cursor:pointer}
 .grain{position:fixed;inset:0;z-index:85;pointer-events:none;opacity:.045;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
 /* ---------- loader ---------- */
-.loader{position:fixed;inset:0;z-index:150;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;transition:opacity .6s var(--ease),visibility .6s}
+.loader{position:fixed;inset:0;z-index:150;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;opacity:0;visibility:hidden;transition:opacity .6s var(--ease),visibility .6s}
+.loader.active{opacity:1;visibility:visible}
 .loader-mark{font:600 15px 'Space Grotesk';letter-spacing:-.04em}
 .loader-mark i{font-style:normal;color:var(--acid)}
 .loader-label{font:400 9px 'DM Mono';letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
@@ -170,8 +171,8 @@ footer{position:relative;z-index:3;padding:26px var(--pad);display:flex;flex-wra
 
 /* ---------- reveal ---------- */
 .reveal{transform:translateY(32px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
-.js .reveal{opacity:0}
-.js .ready .reveal.show{opacity:1;transform:none}
+.reveal.pending{opacity:0}
+.ready .reveal.show{opacity:1;transform:none}
 
 /* ---------- responsive ---------- */
 @media(max-width:850px){
@@ -223,15 +224,26 @@ footer{position:relative;z-index:3;padding:26px var(--pad);display:flex;flex-wra
 <script>
 (function(){
   document.documentElement.classList.add('js');
+  var loader = document.getElementById('loader');
+  if (loader) loader.classList.add('active');
+
+  // Only pre-hide reveal elements that are currently off-screen, so JS users still get
+  // the animate-in effect further down the page, without ever flashing visible content
+  // to invisible first (which would be jarring if this ran late).
+  document.querySelectorAll('.reveal').forEach(function(el){
+    var r = el.getBoundingClientRect();
+    if (r.top > innerHeight || r.bottom < 0) el.classList.add('pending');
+  });
+
   setTimeout(function(){
     if (window.__moduleBooted) return; // main module is running its own (nicer) logic — don't interfere
     document.body.classList.add('ready');
     document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('show'); });
-    var loader = document.getElementById('loader');
     if (loader) loader.classList.add('done');
   }, 4000);
 })();
 </script>
+<noscript><style>.loader{display:none!important}</style></noscript>
 <canvas id="webgl" aria-hidden="true"></canvas>
 <div class="shade" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
