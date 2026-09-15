@@ -190,7 +190,10 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:400;letter-spacing:-.012em;line
 .path{margin-top:28px;border-left:1px solid rgba(244,240,234,.16);padding-left:clamp(22px,3vw,42px)}
 .stop{position:relative;padding:20px 0}
 .stop::before{content:"";position:absolute;left:calc(-1*clamp(22px,3vw,42px) - 4.5px);top:29px;width:8px;height:8px;border-radius:50%;
-  background:var(--violet);box-shadow:0 0 14px rgba(179,160,255,.8)}
+  background:#4b4560;box-shadow:none;transition:background .5s var(--ease),box-shadow .5s var(--ease)}
+.stop.hit::before{background:var(--violet);box-shadow:0 0 14px rgba(179,160,255,.85)}
+.row .who{transition:color .5s var(--ease),opacity .5s var(--ease);opacity:.55}
+.row.hit .who{opacity:1}
 .stop time{font:500 10.5px var(--mono);letter-spacing:.12em;color:var(--dim)}
 .stop h4{margin:7px 0 5px;font-size:clamp(1.2rem,2.3vw,1.6rem)}
 .stop p{margin:0;font-size:13.5px;color:#a09ab4;line-height:1.65;max-width:60ch}
@@ -243,9 +246,11 @@ footer{position:relative;z-index:3;padding:26px var(--pad);display:flex;flex-wra
 (function(){document.documentElement.classList.add('js');
 var l=document.getElementById('load');if(l)l.classList.add('on');
 document.querySelectorAll('.rv').forEach(function(e){var r=e.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0)e.classList.add('pend');});
-setTimeout(function(){if(window.__up)return;document.querySelectorAll('.rv').forEach(function(e){e.classList.add('in');});if(l)l.classList.add('off');},4000);})();
+setTimeout(function(){if(window.__up)return;document.querySelectorAll('.rv').forEach(function(e){e.classList.add('in');});
+document.querySelectorAll('.stop,.row').forEach(function(e){e.classList.add('hit');});
+if(l)l.classList.add('off');},4000);})();
 </script>
-<noscript><style>.load{display:none!important}</style></noscript>
+<noscript><style>.load{display:none!important}.stop::before{background:var(--violet)!important;box-shadow:0 0 14px rgba(179,160,255,.8)!important}.row .who{opacity:1!important}</style></noscript>
 
 <canvas id="world" aria-hidden="true"></canvas>
 <div class="veil" aria-hidden="true"></div>
@@ -478,7 +483,7 @@ setTimeout(function(){if(window.__up)return;document.querySelectorAll('.rv').for
     <h2 class="t-xl">Tell me what you're<br>trying to build.</h2>
     <p class="copy" style="margin-top:22px">I read everything that arrives. A role, a research collaboration, or something you are stuck on at two in the morning — all of it counts.</p>
     <div class="reach rv">
-      <a href="mailto:yogeshwaranmuthuraman56@gmail.com"><span>Email</span><b>yogeshwaranmuthuraman56@gmail.com</b></a>
+      <a href="mailto:yogeshwaranmuthuraman56@gmail.com"><span>Email</span><b>yogeshwaranmuthuraman56@<wbr>gmail.com</b></a>
       <a href="https://www.linkedin.com/in/yogeshwaran-muthuraman-361912278" target="_blank" rel="noreferrer"><span>LinkedIn</span><b>yogeshwaran-muthuraman</b></a>
       <a href="https://github.com/Yoge-2004" target="_blank" rel="noreferrer"><span>GitHub</span><b>@Yoge-2004</b></a>
       <a href="Yogeshwaran%20Resume.pdf" target="_blank" rel="noreferrer"><span>Résumé</span><b>Download the PDF</b></a>
@@ -712,6 +717,14 @@ try{
    b.light.intensity=2.8+face*face*6.5; // a snap, not a fade
   });
  }
+ const focusEls=[...document.querySelectorAll('.stop,.row')];
+ function trackFocus(){
+  const mid=innerHeight*.62;
+  focusEls.forEach(el=>{
+   const r=el.getBoundingClientRect();
+   el.classList.toggle('hit', r.top<mid);
+  });
+ }
  let f=0;
  function lightWalls(){f++;if(isMobile&&f%2)return;
   for(let i=0;i<wz.length;i++){
@@ -721,14 +734,16 @@ try{
   walls.instanceColor.needsUpdate=true;}
  const clock=new THREE.Clock();
  const draw=()=>comp?comp.render():r.render(sc,cam);
- if(reduced){cam.position.set(0,.7,5);cam.lookAt(0,.5,-6);lamp.position.copy(cam.position);animateBays();draw();}
- else r.setAnimationLoop(()=>{step();lightWalls();animateBays();
+ if(reduced){cam.position.set(0,.7,5);cam.lookAt(0,.5,-6);lamp.position.copy(cam.position);animateBays();trackFocus();draw();}
+ else r.setAnimationLoop(()=>{step();lightWalls();animateBays();trackFocus();
    lamp.intensity=(isMobile?5:7.6)+Math.sin(clock.getElapsedTime()*1.4)*.3;draw();});
 
  addEventListener('resize',()=>{r.setPixelRatio(Math.min(devicePixelRatio||1,isMobile?1.5:2));
   r.setSize(innerWidth,innerHeight,false);if(comp)comp.setSize(innerWidth,innerHeight);
   cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();if(reduced)draw();},{passive:true});
-}catch(e){document.getElementById('world').style.display='none';console.warn('world off',e);}
+}catch(e){document.getElementById('world').style.display='none';
+ document.querySelectorAll('.stop,.row').forEach(el=>el.classList.add('hit'));
+ console.warn('world off',e);}
 
 const ready=Promise.race([(document.fonts&&document.fonts.ready)||Promise.resolve(),new Promise(r=>setTimeout(r,1500))]);
 let p=0;const tk=setInterval(()=>{p=Math.min(90,p+16);loadFill.style.width=p+'%';},95);
