@@ -80,9 +80,14 @@ header{position:fixed;top:0;left:0;right:0;z-index:100;height:74px;padding:0 var
 
 main{position:relative;z-index:2}
 .bayview{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:124px var(--pad) 100px}
+.bayview.tight{min-height:0;padding:76px var(--pad)}
 .hold{width:100%;max-width:var(--maxw);margin:0 auto}
 /* legibility scrim, local to text — never an opaque full-bleed fill */
 .lit{position:relative}
+.exhibit .info{--arrive:1}
+.exhibit .no{opacity:calc(.45 + var(--arrive) * .55);transition:none}
+.exhibit h3{transform:scale(calc(1 + var(--arrive) * .035));transform-origin:left center;transition:none}
+.hold{will-change:transform}
 .bayview,.exhibit{overflow-x:clip}
 .lit::before{content:"";position:absolute;inset:-9% -7%;z-index:-1;
   background:radial-gradient(ellipse at 36% 50%,rgba(11,9,18,.94) 0%,rgba(11,9,18,.76) 44%,transparent 78%)}
@@ -159,19 +164,21 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:400;letter-spacing:-.012em;line
 .links a:hover,.links a:focus-visible{color:var(--gold)}
 
 /* compact grid */
-.rack{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:30px}
-.slot{padding:22px;border:1px solid rgba(247,237,224,.13);background:rgba(247,237,224,.026);display:flex;flex-direction:column;border-radius:14px}
-.slot h4{font-size:19px;margin-bottom:9px}
-.slot p{margin:0 0 15px;font-size:13px;line-height:1.65;color:#a09ab4;flex:1}
-.slot .chips{margin:0 0 14px}
+.rack{margin-top:28px;border-top:1px solid rgba(247,237,224,.13)}
+.slot{display:grid;grid-template-columns:44px 1fr;gap:22px;padding:24px 0;border-bottom:1px solid rgba(247,237,224,.13)}
+.slot .idx{font-family:var(--serif);font-size:16px;color:var(--dim);opacity:.6;padding-top:2px}
+.slot h4{font-size:18px;margin-bottom:8px;font-weight:600}
+.slot p{margin:0 0 12px;font-size:13.5px;line-height:1.6;color:#a09ab4}
+.slot .chips{margin:0 0 12px}
 
 /* arena */
 .rows{margin-top:26px;border-top:1px solid rgba(247,237,224,.13)}
-.row{display:grid;grid-template-columns:190px 1fr auto;gap:22px;align-items:baseline;padding:20px 0;border-bottom:1px solid rgba(247,237,224,.13)}
-.row .who{font:500 10.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
-.row h4{font-size:clamp(1.15rem,2.2vw,1.5rem);margin-bottom:5px}
+.row{display:grid;grid-template-columns:96px 1fr;gap:24px;align-items:start;padding:26px 0;border-bottom:1px solid rgba(247,237,224,.13)}
+.row .yr{font-family:var(--serif);font-size:clamp(1.9rem,4vw,2.6rem);line-height:1;color:var(--dim);opacity:.5;font-weight:400}
+.row .who{font:600 10.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:6px}
+.row h4{font-size:clamp(1.1rem,2.1vw,1.4rem);margin-bottom:5px}
 .row p{margin:0;font-size:13px;color:#a09ab4;line-height:1.6;max-width:58ch}
-.row .when{font:500 11px var(--sans);color:var(--dim);white-space:nowrap}
+.row .when{display:block;margin-top:8px;font:500 11px var(--sans);color:var(--dim);white-space:nowrap}
 
 /* capability */
 .caps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:30px}
@@ -394,17 +401,17 @@ if(l)l.classList.add('off');},4000);})();
 </article>
 </div>
 
-<section class="bayview">
+<section class="bayview tight">
   <div class="hold lit">
     <div class="tag"><s></s>Also built</div>
     <h2 class="t-lg">Six more, still public.</h2>
     <div class="rack rv">
-      <div class="slot"><h4>Library Management System</h4><p>The system built during the Robowaves internship. A JavaFX desktop application over MySQL covering catalog, circulation, authentication and reporting — packaged with installers.</p><div class="chips"><span>Java</span><span>JavaFX</span><span>MySQL</span><span>Maven</span></div><div class="links"><a href="https://github.com/Yoge-2004/lms-javafx" target="_blank" rel="noreferrer">Source</a><a href="https://github.com/Yoge-2004/lms-javafx/tree/main/dist" target="_blank" rel="noreferrer">Installers</a></div></div>
-      <div class="slot"><h4>Explainable Fraud Alerts</h4><p>Transaction fraud scoring where every alert arrives with a human-readable reason. SHAP and LIME explanations, an alerting pipeline with email and webhook hooks, and Docker deployment patterns.</p><div class="chips"><span>Python</span><span>SHAP</span><span>LIME</span><span>Docker</span></div><div class="links"><a href="https://github.com/Yoge-2004/explainable-fraud-alert-system" target="_blank" rel="noreferrer">Source</a></div></div>
-      <div class="slot"><h4>Todo Web App</h4><p>FastAPI and SQLModel with session-cookie auth and bcrypt hashing. Tasks carry deadlines and priorities, past deadlines are rejected at validation, and high-priority tasks fire a background email.</p><div class="chips"><span>FastAPI</span><span>SQLModel</span><span>bcrypt</span><span>SMTP</span></div><div class="links"><a href="https://github.com/Yoge-2004/todo-python-app" target="_blank" rel="noreferrer">Source</a></div></div>
-      <div class="slot"><h4>Smart City Guide</h4><p>An interactive guide to city landmarks, restaurants, hospitals and services, with search and filtering by category and rating. Java core with an HTML and CSS front end.</p><div class="chips"><span>Java</span><span>HTML</span><span>CSS</span></div><div class="links"><a href="https://github.com/Yoge-2004/smart-city-guide" target="_blank" rel="noreferrer">Source</a></div></div>
-      <div class="slot"><h4>REST Assured Framework</h4><p>API test automation against the Petstore Swagger API. Cucumber scenarios in Gherkin, REST Assured assertions, a TestNG runner and generated HTML, JSON and JUnit reports.</p><div class="chips"><span>Java</span><span>REST Assured</span><span>Cucumber</span><span>TestNG</span></div><div class="links"><a href="https://github.com/Yoge-2004/rest-assured-testing" target="_blank" rel="noreferrer">Source</a></div></div>
-      <div class="slot"><h4>Java Quiz Application</h4><p>A desktop quiz with selectable topics, multiple-choice questions, optional per-question timing and score feedback at the end. Built to extend with new question sets.</p><div class="chips"><span>Java</span><span>Swing/JavaFX</span></div><div class="links"><a href="https://github.com/Yoge-2004/java-quiz-application" target="_blank" rel="noreferrer">Source</a></div></div>
+      <div class="slot"><span class="idx">01</span><div><h4>Library Management System</h4><p>The system built during the Robowaves internship. A JavaFX desktop application over MySQL covering catalog, circulation, authentication and reporting — packaged with installers.</p><div class="chips"><span>Java</span><span>JavaFX</span><span>MySQL</span><span>Maven</span></div><div class="links"><a href="https://github.com/Yoge-2004/lms-javafx" target="_blank" rel="noreferrer">Source</a><a href="https://github.com/Yoge-2004/lms-javafx/tree/main/dist" target="_blank" rel="noreferrer">Installers</a></div></div></div>
+      <div class="slot"><span class="idx">02</span><div><h4>Explainable Fraud Alerts</h4><p>Transaction fraud scoring where every alert arrives with a human-readable reason. SHAP and LIME explanations, an alerting pipeline with email and webhook hooks, and Docker deployment patterns.</p><div class="chips"><span>Python</span><span>SHAP</span><span>LIME</span><span>Docker</span></div><div class="links"><a href="https://github.com/Yoge-2004/explainable-fraud-alert-system" target="_blank" rel="noreferrer">Source</a></div></div></div>
+      <div class="slot"><span class="idx">03</span><div><h4>Todo Web App</h4><p>FastAPI and SQLModel with session-cookie auth and bcrypt hashing. Tasks carry deadlines and priorities, past deadlines are rejected at validation, and high-priority tasks fire a background email.</p><div class="chips"><span>FastAPI</span><span>SQLModel</span><span>bcrypt</span><span>SMTP</span></div><div class="links"><a href="https://github.com/Yoge-2004/todo-python-app" target="_blank" rel="noreferrer">Source</a></div></div></div>
+      <div class="slot"><span class="idx">04</span><div><h4>Smart City Guide</h4><p>An interactive guide to city landmarks, restaurants, hospitals and services, with search and filtering by category and rating. Java core with an HTML and CSS front end.</p><div class="chips"><span>Java</span><span>HTML</span><span>CSS</span></div><div class="links"><a href="https://github.com/Yoge-2004/smart-city-guide" target="_blank" rel="noreferrer">Source</a></div></div></div>
+      <div class="slot"><span class="idx">05</span><div><h4>REST Assured Framework</h4><p>API test automation against the Petstore Swagger API. Cucumber scenarios in Gherkin, REST Assured assertions, a TestNG runner and generated HTML, JSON and JUnit reports.</p><div class="chips"><span>Java</span><span>REST Assured</span><span>Cucumber</span><span>TestNG</span></div><div class="links"><a href="https://github.com/Yoge-2004/rest-assured-testing" target="_blank" rel="noreferrer">Source</a></div></div></div>
+      <div class="slot"><span class="idx">06</span><div><h4>Java Quiz Application</h4><p>A desktop quiz with selectable topics, multiple-choice questions, optional per-question timing and score feedback at the end. Built to extend with new question sets.</p><div class="chips"><span>Java</span><span>Swing/JavaFX</span></div><div class="links"><a href="https://github.com/Yoge-2004/java-quiz-application" target="_blank" rel="noreferrer">Source</a></div></div></div>
     </div>
   </div>
 </section>
@@ -415,16 +422,16 @@ if(l)l.classList.add('off');},4000);})();
     <h2 class="t-lg" style="max-width:20ch">Rooms where the deadline is the same for everyone.</h2>
     <p class="copy" style="margin-top:22px">Conferences and hackathons taught me what coursework could not: how to scope something in hours rather than weeks, and how to explain it to people who did not build it.</p>
     <div class="rows rv">
-      <div class="row"><div class="who">SRM Institute</div><div><h4>ICISD'26 — International Conference</h4><p>Presented the fake job detection research as an oral presentation. The paper was published in the conference proceedings.</p></div><div class="when">6–7 Apr 2026</div></div>
-      <div class="row"><div class="who">IIT Madras Research Park</div><div><h4>Naan Mudhalvan 2025</h4><p>An NLP-focused hackathon, building intelligent text processing for the Tamil language.</p></div><div class="when">2025</div></div>
-      <div class="row"><div class="who">IEEE SJCE Student Branch</div><div><h4>Web-A-Thon</h4><p>A 24-hour international online hackathon hosted by St. Joseph's Engineering College.</p></div><div class="when">27–28 Mar 2025</div></div>
-      <div class="row"><div class="who">DPurpose Foundation</div><div><h4>Hack4Purpose</h4><p>A nationwide hackathon for sustainable social innovation, run across several months.</p></div><div class="when">Feb–May 2024</div></div>
-      <div class="row"><div class="who">Octanet</div><div><h4>Mastering MERN</h4><p>A four-day intensive workshop on MongoDB, Express, React and Node.</p></div><div class="when">Workshop</div></div>
+      <div class="row"><b class="yr">2026</b><div><span class="who">SRM Institute</span><h4>ICISD'26 — International Conference</h4><p>Presented the fake job detection research as an oral presentation. The paper was published in the conference proceedings.</p><span class="when">6–7 April</span></div></div>
+      <div class="row"><b class="yr">2025</b><div><span class="who">IIT Madras Research Park</span><h4>Naan Mudhalvan</h4><p>An NLP-focused hackathon, building intelligent text processing for the Tamil language.</p></div></div>
+      <div class="row"><b class="yr">2025</b><div><span class="who">IEEE SJCE Student Branch</span><h4>Web-A-Thon</h4><p>A 24-hour international online hackathon hosted by St. Joseph's Engineering College.</p><span class="when">27–28 March</span></div></div>
+      <div class="row"><b class="yr">2024</b><div><span class="who">DPurpose Foundation</span><h4>Hack4Purpose</h4><p>A nationwide hackathon for sustainable social innovation, run across several months.</p><span class="when">February–May</span></div></div>
+      <div class="row"><b class="yr">·</b><div><span class="who">Octanet</span><h4>Mastering MERN</h4><p>A four-day intensive workshop on MongoDB, Express, React and Node.</p><span class="when">Workshop</span></div></div>
     </div>
   </div>
 </section>
 
-<section class="bayview" id="capability">
+<section class="bayview tight" id="capability">
   <div class="hold lit">
     <div class="tag"><s></s>Capability</div>
     <h2 class="t-lg">What I reach for, and where I have used it.</h2>
@@ -709,8 +716,9 @@ try{
   fc.copy(zn.c).multiplyScalar(.58);
   sc.fog.color.copy(fc); sc.background.copy(fc).multiplyScalar(.5);
  }
+ const infoEls=[...document.querySelectorAll('.exhibit .info')];
  function animateBays(){
-  bays.forEach(b=>{
+  bays.forEach((b,i)=>{
    const d=Math.abs(cam.position.z-b.z);
    const near=THREE.MathUtils.clamp(1-d/8.5,0,1); // 0 far, 1 arrived
    const face=THREE.MathUtils.smoothstep?THREE.MathUtils.smoothstep(near,0,1):near*near*(3-2*near);
@@ -720,6 +728,20 @@ try{
    b.edge.position.set(b.panel.position.x+b.frameOffX,b.panel.position.y,b.panel.position.z);
    b.edge.rotation.copy(b.panel.rotation); b.edge.scale.copy(b.panel.scale);
    b.light.intensity=2.8+face*face*6.5; // a snap, not a fade
+   // the exhibit's own text arrives as the SAME beat as its panel, slightly
+   // ahead of the panel's full turn, instead of a generic one-shot fade that
+   // happens to overlap with the 3D event by coincidence.
+   if(infoEls[i]) infoEls[i].style.setProperty('--arrive', Math.min(1, face*1.4).toFixed(3));
+  });
+ }
+ const parallaxEls=[...document.querySelectorAll('.hold')];
+ function parallax(){
+  if(reduced) return;
+  const mid=innerHeight/2;
+  parallaxEls.forEach(el=>{
+   const r=el.getBoundingClientRect();
+   const delta=(r.top+r.height/2-mid)/innerHeight;
+   el.style.transform=`translateY(${(-delta*16).toFixed(2)}px)`;
   });
  }
  const focusEls=[...document.querySelectorAll('.stop,.row')];
@@ -740,8 +762,9 @@ try{
  const clock=new THREE.Clock();
  const draw=()=>comp?comp.render():r.render(sc,cam);
  if(reduced){cam.position.set(0,.7,5);cam.lookAt(0,.5,-6);lamp.position.copy(cam.position);animateBays();trackFocus();draw();}
- else r.setAnimationLoop(()=>{step();lightWalls();animateBays();trackFocus();
+ else r.setAnimationLoop(()=>{step();lightWalls();animateBays();trackFocus();parallax();
    lamp.intensity=(isMobile?5:7.6)+Math.sin(clock.getElapsedTime()*1.4)*.3;draw();});
+
 
  addEventListener('resize',()=>{r.setPixelRatio(Math.min(devicePixelRatio||1,isMobile?1.5:2));
   r.setSize(innerWidth,innerHeight,false);if(comp)comp.setSize(innerWidth,innerHeight);
