@@ -18,10 +18,20 @@ export function initScroll() {
       });
 
   if (lenis) {
-    lenis.on('scroll', ScrollTrigger.update);
+    lenis.on('scroll', e => {
+      ScrollTrigger.update();
+      if (typeof e?.progress === 'number') {
+        updateProgress(e.progress);
+      }
+    });
     gsap.ticker.add(time => lenis.raf(time * 1000));
     gsap.ticker.lagSmoothing(0);
+    window.__lenis = lenis;
   }
+
+  window.addEventListener('scroll', () => {
+    ScrollTrigger.update();
+  }, { passive: true });
 
   ScrollTrigger.create({
     trigger: document.body,

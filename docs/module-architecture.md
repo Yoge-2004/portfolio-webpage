@@ -10,17 +10,22 @@ This document describes the production architecture, modular directory structure
 portfolio-webpage/
 │
 ├── index.html                   # Pure semantic HTML structure & resource declarations
-├── 404.html                     # Stitch-themed 404 error page for GitHub Pages routing
+├── 400.html                     # Stitch-themed 400 Bad Request error fallback
+├── 401.html                     # Stitch-themed 401 Authorization Required error fallback
+├── 403.html                     # Stitch-themed 403 Forbidden Archive error fallback
+├── 404.html                     # Stitch-themed 404 Void Coordinate / Not Found fallback
+├── 500.html                     # Stitch-themed 500 Internal System Failure error fallback
+├── 503.html                     # Stitch-themed 503 System Unavailable error fallback
 │
 ├── css/
 │   ├── tokens.css               # Stitch palette, design tokens, typography, and spacing
-│   ├── base.css                 # CSS reset, zero-radius rule, typography defaults, buttons
+│   ├── base.css                 # CSS reset, zero-radius rule, typography defaults, kinetic word masks
 │   ├── layout.css               # Containers, section wrappers (.bayview), scrims (.lit)
 │   ├── components/
 │   │   ├── navigation.css       # Monolithic header, logo, nav bar, mobile sheet, skip link
 │   │   ├── hero.css             # Prologue / Hero typography, facts ledger, scroll cue
-│   │   ├── sections.css         # Origin panels, duo grid, research chamber vault & metrics
-│   │   ├── projects.css         # Quests exhibits, tactical cards, schematics, also-built rack
+│   │   ├── sections.css         # Origin panels, duo grid, research chamber vault, spatial cluster frame
+│   │   ├── projects.css         # Quests spatial frames, 3D plinth viewports, also-built rack
 │   │   ├── timeline.css         # Arena rows, capability bay, cert cards, path milestone stops
 │   │   ├── contact.css          # Horizon atrium, reach cards, and footer
 │   │   └── telemetry.css        # Bottom HUD bar, depth gauge, chapter indicators, progress bar
@@ -58,28 +63,36 @@ portfolio-webpage/
 │   │
 │   ├── animation/
 │   │   ├── scroll.js            # Lenis smooth-scroll + GSAP ScrollTrigger synchronization
-│   │   ├── counters.js          # Numerical countUp ticker for stats and metrics
-│   │   └── reveal.js            # IntersectionObserver reveal triggers for .rv elements
-│   │
-│   ├── navigation/
-│   │   ├── navigation.js        # Navigation scrollspy, active link states, smooth anchor scroll
-│   │   └── mobile-menu.js       # Hamburger drawer toggle, accessibility attributes, Escape key
+│   │   ├── reveal.js            # IntersectionObserver for editorial DOM element reveals
+│   │   ├── text.js              # Kinetic typography & word-splitting reveals
+│   │   ├── transitions.js       # Atmospheric chapter presets & dynamic fog/lighting lerp
+│   │   └── counters.js          # Eased telemetry metric number animation
 │   │
 │   ├── interaction/
-│   │   ├── cursor.js            # Precision reticle cursor motion and hover expansion
-│   │   └── pointer.js           # Normalized pointer tracking for 3D parallax
+│   │   ├── pointer.js           # Pointer coordinate tracking, normalized values, smooth lerp
+│   │   ├── cursor.js            # Precision desktop reticle cursor
+│   │   └── magnetic.js          # Desktop magnetic CTA spring damping
+│   │
+│   ├── navigation/
+│   │   ├── navigation.js        # Primary chapter anchor links and smooth scroll handler
+│   │   └── mobile-menu.js       # Mobile drawer toggle and keyboard trap management
 │   │
 │   ├── ui/
-│   │   ├── loading.js           # Loading screen progress ticker and dismissal
-│   │   ├── telemetry.js         # Bottom HUD bar updates (chapter title, index, depth gauge)
-│   │   └── cards.js             # 2D tactical exhibit canvas card renderer (canvas textures)
+│   │   ├── cards.js             # 2D schematic canvas card renderers (texture sources)
+│   │   ├── telemetry.js         # Bottom HUD telemetry depth gauge & active chapter detector
+│   │   └── loading.js           # Loading overlay dismissal and coordinate animation
 │   │
 │   └── accessibility/
-│       └── fallback.js          # WebGL failure and reduced-motion fallback controller
+│       └── fallback.js          # WebGL context lost & reduced-motion fallback controller
+│
+├── tests/
+│   └── test-suite.mjs           # Automated Playwright 12-viewport and functional test runner
 │
 ├── assets/                      # Certificates, icons, resume, and profile media
 ├── vendor/                      # Local vendor copies of Three.js, GSAP, and Lenis
 └── docs/                        # Architecture documentation and guides
+    ├── module-architecture.md   # Architectural documentation
+    └── reference-implementation-audit.md # Reference repository audit and adaptations
 ```
 
 ---

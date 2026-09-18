@@ -11,6 +11,7 @@ export function setupFallback(canvas, renderer) {
     } catch (_) {}
 
     if (canvas) canvas.style.display = 'none';
+    document.body.classList.add('no-webgl');
     document.querySelectorAll('.rv').forEach(el => el.classList.add('in'));
     document.querySelectorAll('.stop,.row').forEach(el => el.classList.add('hit'));
     console.warn('3D World switched to static DOM mode:', reason);

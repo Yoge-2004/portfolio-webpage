@@ -33,11 +33,34 @@ export function createExhibits(scene, getPathPoint, progressOfZ) {
     const slabMesh = new THREE.Mesh(slabGeo, slabMaterials);
     slabGroup.add(slabMesh);
 
+    // Heavy Architectural Pedestal Base
+    const pedestalGeo = new THREE.BoxGeometry(5.0, 0.16, 0.45);
+    const pedestalMat = new THREE.MeshStandardMaterial({
+      color: COLORS.bronze,
+      roughness: 0.5,
+      metalness: 0.7
+    });
+    const pedestal = new THREE.Mesh(pedestalGeo, pedestalMat);
+    pedestal.position.set(0, -1.58, 0);
+    slabGroup.add(pedestal);
+
     // Architectural Perimeter Brass Hairline
     const borderGeo = new THREE.EdgesGeometry(slabGeo);
     const borderMat = new THREE.LineBasicMaterial({ color: COLORS.brass });
     const borderLines = new THREE.LineSegments(borderGeo, borderMat);
     slabGroup.add(borderLines);
+
+    // Floating Holographic Calibration Ring above slab
+    const haloGeo = new THREE.RingGeometry(0.48, 0.51, 32);
+    const haloMat = new THREE.MeshBasicMaterial({
+      color: COLORS.lightBrass,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.65
+    });
+    const halo = new THREE.Mesh(haloGeo, haloMat);
+    halo.position.set(0, 1.85, 0.05);
+    slabGroup.add(halo);
 
     // Dedicated Local Spotlight
     const spot = new THREE.PointLight(COLORS.lightBrass, 2.2, 14, 2);
@@ -56,6 +79,7 @@ export function createExhibits(scene, getPathPoint, progressOfZ) {
 
     exhibitionBays.push({
       group: slabGroup,
+      halo,
       light: spot,
       tex: canvasTex,
       baseX,
@@ -76,6 +100,7 @@ export function createExhibits(scene, getPathPoint, progressOfZ) {
       bay.group.position.x = THREE.MathUtils.lerp(bay.baseX, bay.baseX - bay.side * 0.85, face);
       bay.group.rotation.y = THREE.MathUtils.lerp(bay.baseRotY, 0, face * 0.92);
       bay.light.intensity = 1.4 + face * 4.8;
+      if (bay.halo) bay.halo.rotation.z += 0.012;
     });
   }
 

@@ -2,3 +2,4 @@ script.js
 components.css
 node_modules/
 .idea/
+.test-artifacts/

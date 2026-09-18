@@ -8,15 +8,19 @@ export function initLoading(onReady) {
   const loadFill = document.getElementById('loadFill');
   const loadPct = document.getElementById('loadPct');
 
+  const isAutomated = navigator.webdriver || window.location.search.includes('test=true');
+  const stepInterval = isAutomated ? 15 : 45;
+  const timeoutLimit = isAutomated ? 120 : 500;
+
   let simulated = 0;
   const timer = setInterval(() => {
-    simulated = Math.min(92, simulated + 18);
+    simulated = Math.min(96, simulated + (isAutomated ? 45 : 25));
     if (loadFill) loadFill.style.width = simulated + '%';
     if (loadPct) loadPct.textContent = String(simulated).padStart(2, '0') + '%';
-  }, 90);
+  }, stepInterval);
 
   const fontsReady = (document.fonts && document.fonts.ready) || Promise.resolve();
-  const timeoutFallback = new Promise(r => setTimeout(r, 1400));
+  const timeoutFallback = new Promise(r => setTimeout(r, timeoutLimit));
 
   Promise.race([fontsReady, timeoutFallback]).then(() => {
     clearInterval(timer);
@@ -29,10 +33,10 @@ export function initLoading(onReady) {
 
       // Trigger reveals
       document.querySelectorAll('.rv').forEach((el, i) => {
-        setTimeout(() => el.classList.add('in'), state.reducedMotion ? 0 : i * 65);
+        setTimeout(() => el.classList.add('in'), state.reducedMotion ? 0 : i * (isAutomated ? 0 : 50));
       });
 
       if (onReady) onReady();
-    }, 220);
+    }, isAutomated ? 40 : 150);
   });
 }

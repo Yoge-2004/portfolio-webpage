@@ -1,0 +1,20 @@
+/**
+ * Fallback Styles for Non-JavaScript Environments
+ */
+.load {
+  display: none !important;
+}
+
+.stop::before {
+  background: var(--brass) !important;
+  box-shadow: 0 0 12px var(--brass) !important;
+}
+
+.row .who {
+  opacity: 1 !important;
+}
+
+.rv {
+  opacity: 1 !important;
+  transform: none !important;
+}

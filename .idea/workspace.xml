@@ -4,42 +4,81 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="485996c5-e91c-4b53-bc5b-3c1ec0a5b0f7" name="Changes" comment="" />
+    <list default="true" id="485996c5-e91c-4b53-bc5b-3c1ec0a5b0f7" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/404.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/base.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/components/contact.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/components/contact.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/components/projects.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/components/projects.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/components/sections.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/components/sections.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/effects/transitions.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/effects/transitions.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/layout.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/responsive.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/responsive.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/module-architecture.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/module-architecture.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/accessibility/fallback.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/accessibility/fallback.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/animation/scroll.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/animation/scroll.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/ui/loading.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/ui/loading.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/ui/telemetry.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/ui/telemetry.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/world/camera.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/world/camera.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/world/exhibits.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/world/exhibits.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/world/horizon-portal.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/world/horizon-portal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/world/lighting.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/world/lighting.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/world/milestones.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/world/milestones.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/world/research-cluster.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/world/research-cluster.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/world/scene.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/world/scene.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/world/world.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/world/world.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="77" />
-    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
+    <option name="cachedIndexableFilesCount" value="164" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Yoge-2004&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Yoge-2004/portfolio-webpage.git&quot;,
+    &quot;accountId&quot;: &quot;1aad42f3-0431-4725-928e-bd5da1af4d43&quot;
+  }
+}</component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.1454848036627312" />
-      <entry key="MS500" value="2.820057718032678" />
-      <entry key="S2" value="10.645137017478056" />
-      <entry key="S5" value="26.17524466045752" />
-      <entry key="S10" value="47.052207278986614" />
-      <entry key="S30" value="96.74501938101879" />
-      <entry key="S60" value="126.60714531541126" />
-      <entry key="M2" value="147.47305982660342" />
-      <entry key="M5" value="162.60445809366288" />
-      <entry key="M10" value="168.1614154670029" />
-      <entry key="M15" value="170.07552699955008" />
-      <entry key="M30" value="172.02151897730508" />
-      <entry key="H1" value="173.0066598394764" />
-      <entry key="H2" value="173.50230015004416" />
-      <entry key="H4" value="173.75089202274108" />
-      <entry key="D1" value="173.95844611130784" />
-      <entry key="W1" value="173.9940628505101" />
+      <entry key="MS100" value="1.04247712860873" />
+      <entry key="MS500" value="2.610745971089332" />
+      <entry key="S2" value="10.272005290632713" />
+      <entry key="S5" value="25.776907355852487" />
+      <entry key="S10" value="46.873756813706095" />
+      <entry key="S30" value="97.2408681656579" />
+      <entry key="S60" value="127.62088001400419" />
+      <entry key="M2" value="148.8980134170769" />
+      <entry key="M5" value="164.3506611533359" />
+      <entry key="M10" value="170.03014897982797" />
+      <entry key="M15" value="171.9870128165059" />
+      <entry key="M30" value="173.97675189941575" />
+      <entry key="H1" value="174.98414720562045" />
+      <entry key="H2" value="175.4910113573725" />
+      <entry key="H4" value="175.74523948207693" />
+      <entry key="D1" value="175.95750288787866" />
+      <entry key="W1" value="175.99392807652296" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -61,23 +100,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.0632575241199864" />
-      <entry key="MS500" value="2.7821023365059787" />
-      <entry key="S2" value="10.61094390186011" />
-      <entry key="S5" value="26.140666284657915" />
-      <entry key="S10" value="47.019783032555196" />
-      <entry key="S30" value="96.72008844241648" />
-      <entry key="S60" value="126.58987932755294" />
-      <entry key="M2" value="147.46266351959326" />
-      <entry key="M5" value="162.59977359396524" />
-      <entry key="M10" value="168.15897526900815" />
-      <entry key="M15" value="170.07387760149032" />
-      <entry key="M30" value="172.02068276289737" />
-      <entry key="H1" value="173.00623881227355" />
-      <entry key="H2" value="173.50208890123494" />
-      <entry key="H4" value="173.75078621387956" />
-      <entry key="D1" value="173.9584284508231" />
-      <entry key="W1" value="173.99406032695416" />
+      <entry key="MS100" value="0.9396243074461699" />
+      <entry key="MS500" value="2.4713101154496884" />
+      <entry key="S2" value="10.19125626248808" />
+      <entry key="S5" value="25.721377610683934" />
+      <entry key="S10" value="46.83033123320982" />
+      <entry key="S30" value="97.21205564297351" />
+      <entry key="S60" value="127.60160107424116" />
+      <entry key="M2" value="148.88658070709158" />
+      <entry key="M5" value="164.34555241743996" />
+      <entry key="M10" value="170.02749478422507" />
+      <entry key="M15" value="171.9852203133646" />
+      <entry key="M30" value="173.97584390660575" />
+      <entry key="H1" value="174.98369023162647" />
+      <entry key="H2" value="175.4907821206273" />
+      <entry key="H4" value="175.7451246755943" />
+      <entry key="D1" value="175.9574837272815" />
+      <entry key="W1" value="175.99392533865276" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -89,35 +128,46 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Node.js.index.js.executor": "Run",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "master",
-    "javascript.preferred.runtime.type.id": "node",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "/projects/Webpage",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_interpreter_path": "node",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "settings.javascript.runtime",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Node.js.index.js.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/yoge/WebstormProjects/portfolio-webpage/index.html&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;ml.llm.LLMThirdPartyAiProvidersConfigurable&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RunManager">
+    <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" engineId="7334943e-88ae-4bed-897a-9e0072ac58d9" uri="file://$PROJECT_DIR$/index.html">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.index.html" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-WS-261.25134.101" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-WS-262.10968.77" />
       </set>
     </attachedChunks>
   </component>
@@ -133,10 +183,47 @@
       <workItem from="1774423412262" duration="826000" />
       <workItem from="1774600383231" duration="348000" />
       <workItem from="1781019399482" duration="593000" />
+      <workItem from="1784544138388" duration="2108000" />
+      <workItem from="1784622146639" duration="428000" />
+      <workItem from="1784718838313" duration="173000" />
+      <workItem from="1784854624725" duration="140000" />
+      <workItem from="1784857741297" duration="130000" />
+      <workItem from="1784986449841" duration="62000" />
+      <workItem from="1784988336740" duration="651000" />
+      <workItem from="1785009554360" duration="281000" />
+      <workItem from="1785048277738" duration="35000" />
+      <workItem from="1785068337864" duration="274000" />
+      <workItem from="1785068672897" duration="3000" />
+      <workItem from="1785107277066" duration="183000" />
+      <workItem from="1785175718645" duration="286000" />
+      <workItem from="1785292563712" duration="195000" />
+      <workItem from="1785435505025" duration="142000" />
+      <workItem from="1785471879601" duration="818000" />
+      <workItem from="1785586405042" duration="344000" />
+      <workItem from="1785587310449" duration="1223000" />
+      <workItem from="1788895630248" duration="354000" />
+      <workItem from="1789247185189" duration="1227000" />
+      <workItem from="1789453847110" duration="1075000" />
+      <workItem from="1789759220991" duration="173000" />
+      <workItem from="1789767208949" duration="163000" />
+      <workItem from="1789767409386" duration="150000" />
+      <workItem from="1789767576901" duration="86000" />
+      <workItem from="1789767690033" duration="237000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

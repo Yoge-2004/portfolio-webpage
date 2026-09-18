@@ -54,7 +54,77 @@
   font-weight: 300;
 }
 
-/* Research Chamber (Discovery — ICISD'26) */
+/* Research Chamber Stage (Discovery — ICISD'26) */
+.research-stage {
+  display: grid;
+  grid-template-columns: 0.82fr 1.18fr;
+  gap: clamp(32px, 5vw, 64px);
+  align-items: center;
+  margin-top: 36px;
+}
+
+.research-portal-frame {
+  min-height: 440px;
+  border: 1px dashed rgba(185, 101, 66, 0.35);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+  background: radial-gradient(circle at center, rgba(185, 101, 66, 0.05) 0%, transparent 72%);
+  pointer-events: none;
+}
+
+.research-portal-frame::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 18px;
+  height: 18px;
+  border-top: 2px solid var(--copper);
+  border-left: 2px solid var(--copper);
+}
+
+.research-portal-frame::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 18px;
+  height: 18px;
+  border-bottom: 2px solid var(--copper);
+  border-right: 2px solid var(--copper);
+}
+
+.research-portal-header,
+.research-portal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--copper);
+}
+
+.research-portal-footer {
+  color: var(--muted-bone);
+  border-top: 1px solid rgba(185, 101, 66, 0.3);
+  padding-top: 12px;
+}
+
+@media (max-width: 960px) {
+  .research-stage {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .research-portal-frame {
+    min-height: 220px;
+  }
+}
+
 .vault {
   border: 1px solid var(--border-copper);
   padding: clamp(28px, 4vw, 52px);
@@ -149,6 +219,28 @@
   letter-spacing: .16em;
   text-transform: uppercase;
   color: var(--muted-bone);
+}
+
+@media (max-width: 640px) {
+  .nums {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .num {
+    padding: 14px 18px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .num b {
+    font-size: 2.1rem;
+  }
+  .num span {
+    margin-top: 0;
+    text-align: right;
+    max-width: 18ch;
+  }
 }
 
 .by {

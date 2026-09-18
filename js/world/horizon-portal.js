@@ -17,25 +17,37 @@ export function createHorizonPortal(scene) {
   const portalGate = new THREE.Mesh(portalGateGeo, portalGateMat);
   horizonPortal.add(portalGate);
 
-  // Aperture Void Rim
-  const rimGeo = new THREE.RingGeometry(3.5, 3.7, 48);
+  // Concentric Aperture Rings
   const rimMat = new THREE.MeshBasicMaterial({
     color: COLORS.brass,
     side: THREE.DoubleSide
   });
-  const rim = new THREE.Mesh(rimGeo, rimMat);
-  rim.position.z = 0.35;
-  horizonPortal.add(rim);
+  const innerRim = new THREE.Mesh(new THREE.RingGeometry(3.2, 3.35, 48), rimMat);
+  innerRim.position.z = 0.35;
+  horizonPortal.add(innerRim);
+
+  const outerRim = new THREE.Mesh(new THREE.RingGeometry(4.4, 4.52, 64), rimMat);
+  outerRim.position.z = 0.32;
+  horizonPortal.add(outerRim);
 
   // Radiant Horizon Tungsten Light
-  const horizonLight = new THREE.PointLight(COLORS.lightBrass, 4.5, 36, 1.8);
+  const horizonLight = new THREE.PointLight(COLORS.lightBrass, 4.5, 42, 1.8);
   horizonLight.position.set(0, 0, -2);
   horizonPortal.add(horizonLight);
 
   scene.add(horizonPortal);
 
+  function updateHorizonPortal(time, camZ = 0) {
+    innerRim.rotation.z = time * 0.0002;
+    outerRim.rotation.z = -time * 0.00015;
+    const isAtHorizon = camZ <= -140;
+    const targetIntensity = isAtHorizon ? 6.5 + Math.sin(time * 0.002) * 0.8 : 3.5;
+    horizonLight.intensity = THREE.MathUtils.lerp(horizonLight.intensity, targetIntensity, 0.08);
+  }
+
   return {
     horizonPortal,
-    horizonLight
+    horizonLight,
+    updateHorizonPortal
   };
 }

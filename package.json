@@ -3,5 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "description": "Yogeshwaran Muthuraman — personal portfolio (static site, no build step).",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "playwright": "^1.63.0"
+  }
 }

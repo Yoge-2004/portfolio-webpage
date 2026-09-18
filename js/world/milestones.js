@@ -19,18 +19,34 @@ export function createMilestones(scene, getPathPoint, progressOfZ) {
     beacon.position.set(mPt.x, -1.6, mz);
     scene.add(beacon);
 
-    const beaconLight = new THREE.PointLight(COLORS.brass, 0, 5, 2);
-    beaconLight.position.set(mPt.x, -1.3, mz);
+    // Emissive Beacon Cap
+    const capGeo = new THREE.BoxGeometry(0.19, 0.06, 0.19);
+    const capMat = new THREE.MeshStandardMaterial({
+      color: COLORS.brass,
+      emissive: COLORS.brass,
+      emissiveIntensity: 0.2,
+      roughness: 0.2,
+      metalness: 0.9
+    });
+    const capMesh = new THREE.Mesh(capGeo, capMat);
+    capMesh.position.set(mPt.x, -1.35, mz);
+    scene.add(capMesh);
+
+    const beaconLight = new THREE.PointLight(COLORS.brass, 0, 5.5, 2);
+    beaconLight.position.set(mPt.x, -1.2, mz);
     scene.add(beaconLight);
 
-    milestoneNodes.push({ mesh: beacon, light: beaconLight, z: mz });
+    milestoneNodes.push({ mesh: beacon, cap: capMesh, light: beaconLight, z: mz });
   });
 
   function updateMilestones(camZ) {
     milestoneNodes.forEach(node => {
       const dist = Math.abs(camZ - node.z);
-      const hit = dist < 5.5;
-      node.light.intensity = THREE.MathUtils.lerp(node.light.intensity, hit ? 3.0 : 0, 0.1);
+      const hit = dist < 6.0;
+      const targetIntensity = hit ? 3.5 : 0;
+      const targetEmissive = hit ? 1.8 : 0.2;
+      node.light.intensity = THREE.MathUtils.lerp(node.light.intensity, targetIntensity, 0.12);
+      node.cap.material.emissiveIntensity = THREE.MathUtils.lerp(node.cap.material.emissiveIntensity, targetEmissive, 0.12);
     });
   }
 

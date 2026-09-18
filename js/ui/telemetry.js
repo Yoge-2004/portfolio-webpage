@@ -13,25 +13,38 @@ export function initTelemetry() {
 
   function checkActiveChapter() {
     const triggerY = innerHeight * 0.45;
-    for (let i = chapterSections.length - 1; i >= 0; i--) {
+    let closestSec = null;
+    let minDistance = Infinity;
+
+    for (let i = 0; i < chapterSections.length; i++) {
       const sec = chapterSections[i];
       const rect = sec.getBoundingClientRect();
       if (rect.top <= triggerY && rect.bottom >= triggerY) {
-        const title = sec.dataset.chapter || 'ARCHIVE';
-        const idx = sec.dataset.idx || 'CH. 01';
-
-        if (state.activeChapter !== title) {
-          updateActiveChapter(title, idx);
-          if (hudTitle) hudTitle.textContent = title;
-          if (hudIndex) hudIndex.textContent = idx;
-
-          // Update primary navigation highlight
-          const targetId = sec.id || sec.closest('[id]')?.id;
-          document.querySelectorAll('.nav a').forEach(a => {
-            a.classList.toggle('active', a.dataset.target === targetId);
-          });
-        }
+        closestSec = sec;
         break;
+      }
+      const secCenter = (rect.top + rect.bottom) / 2;
+      const dist = Math.abs(secCenter - triggerY);
+      if (dist < minDistance) {
+        minDistance = dist;
+        closestSec = sec;
+      }
+    }
+
+    if (closestSec) {
+      const title = closestSec.dataset.chapter || 'ARCHIVE';
+      const idx = closestSec.dataset.idx || 'CH. 01';
+
+      if (state.activeChapter !== title) {
+        updateActiveChapter(title, idx);
+        if (hudTitle) hudTitle.textContent = title;
+        if (hudIndex) hudIndex.textContent = idx;
+
+        // Update primary navigation highlight
+        const targetId = closestSec.id || closestSec.closest('[id]')?.id;
+        document.querySelectorAll('.nav a').forEach(a => {
+          a.classList.toggle('active', a.dataset.target === targetId);
+        });
       }
     }
   }

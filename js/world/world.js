@@ -14,6 +14,8 @@ import { createMilestones } from './milestones.js';
 import { createHorizonPortal } from './horizon-portal.js';
 import { createParticles } from './particles.js';
 import { createPostProcessing } from './postprocessing.js';
+import { createTransitionController } from '../animation/transitions.js';
+import { subscribeState } from '../core/state.js';
 import { setupFallback } from '../accessibility/fallback.js';
 
 export function initWorld(pointerController, telemetryController, revealController) {
@@ -30,12 +32,19 @@ export function initWorld(pointerController, telemetryController, revealControll
 
     // Architectural World Props
     createEnvironment(scene, getPathPoint, progressOfZ);
-    const { updateLighting } = createLighting(scene);
+    const lights = createLighting(scene);
+    const { updateLighting } = lights;
+    const transitionCtrl = createTransitionController(scene, { cameraSpot: lights.cameraSpot, ambient: lights.ambient });
+    subscribeState((prop, val) => {
+      if (prop === 'chapter') {
+        transitionCtrl.applyChapterPreset(val.chapter);
+      }
+    });
     const { exhibitionBays, updateExhibits, refreshExhibitTextures } = createExhibits(scene, getPathPoint, progressOfZ);
     const { updateResearchCluster } = createResearchCluster(scene);
     createArenaTrusses(scene, getPathPoint, progressOfZ);
     const { updateMilestones } = createMilestones(scene, getPathPoint, progressOfZ);
-    createHorizonPortal(scene);
+    const { updateHorizonPortal } = createHorizonPortal(scene);
     const { updateParticles } = createParticles(scene);
 
     // Post-Processing
@@ -51,12 +60,14 @@ export function initWorld(pointerController, telemetryController, revealControll
 
       // Camera choreography
       const camPos = updateCamera(state.scrollProgress, smoothPtr.x, smoothPtr.y, exhibitionBays);
-      updateLighting(camPos);
+      updateLighting(camPos, smoothPtr);
+      transitionCtrl.updateTransitions();
 
       // Props animation
-      updateResearchCluster(time);
+      updateResearchCluster(time, camPos.z);
       updateExhibits(camPos.z);
       updateMilestones(camPos.z);
+      updateHorizonPortal(time, camPos.z);
       updateParticles(time);
 
       // Render

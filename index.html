@@ -47,12 +47,7 @@
 </div>
 
 <noscript>
-<style>
-.load { display: none !important; }
-.stop::before { background: var(--brass) !important; box-shadow: 0 0 12px var(--brass) !important; }
-.row .who { opacity: 1 !important; }
-.rv { opacity: 1 !important; transform: none !important; }
-</style>
+  <link rel="stylesheet" href="./css/noscript.css">
 </noscript>
 
 <!-- 3D Spatial Canvas & Atmosphere -->
@@ -63,17 +58,18 @@
 <!-- Top Monolithic Architectural Header -->
 <header>
   <div class="header-left">
-    <a class="logo" href="#top">Yogeshwaran<i>.</i></a>
+    <a class="logo" href="#prologue">Yogeshwaran<i>.</i></a>
     <span class="sys-stamp">ARCHIVE // CHENNAI REF 2026</span>
   </div>
   <nav class="nav" aria-label="Primary Chapters">
-    <a href="#about" data-target="about">01 Origin</a>
-    <a href="#research" data-target="research">02 Discovery</a>
-    <a href="#work" data-target="work">03 Quests</a>
-    <a href="#arena" data-target="arena">04 Arena</a>
-    <a href="#capability" data-target="capability">05 Capability</a>
-    <a href="#path" data-target="path">06 Path</a>
-    <a href="#contact" data-target="contact">07 Contact</a>
+    <a href="#prologue" data-target="prologue">01 Prologue</a>
+    <a href="#origin" data-target="origin">02 Origin</a>
+    <a href="#discovery" data-target="discovery">03 Discovery</a>
+    <a href="#quests" data-target="quests">04 Quests</a>
+    <a href="#arena" data-target="arena">05 Arena</a>
+    <a href="#capability" data-target="capability">06 Capability</a>
+    <a href="#path" data-target="path">07 Path</a>
+    <a href="#contact" data-target="contact">08 Contact</a>
   </nav>
   <button class="burger" id="burger" aria-expanded="false" aria-controls="sheet">
     <u aria-hidden="true"></u><span id="bLabel">Menu</span>
@@ -83,13 +79,14 @@
 <!-- Mobile Navigation Drawer -->
 <nav class="sheet" id="sheet" aria-label="Mobile Navigation" aria-hidden="true">
   <ul>
-    <li><a href="#about"><span>01</span>Origin</a></li>
-    <li><a href="#research"><span>02</span>Discovery</a></li>
-    <li><a href="#work"><span>03</span>Quests</a></li>
-    <li><a href="#arena"><span>04</span>Arena</a></li>
-    <li><a href="#capability"><span>05</span>Capability</a></li>
-    <li><a href="#path"><span>06</span>Path</a></li>
-    <li><a href="#contact"><span>07</span>Contact</a></li>
+    <li><a href="#prologue"><span>01</span>Prologue</a></li>
+    <li><a href="#origin"><span>02</span>Origin</a></li>
+    <li><a href="#discovery"><span>03</span>Discovery</a></li>
+    <li><a href="#quests"><span>04</span>Quests</a></li>
+    <li><a href="#arena"><span>05</span>Arena</a></li>
+    <li><a href="#capability"><span>06</span>Capability</a></li>
+    <li><a href="#path"><span>07</span>Path</a></li>
+    <li><a href="#contact"><span>08</span>Contact</a></li>
   </ul>
   <div class="sheet-footer">
     <a href="mailto:yogeshwaranmuthuraman56@gmail.com">Email</a>
@@ -120,13 +117,13 @@
 <main id="main">
 
   <!-- Chapter 01: Prologue -->
-  <section class="bayview" id="top" data-chapter="PROLOGUE" data-idx="CH. 01">
+  <section class="bayview" id="prologue" data-chapter="PROLOGUE" data-idx="CH. 01">
     <div class="hold lit">
-      <div class="tag"><s></s>Prologue // Archival Portal</div>
+      <div class="tag"><s></s>Chapter 01 // Archival Portal</div>
       <h1 class="t-hero rv">Yogeshwaran<br><i>Muthuraman</i></h1>
       <p class="lede rv mt-md">I build software systems that tell the difference between what is real and what only looks real.</p>
       <div class="acts rv">
-        <a class="btn btn-primary" href="#work">Enter the work</a>
+        <a class="btn btn-primary" href="#quests">Enter the work</a>
         <a class="btn btn-secondary" href="Yogeshwaran%20Resume.pdf" target="_blank" rel="noreferrer">Download Résumé</a>
       </div>
       <div class="scrollcue rv"><s></s>Scroll to navigate the archive</div>
@@ -140,9 +137,9 @@
   </section>
 
   <!-- Chapter 02: Origin -->
-  <section class="bayview" id="about" data-chapter="ORIGIN" data-idx="CH. 02">
+  <section class="bayview" id="origin" data-chapter="ORIGIN" data-idx="CH. 02">
     <div class="hold lit">
-      <div class="tag"><s></s>Chapter 02 // Origin</div>
+      <div class="tag"><s></s>Chapter 02 // Foundation &amp; Philosophy</div>
       <div class="duo rv">
         <div>
           <h2 class="t-lg">Research keeps the engineering honest.</h2>
@@ -173,39 +170,53 @@
   </section>
 
   <!-- Chapter 03: Discovery (Research Chamber) -->
-  <section class="bayview" id="research" data-chapter="DISCOVERY" data-idx="CH. 03">
+  <section class="bayview" id="discovery" data-chapter="DISCOVERY" data-idx="CH. 03">
     <div class="hold lit">
-      <div class="tag copper"><s></s>Chapter 03 // Discovery (Research Chamber)</div>
+      <div class="tag copper"><s></s>Chapter 03 // Peer-Reviewed Research</div>
       <h2 class="t-lg max-20ch">Teaching a machine to recognise a lie.</h2>
       <p class="copy copy-vault-intro">Thousands of job seekers fall prey to postings that never existed. My final-year research examined whether an applied ML architecture could flag recruitment fraud before an applicant submits credentials — and provide verifiable reasoning.</p>
 
-      <div class="vault rv">
-        <div class="pips">
-          <span class="pip on">Published ICISD'26</span>
-          <span class="pip">Peer Reviewed</span>
-          <span class="pip">Oral Presentation</span>
-          <span class="pip">Paper ICISD26-408</span>
+      <div class="research-stage">
+        <div class="research-portal-frame rv" aria-hidden="true">
+          <div class="research-portal-header">
+            <span>SPATIAL CLUSTER // Z: -42.0m</span>
+            <span>HYBRID NEURO-SYMBOLIC</span>
+          </div>
+          <div class="spatial-crosshair"></div>
+          <div class="research-portal-footer">
+            <span>DISTILBERT EMBEDDINGS</span>
+            <span>ISOLATION FOREST ORBITALS</span>
+          </div>
         </div>
-        <h3 class="t-sm">Fake Job Posting and Online Recruitment Scam Detection Utilizing Machine Learning and Advanced Natural Language Processing Techniques</h3>
-        <div class="where">
-          <b>International Conference on Intelligent Systems and Digital Transformation (ICISD'26)</b>
-          SRM Institute of Science and Technology, Vadapalani Campus, Chennai · 6–7 April 2026
-        </div>
-        <p class="copy mt-md">The architecture is <b>hybrid neuro-symbolic</b>. <span class="glow-copper">DistilBERT</span> generates contextual semantic embeddings of job postings, an <span class="glow-copper">Isolation Forest</span> isolates high-dimensional anomalies unseen in the training distribution, and a <span class="glow-copper">Stacking Ensemble</span> makes the final classification. This unsupervised safety layer enables detection of zero-day scams that mimic legitimate recruitment formats.</p>
-        <p class="copy">A critical challenge was <b>extreme class imbalance</b>: the EMSCAD dataset exhibits an authentic-to-fraudulent ratio of 95:5. A naive classifier predicting "genuine" universally achieves 95% accuracy while remaining completely useless. Addressing this imbalance honestly is why our evaluation emphasizes F1-Score and ROC-AUC over superficial metrics.</p>
-        <div class="nums">
-          <div class="num"><b data-count="99" data-suffix="%">99%</b><span>Accuracy</span></div>
-          <div class="num"><b data-count="99.00" data-suffix="">99.00</b><span>F1-Score</span></div>
-          <div class="num"><b data-count="99.99" data-suffix="">99.99</b><span>ROC-AUC</span></div>
-        </div>
-        <p class="by">
-          <b>Yogeshwaran M</b>, Murugavalli S, Thamarai I, Shamini M<br>
-          Department of Computer Science and Engineering, Panimalar Engineering College, Chennai
-        </p>
-        <div class="links links-vault">
-          <a class="btn btn-primary btn-small" href="https://yoge-2004-fake-job-detector.hf.space/dashboard" target="_blank" rel="noreferrer">Open Live Dashboard</a>
-          <a class="btn btn-secondary btn-small" href="https://github.com/Yoge-2004/fake-job-detection-python" target="_blank" rel="noreferrer">View Repository</a>
-          <a class="text-link" href="srm_hackathon_certificate.jpg" target="_blank" rel="noreferrer">View Certificate</a>
+
+        <div class="vault rv vault-discovery">
+          <div class="pips">
+            <span class="pip on">Published ICISD'26</span>
+            <span class="pip">Peer Reviewed</span>
+            <span class="pip">Oral Presentation</span>
+            <span class="pip">Paper ICISD26-408</span>
+          </div>
+          <h3 class="t-sm">Fake Job Posting and Online Recruitment Scam Detection Utilizing Machine Learning and Advanced Natural Language Processing Techniques</h3>
+          <div class="where">
+            <b>International Conference on Intelligent Systems and Digital Transformation (ICISD'26)</b>
+            SRM Institute of Science and Technology, Vadapalani Campus, Chennai · 6–7 April 2026
+          </div>
+          <p class="copy mt-md">The architecture is <b>hybrid neuro-symbolic</b>. <span class="glow-copper">DistilBERT</span> generates contextual semantic embeddings of job postings, an <span class="glow-copper">Isolation Forest</span> isolates high-dimensional anomalies unseen in the training distribution, and a <span class="glow-copper">Stacking Ensemble</span> makes the final classification. This unsupervised safety layer enables detection of zero-day scams that mimic legitimate recruitment formats.</p>
+          <p class="copy">A critical challenge was <b>extreme class imbalance</b>: the EMSCAD dataset exhibits an authentic-to-fraudulent ratio of 95:5. A naive classifier predicting "genuine" universally achieves 95% accuracy while remaining completely useless. Addressing this imbalance honestly is why our evaluation emphasizes F1-Score and ROC-AUC over superficial metrics.</p>
+          <div class="nums">
+            <div class="num"><b data-count="99" data-suffix="%">99%</b><span>Accuracy</span></div>
+            <div class="num"><b data-count="99.00" data-suffix="">99.00</b><span>F1-Score</span></div>
+            <div class="num"><b data-count="99.99" data-suffix="">99.99</b><span>ROC-AUC</span></div>
+          </div>
+          <p class="by">
+            <b>Yogeshwaran M</b>, Murugavalli S, Thamarai I, Shamini M<br>
+            Department of Computer Science and Engineering, Panimalar Engineering College, Chennai
+          </p>
+          <div class="links links-vault">
+            <a class="btn btn-primary btn-small" href="https://yoge-2004-fake-job-detector.hf.space/dashboard" target="_blank" rel="noreferrer">Open Live Dashboard</a>
+            <a class="btn btn-secondary btn-small" href="https://github.com/Yoge-2004/fake-job-detection-python" target="_blank" rel="noreferrer">View Repository</a>
+            <a class="text-link" href="srm_hackathon_certificate.jpg" target="_blank" rel="noreferrer">View Certificate</a>
+          </div>
         </div>
       </div>
     </div>
@@ -216,17 +227,20 @@
 
     <!-- Exhibit 01 -->
     <article class="exhibit" data-chapter="EXHIBIT 01" data-idx="CH. 04">
-      <div class="exhibit-tactical rv">
-        <div class="exhibit-header">
-          <span class="exhibit-no">EXHIBIT 01 // RESEARCH ARTIFACT</span>
-          <span class="exhibit-status">LIVE SYSTEM // HF SPACES</span>
+      <div class="spatial-frame rv">
+        <div class="spatial-frame-header">
+          <span>EXHIBIT 01 // PHYSICAL SLAB</span>
+          <span>Z: -58.0m // ALCOVE L</span>
         </div>
-        <div class="exhibit-schematic">
-          <canvas data-shot="0" width="920" height="575"></canvas>
+        <div class="spatial-crosshair"></div>
+        <div class="spatial-fallback-card" aria-hidden="true">
+          <span class="tag copper"><s></s>ICISD'26 Live System</span>
+          <h4>Fake Job Detection System</h4>
+          <p>DistilBERT Contextual Embeddings + Isolation Forest Safety Layer</p>
         </div>
-        <div class="links">
-          <a class="btn btn-primary btn-small" href="https://yoge-2004-fake-job-detector.hf.space/dashboard" target="_blank" rel="noreferrer">Launch Dashboard</a>
-          <a class="btn btn-secondary btn-small" href="https://github.com/Yoge-2004/fake-job-detection-python" target="_blank" rel="noreferrer">Source Code</a>
+        <div class="spatial-frame-footer">
+          <span>STATUS: REAL-TIME SPATIAL PROJECTION</span>
+          <span>FOCAL LOCK: ACTIVE</span>
         </div>
       </div>
       <div class="lit rv">
@@ -242,21 +256,29 @@
           <span class="chip">Ensemble Learning</span>
           <span class="chip">Hugging Face</span>
         </div>
+        <div class="links">
+          <a class="btn btn-primary btn-small" href="https://yoge-2004-fake-job-detector.hf.space/dashboard" target="_blank" rel="noreferrer">Launch Dashboard</a>
+          <a class="btn btn-secondary btn-small" href="https://github.com/Yoge-2004/fake-job-detection-python" target="_blank" rel="noreferrer">Source Code</a>
+        </div>
       </div>
     </article>
 
     <!-- Exhibit 02 -->
-    <article class="exhibit" data-chapter="EXHIBIT 02" data-idx="CH. 04">
-      <div class="exhibit-tactical rv">
-        <div class="exhibit-header">
-          <span class="exhibit-no">EXHIBIT 02 // SECURE PLATFORM</span>
-          <span class="exhibit-status">PRIVATE BY DEFAULT</span>
+    <article class="exhibit reverse" data-chapter="EXHIBIT 02" data-idx="CH. 04">
+      <div class="spatial-frame rv">
+        <div class="spatial-frame-header">
+          <span>EXHIBIT 02 // PHYSICAL SLAB</span>
+          <span>Z: -70.0m // ALCOVE R</span>
         </div>
-        <div class="exhibit-schematic">
-          <canvas data-shot="1" width="920" height="575"></canvas>
+        <div class="spatial-crosshair"></div>
+        <div class="spatial-fallback-card" aria-hidden="true">
+          <span class="tag"><s></s>Cryptographic Storage</span>
+          <h4>Private Digital Diary</h4>
+          <p>FastAPI · JWT HttpOnly · Zero-Framework Security</p>
         </div>
-        <div class="links">
-          <a class="btn btn-primary btn-small" href="https://github.com/Yoge-2004/digital-diary-application" target="_blank" rel="noreferrer">Source Code</a>
+        <div class="spatial-frame-footer">
+          <span>STATUS: REAL-TIME SPATIAL PROJECTION</span>
+          <span>FOCAL LOCK: ACTIVE</span>
         </div>
       </div>
       <div class="lit rv">
@@ -272,22 +294,28 @@
           <span class="chip">PostgreSQL</span>
           <span class="chip">Jinja2</span>
         </div>
+        <div class="links">
+          <a class="btn btn-primary btn-small" href="https://github.com/Yoge-2004/digital-diary-application" target="_blank" rel="noreferrer">Source Code</a>
+        </div>
       </div>
     </article>
 
     <!-- Exhibit 03 -->
     <article class="exhibit" data-chapter="EXHIBIT 03" data-idx="CH. 04">
-      <div class="exhibit-tactical rv">
-        <div class="exhibit-header">
-          <span class="exhibit-no">EXHIBIT 03 // FINANCIAL ENGINE</span>
-          <span class="exhibit-status">DEPLOYED ON NETLIFY</span>
+      <div class="spatial-frame rv">
+        <div class="spatial-frame-header">
+          <span>EXHIBIT 03 // PHYSICAL SLAB</span>
+          <span>Z: -82.0m // ALCOVE L</span>
         </div>
-        <div class="exhibit-schematic">
-          <canvas data-shot="2" width="920" height="575"></canvas>
+        <div class="spatial-crosshair"></div>
+        <div class="spatial-fallback-card" aria-hidden="true">
+          <span class="tag"><s></s>Enterprise Backend</span>
+          <h4>Expense Tracker &amp; Budget Engine</h4>
+          <p>Spring Boot · Java 17 · RESTful API Architecture</p>
         </div>
-        <div class="links">
-          <a class="btn btn-primary btn-small" href="https://cozy-narwhal-3099ad.netlify.app" target="_blank" rel="noreferrer">Launch Client</a>
-          <a class="btn btn-secondary btn-small" href="https://github.com/Yoge-2004/expense-tracker" target="_blank" rel="noreferrer">Source Code</a>
+        <div class="spatial-frame-footer">
+          <span>STATUS: REAL-TIME SPATIAL PROJECTION</span>
+          <span>FOCAL LOCK: ACTIVE</span>
         </div>
       </div>
       <div class="lit rv">
@@ -301,6 +329,10 @@
           <span class="chip">RESTful API</span>
           <span class="chip">MySQL</span>
           <span class="chip">Netlify</span>
+        </div>
+        <div class="links">
+          <a class="btn btn-primary btn-small" href="https://cozy-narwhal-3099ad.netlify.app" target="_blank" rel="noreferrer">Launch Client</a>
+          <a class="btn btn-secondary btn-small" href="https://github.com/Yoge-2004/expense-tracker" target="_blank" rel="noreferrer">Source Code</a>
         </div>
       </div>
     </article>
@@ -584,6 +616,13 @@
   </section>
 
 </main>
+
+<!-- Hidden Offscreen Tactical Canvas Texture Sources for 3D Exhibition Slabs -->
+<div class="texture-sources" aria-hidden="true" style="position:fixed; left:-9999px; top:-9999px; width:920px; height:575px; visibility:hidden; pointer-events:none; overflow:hidden;">
+  <canvas data-shot="0" width="920" height="575"></canvas>
+  <canvas data-shot="1" width="920" height="575"></canvas>
+  <canvas data-shot="2" width="920" height="575"></canvas>
+</div>
 
 <footer>
   <span>Yogeshwaran Muthuraman — Chennai, India</span>

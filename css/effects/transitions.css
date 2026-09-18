@@ -10,13 +10,14 @@
   place-items: center;
   opacity: 1;
   visibility: visible;
-  transition: opacity .8s var(--ease), visibility .8s;
+  transition: opacity .35s var(--ease), visibility .35s;
 }
 
 .load.off {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
+  display: none;
 }
 
 .load-inner {

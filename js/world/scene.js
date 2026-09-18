@@ -8,7 +8,7 @@ export function createScene() {
   const scene = new THREE.Scene();
   const voidColor = new THREE.Color(COLORS.void);
   scene.background = voidColor;
-  scene.fog = new THREE.Fog(COLORS.void, 12, 68);
+  scene.fog = new THREE.Fog(COLORS.void, 22, 135);
 
   return scene;
 }

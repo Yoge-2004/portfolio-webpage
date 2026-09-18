@@ -4,10 +4,12 @@
 import { renderAllTacticalCards } from './ui/cards.js';
 import { initPointer } from './interaction/pointer.js';
 import { initCursor } from './interaction/cursor.js';
+import { initMagneticButtons } from './interaction/magnetic.js';
 import { initMobileMenu } from './navigation/mobile-menu.js';
 import { initNavigation } from './navigation/navigation.js';
 import { initScroll } from './animation/scroll.js';
 import { initReveal } from './animation/reveal.js';
+import { initTextReveals } from './animation/text.js';
 import { initTelemetry } from './ui/telemetry.js';
 import { initWorld } from './world/world.js';
 import { initLoading } from './ui/loading.js';
@@ -16,12 +18,14 @@ function bootstrap() {
   // 1. Interactions
   const pointerController = initPointer();
   initCursor();
+  initMagneticButtons();
 
   // 2. Navigation
   initMobileMenu();
 
   // 3. Animation & Observables
   const revealController = initReveal();
+  initTextReveals();
   const telemetryController = initTelemetry();
   const lenisInstance = initScroll();
   initNavigation(lenisInstance);

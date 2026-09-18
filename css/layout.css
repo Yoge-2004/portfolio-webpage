@@ -36,7 +36,7 @@ main {
 .lit::before {
   content: "";
   position: absolute;
-  inset: -36px -44px;
+  inset: clamp(-16px, -2.5vw, -36px) clamp(-12px, -2.5vw, -44px);
   z-index: -1;
   background: radial-gradient(ellipse at 40% 50%, rgba(13,12,10,.94) 0%, rgba(7,7,6,.78) 54%, transparent 84%);
   pointer-events: none;
