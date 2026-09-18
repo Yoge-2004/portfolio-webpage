@@ -1,0 +1,43 @@
+/**
+ * Layout containers and structural section wrappers
+ */
+main {
+  position: relative;
+  z-index: 2;
+}
+
+.bayview {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: 132px var(--pad) 112px;
+  position: relative;
+  overflow-x: clip;
+}
+
+.bayview.tight {
+  min-height: 0;
+  padding: 88px var(--pad);
+}
+
+.hold {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Architectural Scrim for Pristine Legibility */
+.lit {
+  position: relative;
+}
+
+.lit::before {
+  content: "";
+  position: absolute;
+  inset: -36px -44px;
+  z-index: -1;
+  background: radial-gradient(ellipse at 40% 50%, rgba(13,12,10,.94) 0%, rgba(7,7,6,.78) 54%, transparent 84%);
+  pointer-events: none;
+}

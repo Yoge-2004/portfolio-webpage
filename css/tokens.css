@@ -1,0 +1,33 @@
+/**
+ * Stitch Design System Tokens — The Night Workshop / Archive
+ */
+:root {
+  /* Core Palette */
+  --void: #070706;
+  --obsidian: #0D0C0A;
+  --graphite: #211C16;
+  --bronze: #30261D;
+  --bone: #F2EADF;
+  --muted-bone: #B9AA97;
+  --soft-white: #FFF9F1;
+  --brass: #D7AA61;
+  --light-brass: #F0C98B;
+  --copper: #B96542;
+  --ember: #D87950;
+
+  /* Hairline Borders */
+  --border-idle: #30261D;
+  --border-active: #D7AA61;
+  --border-copper: #B96542;
+  --border-ember: #D87950;
+
+  /* Typography Direction */
+  --font-display: 'Bodoni Moda', 'Lora', Georgia, serif;
+  --font-body: 'Manrope', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+  /* Sizing & Layout */
+  --pad: clamp(24px, 5vw, 84px);
+  --ease: cubic-bezier(.16, 1, .3, 1);
+  --maxw: 1320px;
+}

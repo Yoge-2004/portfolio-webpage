@@ -1,0 +1,52 @@
+/**
+ * Hero / Prologue Display, Facts Ledger, and Scroll Cue
+ */
+.scrollcue {
+  margin-top: 36px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--muted-bone);
+}
+
+.scrollcue s {
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--brass);
+  text-decoration: none;
+}
+
+/* Facts Ledger */
+.facts {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  max-width: 960px;
+  border-top: 1px solid var(--border-idle);
+  padding-top: 24px;
+}
+
+.facts-item b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.8vw, 3rem);
+  line-height: 1;
+  color: var(--soft-white);
+}
+
+.facts-item span {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted-bone);
+  line-height: 1.4;
+}

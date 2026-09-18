@@ -1,0 +1,59 @@
+/**
+ * Responsive Overrides and Breakpoints (1080px, 768px, Coarse Pointer)
+ */
+@media (max-width: 1080px) {
+  .duo,
+  .exhibit {
+    grid-template-columns: 1fr;
+  }
+  .rack,
+  .caps {
+    grid-template-columns: 1fr;
+  }
+  .certs {
+    grid-template-columns: 1fr 1fr;
+  }
+  .facts {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    height: 68px;
+  }
+  .nav,
+  .sys-stamp {
+    display: none;
+  }
+  .burger {
+    display: flex;
+  }
+  .bayview {
+    padding: 110px var(--pad) 88px;
+  }
+  .exhibit {
+    padding: 110px var(--pad) 88px;
+    gap: 28px;
+  }
+  .row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .reticle {
+    display: none !important;
+  }
+  .hud-depth {
+    display: none;
+  }
+  .certs {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (pointer: coarse) {
+  .reticle {
+    display: none !important;
+  }
+}

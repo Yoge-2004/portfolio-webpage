@@ -1,0 +1,77 @@
+/**
+ * Loading Overlay Animation, Reveal States, and Noscript Fallbacks
+ */
+.load {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: var(--void);
+  display: grid;
+  place-items: center;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .8s var(--ease), visibility .8s;
+}
+
+.load.off {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.load-inner {
+  width: min(340px, 80vw);
+}
+
+.load-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--muted-bone);
+}
+
+.load-track {
+  height: 1px;
+  background: rgba(242,234,223,.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.load-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background: var(--brass);
+  transition: width .3s var(--ease);
+}
+
+.load-coords {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--border-idle);
+  letter-spacing: .12em;
+  text-align: right;
+}
+
+/* Reveal Transitions */
+.rv {
+  transform: translateY(28px);
+  transition: opacity .9s var(--ease), transform .9s var(--ease);
+}
+
+.rv.pend {
+  opacity: 0;
+}
+
+.rv.in {
+  opacity: 1;
+  transform: none;
+}
