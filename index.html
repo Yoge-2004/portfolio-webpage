@@ -581,6 +581,15 @@ drawShots(); if(document.fonts&&document.fonts.ready)document.fonts.ready.then(d
 try{
  const cv=document.getElementById('world');
  const r=new THREE.WebGLRenderer({canvas:cv,antialias:!isMobile,powerPreference:'high-performance'});
+ function degradeToStatic(reason){
+  try{ r.setAnimationLoop(null); }catch(_){}
+  cv.style.display='none';
+  document.body.classList.add('ready');
+  document.querySelectorAll('.rv').forEach(el=>el.classList.add('in'));
+  document.querySelectorAll('.stop,.row').forEach(el=>el.classList.add('hit'));
+  console.warn('World disabled:', reason);
+ }
+ cv.addEventListener('webglcontextlost', e=>{ e.preventDefault(); degradeToStatic('context lost'); }, false);
  r.setPixelRatio(Math.min(devicePixelRatio||1,isMobile?1.5:2));
  r.setSize(innerWidth,innerHeight,false);
  r.outputColorSpace=THREE.SRGBColorSpace;
