@@ -9,6 +9,15 @@ import { state, updateProgress } from '../core/state.js';
 gsap.registerPlugin(ScrollTrigger);
 
 export function initScroll() {
+  // Known GreenSock fix for ScrollTrigger recalculating spuriously when the
+  // mobile address bar shows/hides mid-scroll. Safe to combine with Lenis —
+  // it's a config flag, not a scroll-hijacking system. (Deliberately NOT
+  // using ScrollTrigger.normalizeScroll() here: verified via a real
+  // production Lenis+ScrollTrigger+R3F example that it's designed to
+  // replace a smooth-scroll library, not run alongside one — stacking it
+  // on top of Lenis risks two systems fighting over the same scroll input.)
+  ScrollTrigger.config({ ignoreMobileResize: true });
+
   const lenis = state.reducedMotion
     ? null
     : new Lenis({
