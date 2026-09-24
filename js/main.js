@@ -13,6 +13,10 @@ import { initTextReveals } from './animation/text.js';
 import { initTelemetry } from './ui/telemetry.js';
 import { initWorld } from './world/world.js';
 import { initLoading } from './ui/loading.js';
+import { setupAudioUI } from './audio/soundscape.js';
+import { setupResearchSimulator } from './ui/research-simulator.js';
+import { setupCapabilityFilters } from './ui/filters.js';
+import { setupClipboard } from './ui/clipboard.js';
 
 function bootstrap() {
   // 1. Interactions
@@ -20,8 +24,11 @@ function bootstrap() {
   initCursor();
   initMagneticButtons();
 
-  // 2. Navigation
+  // 2. Navigation & Audio
   initMobileMenu();
+  setupAudioUI();
+  setupCapabilityFilters();
+  setupClipboard();
 
   // 3. Animation & Observables
   const revealController = initReveal();
@@ -41,7 +48,15 @@ function bootstrap() {
 
   worldInstance = initWorld(pointerController, telemetryController, revealController);
 
-  // 5. Loading Dismissal
+  // 5. Research Simulator Integration
+  setupResearchSimulator(preset => {
+    // If the 3D world is active, we can trigger a pulse or lighting reaction
+    if (worldInstance?.scene) {
+      // Subtle reaction
+    }
+  });
+
+  // 6. Loading Dismissal
   initLoading();
 }
 

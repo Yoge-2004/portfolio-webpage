@@ -45,6 +45,11 @@ export function initTelemetry() {
         document.querySelectorAll('.nav a').forEach(a => {
           a.classList.toggle('active', a.dataset.target === targetId);
         });
+
+        // Update floating quick-dock highlight
+        document.querySelectorAll('.dock-pip').forEach(pip => {
+          pip.classList.toggle('active', pip.dataset.dock === targetId);
+        });
       }
     }
   }

@@ -28,7 +28,7 @@ main {
   position: relative;
 }
 
-/* Architectural Scrim for Pristine Legibility */
+/* Architectural Scrim for Pristine Legibility & Dimensional Depth */
 .lit {
   position: relative;
 }
@@ -36,8 +36,12 @@ main {
 .lit::before {
   content: "";
   position: absolute;
-  inset: clamp(-16px, -2.5vw, -36px) clamp(-12px, -2.5vw, -44px);
+  inset: clamp(-16px, -2.5vw, -28px) clamp(-12px, -2.5vw, -32px);
   z-index: -1;
-  background: radial-gradient(ellipse at 40% 50%, rgba(13,12,10,.94) 0%, rgba(7,7,6,.78) 54%, transparent 84%);
+  background: radial-gradient(ellipse at 40% 50%, rgba(11, 15, 25, 0.68) 0%, rgba(7, 10, 18, 0.42) 65%, transparent 92%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
   pointer-events: none;
 }

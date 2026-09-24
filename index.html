@@ -71,10 +71,30 @@
     <a href="#path" data-target="path">07 Path</a>
     <a href="#contact" data-target="contact">08 Contact</a>
   </nav>
-  <button class="burger" id="burger" aria-expanded="false" aria-controls="sheet">
-    <u aria-hidden="true"></u><span id="bLabel">Menu</span>
-  </button>
+  <div class="header-right">
+    <button class="sound-toggle" id="soundToggle" type="button" aria-label="Toggle procedural ambient soundscape" title="Toggle Procedural Audio">
+      <span class="sound-bars" aria-hidden="true">
+        <i></i><i></i><i></i><i></i>
+      </span>
+      <span class="sound-label">SOUND [OFF]</span>
+    </button>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="sheet">
+      <u aria-hidden="true"></u><span id="bLabel">Menu</span>
+    </button>
+  </div>
 </header>
+
+<!-- Desktop Quick Navigation Mini-Map Dock -->
+<aside class="quick-dock" aria-label="Quick Chapter Navigation">
+  <a class="dock-pip active" href="#prologue" data-dock="prologue" aria-label="01 Prologue">01<span class="dock-tip">01 Prologue</span></a>
+  <a class="dock-pip" href="#origin" data-dock="origin" aria-label="02 Origin">02<span class="dock-tip">02 Origin</span></a>
+  <a class="dock-pip" href="#discovery" data-dock="discovery" aria-label="03 Discovery">03<span class="dock-tip">03 Discovery</span></a>
+  <a class="dock-pip" href="#quests" data-dock="quests" aria-label="04 Quests">04<span class="dock-tip">04 Quests</span></a>
+  <a class="dock-pip" href="#arena" data-dock="arena" aria-label="05 Arena">05<span class="dock-tip">05 Arena</span></a>
+  <a class="dock-pip" href="#capability" data-dock="capability" aria-label="06 Capability">06<span class="dock-tip">06 Capability</span></a>
+  <a class="dock-pip" href="#path" data-dock="path" aria-label="07 Path">07<span class="dock-tip">07 Path</span></a>
+  <a class="dock-pip" href="#contact" data-dock="contact" aria-label="08 Contact">08<span class="dock-tip">08 Contact</span></a>
+</aside>
 
 <!-- Mobile Navigation Drawer -->
 <nav class="sheet" id="sheet" aria-label="Mobile Navigation" aria-hidden="true">
@@ -118,20 +138,35 @@
 
   <!-- Chapter 01: Prologue -->
   <section class="bayview" id="prologue" data-chapter="PROLOGUE" data-idx="CH. 01">
-    <div class="hold lit">
-      <div class="tag"><s></s>Chapter 01 // Archival Portal</div>
-      <h1 class="t-hero rv">Yogeshwaran<br><i>Muthuraman</i></h1>
-      <p class="lede rv mt-md">I build software systems that tell the difference between what is real and what only looks real.</p>
-      <div class="acts rv">
-        <a class="btn btn-primary" href="#quests">Enter the work</a>
-        <a class="btn btn-secondary" href="Yogeshwaran%20Resume.pdf" target="_blank" rel="noreferrer">Download Résumé</a>
+    <div class="hold lit hero-hold">
+      <div class="hero-content">
+        <div class="tag"><s></s>Chapter 01 // Archival Portal</div>
+        <h1 class="t-hero rv">Yogeshwaran<br><i>Muthuraman</i></h1>
+        <p class="lede rv mt-md">I build software systems that tell the difference between what is real and what only looks real.</p>
+        <div class="acts rv">
+          <a class="btn btn-primary" href="#quests">Enter the work</a>
+          <a class="btn btn-secondary" href="Yogeshwaran%20Resume.pdf" target="_blank" rel="noreferrer">Download Résumé</a>
+        </div>
+        <div class="scrollcue rv"><s></s>Scroll to navigate the archive</div>
+        <div class="facts rv">
+          <div class="facts-item"><b data-count="9.37" data-suffix="">9.37</b><span>CGPA / 10 · B.E. Computer Science</span></div>
+          <div class="facts-item"><b data-count="1" data-suffix="">1</b><span>Peer-Reviewed Conference Paper</span></div>
+          <div class="facts-item"><b data-count="13" data-suffix="">13</b><span>Public Repositories</span></div>
+          <div class="facts-item"><b data-count="7" data-suffix="">7</b><span>Technical Certifications</span></div>
+        </div>
       </div>
-      <div class="scrollcue rv"><s></s>Scroll to navigate the archive</div>
-      <div class="facts rv">
-        <div class="facts-item"><b data-count="9.37" data-suffix="">9.37</b><span>CGPA / 10 · B.E. Computer Science</span></div>
-        <div class="facts-item"><b data-count="1" data-suffix="">1</b><span>Peer-Reviewed Conference Paper</span></div>
-        <div class="facts-item"><b data-count="13" data-suffix="">13</b><span>Public Repositories</span></div>
-        <div class="facts-item"><b data-count="7" data-suffix="">7</b><span>Technical Certifications</span></div>
+      <div class="hero-spatial-hud rv" aria-hidden="true">
+        <div class="spatial-hud-box">
+          <div class="hud-box-header">
+            <span class="hud-chip"><i class="radar-dot"></i> 3D CORE ACTIVE</span>
+            <span class="hud-coord">Z: +0.50m // R: 1.80m</span>
+          </div>
+          <div class="spatial-crosshair-lg"></div>
+          <div class="hud-box-footer">
+            <span>TACTILE ORBITAL VERIFICATION SINGULARITY</span>
+            <span class="hud-action">DRAG CANVAS TO ROTATE</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -208,6 +243,54 @@
             <div class="num"><b data-count="99.00" data-suffix="">99.00</b><span>F1-Score</span></div>
             <div class="num"><b data-count="99.99" data-suffix="">99.99</b><span>ROC-AUC</span></div>
           </div>
+
+          <!-- Interactive ICISD'26 Fraud Detection Architecture Simulator -->
+          <div class="research-sim" id="researchSim">
+            <div class="sim-header">
+              <span class="sim-title">⚡ Interactive Deception Detection Engine</span>
+              <span class="sim-badge">LIVE SIMULATOR</span>
+            </div>
+            <div class="sim-tabs" role="tablist">
+              <button type="button" class="sim-tab active" data-preset="scam" role="tab" aria-selected="true">
+                Sample A: Phishing Scam
+              </button>
+              <button type="button" class="sim-tab" data-preset="legit" role="tab" aria-selected="false">
+                Sample B: Authentic Role
+              </button>
+            </div>
+            <div class="sim-preview" id="simPreview">
+              "URGENT: Entry-Level Remote Data Verification Assistant. Earn $4,500/week! No technical interview or previous experience needed. Telegram @fast_onboard_support to receive your home-office equipment check immediately."
+            </div>
+            <div class="sim-meters">
+              <div class="sim-meter">
+                <div class="meter-meta">
+                  <span>DistilBERT Confidence</span>
+                  <b id="simDbert">99.4%</b>
+                </div>
+                <div class="meter-track">
+                  <div class="meter-fill scam" id="simDbertBar" style="width: 99.4%;"></div>
+                </div>
+              </div>
+              <div class="sim-meter">
+                <div class="meter-meta">
+                  <span>Isolation Forest Anomaly</span>
+                  <b id="simIso">0.982</b>
+                </div>
+                <div class="meter-track">
+                  <div class="meter-fill scam" id="simIsoBar" style="width: 98.2%;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="sim-verdict flagged" id="simVerdict">
+              <div class="verdict-header">
+                <span id="verdictTitle">🚨 HIGH-RISK RECRUITMENT PHISHING DETECTED</span>
+              </div>
+              <p class="verdict-desc" id="verdictDesc">
+                Contextual embeddings matched known fraud clusters (unrealistic compensation, off-platform messaging). Isolation Forest mapped posting into extreme outlier distribution.
+              </p>
+            </div>
+          </div>
+
           <p class="by">
             <b>Yogeshwaran M</b>, Murugavalli S, Thamarai I, Shamini M<br>
             Department of Computer Science and Engineering, Panimalar Engineering College, Chennai
@@ -223,7 +306,12 @@
   </section>
 
   <!-- Chapter 04: Quests (Exhibition Slabs) -->
-  <div id="work">
+  <section class="bayview" id="quests" data-chapter="QUESTS" data-idx="CH. 04">
+    <div class="hold lit">
+      <div class="tag"><s></s>Chapter 04 // Exhibition Plinths</div>
+      <h2 class="t-lg">Engineered systems deployed in the open.</h2>
+      <p class="copy mt-md">Production software systems tested against adversarial edge cases, encrypted storage constraints, and live cloud deployment.</p>
+    </div>
 
     <!-- Exhibit 01 -->
     <article class="exhibit" data-chapter="EXHIBIT 01" data-idx="CH. 04">
@@ -337,7 +425,7 @@
       </div>
     </article>
 
-  </div>
+  </section>
 
   <!-- Secondary Works (Also Built) -->
   <section class="bayview tight" data-chapter="SECONDARY WORKS" data-idx="CH. 04">
@@ -476,8 +564,16 @@
     <div class="hold lit">
       <div class="tag"><s></s>Chapter 06 // Capability &amp; Instrumentation</div>
       <h2 class="t-lg">Production capabilities and technical stack.</h2>
+      
+      <div class="cap-filters rv" role="tablist" aria-label="Filter Technical Stack">
+        <button type="button" class="cap-filter active" data-domain="all">All Stack (12 Skills · 8 Certs)</button>
+        <button type="button" class="cap-filter" data-domain="ml-backend">ML &amp; Backend</button>
+        <button type="button" class="cap-filter" data-domain="systems-ui">Systems &amp; Interface</button>
+        <button type="button" class="cap-filter" data-domain="data-cloud">Data &amp; Cloud</button>
+      </div>
+
       <div class="caps rv">
-        <div class="cap">
+        <div class="cap" data-domain="ml-backend">
           <h4>Backend &amp; Machine Learning</h4>
           <ul>
             <li>Java<small>Library OS, Expense Tracker, Internship Engineering</small></li>
@@ -486,7 +582,7 @@
             <li>FastAPI<small>Digital Diary Service, Todo Web Application</small></li>
           </ul>
         </div>
-        <div class="cap">
+        <div class="cap" data-domain="systems-ui">
           <h4>Interface &amp; Systems</h4>
           <ul>
             <li>JavaFX<small>Library OS Native Desktop System</small></li>
@@ -495,7 +591,7 @@
             <li>Jinja2<small>Server-side templating for secure web platforms</small></li>
           </ul>
         </div>
-        <div class="cap">
+        <div class="cap" data-domain="data-cloud">
           <h4>Data &amp; Quality Engineering</h4>
           <ul>
             <li>MySQL<small>Relational schema design, transactions, indexing</small></li>
@@ -508,35 +604,35 @@
 
       <!-- Verified Certification Slabs -->
       <div class="certs rv">
-        <a class="cert-card" href="python_GFG.pdf" target="_blank" rel="noreferrer">
+        <a class="cert-card" href="python_GFG.pdf" target="_blank" rel="noreferrer" data-domain="ml-backend">
           <b>Python Programming</b>
           <small>GeeksforGeeks</small>
         </a>
-        <a class="cert-card" href="web_certificate_coursera.pdf" target="_blank" rel="noreferrer">
+        <a class="cert-card" href="web_certificate_coursera.pdf" target="_blank" rel="noreferrer" data-domain="systems-ui">
           <b>Web Development</b>
           <small>Coursera</small>
         </a>
-        <a class="cert-card" href="java_scaler.jpg" target="_blank" rel="noreferrer">
+        <a class="cert-card" href="java_scaler.jpg" target="_blank" rel="noreferrer" data-domain="ml-backend">
           <b>Java Fundamentals</b>
           <small>Scaler Academy</small>
         </a>
-        <a class="cert-card" href="cloud_tcs.pdf" target="_blank" rel="noreferrer">
+        <a class="cert-card" href="cloud_tcs.pdf" target="_blank" rel="noreferrer" data-domain="data-cloud">
           <b>Applied Cloud Computing</b>
           <small>TCS iON</small>
         </a>
-        <a class="cert-card" href="c_udemy.pdf" target="_blank" rel="noreferrer">
+        <a class="cert-card" href="c_udemy.pdf" target="_blank" rel="noreferrer" data-domain="systems-ui">
           <b>C Programming</b>
           <small>Udemy</small>
         </a>
-        <a class="cert-card" href="c++_scaler.png" target="_blank" rel="noreferrer">
+        <a class="cert-card" href="c++_scaler.png" target="_blank" rel="noreferrer" data-domain="systems-ui">
           <b>C++ Programming</b>
           <small>Scaler Academy</small>
         </a>
-        <a class="cert-card" href="sql_udemy.pdf" target="_blank" rel="noreferrer">
+        <a class="cert-card" href="sql_udemy.pdf" target="_blank" rel="noreferrer" data-domain="data-cloud">
           <b>SQL Fundamentals</b>
           <small>Udemy</small>
         </a>
-        <a class="cert-card" href="internship_certificate_robowaves.pdf" target="_blank" rel="noreferrer">
+        <a class="cert-card" href="internship_certificate_robowaves.pdf" target="_blank" rel="noreferrer" data-domain="ml-backend systems-ui">
           <b>Engineering Internship</b>
           <small>Robowaves Chennai</small>
         </a>
@@ -623,6 +719,9 @@
   <canvas data-shot="1" width="920" height="575"></canvas>
   <canvas data-shot="2" width="920" height="575"></canvas>
 </div>
+
+<!-- Direct Action Feedback Toast -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <footer>
   <span>Yogeshwaran Muthuraman — Chennai, India</span>

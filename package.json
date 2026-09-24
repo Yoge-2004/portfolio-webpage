@@ -2,8 +2,13 @@
   "name": "portfolio-site",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "Yogeshwaran Muthuraman — personal portfolio (static site, no build step).",
   "license": "ISC",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
   "devDependencies": {
     "playwright": "^1.63.0"
   }

@@ -1,25 +1,40 @@
 /**
- * Stitch Design System Tokens — The Night Workshop / Archive
+ * Stitch Design System Tokens — Cinematic Spatial Archive
+ * Art-directed, modern, luminous, and sophisticated palette.
  */
 :root {
-  /* Core Palette */
-  --void: #070706;
-  --obsidian: #0D0C0A;
-  --graphite: #211C16;
-  --bronze: #30261D;
-  --bone: #F2EADF;
-  --muted-bone: #B9AA97;
-  --soft-white: #FFF9F1;
-  --brass: #D7AA61;
-  --light-brass: #F0C98B;
-  --copper: #B96542;
-  --ember: #D87950;
+  /* Core Obsidian Canvas */
+  --void: #06080d;
+  --obsidian: #0b0f19;
+  --graphite: #181e2b;
+  --bronze: #2a221b;
+  --bone: #f1f5f9;
+  --muted-bone: #94a3b8;
+  --soft-white: #ffffff;
 
-  /* Hairline Borders */
-  --border-idle: #30261D;
-  --border-active: #D7AA61;
-  --border-copper: #B96542;
-  --border-ember: #D87950;
+  /* Primary Luminous Accents */
+  --brass: #f59e0b;
+  --light-brass: #fbbf24;
+  --copper: #b96542;
+  --ember: #f43f5e;
+  --cyan: #06b6d4;
+  --light-cyan: #22d3ee;
+  --violet: #8b5cf6;
+  --emerald: #10b981;
+
+  /* Dimensional Surfaces & Glassmorphism */
+  --surface-glass: rgba(11, 15, 25, 0.62);
+  --surface-glass-heavy: rgba(6, 9, 16, 0.85);
+  --surface-card: rgba(17, 24, 39, 0.55);
+  --surface-card-hover: rgba(26, 36, 56, 0.72);
+
+  /* Precision Hairline Borders */
+  --border-idle: rgba(255, 255, 255, 0.11);
+  --border-active: #f59e0b;
+  --border-cyan: #06b6d4;
+  --border-copper: #b96542;
+  --border-ember: #f43f5e;
+  --border-glow: rgba(245, 158, 11, 0.35);
 
   /* Typography Direction */
   --font-display: 'Bodoni Moda', 'Lora', Georgia, serif;

@@ -12,6 +12,7 @@ import { createResearchCluster } from './research-cluster.js';
 import { createArenaTrusses } from './arena-trusses.js';
 import { createMilestones } from './milestones.js';
 import { createHorizonPortal } from './horizon-portal.js';
+import { createHeroSingularity } from './hero-singularity.js';
 import { createParticles } from './particles.js';
 import { createPostProcessing } from './postprocessing.js';
 import { createTransitionController } from '../animation/transitions.js';
@@ -45,6 +46,7 @@ export function initWorld(pointerController, telemetryController, revealControll
     createArenaTrusses(scene, getPathPoint, progressOfZ);
     const { updateMilestones } = createMilestones(scene, getPathPoint, progressOfZ);
     const { updateHorizonPortal } = createHorizonPortal(scene);
+    const { updateHeroSingularity } = createHeroSingularity(scene);
     const { updateParticles } = createParticles(scene);
 
     // Post-Processing
@@ -64,6 +66,7 @@ export function initWorld(pointerController, telemetryController, revealControll
       transitionCtrl.updateTransitions();
 
       // Props animation
+      updateHeroSingularity(time, camPos.z, smoothPtr);
       updateResearchCluster(time, camPos.z);
       updateExhibits(camPos.z);
       updateMilestones(camPos.z);

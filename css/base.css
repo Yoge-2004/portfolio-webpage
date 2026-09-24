@@ -34,11 +34,7 @@
   box-sizing: border-box;
 }
 
-/* Sharp, Architectural Zero-Radius Rule */
-*, *::before, *::after {
-  border-radius: 0 !important;
-}
-
+/* Modern Precision Radii */
 html {
   background: var(--void);
   color: var(--bone);
@@ -117,13 +113,21 @@ h1, h2, h3, h4 {
 }
 
 .glow {
-  color: var(--brass);
+  color: var(--light-brass);
   font-weight: 500;
+  text-shadow: 0 0 16px rgba(245, 158, 11, 0.35);
 }
 
 .glow-copper {
-  color: var(--copper);
+  color: #ff8a65;
   font-weight: 500;
+  text-shadow: 0 0 16px rgba(185, 101, 66, 0.35);
+}
+
+.glow-cyan {
+  color: var(--light-cyan);
+  font-weight: 500;
+  text-shadow: 0 0 16px rgba(34, 211, 238, 0.35);
 }
 
 /* Technical Tags & Classification Stamps */
@@ -151,6 +155,7 @@ h1, h2, h3, h4 {
 
 .tag.copper { color: var(--copper); }
 .tag.ember { color: var(--ember); }
+.tag.cyan { color: var(--cyan); }
 
 /* Stitch Architectural Buttons */
 .acts {
@@ -168,39 +173,45 @@ h1, h2, h3, h4 {
   padding: 13px 26px;
   font-family: var(--font-mono);
   font-size: 11.5px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: .14em;
   text-transform: uppercase;
-  transition: transform .25s var(--ease), background .25s ease, border-color .25s ease, color .25s ease;
+  border-radius: 6px;
+  transition: transform .25s var(--ease), background .25s ease, border-color .25s ease, box-shadow .25s ease, color .25s ease;
   border: 1px solid transparent;
   cursor: pointer;
   text-decoration: none;
 }
 
 .btn-primary {
-  background: var(--brass);
-  color: var(--void);
-  border-color: var(--brass);
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #06080d;
+  border-color: #f59e0b;
+  box-shadow: 0 4px 18px rgba(245, 158, 11, 0.35);
 }
 
 .btn-primary:hover,
 .btn-primary:focus-visible {
-  background: var(--light-brass);
-  border-color: var(--light-brass);
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  border-color: #fbbf24;
+  box-shadow: 0 8px 28px rgba(245, 158, 11, 0.55);
   transform: translateY(-2px);
 }
 
 .btn-secondary {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.04);
   color: var(--bone);
-  border-color: var(--border-idle);
+  border-color: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .btn-secondary:hover,
 .btn-secondary:focus-visible {
   border-color: var(--brass);
-  background: rgba(33,28,22,.6);
-  color: var(--brass);
+  background: rgba(245, 158, 11, 0.12);
+  color: var(--light-brass);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.18);
   transform: translateY(-2px);
 }
 

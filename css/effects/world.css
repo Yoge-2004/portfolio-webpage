@@ -15,7 +15,7 @@
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: radial-gradient(ellipse at 50% 50%, transparent 25%, rgba(13,12,10,.6) 65%, rgba(7,7,6,.92) 100%);
+  background: radial-gradient(ellipse at 50% 50%, transparent 45%, rgba(6, 8, 13, 0.35) 75%, rgba(6, 8, 13, 0.75) 100%);
 }
 
 .grain {

@@ -44,7 +44,7 @@ export const EXHIBIT_PREVIEWS = [
     title: ['PASTE JOB LISTING', 'VERIFY RECRUITMENT FRAUD'],
     bars: [0.88, 0.99, 0.999],
     metrics: ['ACCURACY: 99%', 'F1: 99.00', 'ROC-AUC: 99.99'],
-    accent: '#B96542'
+    accent: '#f97316'
   },
   {
     tag: 'SECURITY // ZERO-FRAMEWORK',
@@ -52,7 +52,7 @@ export const EXHIBIT_PREVIEWS = [
     title: ['PRIVATE JOURNALING', 'CRYPTOGRAPHIC STORAGE'],
     bars: [0.72, 0.64, 0.85],
     metrics: ['AUTH: JWT TOKENS', 'DB: POSTGRESQL', 'API: FASTAPI'],
-    accent: '#D7AA61'
+    accent: '#06b6d4'
   },
   {
     tag: 'ENTERPRISE // REST API',
@@ -60,7 +60,7 @@ export const EXHIBIT_PREVIEWS = [
     title: ['PERSONAL CAPITAL', 'BUDGETARY GOALS & REPORTS'],
     bars: [0.55, 0.82, 0.68],
     metrics: ['BACKEND: SPRING BOOT', 'RDBMS: MYSQL', 'CLIENT: NETLIFY'],
-    accent: '#D7AA61'
+    accent: '#f59e0b'
   }
 ];
 

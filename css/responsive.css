@@ -63,6 +63,12 @@
   .sys-stamp {
     display: none;
   }
+  .sound-toggle .sound-label {
+    display: none;
+  }
+  .sound-toggle {
+    padding: 7px 10px;
+  }
   .burger {
     display: flex;
   }
@@ -171,6 +177,21 @@
   .research-portal-frame {
     min-height: 180px;
     padding: 16px;
+  }
+  .research-sim {
+    padding: 16px 12px;
+  }
+  .sim-tabs {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .sim-meters {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .sim-preview {
+    font-size: 11px;
+    padding: 12px;
   }
 
   /* Tactical Project Cards */

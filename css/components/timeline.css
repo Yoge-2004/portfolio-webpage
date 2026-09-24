@@ -4,7 +4,9 @@
 /* Arena (Competitive & Hackathon Proving Ground) */
 .rows {
   margin-top: 32px;
-  border-top: 1px solid var(--border-idle);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .row {
@@ -12,13 +14,20 @@
   grid-template-columns: 110px 1fr;
   gap: 28px;
   align-items: start;
-  padding: 28px 0;
-  border-bottom: 1px solid var(--border-idle);
-  transition: background .3s;
+  padding: 24px 26px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  background: rgba(11, 15, 25, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all .25s var(--ease);
 }
 
 .row:hover {
-  background: rgba(33,28,22,.2);
+  border-color: rgba(244, 63, 94, 0.45);
+  background: rgba(244, 63, 94, 0.07);
+  transform: translateX(4px);
+  box-shadow: 0 6px 20px rgba(244, 63, 94, 0.12);
 }
 
 .row .yr {
@@ -26,7 +35,7 @@
   font-size: clamp(2rem, 4vw, 2.8rem);
   line-height: 1;
   color: var(--muted-bone);
-  opacity: .7;
+  opacity: .75;
   font-weight: 400;
 }
 
@@ -64,6 +73,56 @@
 }
 
 /* Capability Bay & Certification Tiles */
+.cap-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.cap-filter {
+  padding: 8px 16px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted-bone);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: all .25s var(--ease);
+}
+
+.cap-filter:hover {
+  border-color: var(--cyan);
+  color: var(--soft-white);
+  background: rgba(6, 182, 212, 0.1);
+}
+
+.cap-filter.active {
+  border-color: var(--cyan);
+  color: var(--light-cyan);
+  background: rgba(6, 182, 212, 0.18);
+  box-shadow: 0 0 16px rgba(6, 182, 212, 0.25);
+}
+
+.cap.dimmed,
+.cert-card.dimmed {
+  opacity: 0.22;
+  filter: grayscale(0.85);
+  transform: scale(0.98);
+  pointer-events: none;
+}
+
+.cap.highlighted,
+.cert-card.highlighted {
+  opacity: 1;
+  filter: none;
+  transform: scale(1);
+}
+
 .caps {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -73,17 +132,27 @@
 
 .cap {
   padding: 28px;
-  border: 1px solid var(--border-idle);
-  background: rgba(13,12,10,.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(11, 15, 25, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: border-color .25s ease, transform .25s var(--ease), box-shadow .25s ease;
+}
+
+.cap:hover {
+  border-color: var(--cyan);
+  box-shadow: 0 8px 26px rgba(6, 182, 212, 0.15);
+  transform: translateY(-3px);
 }
 
 .cap h4 {
   font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: .18em;
   text-transform: uppercase;
-  color: var(--brass);
+  color: var(--light-cyan);
   margin-bottom: 18px;
 }
 
@@ -95,7 +164,7 @@
 
 .cap li {
   padding: 10px 0;
-  border-bottom: 1px solid rgba(48,38,29,.6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   font-size: 14.5px;
   font-weight: 400;
 }
@@ -121,17 +190,40 @@
 
 .cert-card {
   padding: 18px 20px;
-  border: 1px solid var(--border-idle);
-  background: rgba(13,12,10,.6);
-  transition: border-color .25s, transform .25s var(--ease), background .25s;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  background: rgba(11, 15, 25, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: border-color .25s, transform .25s var(--ease), background .25s, box-shadow .25s;
   display: block;
+  position: relative;
+  overflow: hidden;
+}
+
+.cert-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--brass);
+  opacity: 0;
+  transition: opacity .25s ease;
 }
 
 .cert-card:hover,
 .cert-card:focus-visible {
   border-color: var(--brass);
-  background: rgba(33,28,22,.4);
-  transform: translateY(-2px);
+  background: rgba(245, 158, 11, 0.08);
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.18);
+  transform: translateY(-3px);
+}
+
+.cert-card:hover::before,
+.cert-card:focus-visible::before {
+  opacity: 1;
 }
 
 .cert-card b {
@@ -149,41 +241,74 @@
   color: var(--muted-bone);
 }
 
+@media (max-width: 960px) {
+  .caps {
+    grid-template-columns: 1fr;
+  }
+  .certs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 540px) {
+  .certs {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Path (Spatial Milestone Timeline) */
 .path {
   margin-top: 36px;
-  border-left: 1px solid var(--border-idle);
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
   padding-left: clamp(24px, 4vw, 48px);
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .stop {
   position: relative;
-  padding: 24px 0;
+  padding: 24px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  background: rgba(11, 15, 25, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: border-color .3s ease, background .3s ease, box-shadow .3s ease;
+}
+
+.stop:hover,
+.stop.hit {
+  border-color: rgba(245, 158, 11, 0.45);
+  background: rgba(245, 158, 11, 0.06);
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.12);
 }
 
 .stop::before {
   content: "";
   position: absolute;
-  left: calc(-1 * clamp(24px, 4vw, 48px) - 4.5px);
+  left: calc(-1 * clamp(24px, 4vw, 48px) - 5px);
   top: 32px;
-  width: 8px;
-  height: 8px;
-  background: var(--bronze);
-  border: 1px solid var(--void);
-  transition: background .4s var(--ease), box-shadow .4s var(--ease);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #3b4252;
+  border: 2px solid var(--void);
+  transition: background .4s var(--ease), box-shadow .4s var(--ease), transform .4s;
 }
 
 .stop.hit::before {
   background: var(--brass);
-  box-shadow: 0 0 12px var(--brass);
+  box-shadow: 0 0 14px var(--brass);
+  transform: scale(1.2);
 }
 
 .stop time {
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: .14em;
-  color: var(--brass);
+  color: var(--light-brass);
 }
 
 .stop h4 {
@@ -204,10 +329,11 @@
   display: inline-block;
   margin-top: 10px;
   padding: 4px 10px;
+  border-radius: 4px;
   font-style: normal;
   font-family: var(--font-mono);
   font-size: 10.5px;
-  border: 1px solid var(--border-idle);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--light-brass);
-  background: rgba(33,28,22,.4);
+  background: rgba(245, 158, 11, 0.1);
 }
