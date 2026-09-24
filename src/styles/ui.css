@@ -1,0 +1,886 @@
+/* ============================================================
+   UI — navigation, chapter rail, progress HUD, buttons, cursor
+   ============================================================ */
+
+/* ---------------- Top bar ---------------- */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-nav);
+  height: var(--nav-h);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 24px;
+  padding: 0 var(--pad-x);
+  color: var(--ch-ink);
+  transition: background-color var(--dur-mid) var(--ease-out), backdrop-filter var(--dur-mid),
+    border-color var(--dur-mid);
+  border-bottom: 1px solid transparent;
+}
+
+.topbar.is-condensed {
+  /* Fully opaque so content scrolling underneath never bleeds through and
+     clutters the reading focus. */
+  background: var(--ch-bg);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  border-bottom-color: var(--ch-hairline);
+}
+
+.topbar__mark {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.topbar__mark-glyph {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex: none;
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  letter-spacing: -0.02em;
+  color: var(--ch-on-accent);
+  background: var(--ch-accent);
+  border-radius: 50%;
+  transition: transform var(--dur-mid) var(--ease-out), background-color var(--dur-mid);
+}
+
+.topbar__mark:hover .topbar__mark-glyph {
+  transform: rotate(-12deg) scale(1.06);
+}
+
+.topbar__mark-text {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--step--1);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+/* On anything but the widest screens, the mark is just the glyph so it never
+   collides with the centred chapter nav. */
+@media (max-width: 1480px) {
+  .topbar__mark-text {
+    display: none;
+  }
+}
+
+.topbar__mark-text span {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ch-ink-faint);
+}
+
+.topbar__nav {
+  justify-self: center;
+  min-width: 0;
+}
+
+.topbar__list {
+  display: flex;
+  align-items: center;
+  gap: clamp(2px, 1vw, 10px);
+}
+
+.topbar__link {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  padding: 9px clamp(8px, 1vw, 14px);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ch-ink-faint);
+  border-radius: 999px;
+  transition: color var(--dur-fast) var(--ease-out), background-color var(--dur-fast);
+  white-space: nowrap;
+}
+
+.topbar__link-num {
+  font-size: 0.82em;
+  opacity: 0.55;
+}
+
+.topbar__link:hover {
+  color: var(--ch-ink);
+}
+
+.topbar__link.is-active {
+  color: var(--ch-accent);
+  background: var(--ch-accent-soft);
+}
+
+.topbar__link.is-active .topbar__link-num {
+  opacity: 1;
+}
+
+.topbar__end {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  justify-self: end;
+}
+
+.topbar__resume {
+  padding: 10px 18px;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ch-ink);
+  border: 1px solid var(--ch-hairline);
+  border-radius: 999px;
+  transition: border-color var(--dur-fast), color var(--dur-fast), background-color var(--dur-fast);
+  white-space: nowrap;
+}
+
+.topbar__resume:hover {
+  color: var(--ch-accent);
+  border-color: var(--ch-accent-line);
+  background: var(--ch-accent-soft);
+}
+
+.topbar__menu {
+  display: none;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid var(--ch-hairline);
+  border-radius: 50%;
+}
+
+.topbar__menu span {
+  display: block;
+  width: 16px;
+  height: 1px;
+  background: currentColor;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.topbar__menu span:first-child {
+  transform: translateY(-3px);
+}
+
+.topbar__menu span:last-child {
+  transform: translateY(3px);
+}
+
+.topbar__menu[aria-expanded="true"] span:first-child {
+  transform: translateY(0.5px) rotate(45deg);
+}
+
+.topbar__menu[aria-expanded="true"] span:last-child {
+  transform: translateY(-0.5px) rotate(-45deg);
+}
+
+/* ---------------- Chapter drawer ---------------- */
+.drawer {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-drawer);
+}
+
+.drawer[hidden] {
+  display: none;
+}
+
+.drawer__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 5, 12, 0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: fade-in var(--dur-mid) var(--ease-out);
+}
+
+.drawer__panel {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: min(400px, 88vw);
+  padding: calc(var(--nav-h) + 20px) clamp(22px, 5vw, 44px) 32px;
+  display: flex;
+  flex-direction: column;
+  background: color-mix(in srgb, var(--ch-bg) 92%, #000);
+  border-left: 1px solid var(--ch-hairline);
+  overflow-y: auto;
+  animation: slide-in var(--dur-mid) var(--ease-out);
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-in {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.drawer__title {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ch-ink-faint);
+  margin-bottom: 22px;
+}
+
+.drawer__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.drawer__link {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  align-items: baseline;
+  gap: 14px;
+  padding: 16px 0;
+  border-top: 1px solid var(--ch-hairline);
+  transition: padding-left var(--dur-fast) var(--ease-out), color var(--dur-fast);
+}
+
+.drawer__list li:last-child .drawer__link {
+  border-bottom: 1px solid var(--ch-hairline);
+}
+
+.drawer__link:hover,
+.drawer__link.is-active {
+  padding-left: 10px;
+  color: var(--ch-accent);
+}
+
+.drawer__link-num {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--ch-ink-faint);
+}
+
+.drawer__link.is-active .drawer__link-num {
+  color: var(--ch-accent);
+}
+
+.drawer__link-title {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  letter-spacing: -0.02em;
+}
+
+.drawer__foot {
+  margin-top: auto;
+  padding-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ch-ink-faint);
+}
+
+.drawer__foot a:hover {
+  color: var(--ch-accent);
+}
+
+/* ---------------- Progress HUD ---------------- */
+.hud {
+  position: fixed;
+  z-index: var(--z-hud);
+  right: var(--pad-x);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 18px;
+  pointer-events: none;
+}
+
+.hud__rail {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+/* The rail is edge-anchored: only the hairline tick occupies real width, so
+   full-width content (cards, pipelines, ledgers) never sits underneath a
+   permanent label stack. Chapter names appear as hover tooltips instead —
+   the persistent "CH 07 · Title" info lives in the compact meter chip. */
+.hud__tick {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 5px 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ch-ink-faint);
+  opacity: 0.45;
+  transition: opacity var(--dur-mid) var(--ease-out), color var(--dur-mid);
+}
+
+.hud__tick-bar {
+  display: block;
+  width: 14px;
+  height: 1px;
+  background: currentColor;
+  transition: width var(--dur-mid) var(--ease-out);
+}
+
+.hud__tick.is-passed {
+  opacity: 0.75;
+}
+
+.hud__tick.is-active {
+  opacity: 1;
+  color: var(--ch-accent);
+}
+
+.hud__tick.is-active .hud__tick-bar {
+  width: 30px;
+}
+
+/* Label is out of flow — it can never widen the rail into content. */
+.hud__tick-text {
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%;
+  padding: 4px 9px;
+  border: 1px solid var(--ch-hairline);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ch-bg) 88%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(6px, -50%);
+  transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out);
+  pointer-events: none;
+}
+
+.hud__tick:hover .hud__tick-text {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
+/* Meter = a deliberate HUD badge so it reads as chrome, not overlap. */
+.hud__meter {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 7px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ch-ink-faint);
+  padding: 9px 10px;
+  border: 1px solid var(--ch-hairline);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--ch-bg) 82%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.hud__meter-track {
+  display: block;
+  width: 2px;
+  height: 76px;
+  background: var(--ch-hairline);
+  position: relative;
+  overflow: hidden;
+}
+
+.hud__meter-fill {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 0%;
+  background: var(--ch-accent);
+}
+
+/* Chapter name is omitted from the meter so the chip stays narrow (never
+   reaches content): the top bar's active link + rail hover already name it. */
+.hud__meter-title {
+  display: none;
+  color: var(--ch-ink);
+  max-width: 22ch;
+  text-align: right;
+  letter-spacing: 0.14em;
+}
+
+/* ---------------- Scroll hint ---------------- */
+.scroll-hint {
+  position: fixed;
+  left: 50%;
+  bottom: 26px;
+  z-index: var(--z-hud);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ch-ink-faint);
+  transition: opacity var(--dur-slow) var(--ease-out);
+  pointer-events: none;
+}
+
+.scroll-hint.is-hidden {
+  opacity: 0;
+}
+
+.scroll-hint__line {
+  display: block;
+  width: 1px;
+  height: 42px;
+  background: linear-gradient(to bottom, transparent, var(--ch-accent));
+  animation: hint-pulse 2.4s var(--ease-in-out) infinite;
+  transform-origin: top;
+}
+
+@keyframes hint-pulse {
+  0%, 100% { transform: scaleY(0.3); opacity: 0.4; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+
+/* ---------------- Buttons ----------------
+   Refined proportions: a touch shorter, more generous horizontal
+   padding, tighter mono tracking, and a light sheen sweep + label
+   nudge on hover so they feel crafted rather than default. */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 50px;
+  padding: 0 30px;
+  font-family: var(--font-mono);
+  font-size: clamp(0.68rem, 0.64rem + 0.2vw, 0.78rem);
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform var(--dur-mid) var(--ease-out), color var(--dur-mid),
+    border-color var(--dur-mid), background-color var(--dur-mid), box-shadow var(--dur-mid);
+  will-change: transform;
+}
+
+.btn > span {
+  position: relative;
+  z-index: 2;
+  transition: transform var(--dur-mid) var(--ease-out);
+}
+
+.btn svg {
+  position: relative;
+  z-index: 2;
+  flex: none;
+  width: 17px;
+  height: 17px;
+  transition: transform var(--dur-mid) var(--ease-out);
+}
+
+/* Sheen sweep */
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.28) 48%,
+    transparent 66%
+  );
+  transform: translateX(-130%);
+  transition: transform 720ms var(--ease-out);
+}
+
+.btn:hover::after {
+  transform: translateX(130%);
+}
+
+.btn:hover svg {
+  transform: translateX(4px);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn--primary {
+  color: var(--ch-on-accent);
+  background: var(--ch-accent);
+  box-shadow: 0 8px 30px -14px var(--ch-accent-line);
+}
+
+.btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 44px -12px var(--ch-accent-line);
+}
+
+/* Ghost fills with accent from the centre on hover */
+.btn--ghost {
+  color: var(--ch-ink);
+  border-color: color-mix(in srgb, var(--ch-ink) 22%, transparent);
+  background: transparent;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.btn--ghost::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: var(--ch-accent);
+  transform: scale(0.2);
+  opacity: 0;
+  transition: transform var(--dur-mid) var(--ease-out), opacity var(--dur-mid);
+}
+
+.btn--ghost:hover {
+  color: var(--ch-on-accent);
+  border-color: var(--ch-accent);
+  transform: translateY(-2px);
+}
+
+.btn--ghost:hover::before {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.btn--large {
+  min-height: 58px;
+  padding: 0 38px;
+  font-size: clamp(0.74rem, 0.68rem + 0.3vw, 0.86rem);
+  letter-spacing: 0.12em;
+}
+
+/* Touch-press state applied by initTouch() */
+.is-touched {
+  border-color: var(--ch-accent-line) !important;
+  box-shadow: 0 0 0 1px var(--ch-accent-soft), 0 14px 40px -20px var(--ch-accent-line) !important;
+}
+
+/* ---------------- Badges & tags ---------------- */
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: clamp(22px, 3vw, 40px);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ch-accent);
+}
+
+.kicker__rule {
+  display: block;
+  width: clamp(28px, 5vw, 64px);
+  height: 1px;
+  flex: none;
+  background: currentColor;
+  opacity: 0.6;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 700ms var(--ease-out);
+}
+
+/* The kicker rule draws in once its chapter head reveals. */
+.chapter__head.is-revealed .kicker__rule,
+.chapter--arrival .kicker.is-shown .kicker__rule {
+  transform: scaleX(1);
+}
+
+/* A faint animated pip travelling along the rule keeps the eye moving. */
+.kicker__rule::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  margin-top: -1.5px;
+  border-radius: 50%;
+  background: var(--ch-accent);
+  box-shadow: 0 0 8px var(--ch-accent);
+  opacity: 0;
+}
+
+.chapter__head.is-revealed .kicker {
+  --_shown: 1;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 14px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ch-ink-muted);
+  border: 1px solid var(--ch-hairline);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.badge--solid {
+  color: var(--ch-on-accent);
+  background: var(--ch-accent);
+  border-color: var(--ch-accent);
+}
+
+/* ---------------- Reveal (progressive enhancement) ---------------- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- No-JS note ---------- */
+.noscript-note {
+  position: relative;
+  z-index: var(--z-content);
+  max-width: 62ch;
+  margin: 40vh auto;
+  padding: 32px;
+  color: var(--ch-ink);
+  background: var(--ch-surface-strong);
+  border: 1px solid var(--ch-hairline);
+  border-radius: var(--radius-md);
+}
+
+.noscript-note h2 {
+  font-size: var(--step-3);
+  margin-bottom: 14px;
+}
+
+.noscript-note p {
+  color: var(--ch-ink-muted);
+  margin-bottom: 12px;
+}
+
+.noscript-note a {
+  color: var(--ch-accent);
+  text-decoration: underline;
+}
+
+/* ---------------- Custom cursor (fine pointers only) ------------
+   The default system cursor is hidden globally on fine-pointer,
+   hover-capable devices only. Touch devices keep their native
+   behaviour and never see the custom cursor. */
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 95;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 300ms var(--ease-out);
+}
+
+.cursor.is-ready {
+  opacity: 1;
+}
+
+.cursor__dot,
+.cursor__ring,
+.cursor__label {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* The dot + label track the pointer directly via CSS variables written on
+   pointermove — the browser compositor moves them, so it stays glued to the
+   pointer with zero JS-per-frame cost. */
+.cursor__dot,
+.cursor__label {
+  transform: translate3d(var(--cx, 0), var(--cy, 0), 0) translate(-50%, -50%);
+}
+
+.cursor__ring {
+  /* Positioned by the rAF loop (eased trailing motion). */
+  will-change: transform;
+}
+
+.cursor__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ch-accent, #fff);
+  box-shadow: 0 0 12px var(--ch-accent, #fff);
+  transition: width 220ms var(--ease-out), height 220ms var(--ease-out),
+    opacity 220ms, background-color 400ms var(--ease-out);
+}
+
+.cursor__ring {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--ch-accent, #fff) 60%, transparent);
+  transition: width 340ms var(--ease-out), height 340ms var(--ease-out),
+    border-color 340ms var(--ease-out), opacity 340ms, background-color 340ms;
+}
+
+/* Progress arc drawn around the ring — always visible once ready. */
+.cursor__ring svg {
+  position: absolute;
+  inset: -1px;
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
+  transform: rotate(-90deg);
+  opacity: 0.85;
+}
+
+.cursor__ring svg circle {
+  fill: none;
+  stroke: var(--ch-accent, #fff);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+/* Hover state: ring inflates, dot shrinks */
+.cursor.is-hover .cursor__ring {
+  width: 66px;
+  height: 66px;
+  border-color: var(--ch-accent, #fff);
+  background: color-mix(in srgb, var(--ch-accent, #fff) 8%, transparent);
+}
+
+.cursor.is-hover .cursor__dot {
+  width: 4px;
+  height: 4px;
+}
+
+.cursor.is-down .cursor__ring {
+  width: 26px;
+  height: 26px;
+  background: color-mix(in srgb, var(--ch-accent, #fff) 18%, transparent);
+}
+
+/* View state (over the 3D worlds / projects): filled disc + word */
+.cursor.is-view .cursor__ring {
+  width: 84px;
+  height: 84px;
+  border-color: transparent;
+  background: color-mix(in srgb, var(--ch-accent, #fff) 90%, transparent);
+}
+
+.cursor.is-view .cursor__dot {
+  opacity: 0;
+}
+
+.cursor__label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ch-on-accent);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate3d(var(--cx, 0), var(--cy, 0), 0) translate(-50%, -50%) scale(0.7);
+  transition: opacity 240ms var(--ease-out);
+}
+
+.cursor.is-view .cursor__label {
+  opacity: 1;
+  transform: translate3d(var(--cx, 0), var(--cy, 0), 0) translate(-50%, -50%) scale(1);
+}
+
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  html.has-custom-cursor,
+  html.has-custom-cursor * {
+    cursor: auto !important;
+  }
+  .cursor {
+    display: none;
+  }
+}
+
+/* ---------------- Touch ripple (touch devices) ------------------ */
+.touch-ripple {
+  position: fixed;
+  z-index: 94;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, color-mix(in srgb, var(--ch-accent, #fff) 55%, transparent), transparent 70%);
+  border: 1px solid color-mix(in srgb, var(--ch-accent, #fff) 60%, transparent);
+  animation: touch-ripple 640ms var(--ease-out) forwards;
+}
+
+@keyframes touch-ripple {
+  0% { opacity: 0.9; transform: scale(0.4); }
+  100% { opacity: 0; transform: scale(6); }
+}
+
+/* Tactile press feedback for touch on interactive elements */
+@media (hover: none), (pointer: coarse) {
+  a,
+  button,
+  [data-magnetic],
+  .domain,
+  .satellite,
+  .pillar {
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 160ms var(--ease-out), opacity 160ms;
+  }
+  a:active,
+  button:active,
+  [data-magnetic]:active {
+    transform: scale(0.96);
+    opacity: 0.86;
+  }
+  .domain:active,
+  .satellite:active,
+  .pillar:active,
+  .world__link:active {
+    transform: scale(0.985);
+  }
+}

@@ -1,0 +1,646 @@
+/* ============================================================
+   RESPONSIVE
+   Desktop / tablet / mobile get genuinely different compositions,
+   not a scaled-down desktop. Chapter 06 in particular is
+   re-composed at each breakpoint.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   ≤ 1480px — the full-text chapter nav needs a lot of width, so
+   below this it collapses to numerals only (still centred, still
+   driven by the same registry).
+   ------------------------------------------------------------ */
+@media (max-width: 1480px) {
+  .topbar__link-text {
+    display: none;
+  }
+
+  .topbar__link {
+    padding: 9px clamp(9px, 1.1vw, 13px);
+  }
+
+  .topbar__link-num {
+    font-size: var(--step--1);
+    opacity: 0.75;
+  }
+}
+
+/* The rail is ticks-only at every width now (labels are hover tooltips,
+   rendered out of flow), so no breakpoint collapse is needed here. */
+@media (max-width: 1400px) {
+  .hud__tick {
+    padding: 4px 0;
+  }
+}
+
+/* ------------------------------------------------------------
+   ≤ 1180px — small desktop / large tablet
+   ------------------------------------------------------------ */
+@media (max-width: 1180px) {
+
+  .research__prose {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .instrument__items {
+    grid-template-columns: 1fr;
+  }
+
+  .constellation__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ------------------------------------------------------------
+   ≤ 1024px — tablet
+   The technical constellation collapses from orbits to a 3-up
+   grid with a shortened nucleus and no long SVG links.
+   ------------------------------------------------------------ */
+@media (max-width: 1024px) {
+  :root {
+    --nav-h: 68px;
+  }
+
+  .topbar {
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+  }
+
+  .topbar__nav {
+    display: none;
+  }
+
+  .topbar__menu {
+    display: grid;
+  }
+
+  .topbar__resume {
+    display: none;
+  }
+
+  .hud {
+    right: clamp(14px, 3vw, 28px);
+  }
+
+  .hud__meter-track {
+    height: 54px;
+  }
+
+  .hud__meter-title {
+    display: none;
+  }
+
+  /* Chapter 06 — tablet composition */
+  .techworld__core {
+    width: clamp(104px, 18vw, 140px);
+    margin-bottom: clamp(32px, 5vw, 52px);
+  }
+
+  .techworld__links {
+    display: none;
+  }
+
+  .techworld__domains {
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(14px, 2vw, 24px);
+  }
+
+  .domain:nth-child(2),
+  .domain:nth-child(3) {
+    transform: none;
+  }
+
+  .domain:nth-child(2):hover,
+  .domain:nth-child(3):hover {
+    transform: translateY(-6px);
+  }
+
+  .domain__nodes {
+    gap: 13px;
+  }
+
+  .usage__row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .usage__arrow {
+    display: none;
+  }
+
+  /* Chapter 02 */
+  .person__pillars {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .pillar:nth-child(2),
+  .pillar:nth-child(3) {
+    transform: none;
+  }
+
+  .pillar:nth-child(2):hover,
+  .pillar:nth-child(3):hover {
+    transform: translateY(-6px);
+  }
+
+  .person__records {
+    grid-template-columns: 1fr 1fr;
+    gap: 0 clamp(20px, 3vw, 40px);
+  }
+
+  .record {
+    padding: 22px 0;
+    border-left: 0;
+    border-top: 1px solid var(--ch-hairline);
+  }
+
+  .record:nth-child(-n + 2) {
+    border-top: 0;
+  }
+
+  /* Chapter 03 */
+  .pipeline {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .pipeline__step {
+    padding: 24px 0;
+    border-left: 0;
+    border-top: 1px solid var(--ch-hairline);
+  }
+
+  .pipeline__step:first-child {
+    border-top: 0;
+  }
+
+  .detector {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  /* Chapter 07 */
+  .instrument {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .instrument__dial {
+    width: clamp(84px, 16vw, 108px);
+  }
+
+  .mindset__track {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px clamp(16px, 3vw, 32px);
+  }
+
+  /* Chapter 08 — stack the narrative above the console panel */
+  .world {
+    grid-template-columns: 1fr;
+    gap: clamp(28px, 5vw, 44px);
+    padding: clamp(88px, 12vh, 120px) var(--pad-x) clamp(56px, 9vh, 96px);
+  }
+
+  .world__content {
+    max-width: 760px;
+  }
+
+  .world__visual {
+    max-width: 560px;
+  }
+
+  .constellation__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ------------------------------------------------------------
+   ≤ 760px — large phone
+   ------------------------------------------------------------ */
+@media (max-width: 760px) {
+  :root {
+    --pad-x: 20px;
+  }
+
+  .chapter {
+    padding: clamp(72px, 11vh, 120px) var(--pad-x);
+  }
+
+  /* --- CH 01 --- */
+  .chapter--arrival {
+    padding-bottom: clamp(44px, 8vh, 76px);
+  }
+
+  .arrival__stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  .stat {
+    padding: 18px 0 18px 16px;
+    border-top: 1px solid var(--ch-hairline);
+  }
+
+  .stat:nth-child(odd) {
+    padding-left: 0;
+  }
+
+  .stat:nth-child(1),
+  .stat:nth-child(2) {
+    border-top: 0;
+  }
+
+  .stat:nth-child(even) {
+    border-left: 1px solid var(--ch-hairline);
+  }
+
+  .stat__value {
+    font-size: var(--step-3);
+  }
+
+  .arrival__acts .btn {
+    flex: 1 1 100%;
+  }
+
+  /* --- CH 02 --- */
+  .person__records {
+    grid-template-columns: 1fr;
+  }
+
+  .record:nth-child(-n + 2) {
+    border-top: 1px solid var(--ch-hairline);
+  }
+
+  .record:first-child {
+    border-top: 0;
+  }
+
+  /* --- CH 03 --- */
+  .research__prose {
+    gap: 18px;
+  }
+
+  .metrics {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .metric__value {
+    font-size: var(--step-4);
+  }
+
+  .specimen__meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .specimen__run {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* --- CH 04: the zig-zag becomes a single left rail --- */
+  .milestones::before {
+    left: 5px;
+  }
+
+  .milestone,
+  .milestone:nth-child(even) {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 22px 0 22px 30px;
+  }
+
+  .milestone__period,
+  .milestone:nth-child(even) .milestone__period {
+    grid-column: 1;
+    grid-row: auto;
+    text-align: left;
+    padding: 0;
+    font-size: var(--step--2);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .milestone__body,
+  .milestone:nth-child(even) .milestone__body {
+    grid-column: 1;
+    grid-row: auto;
+    text-align: left;
+    padding: 0;
+  }
+
+  .milestone::after,
+  .milestone:nth-child(even)::after {
+    left: 5px;
+    top: 32px;
+    transform: translate(-50%, 0) scale(0.4);
+  }
+
+  .milestone.is-revealed::after {
+    transform: translate(-50%, 0) scale(1);
+  }
+
+  .milestone__body h3 {
+    font-size: var(--step-1);
+  }
+
+  /* --- CH 05 --- */
+  .monument {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .monument__year {
+    font-size: var(--step-4);
+  }
+
+  .monument__body h3 {
+    font-size: var(--step-2);
+  }
+
+  /* --- CH 07 --- */
+  .instrument__items {
+    gap: 16px;
+  }
+
+  .mindset__track {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  /* --- CH 08 --- */
+  .chapter--worlds .chapter__inner {
+    padding: 0 var(--pad-x);
+  }
+
+  .world {
+    padding: clamp(72px, 10vh, 96px) var(--pad-x) clamp(48px, 8vh, 72px);
+  }
+
+  .world__visual {
+    max-width: none;
+  }
+
+  .console__metrics b {
+    font-size: var(--step-1);
+  }
+
+  .world__title-line:nth-child(2),
+  .world__title-line:nth-child(3) {
+    padding-left: 0;
+  }
+
+  .world__telemetry {
+    gap: 20px;
+  }
+
+  .world__telemetry dd {
+    font-size: var(--step-2);
+  }
+
+  .constellation__grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* --- CH 09 --- */
+  .horizon__links {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    text-align: center;
+    justify-items: center;
+  }
+
+  .horizon__link {
+    text-align: center;
+  }
+
+  .horizon__acts .btn {
+    flex: 1 1 100%;
+  }
+
+  /* --- Footer --- */
+  .footer__inner {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .footer__nav {
+    gap: 16px;
+  }
+}
+
+/* ------------------------------------------------------------
+   ≤ 480px — phone
+   Chapter 06 becomes a sequential interactive story.
+   ------------------------------------------------------------ */
+@media (max-width: 480px) {
+  .topbar__mark-text {
+    display: none;
+  }
+
+  .scroll-hint {
+    bottom: 18px;
+    font-size: 9px;
+  }
+
+  .scroll-hint__line {
+    height: 30px;
+  }
+
+  /* --- CH 06 — sequential story composition --- */
+  .techworld {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .techworld__core {
+    width: 128px;
+    margin: 0 0 8px;
+    align-self: flex-start;
+  }
+
+  .techworld__core-ring {
+    inset: -10%;
+  }
+
+  .techworld__core-ring--2 {
+    display: none;
+  }
+
+  .techworld__domains {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .domain {
+    position: relative;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    padding: 26px 0 26px 26px;
+    border-left: 1px solid var(--ch-accent-line);
+  }
+
+  .domain:hover {
+    transform: none;
+  }
+
+  /* connector dot from core into the first domain, and between domains */
+  .domain::before {
+    content: "";
+    position: absolute;
+    left: -5px;
+    top: 38px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--ch-accent);
+    box-shadow: 0 0 0 4px var(--ch-accent-soft);
+  }
+
+  .domain__head {
+    margin-bottom: 18px;
+  }
+
+  .domain__caption {
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+  }
+
+  .domain__nodes {
+    gap: 14px;
+  }
+
+  .techworld__usage {
+    margin-top: 40px;
+  }
+
+  .usage__row {
+    padding: 16px 0;
+  }
+
+  .usage__targets {
+    gap: 6px 14px;
+  }
+
+  /* --- CH 07 --- */
+  .mindset__track {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .mindset__step {
+    padding: 18px 0 18px 22px;
+    border-top: 0;
+    border-left: 1px solid var(--ch-hairline);
+  }
+
+  .mindset__step::before {
+    top: 0;
+    left: -1px;
+    width: 1px;
+    height: 0;
+    transition: height var(--dur-slow) var(--ease-out);
+  }
+
+  .mindset__step.is-revealed::before {
+    width: 1px;
+    height: 100%;
+  }
+
+  /* --- CH 01 --- */
+  .arrival__line--last {
+    padding-left: 0;
+  }
+
+  .arrival__lede {
+    max-width: 34ch;
+  }
+
+  .horizon__link dd {
+    font-size: var(--step--1);
+  }
+}
+
+/* ------------------------------------------------------------
+   Very small phones (≤ 360px)
+   ------------------------------------------------------------ */
+@media (max-width: 360px) {
+  :root {
+    --pad-x: 16px;
+  }
+
+  .arrival__stats {
+    grid-template-columns: 1fr;
+  }
+
+  .stat {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .stat:nth-child(even) {
+    border-left: 0;
+  }
+
+  .stat:nth-child(2) {
+    border-top: 1px solid var(--ch-hairline);
+  }
+
+  .world__stack li,
+  .badge {
+    font-size: 9px;
+    padding: 6px 11px;
+  }
+}
+
+/* ------------------------------------------------------------
+   Wide desktop — let the compositions breathe
+   ------------------------------------------------------------ */
+@media (min-width: 1800px) {
+  :root {
+    --maxw: 1560px;
+  }
+
+  .chapter__inner {
+    max-width: var(--maxw);
+  }
+}
+
+/* ------------------------------------------------------------
+   Reduced motion — content must remain fully legible and the
+   navigation fully functional, just without camera travel.
+   ------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .techworld__core-ring,
+  .techworld__links path.is-drawn,
+  .scroll-hint__line {
+    animation: none;
+  }
+
+  .techworld__links path {
+    opacity: 1;
+  }
+
+  .world,
+  .chapter {
+    min-height: auto;
+  }
+
+  .chapter--arrival,
+  .chapter--horizon {
+    min-height: 90svh;
+  }
+}

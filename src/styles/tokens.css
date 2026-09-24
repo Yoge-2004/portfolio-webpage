@@ -1,0 +1,138 @@
+/* ============================================================
+   TOKENS — the design system's single source of truth
+   Colour is chapter-driven: every chapter sets its own accent
+   via a CSS custom property, and the JS environment lerps the
+   3D palette in parallel so DOM and WebGL never disagree.
+   ============================================================ */
+
+:root {
+  /* --- Type --- */
+  --font-display: "Fraunces", "Georgia", serif;
+  --font-body: "Manrope", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  --step--2: clamp(0.66rem, 0.62rem + 0.2vw, 0.76rem);
+  --step--1: clamp(0.78rem, 0.74rem + 0.25vw, 0.9rem);
+  --step-0: clamp(0.95rem, 0.9rem + 0.3vw, 1.06rem);
+  --step-1: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
+  --step-2: clamp(1.35rem, 1.15rem + 1vw, 1.9rem);
+  --step-3: clamp(1.7rem, 1.35rem + 1.8vw, 2.7rem);
+  --step-4: clamp(2.1rem, 1.5rem + 3vw, 3.9rem);
+  --step-5: clamp(2.7rem, 1.6rem + 5.2vw, 6rem);
+  --step-6: clamp(3.2rem, 1.2rem + 8.4vw, 9.5rem);
+
+  /* --- Layout --- */
+  --pad-x: clamp(20px, 5.2vw, 108px);
+  --maxw: 1440px;
+  --nav-h: 78px;
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 20px;
+
+  /* --- Motion --- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-expo: cubic-bezier(0.87, 0, 0.13, 1);
+  --dur-fast: 180ms;
+  --dur-mid: 420ms;
+  --dur-slow: 900ms;
+
+  /* --- Chapter-driven colour (overridden per chapter) --- */
+  --ch-bg: #0d1024;
+  --ch-fog: #131a38;
+  --ch-ink: #f4efe6;
+  --ch-ink-muted: rgba(244, 239, 230, 0.62);
+  --ch-ink-faint: rgba(244, 239, 230, 0.34);
+  --ch-accent: #ffd9a0;
+  --ch-accent-soft: rgba(255, 217, 160, 0.16);
+  --ch-accent-line: rgba(255, 217, 160, 0.38);
+  /* Text that sits on top of a solid accent fill. */
+  --ch-on-accent: #0a0a12;
+  --ch-surface: rgba(12, 16, 34, 0.52);
+  --ch-surface-strong: rgba(8, 11, 24, 0.82);
+  --ch-hairline: rgba(244, 239, 230, 0.14);
+
+  /* --- Z scale --- */
+  --z-stage: 0;
+  --z-fallback: 1;
+  --z-content: 2;
+  --z-hud: 40;
+  --z-nav: 50;
+  --z-drawer: 60;
+  --z-boot: 90;
+}
+
+/* Per-chapter accent themes. `data-active-chapter` is set on <html>
+   by the navigation controller, so DOM colour always matches the
+   chapter the visitor is actually in. */
+[data-active-chapter="arrival"] {
+  --ch-accent: #ffd9a0;
+  --ch-accent-soft: rgba(255, 217, 160, 0.14);
+  --ch-accent-line: rgba(255, 217, 160, 0.34);
+  --ch-bg: #0d1024;
+}
+[data-active-chapter="person"] {
+  --ch-accent: #ffb27a;
+  --ch-accent-soft: rgba(255, 178, 122, 0.14);
+  --ch-accent-line: rgba(255, 178, 122, 0.34);
+  --ch-bg: #241612;
+}
+[data-active-chapter="research"] {
+  --ch-accent: #5cf0d4;
+  --ch-accent-soft: rgba(92, 240, 212, 0.13);
+  --ch-accent-line: rgba(92, 240, 212, 0.34);
+  --ch-bg: #07201f;
+}
+[data-active-chapter="path"] {
+  --ch-accent: #ffcf87;
+  --ch-accent-soft: rgba(255, 207, 135, 0.14);
+  --ch-accent-line: rgba(255, 207, 135, 0.34);
+  --ch-bg: #1d1710;
+}
+[data-active-chapter="arena"] {
+  --ch-accent: #ff9a5c;
+  --ch-accent-soft: rgba(255, 154, 92, 0.14);
+  --ch-accent-line: rgba(255, 154, 92, 0.34);
+  --ch-bg: #26100c;
+}
+[data-active-chapter="technical"] {
+  --ch-accent: #4fe3c4;
+  --ch-accent-soft: rgba(79, 227, 196, 0.13);
+  --ch-accent-line: rgba(79, 227, 196, 0.34);
+  --ch-bg: #101a1a;
+}
+[data-active-chapter="capabilities"] {
+  --ch-accent: #b99cff;
+  --ch-accent-soft: rgba(185, 156, 255, 0.13);
+  --ch-accent-line: rgba(185, 156, 255, 0.34);
+  --ch-bg: #141026;
+}
+[data-active-chapter="worlds"] {
+  --ch-accent: #ffd166;
+  --ch-accent-soft: rgba(255, 209, 102, 0.13);
+  --ch-accent-line: rgba(255, 209, 102, 0.34);
+  --ch-bg: #0a1a1e;
+}
+/* Ch 09 — the resolved dawn. A warm rose-coral, clearly distinct from the
+   violet of Ch 07 and the gold of Ch 08. */
+[data-active-chapter="horizon"] {
+  --ch-accent: #ff9e7d;
+  --ch-accent-soft: rgba(255, 158, 125, 0.14);
+  --ch-accent-line: rgba(255, 158, 125, 0.36);
+  --ch-bg: #2c1a22;
+}
+
+/* World 01/02/03 each carry their own accent inside chapter 08. These are
+   deliberately spread across the wheel (gold → cyan → amber) so the chapter
+   never reads as a single hue, and none of them collides with the Ch 07
+   violet. World 01 (fake-job) uses the chapter's base gold. */
+[data-active-world="digital-diary"] {
+  --ch-accent: #59d0ff;
+  --ch-accent-soft: rgba(89, 208, 255, 0.13);
+  --ch-accent-line: rgba(89, 208, 255, 0.34);
+}
+[data-active-world="expense-tracker"] {
+  --ch-accent: #ffb04d;
+  --ch-accent-soft: rgba(255, 176, 77, 0.13);
+  --ch-accent-line: rgba(255, 176, 77, 0.34);
+}

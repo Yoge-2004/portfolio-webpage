@@ -1,0 +1,1370 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#0d1024" />
+    <script>
+      /* Pre-paint theme restore — default is dark. Runs before CSS so the
+         first paint already uses the visitor's saved theme (no flash). */
+      try {
+        var __ymTheme = localStorage.getItem("ym-theme");
+        document.documentElement.dataset.theme = __ymTheme === "light" ? "light" : "dark";
+      } catch (e) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    </script>
+
+    <!-- ============================ SEO: Primary ============================ -->
+    <title>Yogeshwaran Muthuraman — Software Engineer &amp; Applied ML Researcher</title>
+    <meta
+      name="description"
+      content="Yogeshwaran Muthuraman is a software engineer and applied machine learning researcher in Chennai, India. ICISD'26-published work on fake-job / recruitment-scam detection with DistilBERT and ensemble learning, plus production full-stack and desktop systems."
+    />
+    <meta
+      name="keywords"
+      content="Yogeshwaran Muthuraman, software engineer, machine learning researcher, applied ML, Chennai, DistilBERT, fake job detection, recruitment scam detection, Spring Boot, FastAPI, Java, Python, portfolio"
+    />
+    <meta name="author" content="Yogeshwaran Muthuraman" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <link rel="canonical" href="https://yoge-2004.github.io/portfolio-webpage/" />
+
+    <!-- ============================ SEO: Open Graph ============================ -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Yogeshwaran Muthuraman" />
+    <meta property="og:title" content="Yogeshwaran Muthuraman — Software Engineer &amp; Applied ML Researcher" />
+    <meta
+      property="og:description"
+      content="A scroll-driven 3D journey through the research, systems and projects behind distinguishing what is real from what only looks real."
+    />
+    <meta property="og:url" content="https://yoge-2004.github.io/portfolio-webpage/" />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:image" content="https://yoge-2004.github.io/portfolio-webpage/social-card.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Yogeshwaran Muthuraman — interactive 3D portfolio" />
+
+    <!-- ============================ SEO: Twitter ============================ -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Yogeshwaran Muthuraman — Software Engineer &amp; Applied ML Researcher" />
+    <meta
+      name="twitter:description"
+      content="A cinematic, scroll-driven 3D portfolio: research on recruitment-scam detection, production systems, and how I build."
+    />
+    <meta name="twitter:image" content="https://yoge-2004.github.io/portfolio-webpage/social-card.png" />
+
+    <!-- ============================ Icons ============================ -->
+    <!-- Relative paths: GitHub Pages serves this from /portfolio-webpage/,
+         so root-absolute asset URLs would 404 there. -->
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="./site.webmanifest" />
+
+    <!-- ============================ Fonts (perf: preconnect + swap) ============================ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@200..700&family=JetBrains+Mono:wght@300..600&display=swap"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@200..700&family=JetBrains+Mono:wght@300..600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- ============================ SEO: Structured data (JSON-LD) ============================ -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Yogeshwaran Muthuraman",
+        "jobTitle": "Software Engineer & Applied Machine Learning Researcher",
+        "url": "https://yoge-2004.github.io/portfolio-webpage/",
+        "email": "mailto:yogeshwaranmuthuraman56@gmail.com",
+        "sameAs": ["https://github.com/Yoge-2004"],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Chennai",
+          "addressRegion": "Tamil Nadu",
+          "addressCountry": "IN"
+        },
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "Panimalar Engineering College, Chennai"
+        },
+        "knowsAbout": [
+          "Applied Machine Learning",
+          "Natural Language Processing",
+          "Full-Stack Engineering",
+          "Java",
+          "Python",
+          "Spring Boot",
+          "FastAPI"
+        ],
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Sutherland Global Services, Chennai"
+        }
+      }
+    </script>
+
+    <!-- Stylesheet is loaded via <link> (not through JavaScript) so the site
+         is styled even if the module script fails or the file is opened
+         without a bundler. Vite inlines this at build time. -->
+    <link rel="stylesheet" href="./src/styles/main.css" />
+
+    <!-- Bare-specifier import map: lets the raw ES modules run when the
+         project folder is served statically without a bundler. The built
+         bundle contains no bare imports, so this is inert there. -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./node_modules/three/build/three.module.js",
+          "gsap": "./node_modules/gsap/index.js",
+          "gsap/ScrollTrigger": "./node_modules/gsap/ScrollTrigger.js",
+          "lenis": "./node_modules/lenis/dist/lenis.mjs"
+        }
+      }
+    </script>
+
+    <noscript>
+      <style>
+        .boot { display: none !important; animation: none !important; }
+        [data-reveal] { opacity: 1 !important; transform: none !important; }
+      </style>
+    </noscript>
+
+    <script type="module" src="/src/main.js"></script>
+  </head>
+
+  <body>
+    <!-- ============================================================
+         WEBGL STAGE — a fixed canvas that sits behind the story.
+         Every chapter's 3D scene is registered against the chapter
+         registry, so the camera choreography and the DOM stay in sync.
+         ============================================================ -->
+    <div class="stage" id="stage" aria-hidden="true">
+      <canvas id="stage-canvas" class="stage__canvas"></canvas>
+      <div class="stage__vignette"></div>
+      <div class="stage__grain"></div>
+    </div>
+
+    <!-- Fallback atmosphere, shown only when WebGL is unavailable -->
+    <div class="stage-fallback" id="stage-fallback" aria-hidden="true"></div>
+
+    <!-- Boot curtain: covers the first paint, dismissed by the loader -->
+    <div class="boot" id="boot" aria-hidden="true">
+      <div class="boot__inner">
+        <p class="boot__label">Initialising the archive</p>
+        <div class="boot__bar"><span id="boot-bar-fill"></span></div>
+        <p class="boot__hint">A nine-chapter journey · scroll to travel</p>
+      </div>
+    </div>
+
+    <a class="skip-link" href="#main">Skip to the story</a>
+
+    <!-- ============================================================
+         NAVIGATION — driven entirely by the chapter registry
+         ============================================================ -->
+    <header class="topbar" id="topbar">
+      <a class="topbar__mark" href="#chapter-arrival" data-nav-home>
+        <span class="topbar__mark-glyph">YM</span>
+        <span class="topbar__mark-text">Yogeshwaran<span>Muthuraman</span></span>
+      </a>
+
+      <nav class="topbar__nav" id="topbar-nav" aria-label="Chapters">
+        <ol class="topbar__list" id="topbar-list"><!-- injected --></ol>
+      </nav>
+
+      <div class="topbar__end">
+        <button class="theme-toggle" data-theme-toggle type="button" aria-pressed="false" aria-label="Switch to light theme" title="Toggle light / dark theme">
+          <span class="theme-toggle__track" aria-hidden="true">
+            <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3L19 19M19 5l-1.7 1.7M6.7 17.3L5 19"/></svg>
+            <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13.2A8.2 8.2 0 0 1 10.8 4 8.2 8.2 0 1 0 20 13.2Z"/></svg>
+            <span class="theme-toggle__thumb"></span>
+          </span>
+          <span class="theme-toggle__label">Light</span>
+        </button>
+        <a class="topbar__resume" href="https://github.com/Yoge-2004/portfolio-webpage/raw/master/Yogeshwaran%20Resume.pdf" target="_blank" rel="noreferrer">Résumé</a>
+        <button class="topbar__menu" id="menu-toggle" aria-label="Open chapter menu" aria-expanded="false" aria-controls="chapter-drawer">
+          <span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Chapter drawer (mobile / tablet) -->
+    <div class="drawer" id="chapter-drawer" hidden>
+      <div class="drawer__scrim" data-drawer-close></div>
+      <nav class="drawer__panel" aria-label="All chapters">
+        <p class="drawer__title">Chapters</p>
+        <ol class="drawer__list" id="drawer-list"><!-- injected --></ol>
+        <div class="drawer__foot">
+          <a href="https://github.com/Yoge-2004" target="_blank" rel="noreferrer">GitHub</a>
+          <a href="mailto:yogeshwaranmuthuraman56@gmail.com">Email</a>
+          <a href="https://github.com/Yoge-2004/portfolio-webpage/raw/master/Yogeshwaran%20Resume.pdf" target="_blank" rel="noreferrer">Résumé</a>
+          <button class="theme-toggle theme-toggle--drawer" data-theme-toggle type="button" aria-pressed="false" aria-label="Switch to light theme">
+            <span class="theme-toggle__track" aria-hidden="true">
+              <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3L19 19M19 5l-1.7 1.7M6.7 17.3L5 19"/></svg>
+              <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13.2A8.2 8.2 0 0 1 10.8 4 8.2 8.2 0 1 0 20 13.2Z"/></svg>
+              <span class="theme-toggle__thumb"></span>
+            </span>
+            <span class="theme-toggle__label">Light</span>
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Progress HUD: chapter rail + progress bar -->
+    <aside class="hud" id="hud" aria-hidden="true">
+      <div class="hud__rail" id="hud-rail"><!-- injected --></div>
+      <div class="hud__meter">
+        <span class="hud__meter-label" id="hud-chapter-num">CH 01</span>
+        <span class="hud__meter-track"><span class="hud__meter-fill" id="hud-progress-fill"></span></span>
+        <span class="hud__meter-title" id="hud-chapter-title">The Arrival</span>
+      </div>
+    </aside>
+
+    <div class="scroll-hint" id="scroll-hint" aria-hidden="true">
+      <span class="scroll-hint__line"></span>
+      <span class="scroll-hint__text">Scroll to travel</span>
+    </div>
+
+    <main id="main">
+      <!-- ========================================================
+           CHAPTER 01 — THE ARRIVAL
+           Metaphor: an archive obelisk at the edge of a horizon.
+           Scroll pushes the camera *through* the slab.
+           ======================================================== -->
+      <section
+        class="chapter chapter--arrival"
+        id="chapter-arrival"
+        data-chapter="arrival"
+        data-index="1"
+        aria-labelledby="arrival-title"
+      >
+        <div class="chapter__inner arrival">
+          <p class="kicker"><span class="kicker__rule"></span>Chapter 01 // Archival Portal</p>
+
+          <h1 class="arrival__title" data-skew id="arrival-title" data-depth="260">
+            <span class="arrival__line arrival__line--first" data-split>Yogeshwaran</span>
+            <span class="arrival__line arrival__line--last" data-split>Muthuraman</span>
+          </h1>
+
+          <p class="arrival__lede">
+            I build software systems that tell the difference between
+            <em>what is real</em> and <em>what only looks real</em>.
+          </p>
+
+          <p class="arrival__role">Software Engineer · Applied ML Researcher · Chennai, India</p>
+
+          <div class="arrival__acts">
+            <a class="btn btn--primary" href="#chapter-person" data-magnetic>
+              <span>Enter the journey</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="btn btn--ghost" href="https://github.com/Yoge-2004" target="_blank" rel="noreferrer" data-magnetic>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.3-.4 6.8-1.6 6.8-7A5.5 5.5 0 0 0 19.3 3.7 5 5 0 0 0 19.2 0S18 0 15 1.8a13.4 13.4 0 0 0-7 0C5 0 3.8 0 3.8 0a5 5 0 0 0-.1 3.7 5.5 5.5 0 0 0-1.5 3.8c0 5.4 3.5 6.6 6.8 7A4.8 4.8 0 0 0 8 18v4"/><path d="M9 19c-3 .9-3-1.5-4-2"/></svg>
+              <span>GitHub</span>
+            </a>
+          </div>
+
+          <dl class="arrival__stats" id="arrival-stats">
+            <div class="stat" data-stat>
+              <dt class="stat__label">CGPA / 10</dt>
+              <dd class="stat__value"><span data-count-to="9.37">0.00</span></dd>
+              <p class="stat__note">B.E. Computer Science</p>
+            </div>
+            <div class="stat" data-stat>
+              <dt class="stat__label">Peer-Reviewed Paper</dt>
+              <dd class="stat__value"><span data-count-to="1">0</span></dd>
+              <p class="stat__note">ICISD'26 proceedings</p>
+            </div>
+            <div class="stat" data-stat>
+              <dt class="stat__label">Public Repositories</dt>
+              <dd class="stat__value"><span data-count-to="13">0</span></dd>
+              <p class="stat__note">github.com/Yoge-2004</p>
+            </div>
+            <div class="stat" data-stat>
+              <dt class="stat__label">Certifications</dt>
+              <dd class="stat__value"><span data-count-to="7">0</span></dd>
+              <p class="stat__note">Verified technical</p>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           CHAPTER 02 — THE PERSON
+           Metaphor: three pillars in a lamplit hall. Scroll orbits
+           them; each ignites and reveals its philosophy.
+           ======================================================== -->
+      <section
+        class="chapter chapter--person"
+        id="chapter-person"
+        data-chapter="person"
+        data-index="2"
+        aria-labelledby="person-title"
+      >
+        <div class="chapter__inner person">
+          <header class="chapter__head">
+            <p class="kicker"><span class="kicker__rule"></span>Chapter 02 // Foundation &amp; Philosophy</p>
+            <h2 class="chapter__title" id="person-title" data-depth="220" data-skew>Research keeps<br /><em>the engineering</em> honest.</h2>
+            <p class="chapter__lede">
+              I am a Computer Science Engineering student at Panimalar Engineering College, Chennai, graduating in
+              2026 with an academic standing of <strong>9.37 out of 10</strong>. I learn by building systems that
+              survive being used by people who didn't build them.
+            </p>
+            <p class="narrator" data-narrate><span class="narrator__mark" aria-hidden="true"></span>Let me introduce myself properly — not as a CV, but as a way of thinking.</p>
+          </header>
+
+          <div class="person__pillars">
+            <article class="pillar" data-pillar="ml">
+              <p class="pillar__tag">Pillar 01</p>
+              <h3 class="pillar__title">Applied Machine Learning</h3>
+              <p class="pillar__body">
+                Investigating how statistical models distinguish deceptive signals from legitimate communication
+                under extreme class imbalance.
+              </p>
+            </article>
+            <article class="pillar" data-pillar="fullstack">
+              <p class="pillar__tag">Pillar 02</p>
+              <h3 class="pillar__title">Full-Stack Engineering</h3>
+              <p class="pillar__body">
+                Architecting production backend REST APIs and client interfaces with Java Spring Boot, Python
+                FastAPI, and secure session management.
+              </p>
+            </article>
+            <article class="pillar" data-pillar="native">
+              <p class="pillar__tag">Pillar 03</p>
+              <h3 class="pillar__title">Native Systems &amp; Runtimes</h3>
+              <p class="pillar__body">
+                Engineering client-side desktop software with JavaFX and relational MySQL storage during my
+                Robowaves developer internship.
+              </p>
+            </article>
+          </div>
+
+          <p class="person__creed">
+            <span>A model without an interface is an unverifiable claim.</span> Everything I research ends up
+            deployed into live, inspectable environments. That discipline transformed a final-year inquiry into
+            recruitment scams into a published conference paper and a live detection service.
+          </p>
+
+          <dl class="person__records">
+            <div class="record">
+              <dt>Education</dt>
+              <dd>B.E. Computer Science<small>Panimalar Engineering College, Chennai · 2022–2026 · CGPA 9.37/10</small></dd>
+            </div>
+            <div class="record">
+              <dt>Currently</dt>
+              <dd>Customer Support Associate<small>Sutherland (GOP), Chennai · May 2026 – present</small></dd>
+            </div>
+            <div class="record">
+              <dt>Experience</dt>
+              <dd>Java Developer Intern<small>Robowaves, Chennai · June–August 2025 · Java, JavaFX, MySQL</small></dd>
+            </div>
+            <div class="record">
+              <dt>Research</dt>
+              <dd>Published at ICISD'26<small>Paper ICISD26-408 · SRM Institute of Science &amp; Technology, Vadapalani</small></dd>
+            </div>
+            <div class="record">
+              <dt>Availability</dt>
+              <dd>Software &amp; Applied-ML Roles<small>Based in Chennai · Open to relocation</small></dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           CHAPTER 03 — THE RESEARCH
+           Metaphor: a detection membrane. A fraudulent posting
+           travels through the pipeline; the verdict resolves.
+           ======================================================== -->
+      <section
+        class="chapter chapter--research"
+        id="chapter-research"
+        data-chapter="research"
+        data-index="3"
+        aria-labelledby="research-title"
+      >
+        <div class="chapter__inner research">
+          <header class="chapter__head">
+            <p class="kicker"><span class="kicker__rule"></span>Chapter 03 // Peer-Reviewed Research</p>
+            <h2 class="chapter__title" id="research-title" data-depth="240" data-skew>Teaching a machine<br />to recognise <em>a lie</em>.</h2>
+            <p class="chapter__lede">Thousands of job seekers fall prey to postings that never existed.</p>
+            <p class="narrator" data-narrate><span class="narrator__mark" aria-hidden="true"></span>Here is the work I'm proudest of. Follow the posting as the machine reads it.</p>
+          </header>
+
+          <div class="research__pipeline">
+            <ol class="pipeline">
+              <li class="pipeline__step" data-step="1">
+                <p class="pipeline__tag">Step 01 // Semantic Encoding</p>
+                <h3 class="pipeline__title">DistilBERT Contextual Embeddings</h3>
+                <p class="pipeline__body">
+                  Extracts dense high-dimensional semantic representations from unstructured job descriptions,
+                  capturing nuanced deceptive linguistic patterns.
+                </p>
+              </li>
+              <li class="pipeline__step" data-step="2">
+                <p class="pipeline__tag">Step 02 // Anomaly Isolation</p>
+                <h3 class="pipeline__title">Isolation Forest Safety Layer</h3>
+                <p class="pipeline__body">
+                  Unsupervised safety boundary that isolates structural anomalies unseen in training
+                  distributions, detecting zero-day scam variants.
+                </p>
+              </li>
+              <li class="pipeline__step" data-step="3">
+                <p class="pipeline__tag">Step 03 // Classification</p>
+                <h3 class="pipeline__title">Stacking Ensemble Classifier</h3>
+                <p class="pipeline__body">
+                  Meta-classifier combining semantic and tabular features to overcome the severe 95:5
+                  authentic-to-fraudulent class imbalance.
+                </p>
+              </li>
+            </ol>
+          </div>
+
+          <!-- Interactive detector: a real posting, run through the architecture -->
+          <div class="detector" id="detector">
+            <div class="detector__head">
+              <p class="detector__badges">
+                <span class="badge badge--solid">Published ICISD'26</span>
+                <span class="badge">Peer Reviewed</span>
+                <span class="badge">Oral Presentation</span>
+                <span class="badge">Paper ICISD26-408</span>
+              </p>
+              <h3 class="detector__paper">
+                Fake Job Posting and Online Recruitment Scam Detection Utilizing Machine Learning and Advanced
+                Natural Language Processing Techniques
+              </h3>
+              <p class="detector__venue">
+                <strong>International Conference on Intelligent Systems and Digital Transformation (ICISD'26)</strong>
+                SRM Institute of Science and Technology, Vadapalani Campus, Chennai · 6–7 April 2026
+              </p>
+            </div>
+
+            <figure class="specimen" id="specimen">
+              <blockquote class="specimen__quote">
+                “URGENT: Entry-Level Remote Data Verification Assistant. Earn $4,500/week! No technical interview or
+                previous experience needed. Telegram @fast_onboard_support to receive your home-office equipment
+                check immediately.”
+              </blockquote>
+              <figcaption class="specimen__meta">
+                <span class="specimen__source">Specimen — synthetic recruitment posting</span>
+                <button class="specimen__run" id="specimen-run" type="button" data-magnetic>
+                  <span class="specimen__run-label">Run through the pipeline</span>
+                  <span class="specimen__run-arrow" aria-hidden="true"></span>
+                </button>
+              </figcaption>
+
+              <div class="specimen__readout" id="specimen-readout" aria-live="polite">
+                <div class="gauge" data-gauge="dbert">
+                  <div class="gauge__top"><span class="gauge__name">DistilBERT Confidence</span><span class="gauge__value" data-gauge-value="dbert">—</span></div>
+                  <div class="gauge__track"><span class="gauge__fill" data-gauge-fill="dbert"></span></div>
+                </div>
+                <div class="gauge" data-gauge="iso">
+                  <div class="gauge__top"><span class="gauge__name">Isolation Forest Anomaly</span><span class="gauge__value" data-gauge-value="iso">—</span></div>
+                  <div class="gauge__track"><span class="gauge__fill" data-gauge-fill="iso"></span></div>
+                </div>
+                <p class="specimen__verdict" id="specimen-verdict">
+                  Contextual embeddings matched known fraud clusters (unrealistic compensation, off-platform
+                  messaging). Isolation Forest mapped posting into extreme outlier distribution.
+                </p>
+                <p class="specimen__flag" id="specimen-flag">Verdict — Fraudulent</p>
+              </div>
+            </figure>
+
+            <div class="research__prose">
+              <p>
+                The architecture is <strong>hybrid neuro-symbolic</strong>. DistilBERT generates contextual
+                semantic embeddings of job postings, an <strong>Isolation Forest</strong> isolates
+                high-dimensional anomalies unseen in the training distribution, and a <strong>Stacking
+                Ensemble</strong> makes the final classification. This unsupervised safety layer enables
+                detection of zero-day scams that mimic legitimate recruitment formats.
+              </p>
+              <p>
+                A critical challenge was <strong>extreme class imbalance</strong>: the EMSCAD dataset exhibits an
+                authentic-to-fraudulent ratio of <strong>95:5</strong>. A naive classifier predicting “genuine”
+                universally achieves 95% accuracy while remaining completely useless. Addressing this imbalance
+                honestly is why our evaluation emphasizes F1-Score and ROC-AUC over superficial metrics.
+              </p>
+            </div>
+
+            <dl class="metrics" id="research-metrics">
+              <div class="metric" data-metric>
+                <dt class="metric__label">Accuracy</dt>
+                <dd class="metric__value"><span data-count-to="99">0</span><i>%</i></dd>
+              </div>
+              <div class="metric" data-metric>
+                <dt class="metric__label">F1-Score</dt>
+                <dd class="metric__value"><span data-count-to="99.00">0</span></dd>
+              </div>
+              <div class="metric" data-metric>
+                <dt class="metric__label">ROC-AUC</dt>
+                <dd class="metric__value"><span data-count-to="99.99">0</span></dd>
+              </div>
+            </dl>
+
+            <p class="research__authors">
+              <strong>Yogeshwaran M</strong>, Murugavalli S, Thamarai I, Shamini M<br />
+              <span>Department of Computer Science and Engineering, Panimalar Engineering College, Chennai</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           CHAPTER 04 — THE PATH
+           Metaphor: a spline road with year markers. Scroll
+           physically travels the visitor through the journey.
+           ======================================================== -->
+      <section
+        class="chapter chapter--path"
+        id="chapter-path"
+        data-chapter="path"
+        data-index="4"
+        aria-labelledby="path-title"
+      >
+        <div class="chapter__inner path">
+          <header class="chapter__head">
+            <p class="kicker"><span class="kicker__rule"></span>Chapter 04 // Spatial Progression</p>
+            <h2 class="chapter__title" id="path-title" data-depth="230" data-skew>Chronological<br />progression.</h2>
+            <p class="chapter__lede">
+              Six years, plotted as distance travelled. Each marker is a place the work actually happened.
+            </p>
+            <p class="narrator" data-narrate><span class="narrator__mark" aria-hidden="true"></span>Walk with me through the road so far — every marker is a place the work actually happened.</p>
+          </header>
+
+          <ol class="milestones" id="milestones">
+            <li class="milestone" data-milestone>
+              <p class="milestone__period">2019 — 2020</p>
+              <div class="milestone__body">
+                <h3>Secondary School Certificate (SSLC)</h3>
+                <p>Nav Bharath Vidyalaya, Chennai.</p>
+                <p class="milestone__note">Academic Score: 90%</p>
+              </div>
+            </li>
+            <li class="milestone" data-milestone>
+              <p class="milestone__period">2021 — 2022</p>
+              <div class="milestone__body">
+                <h3>Higher Secondary Certificate (HSC)</h3>
+                <p>Nav Bharath Vidyalaya, Chennai.</p>
+                <p class="milestone__note">Academic Score: 91%</p>
+              </div>
+            </li>
+            <li class="milestone" data-milestone>
+              <p class="milestone__period">2022 — 2026</p>
+              <div class="milestone__body">
+                <h3>B.E. Computer Science and Engineering</h3>
+                <p>Panimalar Engineering College, Chennai.</p>
+                <p class="milestone__note">CGPA: 9.37 / 10</p>
+              </div>
+            </li>
+            <li class="milestone" data-milestone>
+              <p class="milestone__period">June — August 2025</p>
+              <div class="milestone__body">
+                <h3>Java Developer Intern, Robowaves</h3>
+                <p>
+                  Built the core Library Management System in Java, JavaFX, and MySQL — architected user access
+                  controls, book cataloging, and automated audit reporting modules.
+                </p>
+              </div>
+            </li>
+            <li class="milestone" data-milestone>
+              <p class="milestone__period">April 2026</p>
+              <div class="milestone__body">
+                <h3>Published at ICISD'26</h3>
+                <p>
+                  Presented fake recruitment scam detection research at SRM Institute of Science and Technology,
+                  Vadapalani Campus.
+                </p>
+                <p class="milestone__note">Paper Reference: ICISD26-408</p>
+              </div>
+            </li>
+            <li class="milestone milestone--now" data-milestone>
+              <p class="milestone__period">May 2026 — Present</p>
+              <div class="milestone__body">
+                <h3>Customer Support Associate, Sutherland</h3>
+                <p>
+                  Working at Sutherland Global Services (Global Operations Park, Chennai) — resolving customer
+                  issues with clarity and ownership while continuing to build and interview for software and
+                  applied-ML roles.
+                </p>
+                <p class="milestone__note">Sutherland (GOP), Chennai</p>
+              </div>
+            </li>
+            <li class="milestone" data-milestone>
+              <p class="milestone__period">Next</p>
+              <div class="milestone__body">
+                <h3>Seeking the Next Engineering Challenge</h3>
+                <p>
+                  Actively interviewing for software engineering and applied machine learning roles where
+                  curiosity, ownership, and rapid shipping compound.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           CHAPTER 05 — THE PROVING GROUNDS
+           Metaphor: an arena ring with monument spotlights.
+           Scroll raises the camera; monuments ignite in sequence.
+           ======================================================== -->
+      <section
+        class="chapter chapter--arena"
+        id="chapter-arena"
+        data-chapter="arena"
+        data-index="5"
+        aria-labelledby="arena-title"
+      >
+        <div class="chapter__inner arena">
+          <header class="chapter__head">
+            <p class="kicker"><span class="kicker__rule"></span>Chapter 05 // Arena (Proving Grounds)</p>
+            <h2 class="chapter__title" id="arena-title" data-depth="250" data-skew>Where deadlines<br />are <em>uncompromising</em>.</h2>
+            <p class="chapter__lede">
+              Conferences and competitive hackathons teach what coursework cannot: how to architect and deliver
+              functional systems within hours, and communicate complex engineering under scrutiny.
+            </p>
+            <p class="narrator" data-narrate><span class="narrator__mark" aria-hidden="true"></span>These are the rooms where the clock was the real examiner.</p>
+          </header>
+
+          <ol class="monuments" id="monuments">
+            <li class="monument" data-monument>
+              <p class="monument__year">2026</p>
+              <div class="monument__body">
+                <p class="monument__org">SRM Institute of Science and Technology</p>
+                <h3>ICISD'26 — International Conference</h3>
+                <p class="monument__text">
+                  Delivered an oral presentation on fake recruitment scam detection using hybrid neuro-symbolic
+                  ML. Published in the conference proceedings.
+                </p>
+                <p class="monument__date">6–7 April 2026</p>
+              </div>
+            </li>
+            <li class="monument" data-monument>
+              <p class="monument__year">2025</p>
+              <div class="monument__body">
+                <p class="monument__org">IIT Madras Research Park</p>
+                <h3>Naan Mudhalvan Hackathon</h3>
+                <p class="monument__text">
+                  NLP hackathon focused on engineering intelligent text processing and machine learning
+                  applications for the Tamil language.
+                </p>
+              </div>
+            </li>
+            <li class="monument" data-monument>
+              <p class="monument__year">2025</p>
+              <div class="monument__body">
+                <p class="monument__org">IEEE SJCE Student Branch</p>
+                <h3>Web-A-Thon</h3>
+                <p class="monument__text">
+                  24-hour international hackathon hosted by St. Joseph's Engineering College, building full-stack
+                  web solutions under continuous time constraints.
+                </p>
+                <p class="monument__date">27–28 March 2025</p>
+              </div>
+            </li>
+            <li class="monument" data-monument>
+              <p class="monument__year">2024</p>
+              <div class="monument__body">
+                <p class="monument__org">DPurpose Foundation</p>
+                <h3>Hack4Purpose</h3>
+                <p class="monument__text">
+                  Multi-month nationwide hackathon developing applied technological solutions for sustainable
+                  social innovation.
+                </p>
+                <p class="monument__date">February–May 2024</p>
+              </div>
+            </li>
+            <li class="monument monument--workshop" data-monument>
+              <p class="monument__year">·</p>
+              <div class="monument__body">
+                <p class="monument__org">Octanet</p>
+                <h3>Mastering MERN Workshop</h3>
+                <p class="monument__text">
+                  Four-day intensive engineering workshop on MongoDB, Express.js, React, and Node.js
+                  architecture.
+                </p>
+                <p class="monument__date">Technical Workshop</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           CHAPTER 06 — THE TECHNICAL WORLD
+           The chapter that was broken. Rebuilt as a connected
+           system: a core nucleus, three orbital domains, and the
+           leaf technologies hanging off each — linked to the
+           projects where they were actually used.
+           ======================================================== -->
+      <section
+        class="chapter chapter--technical"
+        id="chapter-technical"
+        data-chapter="technical"
+        data-index="6"
+        aria-labelledby="technical-title"
+      >
+        <div class="chapter__inner technical">
+          <header class="chapter__head">
+            <p class="kicker"><span class="kicker__rule"></span>Chapter 06 // Technical World &amp; Production Systems</p>
+            <h2 class="chapter__title" id="technical-title" data-depth="210" data-skew>Engineered systems<br />deployed <em>in the open</em>.</h2>
+            <p class="chapter__lede">
+              A developer is not defined by the technologies they claim, but by the production systems that
+              survive being used by people who didn't build them.
+            </p>
+            <p class="narrator" data-narrate><span class="narrator__mark" aria-hidden="true"></span>This is my technical world. Watch how the pieces actually connect.</p>
+          </header>
+
+          <!-- Desktop / tablet: the spatial constellation.
+               Mobile: the same system, told as a sequential story. -->
+          <div class="techworld" id="techworld">
+            <div class="techworld__core" data-tech-core>
+              <span class="techworld__core-ring"></span>
+              <span class="techworld__core-ring techworld__core-ring--2"></span>
+              <span class="techworld__core-label">Core</span>
+              <span class="techworld__core-caption">Languages I think in</span>
+            </div>
+
+            <svg class="techworld__links" id="techworld-links" aria-hidden="true" focusable="false"></svg>
+
+            <div class="techworld__domains" id="techworld-domains">
+              <article class="domain" data-domain="languages">
+                <header class="domain__head">
+                  <p class="domain__tag">Domain 01</p>
+                  <h3 class="domain__title">Core Languages</h3>
+                  <p class="domain__caption">Where everything begins</p>
+                </header>
+                <ul class="domain__nodes">
+                  <li class="node" data-node><span class="node__name">Python</span><span class="node__note">Applied ML, PyTorch &amp; NLP systems</span></li>
+                  <li class="node" data-node><span class="node__name">Java 25</span><span class="node__note">Spring Boot &amp; native JavaFX</span></li>
+                  <li class="node" data-node><span class="node__name">C / C++</span><span class="node__note">Algorithmic foundations &amp; memory</span></li>
+                  <li class="node" data-node><span class="node__name">JavaScript</span><span class="node__note">Client state &amp; WebGL integration</span></li>
+                </ul>
+              </article>
+
+              <article class="domain" data-domain="backend">
+                <header class="domain__head">
+                  <p class="domain__tag">Domain 02</p>
+                  <h3 class="domain__title">Backend &amp; Frameworks</h3>
+                  <p class="domain__caption">How systems behave</p>
+                </header>
+                <ul class="domain__nodes">
+                  <li class="node" data-node><span class="node__name">Spring Boot 3</span><span class="node__note">REST API &amp; enterprise architecture</span></li>
+                  <li class="node" data-node><span class="node__name">FastAPI</span><span class="node__note">Asynchronous REST &amp; OpenAPI spec</span></li>
+                  <li class="node" data-node><span class="node__name">DistilBERT + Isolation Forest</span><span class="node__note">Hybrid NLP &amp; anomaly detection</span></li>
+                  <li class="node" data-node><span class="node__name">JavaFX Desktop</span><span class="node__note">Circulation OS &amp; relational UI</span></li>
+                </ul>
+              </article>
+
+              <article class="domain" data-domain="data">
+                <header class="domain__head">
+                  <p class="domain__tag">Domain 03</p>
+                  <h3 class="domain__title">Data, Security &amp; Infrastructure</h3>
+                  <p class="domain__caption">How systems endure</p>
+                </header>
+                <ul class="domain__nodes">
+                  <li class="node" data-node><span class="node__name">MySQL &amp; PostgreSQL</span><span class="node__note">Relational schema &amp; indexing</span></li>
+                  <li class="node" data-node><span class="node__name">JWT in HttpOnly Cookies</span><span class="node__note">Zero-framework XSS mitigation</span></li>
+                  <li class="node" data-node><span class="node__name">Docker &amp; Cloud (TCS iON)</span><span class="node__note">Containerization &amp; deployment</span></li>
+                  <li class="node" data-node><span class="node__name">REST Assured &amp; Cucumber</span><span class="node__note">Automated behavioural verification</span></li>
+                </ul>
+              </article>
+            </div>
+
+            <!-- The connective tissue: where each domain was actually used -->
+            <div class="techworld__usage">
+              <p class="techworld__usage-title">Where this was used</p>
+              <ul class="usage">
+                <li class="usage__row" data-usage>
+                  <span class="usage__domain">Core Languages</span>
+                  <span class="usage__arrow" aria-hidden="true"></span>
+                  <span class="usage__targets">
+                    <a href="https://github.com/Yoge-2004/fake-job-detection-python" target="_blank" rel="noreferrer">Scam Detection</a>
+                    <a href="https://github.com/Yoge-2004/expense-tracker" target="_blank" rel="noreferrer">Budget Engine</a>
+                    <a href="https://github.com/Yoge-2004/digital-diary-application" target="_blank" rel="noreferrer">Digital Diary</a>
+                  </span>
+                </li>
+                <li class="usage__row" data-usage>
+                  <span class="usage__domain">Backend &amp; Frameworks</span>
+                  <span class="usage__arrow" aria-hidden="true"></span>
+                  <span class="usage__targets">
+                    <a href="https://github.com/Yoge-2004/expense-tracker" target="_blank" rel="noreferrer">Budget Engine</a>
+                    <a href="https://github.com/Yoge-2004/digital-diary-application" target="_blank" rel="noreferrer">Digital Diary</a>
+                    <a href="https://github.com/Yoge-2004/fake-job-detection-python" target="_blank" rel="noreferrer">Scam Detection</a>
+                  </span>
+                </li>
+                <li class="usage__row" data-usage>
+                  <span class="usage__domain">Data &amp; Infrastructure</span>
+                  <span class="usage__arrow" aria-hidden="true"></span>
+                  <span class="usage__targets">
+                    <a href="https://github.com/Yoge-2004/digital-diary-application" target="_blank" rel="noreferrer">Digital Diary</a>
+                    <a href="https://github.com/Yoge-2004/expense-tracker" target="_blank" rel="noreferrer">Budget Engine</a>
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           CHAPTER 07 — CAPABILITIES
+           Metaphor: an instrument panel. Gauges fill, layers
+           stack, then collapse into the blocks that become worlds.
+           ======================================================== -->
+      <section
+        class="chapter chapter--capabilities"
+        id="chapter-capabilities"
+        data-chapter="capabilities"
+        data-index="7"
+        aria-labelledby="capabilities-title"
+      >
+        <div class="chapter__inner capabilities">
+          <header class="chapter__head">
+            <p class="kicker"><span class="kicker__rule"></span>Chapter 07 // Capability &amp; Instrumentation</p>
+            <h2 class="chapter__title" id="capabilities-title" data-depth="220" data-skew>Production capabilities<br />and <em>technical stack</em>.</h2>
+            <p class="chapter__lede">
+              Not a list of logos — a map of what each capability is actually attached to.
+            </p>
+            <p class="narrator" data-narrate><span class="narrator__mark" aria-hidden="true"></span>And this is how I use it all — the instruments, and the loop I run every time.</p>
+          </header>
+
+          <div class="instruments" id="instruments">
+            <article class="instrument" data-instrument="ml-backend">
+              <div class="instrument__dial" aria-hidden="true">
+                <svg viewBox="0 0 120 120" focusable="false">
+                  <circle class="instrument__dial-track" cx="60" cy="60" r="52" />
+                  <circle class="instrument__dial-fill" cx="60" cy="60" r="52" data-dial />
+                </svg>
+                <span class="instrument__dial-num">01</span>
+              </div>
+              <div class="instrument__body">
+                <h3 class="instrument__title">Backend &amp; Machine Learning</h3>
+                <dl class="instrument__items">
+                  <div class="instrument__item"><dt>Java</dt><dd>Library OS, Expense Tracker, internship engineering</dd></div>
+                  <div class="instrument__item"><dt>Python</dt><dd>ICISD'26 research, explainable fraud, diary, task app</dd></div>
+                  <div class="instrument__item"><dt>Spring Boot</dt><dd>Expense Tracker enterprise REST architecture</dd></div>
+                  <div class="instrument__item"><dt>FastAPI</dt><dd>Digital diary service, todo web application</dd></div>
+                </dl>
+              </div>
+            </article>
+
+            <article class="instrument" data-instrument="systems-ui">
+              <div class="instrument__dial" aria-hidden="true">
+                <svg viewBox="0 0 120 120" focusable="false">
+                  <circle class="instrument__dial-track" cx="60" cy="60" r="52" />
+                  <circle class="instrument__dial-fill" cx="60" cy="60" r="52" data-dial />
+                </svg>
+                <span class="instrument__dial-num">02</span>
+              </div>
+              <div class="instrument__body">
+                <h3 class="instrument__title">Interface &amp; Systems</h3>
+                <dl class="instrument__items">
+                  <div class="instrument__item"><dt>JavaFX</dt><dd>Library OS native desktop system</dd></div>
+                  <div class="instrument__item"><dt>HTML5 &amp; CSS3</dt><dd>Zero-framework semantic, accessible layouts</dd></div>
+                  <div class="instrument__item"><dt>JavaScript (ES6+)</dt><dd>Interactive client systems, WebGL integration</dd></div>
+                  <div class="instrument__item"><dt>Jinja2</dt><dd>Server-side templating for secure web platforms</dd></div>
+                </dl>
+              </div>
+            </article>
+
+            <article class="instrument" data-instrument="data-cloud">
+              <div class="instrument__dial" aria-hidden="true">
+                <svg viewBox="0 0 120 120" focusable="false">
+                  <circle class="instrument__dial-track" cx="60" cy="60" r="52" />
+                  <circle class="instrument__dial-fill" cx="60" cy="60" r="52" data-dial />
+                </svg>
+                <span class="instrument__dial-num">03</span>
+              </div>
+              <div class="instrument__body">
+                <h3 class="instrument__title">Data &amp; Quality Engineering</h3>
+                <dl class="instrument__items">
+                  <div class="instrument__item"><dt>MySQL</dt><dd>Relational schema design, transactions, indexing</dd></div>
+                  <div class="instrument__item"><dt>PostgreSQL &amp; SQLite</dt><dd>Encrypted storage, SQLAlchemy migrations</dd></div>
+                  <div class="instrument__item"><dt>Git &amp; GitHub</dt><dd>Version control, 13 public repositories</dd></div>
+                  <div class="instrument__item"><dt>Cucumber &amp; TestNG</dt><dd>REST Assured behavioural test automation</dd></div>
+                </dl>
+              </div>
+            </article>
+          </div>
+
+          <!-- How I think — the engineering loop, told as a sequence -->
+          <div class="mindset" id="mindset">
+            <p class="mindset__title">The engineering loop</p>
+            <ol class="mindset__track">
+              <li class="mindset__step" data-mindset>
+                <span class="mindset__num">01</span>
+                <h3>Question</h3>
+                <p>Start from the failure mode, not the feature.</p>
+              </li>
+              <li class="mindset__step" data-mindset>
+                <span class="mindset__num">02</span>
+                <h3>Explore</h3>
+                <p>Read the data before trusting the model.</p>
+              </li>
+              <li class="mindset__step" data-mindset>
+                <span class="mindset__num">03</span>
+                <h3>Build</h3>
+                <p>Ship something inspectable early.</p>
+              </li>
+              <li class="mindset__step" data-mindset>
+                <span class="mindset__num">04</span>
+                <h3>Break</h3>
+                <p>Test the assumption that hurts.</p>
+              </li>
+              <li class="mindset__step" data-mindset>
+                <span class="mindset__num">05</span>
+                <h3>Refine</h3>
+                <p>Measure honestly, including the boring metrics.</p>
+              </li>
+              <li class="mindset__step" data-mindset>
+                <span class="mindset__num">06</span>
+                <h3>Ship</h3>
+                <p>A model without an interface is an unverifiable claim.</p>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           CHAPTER 08 — THE WORLDS
+           Metaphor: project islands you fly between. Each major
+           project gets a world; the six secondary systems form a
+           constellation behind them.
+           ======================================================== -->
+      <section
+        class="chapter chapter--worlds"
+        id="chapter-worlds"
+        data-chapter="worlds"
+        data-index="8"
+        aria-labelledby="worlds-title"
+      >
+        <div class="chapter__inner worlds">
+          <header class="chapter__head">
+            <p class="kicker"><span class="kicker__rule"></span>Chapter 08 // Production Systems</p>
+            <h2 class="chapter__title" id="worlds-title" data-depth="240" data-skew>Three worlds,<br />built to <em>survive</em>.</h2>
+            <p class="chapter__lede">
+              Each of these began as a problem that had already defeated a simpler solution. Enter them one at a
+              time.
+            </p>
+            <p class="narrator" data-narrate><span class="narrator__mark" aria-hidden="true"></span>Step inside each system, one world at a time.</p>
+          </header>
+
+          <div class="worlds__sequence" id="worlds-sequence">
+            <!-- Project 01 -->
+            <article class="world" data-world="fake-job" data-world-index="0" data-cursor-view data-cursor-label="World 01">
+              <div class="world__scrim" aria-hidden="true"></div>
+              <div class="world__content">
+                <header class="world__head">
+                  <p class="world__ordinal">World 01</p>
+                  <h3 class="world__title">
+                    <span class="world__title-line">Fake Job Posting</span>
+                    <span class="world__title-line">&amp; Recruitment</span>
+                    <span class="world__title-line">Scam Detection</span>
+                  </h3>
+                  <p class="world__caption">A machine taught to recognise a lie.</p>
+                </header>
+
+                <div class="world__phases">
+                  <div class="phase" data-phase>
+                    <p class="phase__tag">Phase 01 // The Crisis</p>
+                    <p class="phase__body">
+                      <strong>The Problem:</strong> Online job seekers fall victim to fraudulent recruitment
+                      postings that harvest identity credentials. The EMSCAD benchmark has an extreme 95:5 class
+                      imbalance — a naive classifier predicting “authentic” blindly scores 95% accuracy while
+                      remaining entirely useless.
+                    </p>
+                  </div>
+                  <div class="phase" data-phase>
+                    <p class="phase__tag">Phase 02 // Architecture</p>
+                    <p class="phase__body">
+                      <strong>The Engineering Approach:</strong> Architected a hybrid neuro-symbolic pipeline
+                      combining DistilBERT contextual embeddings for deep semantic representation, an Isolation
+                      Forest safety boundary to detect out-of-distribution zero-day scams, and a Stacking
+                      Ensemble classifier.
+                    </p>
+                  </div>
+                  <div class="phase" data-phase>
+                    <p class="phase__tag">Phase 03 // Outcome</p>
+                    <p class="phase__body">
+                      <strong>The Result:</strong> Validated at 99% accuracy, 99.00 F1-score and 99.99% ROC-AUC.
+                      Published at ICISD'26 and deployed as a live cloud inspection dashboard with instant
+                      explainability reasoning.
+                    </p>
+                  </div>
+                </div>
+
+                <ul class="world__stack">
+                  <li>Python</li><li>NLP</li><li>DistilBERT</li><li>Isolation Forest</li>
+                  <li>Stacking Ensemble</li><li>Hugging Face</li><li>ICISD'26</li>
+                </ul>
+
+                <dl class="world__telemetry">
+                  <div><dt>Accuracy</dt><dd>99%</dd></div>
+                  <div><dt>F1-Score</dt><dd>99.00</dd></div>
+                  <div><dt>ROC-AUC</dt><dd>99.99</dd></div>
+                </dl>
+
+                <a class="world__link" href="https://github.com/Yoge-2004/fake-job-detection-python" target="_blank" rel="noreferrer">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.3-.4 6.8-1.6 6.8-7A5.5 5.5 0 0 0 19.3 3.7 5 5 0 0 0 19.2 0S18 0 15 1.8a13.4 13.4 0 0 0-7 0C5 0 3.8 0 3.8 0a5 5 0 0 0-.1 3.7 5.5 5.5 0 0 0-1.5 3.8c0 5.4 3.5 6.6 6.8 7A4.8 4.8 0 0 0 8 18v4"/></svg>
+                  <span class="world__link-label">View repository</span>
+                  <span class="world__link-url">Yoge-2004/fake-job-detection-python</span>
+                </a>
+              </div>
+
+              <!-- Visual panel: a "detection console" mockup so the space reads
+                   as a live system, not an empty gap. -->
+              <aside class="world__visual" aria-hidden="true">
+                <div class="console">
+                  <div class="console__bar">
+                    <span class="console__dot"></span><span class="console__dot"></span><span class="console__dot"></span>
+                    <span class="console__name">detector · live</span>
+                  </div>
+                  <div class="console__body">
+                    <p class="console__label">Inspecting posting</p>
+                    <p class="console__sample">“Earn $4,500/week — no interview, no experience. DM to onboard.”</p>
+                    <div class="console__gauges">
+                      <div class="cgauge" style="--v:99"><span class="cgauge__k">DistilBERT</span><span class="cgauge__bar"><i></i></span><span class="cgauge__v">99.4%</span></div>
+                      <div class="cgauge" style="--v:98"><span class="cgauge__k">Isolation Forest</span><span class="cgauge__bar"><i></i></span><span class="cgauge__v">0.982</span></div>
+                    </div>
+                    <p class="console__verdict console__verdict--flag">⚠ Fraudulent — high-risk cluster</p>
+                    <div class="console__metrics">
+                      <div><b>99%</b><span>Accuracy</span></div>
+                      <div><b>99.00</b><span>F1</span></div>
+                      <div><b>99.99</b><span>ROC-AUC</span></div>
+                    </div>
+                  </div>
+                </div>
+              </aside>
+            </article>
+
+            <!-- Project 02 -->
+            <article class="world" data-world="digital-diary" data-world-index="1" data-cursor-view data-cursor-label="World 02">
+              <div class="world__scrim" aria-hidden="true"></div>
+              <div class="world__content">
+                <header class="world__head">
+                  <p class="world__ordinal">World 02</p>
+                  <h3 class="world__title">
+                    <span class="world__title-line">Private Digital</span>
+                    <span class="world__title-line">Diary Platform</span>
+                  </h3>
+                  <p class="world__caption">Private by construction, not by promise.</p>
+                </header>
+
+                <div class="world__phases">
+                  <div class="phase" data-phase>
+                    <p class="phase__tag">Phase 01 // The Crisis</p>
+                    <p class="phase__body">
+                      <strong>The Problem:</strong> Modern single-page web applications routinely store JWT
+                      authentication tokens in <code>localStorage</code> or client memory, leaving confidential
+                      user journals vulnerable to client-side XSS token exfiltration.
+                    </p>
+                  </div>
+                  <div class="phase" data-phase>
+                    <p class="phase__tag">Phase 02 // Architecture</p>
+                    <p class="phase__body">
+                      <strong>The Engineering Approach:</strong> Engineered a zero-framework platform using Python
+                      FastAPI, Jinja2 and vanilla JavaScript over SQLAlchemy. Authentication relies on
+                      cryptographically signed JWT access &amp; refresh tokens stored strictly in
+                      <strong>HttpOnly, SameSite cookies</strong> with zero script exposure.
+                    </p>
+                  </div>
+                  <div class="phase" data-phase>
+                    <p class="phase__tag">Phase 03 // Outcome</p>
+                    <p class="phase__body">
+                      <strong>The Result:</strong> Complete mitigation of XSS token hijacking. Features granular
+                      emotional telemetry, mood analytics, archival pinning, and time-decayed sharing tokens over
+                      an automated OpenAPI backend.
+                    </p>
+                  </div>
+                </div>
+
+                <ul class="world__stack">
+                  <li>FastAPI</li><li>SQLAlchemy</li><li>PostgreSQL</li><li>JWT HttpOnly</li>
+                  <li>Jinja2</li><li>Bcrypt</li>
+                </ul>
+
+                <dl class="world__telemetry">
+                  <div><dt>XSS Exposure</dt><dd>0%</dd></div>
+                  <div><dt>Auth Latency</dt><dd>&lt;14ms</dd></div>
+                  <div><dt>Storage</dt><dd>Encrypted</dd></div>
+                </dl>
+
+                <a class="world__link" href="https://github.com/Yoge-2004/digital-diary-application" target="_blank" rel="noreferrer">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.3-.4 6.8-1.6 6.8-7A5.5 5.5 0 0 0 19.3 3.7 5 5 0 0 0 19.2 0S18 0 15 1.8a13.4 13.4 0 0 0-7 0C5 0 3.8 0 3.8 0a5 5 0 0 0-.1 3.7 5.5 5.5 0 0 0-1.5 3.8c0 5.4 3.5 6.6 6.8 7A4.8 4.8 0 0 0 8 18v4"/></svg>
+                  <span class="world__link-label">View repository</span>
+                  <span class="world__link-url">Yoge-2004/digital-diary-application</span>
+                </a>
+              </div>
+
+              <!-- Visual panel: a secure-vault mockup. -->
+              <aside class="world__visual" aria-hidden="true">
+                <div class="console">
+                  <div class="console__bar">
+                    <span class="console__dot"></span><span class="console__dot"></span><span class="console__dot"></span>
+                    <span class="console__name">vault · secured</span>
+                  </div>
+                  <div class="console__body">
+                    <p class="console__label">Session token</p>
+                    <div class="console__lock">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+                      <span>HttpOnly · SameSite · Encrypted</span>
+                    </div>
+                    <div class="console__gauges">
+                      <div class="cgauge" style="--v:100"><span class="cgauge__k">XSS surface</span><span class="cgauge__bar"><i></i></span><span class="cgauge__v">0%</span></div>
+                      <div class="cgauge" style="--v:92"><span class="cgauge__k">Auth latency</span><span class="cgauge__bar"><i></i></span><span class="cgauge__v">&lt;14ms</span></div>
+                    </div>
+                    <p class="console__verdict console__verdict--ok">✓ No client-readable secrets</p>
+                    <div class="console__metrics">
+                      <div><b>0%</b><span>XSS</span></div>
+                      <div><b>&lt;14ms</b><span>Auth</span></div>
+                      <div><b>AES</b><span>At rest</span></div>
+                    </div>
+                  </div>
+                </div>
+              </aside>
+            </article>
+
+            <!-- Project 03 -->
+            <article class="world" data-world="expense-tracker" data-world-index="2" data-cursor-view data-cursor-label="World 03">
+              <div class="world__scrim" aria-hidden="true"></div>
+              <div class="world__content">
+                <header class="world__head">
+                  <p class="world__ordinal">World 03</p>
+                  <h3 class="world__title">
+                    <span class="world__title-line">Expense Tracker</span>
+                    <span class="world__title-line">&amp; Budget Engine</span>
+                  </h3>
+                  <p class="world__caption">Money that has to balance, every time.</p>
+                </header>
+
+                <div class="world__phases">
+                  <div class="phase" data-phase>
+                    <p class="phase__tag">Phase 01 // The Crisis</p>
+                    <p class="phase__body">
+                      <strong>The Problem:</strong> Tracking multi-stream income, dynamic category budgeting, and
+                      capital allocation across disparate spreadsheets leads to ledger drift and lack of audit
+                      validation.
+                    </p>
+                  </div>
+                  <div class="phase" data-phase>
+                    <p class="phase__tag">Phase 02 // Architecture</p>
+                    <p class="phase__body">
+                      <strong>The Engineering Approach:</strong> Architected an enterprise layered REST backend in
+                      Java 25 and Spring Boot (Controller → Service → Repository pattern) backed by a normalized
+                      MySQL relational database with transactional balance enforcement.
+                    </p>
+                  </div>
+                  <div class="phase" data-phase>
+                    <p class="phase__tag">Phase 03 // Outcome</p>
+                    <p class="phase__body">
+                      <strong>The Result:</strong> Shipped full financial audit reports, category limit alerts,
+                      sub-50ms REST API response latency, and continuous deployment to Netlify web hosting.
+                    </p>
+                  </div>
+                </div>
+
+                <ul class="world__stack">
+                  <li>Java 25</li><li>Spring Boot 3</li><li>RESTful API</li><li>MySQL</li>
+                  <li>Netlify</li><li>Maven</li>
+                </ul>
+
+                <dl class="world__telemetry">
+                  <div><dt>API Latency</dt><dd>&lt;48ms</dd></div>
+                  <div><dt>ACID Integrity</dt><dd>100%</dd></div>
+                  <div><dt>Test Coverage</dt><dd>92%</dd></div>
+                </dl>
+
+                <a class="world__link" href="https://github.com/Yoge-2004/expense-tracker" target="_blank" rel="noreferrer">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.3-.4 6.8-1.6 6.8-7A5.5 5.5 0 0 0 19.3 3.7 5 5 0 0 0 19.2 0S18 0 15 1.8a13.4 13.4 0 0 0-7 0C5 0 3.8 0 3.8 0a5 5 0 0 0-.1 3.7 5.5 5.5 0 0 0-1.5 3.8c0 5.4 3.5 6.6 6.8 7A4.8 4.8 0 0 0 8 18v4"/></svg>
+                  <span class="world__link-label">View repository</span>
+                  <span class="world__link-url">Yoge-2004/expense-tracker</span>
+                </a>
+              </div>
+
+              <!-- Visual panel: a ledger / budget console. -->
+              <aside class="world__visual" aria-hidden="true">
+                <div class="console">
+                  <div class="console__bar">
+                    <span class="console__dot"></span><span class="console__dot"></span><span class="console__dot"></span>
+                    <span class="console__name">ledger · balanced</span>
+                  </div>
+                  <div class="console__body">
+                    <p class="console__label">Monthly allocation</p>
+                    <div class="console__ledger">
+                      <div class="lrow"><span>Income</span><span class="lbar lbar--in"><i style="--w:100%"></i></span><b>+₹100</b></div>
+                      <div class="lrow"><span>Essentials</span><span class="lbar"><i style="--w:52%"></i></span><b>52%</b></div>
+                      <div class="lrow"><span>Savings</span><span class="lbar lbar--save"><i style="--w:28%"></i></span><b>28%</b></div>
+                      <div class="lrow"><span>Flexible</span><span class="lbar lbar--flex"><i style="--w:20%"></i></span><b>20%</b></div>
+                    </div>
+                    <p class="console__verdict console__verdict--ok">✓ Ledger reconciled · ACID 100%</p>
+                    <div class="console__metrics">
+                      <div><b>&lt;48ms</b><span>API</span></div>
+                      <div><b>100%</b><span>ACID</span></div>
+                      <div><b>92%</b><span>Tests</span></div>
+                    </div>
+                  </div>
+                </div>
+              </aside>
+            </article>
+          </div>
+
+          <!-- The six secondary systems, as a constellation -->
+          <div class="constellation" id="constellation">
+            <p class="constellation__title">Six more systems, fully public</p>
+            <ol class="constellation__grid">
+              <li class="satellite" data-satellite>
+                <p class="satellite__ordinal">01</p>
+                <h3>Library Management System</h3>
+                <p>
+                  Engineered during the Robowaves developer internship. Complete JavaFX desktop application with
+                  MySQL relational storage covering circulation, member authentication, cataloging, and
+                  administrative audit reports. Distributed with native installers.
+                </p>
+                <ul class="satellite__stack"><li>Java</li><li>JavaFX</li><li>MySQL</li><li>Maven</li></ul>
+              </li>
+              <li class="satellite" data-satellite>
+                <p class="satellite__ordinal">02</p>
+                <h3>Explainable Fraud Alert System</h3>
+                <p>
+                  Transaction scoring pipeline providing interpretable machine learning verdicts. Incorporates
+                  SHAP and LIME explanatory vectors, webhook alerting, and containerized Docker execution.
+                </p>
+                <ul class="satellite__stack"><li>Python</li><li>SHAP</li><li>LIME</li><li>Docker</li></ul>
+              </li>
+              <li class="satellite" data-satellite>
+                <p class="satellite__ordinal">03</p>
+                <h3>Task Management Web App</h3>
+                <p>
+                  FastAPI and SQLModel service with session-cookie authentication and bcrypt credential hashing.
+                  Real-time deadline validation and asynchronous background email notification pipelines.
+                </p>
+                <ul class="satellite__stack"><li>FastAPI</li><li>SQLModel</li><li>Bcrypt</li><li>SMTP</li></ul>
+              </li>
+              <li class="satellite" data-satellite>
+                <p class="satellite__ordinal">04</p>
+                <h3>Smart City Guide</h3>
+                <p>
+                  Interactive urban directory mapping municipal infrastructure, healthcare networks, and transit
+                  nodes. Engineered with a Java core and responsive web frontend.
+                </p>
+                <ul class="satellite__stack"><li>Java</li><li>HTML5</li><li>CSS3</li></ul>
+              </li>
+              <li class="satellite" data-satellite>
+                <p class="satellite__ordinal">05</p>
+                <h3>REST Assured Automation Framework</h3>
+                <p>
+                  API test suite executing automated verification against the Petstore Swagger spec. Implements
+                  Cucumber Gherkin scenarios, TestNG runner architecture, and multi-format test reporting.
+                </p>
+                <ul class="satellite__stack"><li>Java</li><li>REST Assured</li><li>Cucumber</li><li>TestNG</li></ul>
+              </li>
+              <li class="satellite" data-satellite>
+                <p class="satellite__ordinal">06</p>
+                <h3>Java Desktop Quiz Application</h3>
+                <p>
+                  Interactive assessment desktop software with multi-topic catalogs, precision timer enforcement,
+                  and instant scoring diagnostics. Designed for extensible question datasets.
+                </p>
+                <ul class="satellite__stack"><li>Java</li><li>Swing / JavaFX</li></ul>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           CHAPTER 09 — THE NEXT CHAPTER
+           Metaphor: a resolved dawn horizon. Restraint, space,
+           and the sense that the story continues elsewhere.
+           ======================================================== -->
+      <section
+        class="chapter chapter--horizon"
+        id="chapter-horizon"
+        data-chapter="horizon"
+        data-index="9"
+        aria-labelledby="horizon-title"
+      >
+        <div class="chapter__inner horizon">
+          <header class="chapter__head">
+            <p class="kicker"><span class="kicker__rule"></span>Chapter 09 // Horizon Atrium</p>
+            <h2 class="chapter__title horizon__title" id="horizon-title" data-depth="300" data-skew>
+              <span class="horizon__line">Tell me what</span>
+              <span class="horizon__line horizon__line--accent">you're building.</span>
+            </h2>
+            <p class="chapter__lede">
+              I review every message that arrives. Whether it's an engineering role, applied-ML research
+              collaboration, or a challenging architectural problem — let's connect.
+            </p>
+          </header>
+
+          <div class="horizon__acts">
+            <a class="btn btn--primary btn--large" href="mailto:yogeshwaranmuthuraman56@gmail.com" data-magnetic>
+              <span>Start a conversation</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="btn btn--ghost btn--large" href="https://github.com/Yoge-2004/portfolio-webpage/raw/master/Yogeshwaran%20Resume.pdf" target="_blank" rel="noreferrer" data-magnetic>
+              <span>Read the résumé</span>
+            </a>
+          </div>
+
+          <dl class="horizon__links">
+            <div class="horizon__link">
+              <dt>Email</dt>
+              <dd><a href="mailto:yogeshwaranmuthuraman56@gmail.com">yogeshwaranmuthuraman56@gmail.com</a></dd>
+            </div>
+            <div class="horizon__link">
+              <dt>GitHub</dt>
+              <dd><a href="https://github.com/Yoge-2004" target="_blank" rel="noreferrer">github.com/Yoge-2004</a></dd>
+            </div>
+            <div class="horizon__link">
+              <dt>Based in</dt>
+              <dd>Chennai, Tamil Nadu · Open to relocation</dd>
+            </div>
+          </dl>
+
+          <p class="horizon__end">
+            <span>The next chapter</span> is written outside this website.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__inner">
+        <p class="footer__mark">Yogeshwaran Muthuraman</p>
+        <p class="footer__meta">
+          <span>Software Engineer · Applied ML Researcher</span>
+          <span>Chennai, India · <span id="footer-year">2026</span></span>
+        </p>
+        <nav class="footer__nav" aria-label="Footer">
+          <a href="#chapter-arrival">Restart the journey</a>
+          <a href="https://github.com/Yoge-2004" target="_blank" rel="noreferrer">GitHub</a>
+          <a href="mailto:yogeshwaranmuthuraman56@gmail.com">Email</a>
+        </nav>
+      </div>
+    </footer>
+
+    <noscript>
+      <div class="noscript-note">
+        <h2>JavaScript is disabled</h2>
+        <p>
+          The full journey on this site is scroll-driven and interactive, but the entire story — who Yogeshwaran
+          is, the ICISD'26 research, the technical world, the projects and how to get in touch — is written in
+          plain HTML above and remains completely readable without JavaScript.
+        </p>
+        <p>
+          Reach him directly at
+          <a href="mailto:yogeshwaranmuthuraman56@gmail.com">yogeshwaranmuthuraman56@gmail.com</a> or on
+          <a href="https://github.com/Yoge-2004">GitHub</a>.
+        </p>
+      </div>
+    </noscript>
+  </body>
+</html>

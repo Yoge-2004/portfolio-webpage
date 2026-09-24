@@ -1,0 +1,317 @@
+/* ============================================================
+   THEME — light / dark
+   Default is dark. `data-theme="light"` on <html> switches the whole
+   design system: every component reads --ch-* tokens, so one override
+   block re-skins the site, while the 3D palette is swapped in JS
+   (see palettes.js LIGHT_PALETTES + theme.js).
+   ============================================================ */
+
+/* ---------- Base light tokens (ink / surfaces / hairlines) ---------- */
+[data-theme="light"] {
+  color-scheme: light;
+
+  --ch-on-accent: #fffdf6;
+  --ch-ink: #1c2033;
+  --ch-ink-muted: rgba(28, 32, 51, 0.68);
+  --ch-ink-faint: rgba(28, 32, 51, 0.44);
+  --ch-surface: rgba(255, 255, 255, 0.66);
+  --ch-surface-strong: rgba(255, 255, 255, 0.92);
+  --ch-hairline: rgba(28, 32, 51, 0.14);
+
+  /* Default chapter wash before the active-chapter rule applies. */
+  --ch-bg: #eceef7;
+  --ch-fog: #d6dbee;
+  --ch-accent: #7a5d00;
+  --ch-accent-soft: rgba(122, 93, 0, 0.12);
+  --ch-accent-line: rgba(138, 106, 0, 0.38);
+}
+
+/* ---------- Per-chapter light identity (bg + darker accent) ---------- */
+[data-theme="light"][data-active-chapter="arrival"] {
+  --ch-bg: #e9ebfa;
+  --ch-accent: #7a5d00;
+  --ch-accent-soft: rgba(122, 93, 0, 0.12);
+  --ch-accent-line: rgba(122, 93, 0, 0.4);
+}
+[data-theme="light"][data-active-chapter="person"] {
+  --ch-bg: #f6e9dc;
+  --ch-accent: #a6470f;
+  --ch-accent-soft: rgba(166, 71, 15, 0.12);
+  --ch-accent-line: rgba(166, 71, 15, 0.4);
+}
+[data-theme="light"][data-active-chapter="research"] {
+  --ch-bg: #e2f2ec;
+  --ch-accent: #0b6e5f;
+  --ch-accent-soft: rgba(11, 110, 95, 0.12);
+  --ch-accent-line: rgba(11, 110, 95, 0.4);
+}
+[data-theme="light"][data-active-chapter="path"] {
+  --ch-bg: #f2e9d4;
+  --ch-accent: #7d5605;
+  --ch-accent-soft: rgba(125, 86, 5, 0.12);
+  --ch-accent-line: rgba(125, 86, 5, 0.4);
+}
+[data-theme="light"][data-active-chapter="arena"] {
+  --ch-bg: #f8e4da;
+  --ch-accent: #ad3510;
+  --ch-accent-soft: rgba(183, 58, 16, 0.12);
+  --ch-accent-line: rgba(183, 58, 16, 0.4);
+}
+[data-theme="light"][data-active-chapter="technical"] {
+  --ch-bg: #e3efec;
+  --ch-accent: #0a6e60;
+  --ch-accent-soft: rgba(10, 110, 96, 0.12);
+  --ch-accent-line: rgba(10, 110, 96, 0.4);
+}
+[data-theme="light"][data-active-chapter="capabilities"] {
+  --ch-bg: #e9e6fa;
+  --ch-accent: #5b3fd4;
+  --ch-accent-soft: rgba(91, 63, 212, 0.12);
+  --ch-accent-line: rgba(91, 63, 212, 0.4);
+}
+[data-theme="light"][data-active-chapter="worlds"] {
+  --ch-bg: #e6f0ee;
+  --ch-accent: #815b00;
+  --ch-accent-soft: rgba(129, 91, 0, 0.12);
+  --ch-accent-line: rgba(129, 91, 0, 0.4);
+}
+[data-theme="light"][data-active-world="digital-diary"] {
+  --ch-accent: #0a6fc4;
+  --ch-accent-soft: rgba(10, 111, 196, 0.12);
+  --ch-accent-line: rgba(10, 111, 196, 0.4);
+}
+[data-theme="light"][data-active-world="expense-tracker"] {
+  --ch-accent: #996000;
+  --ch-accent-soft: rgba(168, 106, 0, 0.12);
+  --ch-accent-line: rgba(168, 106, 0, 0.4);
+}
+[data-theme="light"][data-active-chapter="horizon"] {
+  --ch-bg: #fbeed9;
+  --ch-accent: #a8441e;
+  --ch-accent-soft: rgba(168, 68, 30, 0.12);
+  --ch-accent-line: rgba(168, 68, 30, 0.4);
+}
+
+/* ---------- Hard-coded dark surfaces → light equivalents ---------- */
+[data-theme="light"] .boot {
+  background: #f2efe8;
+}
+[data-theme="light"] .boot__label {
+  color: rgba(28, 32, 51, 0.55);
+}
+[data-theme="light"] .boot__hint {
+  color: rgba(28, 32, 51, 0.35);
+}
+[data-theme="light"] .boot__bar {
+  background: rgba(28, 32, 51, 0.16);
+}
+
+[data-theme="light"] .stage__vignette {
+  background:
+    radial-gradient(ellipse at 50% 45%, transparent 55%, rgba(84, 70, 40, 0.09) 100%),
+    linear-gradient(to bottom, rgba(84, 70, 40, 0.05) 0%, transparent 16%, transparent 78%, rgba(84, 70, 40, 0.1) 100%);
+}
+[data-theme="light"] .stage__grain {
+  opacity: 0.035;
+  filter: invert(1);
+}
+[data-theme="light"] .stage-fallback {
+  background:
+    radial-gradient(ellipse 70% 50% at 72% 28%, var(--ch-accent-soft), transparent 70%),
+    radial-gradient(ellipse 90% 60% at 20% 82%, rgba(90, 110, 220, 0.1), transparent 70%),
+    linear-gradient(160deg, var(--ch-bg) 0%, #e6e1d4 100%);
+}
+
+[data-theme="light"] .drawer__scrim {
+  background: rgba(250, 247, 240, 0.7);
+}
+[data-theme="light"] .drawer__panel {
+  background: color-mix(in srgb, var(--ch-bg) 88%, #fff);
+}
+
+[data-theme="light"] .footer {
+  background: #e7e1d2;
+  border-top-color: rgba(28, 32, 51, 0.1);
+}
+[data-theme="light"] .footer__mark {
+  color: rgba(28, 32, 51, 0.9);
+}
+[data-theme="light"] .footer__meta {
+  color: rgba(28, 32, 51, 0.45);
+}
+[data-theme="light"] .footer__nav {
+  color: rgba(28, 32, 51, 0.55);
+}
+[data-theme="light"] .footer__nav a:hover {
+  color: var(--ch-accent);
+}
+
+/* Status colours need darkening for contrast on paper. */
+[data-theme="light"] .specimen__flag {
+  color: #c23a1e;
+}
+[data-theme="light"] .console__verdict--flag {
+  color: #b9361a;
+  background: color-mix(in srgb, #ff6a4d 14%, transparent);
+  border-color: color-mix(in srgb, #ff6a4d 38%, transparent);
+}
+[data-theme="light"] .console__verdict--ok {
+  color: #0d7a52;
+  background: color-mix(in srgb, #46d38a 16%, transparent);
+  border-color: color-mix(in srgb, #46d38a 40%, transparent);
+}
+
+[data-theme="light"] ::selection {
+  background: var(--ch-accent);
+  color: #fffdf6;
+}
+
+/* Solid-surface fallbacks must stay light in perf-lite / touch modes. */
+html[data-theme="light"].perf-lite .pillar,
+html[data-theme="light"].perf-lite .specimen,
+html[data-theme="light"].perf-lite .domain,
+html[data-theme="light"].perf-lite .satellite,
+html[data-theme="light"].perf-lite .instrument {
+  background: var(--ch-surface-strong, rgba(255, 255, 255, 0.94)) !important;
+}
+@media (hover: none), (pointer: coarse) {
+  html[data-theme="light"] .pillar,
+  html[data-theme="light"] .specimen,
+  html[data-theme="light"] .domain,
+  html[data-theme="light"] .satellite,
+  html[data-theme="light"] .instrument {
+    background: var(--ch-surface-strong, rgba(255, 255, 255, 0.92)) !important;
+  }
+}
+
+/* ---------- Smooth theme crossfade ----------
+   Applied to <html> for ~650ms around the toggle so surfaces, text and
+   borders melt between themes instead of snapping. Removed automatically. */
+html.theme-switching,
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+  transition:
+    background-color 550ms var(--ease-out),
+    color 550ms var(--ease-out),
+    border-color 550ms var(--ease-out),
+    box-shadow 550ms var(--ease-out),
+    fill 550ms var(--ease-out),
+    stroke 550ms var(--ease-out) !important;
+}
+
+/* ============================================================
+   THEME TOGGLE
+   ============================================================ */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 14px 7px 8px;
+  border: 1px solid var(--ch-hairline);
+  border-radius: 999px;
+  color: var(--ch-ink);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: transparent;
+  transition: border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out), transform var(--dur-mid) var(--ease-out);
+  white-space: nowrap;
+}
+
+.theme-toggle:hover {
+  border-color: var(--ch-accent-line);
+  color: var(--ch-accent);
+  background: var(--ch-accent-soft);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+.theme-toggle__track {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--ch-accent-soft);
+  border: 1px solid var(--ch-accent-line);
+  overflow: hidden;
+}
+
+.theme-toggle__icon {
+  grid-area: 1 / 1;
+  width: 16px;
+  height: 16px;
+  color: var(--ch-accent);
+  transition: transform 480ms var(--ease-out), opacity 320ms var(--ease-out);
+}
+
+/* Dark mode shows the sun (tap to go light); light mode shows the moon. */
+.theme-toggle__icon--sun {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+.theme-toggle__icon--moon {
+  opacity: 0;
+  transform: rotate(-120deg) scale(0.4);
+}
+[data-theme="light"] .theme-toggle__icon--sun {
+  opacity: 0;
+  transform: rotate(120deg) scale(0.4);
+}
+[data-theme="light"] .theme-toggle__icon--moon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+.theme-toggle__thumb {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  transition: transform 480ms var(--ease-out);
+  pointer-events: none;
+}
+
+.theme-toggle__label {
+  min-width: 3.2em;
+  text-align: left;
+}
+
+.theme-toggle--drawer {
+  margin-top: 4px;
+  border-style: dashed;
+}
+
+@media (max-width: 560px) {
+  .theme-toggle__label {
+    display: none;
+  }
+  .theme-toggle {
+    padding: 7px 8px;
+  }
+}
+
+/* Project consoles read as crisp paper panels, not muddy grey mixes. */
+[data-theme="light"] .console {
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--ch-accent) 7%, #ffffff),
+    color-mix(in srgb, var(--ch-bg) 30%, #ffffff)
+  );
+}
+[data-theme="light"] .console__sample {
+  background: color-mix(in srgb, var(--ch-accent) 8%, #ffffff);
+}
+
+/* The 3D stage sits behind paper: keep it a soft ink-wash, not a smudge. */
+[data-theme="light"] .stage__canvas {
+  opacity: 0.72;
+}
