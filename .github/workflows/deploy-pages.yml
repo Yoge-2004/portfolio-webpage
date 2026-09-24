@@ -35,6 +35,12 @@ jobs:
 
       # Produces dist/index.html as one self-contained file (CSS + JS inlined),
       # plus robots.txt / sitemap.xml / favicon from public/.
+      #
+      # NOTE: the repo root also carries a copy of the built site
+      # (index.html + favicon/robots/sitemap/manifest/404/social-card).
+      # Pages is configured with a legacy branch build, which publishes the
+      # repo root, while this workflow publishes dist/ — the two are kept in
+      # sync on every push so either deploy mechanism serves the same site.
       - name: Build the single-file site
         run: npm run build
 

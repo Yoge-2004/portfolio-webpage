@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0d1024" />
+    <title>404 — Not in this archive</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=JetBrains+Mono:wght@300..600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --void: #0d1024;
+        --bone: #f1efe8;
+        --muted: rgba(241, 239, 232, 0.55);
+        --brass: #f59e0b;
+        --font-display: "Fraunces", Georgia, serif;
+        --font-mono: "JetBrains Mono", ui-monospace, monospace;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100svh;
+        display: grid;
+        place-items: center;
+        background:
+          radial-gradient(ellipse 60% 45% at 72% 24%, rgba(40, 50, 110, 0.55), transparent 70%),
+          radial-gradient(ellipse 55% 40% at 22% 78%, rgba(60, 40, 18, 0.5), transparent 70%),
+          var(--void);
+        color: var(--bone);
+        font-family: var(--font-mono);
+      }
+      main {
+        text-align: center;
+        padding: 2rem;
+        max-width: 40rem;
+      }
+      .kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.9rem;
+        font-size: 0.72rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--brass);
+        margin: 0 0 2rem;
+      }
+      .kicker::before { content: ""; width: 2.2rem; height: 1px; background: var(--brass); }
+      h1 {
+        font-family: var(--font-display);
+        font-weight: 300;
+        font-size: clamp(4.5rem, 16vw, 9rem);
+        line-height: 1;
+        margin: 0;
+        letter-spacing: -0.03em;
+      }
+      h1 i {
+        font-style: italic;
+        color: var(--brass);
+      }
+      p {
+        color: var(--muted);
+        font-size: 0.95rem;
+        line-height: 1.8;
+        max-width: 34rem;
+        margin: 1.4rem auto 2.4rem;
+      }
+      a.btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.7rem;
+        padding: 0.9rem 1.8rem;
+        border-radius: 999px;
+        background: var(--brass);
+        color: #0d1024;
+        text-decoration: none;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s;
+      }
+      a.btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 40px -12px rgba(245, 158, 11, 0.6);
+      }
+      .sub { margin-top: 1.6rem; font-size: 0.72rem; letter-spacing: 0.1em; }
+      .sub a { color: var(--muted); text-decoration: none; border-bottom: 1px solid rgba(241, 239, 232, 0.25); }
+      .sub a:hover { color: var(--brass); border-color: var(--brass); }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="kicker">Archival Anomaly // 404</p>
+      <h1>404 <i>·</i> lost</h1>
+      <p>
+        This coordinate isn't mapped in the archive. The page you're looking for was moved, renamed, or never
+        existed here at all.
+      </p>
+      <a class="btn" href="https://yoge-2004.github.io/portfolio-webpage/">
+        <span>Return to the archive</span>
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </a>
+      <p class="sub">or continue directly to <a href="https://github.com/Yoge-2004">github.com/Yoge-2004</a></p>
+    </main>
+  </body>
+</html>
