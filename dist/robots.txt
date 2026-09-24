@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://yoge-2004.github.io/portfolio-webpage/sitemap.xml
