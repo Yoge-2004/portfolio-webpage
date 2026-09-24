@@ -1,0 +1,22 @@
+/**
+ * Accessibility States, Focus Outlines, and Reduced Motion Overrides
+ */
+:focus-visible {
+  outline: 1px solid var(--brass);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .rv {
+    transition: none !important;
+  }
+  .rv.pend {
+    opacity: 1 !important;
+  }
+  .reticle {
+    display: none !important;
+  }
+}

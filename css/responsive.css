@@ -1,0 +1,253 @@
+/**
+ * Comprehensive Responsive Design System (All 12 Viewport Profiles)
+ */
+
+/* 1. Large Screens & Ultrawide (1600px, 2400px) */
+@media (min-width: 1600px) {
+  :root {
+    --maxw: 1480px;
+    --pad: 96px;
+  }
+}
+
+@media (min-width: 2400px) {
+  :root {
+    --maxw: 1720px;
+    --pad: 120px;
+  }
+  body {
+    font-size: 18px;
+  }
+  .copy {
+    font-size: 17.5px;
+    max-width: 72ch;
+  }
+}
+
+/* 2. Standard Laptop & Tablet Landscape (<= 1080px) */
+@media (max-width: 1080px) {
+  .duo {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .project-story-body {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .systems-grid,
+  .caps {
+    grid-template-columns: 1fr;
+  }
+  .certs {
+    grid-template-columns: 1fr 1fr;
+  }
+  .facts {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+}
+
+/* 3. Tablet Portrait (<= 768px) */
+@media (max-width: 768px) {
+  :root {
+    --pad: 28px;
+  }
+  header {
+    height: 68px;
+  }
+  .nav,
+  .sys-stamp {
+    display: none;
+  }
+  .sound-toggle .sound-label {
+    display: none;
+  }
+  .sound-toggle {
+    padding: 7px 10px;
+  }
+  .burger {
+    display: flex;
+  }
+  .bayview,
+  #quests.chapter-quests {
+    padding: 100px var(--pad) 76px;
+  }
+  .row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .reticle {
+    display: none !important;
+  }
+  .hud-depth {
+    display: none;
+  }
+  .certs {
+    grid-template-columns: 1fr;
+  }
+  .research-stage {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .research-portal-frame {
+    min-height: 220px;
+  }
+}
+
+/* 4. Small Mobile & Narrow Phones (<= 480px) */
+@media (max-width: 480px) {
+  :root {
+    --pad: 18px;
+  }
+  .bayview,
+  #quests.chapter-quests {
+    padding: 84px var(--pad) 60px;
+  }
+  
+  /* Hero Refinements */
+  .t-hero {
+    font-size: clamp(2.3rem, 10.5vw, 3.2rem);
+    line-height: 1.0;
+  }
+  .lede {
+    font-size: 1.15rem;
+    line-height: 1.45;
+  }
+  .acts {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+  .acts .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  /* Facts Ledger Stacking */
+  .facts {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 36px;
+    padding-top: 18px;
+  }
+  .facts-item {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .facts-item b {
+    font-size: 1.85rem;
+    line-height: 1;
+  }
+  .facts-item span {
+    margin-top: 0;
+    text-align: right;
+    max-width: 22ch;
+    font-size: 10px;
+  }
+
+  /* Origin Panels */
+  .panel {
+    padding: 16px 18px;
+  }
+  .panel dd {
+    font-size: 17px;
+  }
+
+  /* Research Chamber Vault */
+  .vault {
+    padding: 22px 18px;
+  }
+  .research-portal-frame {
+    min-height: 180px;
+    padding: 16px;
+  }
+  .research-sim {
+    padding: 16px 12px;
+  }
+  .sim-tabs {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .sim-meters {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .sim-preview {
+    font-size: 11px;
+    padding: 12px;
+  }
+
+  /* Arena Rows */
+  .row {
+    padding: 18px 16px;
+  }
+
+  /* Capabilities & Certifications */
+  .cap {
+    padding: 18px 16px;
+  }
+  .cert-card {
+    padding: 14px 16px;
+  }
+
+  /* Path Timeline */
+  .path {
+    padding-left: 18px;
+  }
+  .stop::before {
+    left: -22.5px;
+  }
+  .stop {
+    padding: 16px 18px;
+  }
+
+  /* Reach & Footer */
+  .reach-card {
+    padding: 18px 16px;
+  }
+  footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 24px var(--pad) 64px;
+  }
+}
+
+/* 5. Extreme Narrow (<= 380px) */
+@media (max-width: 380px) {
+  :root {
+    --pad: 16px;
+  }
+  .t-hero {
+    font-size: 2.15rem;
+  }
+  .t-xl {
+    font-size: 1.9rem;
+  }
+  .t-lg {
+    font-size: 1.6rem;
+  }
+  .facts-item b {
+    font-size: 1.65rem;
+  }
+  .facts-item span {
+    font-size: 9.5px;
+  }
+}
+
+/* 6. Coarse Pointer / Touch Screens */
+@media (pointer: coarse) {
+  .reticle {
+    display: none !important;
+  }
+  .btn,
+  .reach-card,
+  .cert-card,
+  .sheet a {
+    min-height: 44px;
+  }
+}

@@ -1,0 +1,64 @@
+/**
+ * Architectural Precision Reticle Cursor (Desktop)
+ */
+.reticle {
+  position: fixed;
+  z-index: 250;
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: width .25s var(--ease), height .25s var(--ease), border-color .25s;
+}
+
+.reticle::before,
+.reticle::after {
+  content: "";
+  position: absolute;
+  border: 1px solid var(--brass);
+}
+
+.reticle::before {
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.reticle::after {
+  bottom: 0;
+  right: 0;
+  width: 6px;
+  height: 6px;
+  border-left: 0;
+  border-top: 0;
+}
+
+.reticle-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2px;
+  height: 2px;
+  background: var(--light-brass);
+  transform: translate(-50%, -50%);
+}
+
+.reticle.hot {
+  width: 44px;
+  height: 44px;
+}
+
+.reticle.hot::before {
+  width: 10px;
+  height: 10px;
+  border-color: var(--light-brass);
+}
+
+.reticle.hot::after {
+  width: 10px;
+  height: 10px;
+  border-color: var(--light-brass);
+}
