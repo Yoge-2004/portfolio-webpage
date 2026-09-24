@@ -141,7 +141,7 @@
     <div class="hold lit hero-hold">
       <div class="hero-content">
         <div class="tag"><s></s>Chapter 01 // Archival Portal</div>
-        <h1 class="t-hero rv">Yogeshwaran<br><i>Muthuraman</i></h1>
+        <h1 class="t-hero rv"><span class="hero-name-first">Yogeshwaran</span><br><i class="hero-name-last">Muthuraman</i></h1>
         <p class="lede rv mt-md">I build software systems that tell the difference between what is real and what only looks real.</p>
         <div class="acts rv">
           <a class="btn btn-primary" href="#quests">Enter the work</a>
@@ -177,10 +177,29 @@
       <div class="tag"><s></s>Chapter 02 // Foundation &amp; Philosophy</div>
       <div class="duo rv">
         <div>
-          <h2 class="t-lg">Research keeps the engineering honest.</h2>
+          <h2 class="t-lg origin-manifesto">Research keeps the engineering honest.</h2>
           <p class="copy mt-md">I am a Computer Science Engineering student at <b>Panimalar Engineering College</b>, Chennai, graduating in 2026 with an academic standing of <span class="glow">9.37 out of 10</span>. I learn by building systems that survive being used by people who didn't build them.</p>
-          <p class="copy">My work bridges three domains that continually inform one another: <b>applied machine learning</b>, where I investigate how models detect deception; <b>full-stack product engineering</b> with Java, Spring Boot, Python, and FastAPI; and <b>native desktop software</b> in JavaFX, which was the focus of my engineering internship.</p>
-          <p class="copy">A model without an interface is an unverifiable claim. Everything I research ends up deployed into live, inspectable environments. That discipline transformed a final-year inquiry into recruitment scams into a published conference paper and a live detection service.</p>
+          
+          <!-- The 3 Pillars of Engineering Formation -->
+          <div class="origin-pillars-grid mt-md">
+            <div class="origin-pillar">
+              <span class="pillar-idx">PILLAR 01</span>
+              <h4>Applied Machine Learning</h4>
+              <p>Investigating how statistical models distinguish deceptive signals from legitimate communication under extreme class imbalance.</p>
+            </div>
+            <div class="origin-pillar">
+              <span class="pillar-idx">PILLAR 02</span>
+              <h4>Full-Stack Engineering</h4>
+              <p>Architecting production backend REST APIs and client interfaces with Java Spring Boot, Python FastAPI, and secure session management.</p>
+            </div>
+            <div class="origin-pillar">
+              <span class="pillar-idx">PILLAR 03</span>
+              <h4>Native Systems &amp; Runtimes</h4>
+              <p>Engineering client-side desktop software with JavaFX and relational MySQL storage during my Robowaves developer internship.</p>
+            </div>
+          </div>
+
+          <p class="copy mt-md">A model without an interface is an unverifiable claim. Everything I research ends up deployed into live, inspectable environments. That discipline transformed a final-year inquiry into recruitment scams into a published conference paper and a live detection service.</p>
         </div>
         <dl class="panel-group">
           <div class="panel">
@@ -211,7 +230,26 @@
       <h2 class="t-lg max-20ch">Teaching a machine to recognise a lie.</h2>
       <p class="copy copy-vault-intro">Thousands of job seekers fall prey to postings that never existed. My final-year research examined whether an applied ML architecture could flag recruitment fraud before an applicant submits credentials — and provide verifiable reasoning.</p>
 
-      <div class="research-stage">
+      <!-- The 3-Step Hybrid Neuro-Symbolic Pipeline Sequence -->
+      <div class="research-pipeline-cards rv">
+        <div class="pipeline-step">
+          <span class="p-num">STEP 01 // SEMANTIC ENCODING</span>
+          <h4>DistilBERT Contextual Embeddings</h4>
+          <p>Extracts dense high-dimensional semantic representations from unstructured job descriptions, capturing nuanced deceptive linguistic patterns.</p>
+        </div>
+        <div class="pipeline-step">
+          <span class="p-num">STEP 02 // ANOMALY ISOLATION</span>
+          <h4>Isolation Forest Safety Layer</h4>
+          <p>Unsupervised safety boundary that isolates structural anomalies unseen in training distributions, detecting zero-day scam variants.</p>
+        </div>
+        <div class="pipeline-step">
+          <span class="p-num">STEP 03 // CLASSIFICATION</span>
+          <h4>Stacking Ensemble Classifier</h4>
+          <p>Meta-classifier combining semantic and tabular features to overcome the severe 95:5 authentic-to-fraudulent class imbalance.</p>
+        </div>
+      </div>
+
+      <div class="research-stage mt-md">
         <div class="research-portal-frame rv" aria-hidden="true">
           <div class="research-portal-header">
             <span>SPATIAL CLUSTER // Z: -42.0m</span>
@@ -305,139 +343,404 @@
     </div>
   </section>
 
-  <!-- Chapter 04: Quests (Exhibition Slabs) -->
-  <section class="bayview" id="quests" data-chapter="QUESTS" data-idx="CH. 04">
-    <div class="hold lit">
-      <div class="tag"><s></s>Chapter 04 // Exhibition Plinths</div>
+  <!-- Chapter 04: Quests (Technical World & Production Systems) -->
+  <section class="chapter-quests" id="quests" data-chapter="QUESTS" data-idx="CH. 04">
+    <div class="quests-intro hold lit">
+      <div class="tag"><s></s>Chapter 04 // Technical World &amp; Production Systems</div>
       <h2 class="t-lg">Engineered systems deployed in the open.</h2>
-      <p class="copy mt-md">Production software systems tested against adversarial edge cases, encrypted storage constraints, and live cloud deployment.</p>
+      <p class="lede mt-md">A developer is not defined by the technologies they claim, but by the production systems that survive being used by people who didn't build them.</p>
     </div>
 
-    <!-- Exhibit 01 -->
-    <article class="exhibit" data-chapter="EXHIBIT 01" data-idx="CH. 04">
-      <div class="spatial-frame rv">
-        <div class="spatial-frame-header">
-          <span>EXHIBIT 01 // PHYSICAL SLAB</span>
-          <span>Z: -58.0m // ALCOVE L</span>
-        </div>
-        <div class="spatial-crosshair"></div>
-        <div class="spatial-fallback-card" aria-hidden="true">
-          <span class="tag copper"><s></s>ICISD'26 Live System</span>
-          <h4>Fake Job Detection System</h4>
-          <p>DistilBERT Contextual Embeddings + Isolation Forest Safety Layer</p>
-        </div>
-        <div class="spatial-frame-footer">
-          <span>STATUS: REAL-TIME SPATIAL PROJECTION</span>
-          <span>FOCAL LOCK: ACTIVE</span>
-        </div>
+    <!-- 1. Technical Stack Map (The Bridge from Skills to Projects) -->
+    <div class="tech-world-section hold">
+      <div class="tech-world-header">
+        <span class="tech-world-stamp">TECHNICAL STACK MAP</span>
+        <h3 class="t-sm">From Applied Machine Learning to Native Desktop Runtimes</h3>
+        <p class="copy">Every production application below is forged from this interconnected stack — bridging high-dimensional anomaly isolation, zero-framework web cryptography, and enterprise relational engineering.</p>
       </div>
-      <div class="lit rv">
-        <span class="tag"><s></s>Featured Research Exhibit</span>
-        <h3 class="t-md">Fake Job Detection System</h3>
-        <p class="repo">github.com/Yoge-2004/fake-job-detection-python</p>
-        <p class="copy">The peer-reviewed ICISD'26 research, engineered into an active detection system. Paste any job posting URL or text content to receive an immediate fraud risk analysis with explanation breakdown. Hosted on Hugging Face Spaces with zero client dependencies.</p>
-        <div class="chips">
-          <span class="chip">Python</span>
-          <span class="chip">NLP</span>
-          <span class="chip">DistilBERT</span>
-          <span class="chip">Isolation Forest</span>
-          <span class="chip">Ensemble Learning</span>
-          <span class="chip">Hugging Face</span>
-        </div>
-        <div class="links">
-          <a class="btn btn-primary btn-small" href="https://yoge-2004-fake-job-detector.hf.space/dashboard" target="_blank" rel="noreferrer">Launch Dashboard</a>
-          <a class="btn btn-secondary btn-small" href="https://github.com/Yoge-2004/fake-job-detection-python" target="_blank" rel="noreferrer">Source Code</a>
-        </div>
-      </div>
-    </article>
 
-    <!-- Exhibit 02 -->
-    <article class="exhibit reverse" data-chapter="EXHIBIT 02" data-idx="CH. 04">
-      <div class="spatial-frame rv">
-        <div class="spatial-frame-header">
-          <span>EXHIBIT 02 // PHYSICAL SLAB</span>
-          <span>Z: -70.0m // ALCOVE R</span>
+      <!-- Interconnected Stack Architecture -->
+      <div class="tech-ecosystem" id="techEcosystem">
+        <!-- Layer 1: Core Languages -->
+        <div class="tech-layer" data-layer="core">
+          <div class="layer-meta">
+            <span class="layer-num">LAYER 01</span>
+            <span class="layer-name">Core Languages</span>
+          </div>
+          <div class="layer-nodes">
+            <div class="tech-node highlighted">
+              <b>Python</b>
+              <small>Applied ML, PyTorch &amp; NLP Systems</small>
+            </div>
+            <div class="tech-node highlighted">
+              <b>Java 17</b>
+              <small>Spring Boot &amp; Native JavaFX</small>
+            </div>
+            <div class="tech-node">
+              <b>C / C++</b>
+              <small>Algorithmic Foundations &amp; Memory</small>
+            </div>
+            <div class="tech-node">
+              <b>JavaScript (ES6+)</b>
+              <small>Client State &amp; WebGL Integration</small>
+            </div>
+          </div>
         </div>
-        <div class="spatial-crosshair"></div>
-        <div class="spatial-fallback-card" aria-hidden="true">
-          <span class="tag"><s></s>Cryptographic Storage</span>
-          <h4>Private Digital Diary</h4>
-          <p>FastAPI · JWT HttpOnly · Zero-Framework Security</p>
-        </div>
-        <div class="spatial-frame-footer">
-          <span>STATUS: REAL-TIME SPATIAL PROJECTION</span>
-          <span>FOCAL LOCK: ACTIVE</span>
-        </div>
-      </div>
-      <div class="lit rv">
-        <span class="tag"><s></s>Featured Full-Stack System</span>
-        <h3 class="t-md">Private Digital Diary Platform</h3>
-        <p class="repo">github.com/Yoge-2004/digital-diary-application</p>
-        <p class="copy">A zero-framework privacy journal engineered with FastAPI, Jinja2, and vanilla JavaScript over SQLAlchemy. Authentication relies on cryptographically signed JWT access and refresh tokens stored exclusively in <b>HttpOnly cookies</b>, mitigating browser XSS exposure.</p>
-        <p class="copy">Entries support granular emotional telemetry (mood categorization, geotags, writing streaks, archival pinning) with time-decayed sharing tokens. Accompanied by a synchronized OpenAPI/JSON backend.</p>
-        <div class="chips">
-          <span class="chip">FastAPI</span>
-          <span class="chip">SQLAlchemy</span>
-          <span class="chip">JWT HttpOnly</span>
-          <span class="chip">PostgreSQL</span>
-          <span class="chip">Jinja2</span>
-        </div>
-        <div class="links">
-          <a class="btn btn-primary btn-small" href="https://github.com/Yoge-2004/digital-diary-application" target="_blank" rel="noreferrer">Source Code</a>
-        </div>
-      </div>
-    </article>
 
-    <!-- Exhibit 03 -->
-    <article class="exhibit" data-chapter="EXHIBIT 03" data-idx="CH. 04">
-      <div class="spatial-frame rv">
-        <div class="spatial-frame-header">
-          <span>EXHIBIT 03 // PHYSICAL SLAB</span>
-          <span>Z: -82.0m // ALCOVE L</span>
+        <div class="tech-bus-connector" aria-hidden="true">
+          <div class="bus-line"></div>
         </div>
-        <div class="spatial-crosshair"></div>
-        <div class="spatial-fallback-card" aria-hidden="true">
-          <span class="tag"><s></s>Enterprise Backend</span>
-          <h4>Expense Tracker &amp; Budget Engine</h4>
-          <p>Spring Boot · Java 17 · RESTful API Architecture</p>
+
+        <!-- Layer 2: Backend & Frameworks -->
+        <div class="tech-layer" data-layer="backend">
+          <div class="layer-meta">
+            <span class="layer-num">LAYER 02</span>
+            <span class="layer-name">Backend &amp; Frameworks</span>
+          </div>
+          <div class="layer-nodes">
+            <div class="tech-node">
+              <b>Spring Boot 3</b>
+              <small>REST API &amp; Enterprise Architecture</small>
+            </div>
+            <div class="tech-node">
+              <b>FastAPI</b>
+              <small>Asynchronous REST &amp; OpenAPI Spec</small>
+            </div>
+            <div class="tech-node">
+              <b>DistilBERT + Isolation Forest</b>
+              <small>Hybrid NLP &amp; Anomaly Detection</small>
+            </div>
+            <div class="tech-node">
+              <b>JavaFX Desktop</b>
+              <small>Circulation OS &amp; Relational UI</small>
+            </div>
+          </div>
         </div>
-        <div class="spatial-frame-footer">
-          <span>STATUS: REAL-TIME SPATIAL PROJECTION</span>
-          <span>FOCAL LOCK: ACTIVE</span>
+
+        <div class="tech-bus-connector" aria-hidden="true">
+          <div class="bus-line"></div>
+        </div>
+
+        <!-- Layer 3: Data, Security & Infrastructure -->
+        <div class="tech-layer" data-layer="data">
+          <div class="layer-meta">
+            <span class="layer-num">LAYER 03</span>
+            <span class="layer-name">Data, Security &amp; Infrastructure</span>
+          </div>
+          <div class="layer-nodes">
+            <div class="tech-node">
+              <b>MySQL &amp; PostgreSQL</b>
+              <small>Relational Schema &amp; Indexing</small>
+            </div>
+            <div class="tech-node">
+              <b>JWT in HttpOnly Cookies</b>
+              <small>Zero-Framework XSS Mitigation</small>
+            </div>
+            <div class="tech-node">
+              <b>Docker &amp; Cloud (TCS iON)</b>
+              <small>Containerization &amp; Deployment</small>
+            </div>
+            <div class="tech-node">
+              <b>REST Assured &amp; Cucumber</b>
+              <small>Automated Behavioral Verification</small>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="lit rv">
-        <span class="tag"><s></s>Featured Enterprise Backend</span>
-        <h3 class="t-md">Expense Tracker &amp; Budget Engine</h3>
-        <p class="repo">github.com/Yoge-2004/expense-tracker</p>
-        <p class="copy">A personal-finance platform managing capital allocation, multi-source income streams, target savings horizons, and downloadable fiscal audits. Built with an enterprise Java Spring Boot REST architecture over MySQL.</p>
-        <div class="chips">
-          <span class="chip">Spring Boot</span>
-          <span class="chip">Java 17</span>
-          <span class="chip">RESTful API</span>
-          <span class="chip">MySQL</span>
-          <span class="chip">Netlify</span>
-        </div>
-        <div class="links">
-          <a class="btn btn-primary btn-small" href="https://cozy-narwhal-3099ad.netlify.app" target="_blank" rel="noreferrer">Launch Client</a>
-          <a class="btn btn-secondary btn-small" href="https://github.com/Yoge-2004/expense-tracker" target="_blank" rel="noreferrer">Source Code</a>
-        </div>
+      
+      <div class="tech-flow-cue" aria-hidden="true">
+        <span>POWERS PRODUCTION SYSTEMS BELOW</span>
+        <div class="flow-arrow">↓</div>
       </div>
-    </article>
+    </div>
 
-  </section>
+    <!-- 2. The Three Major Production Project Stories -->
+    <div class="major-projects-container hold">
+      
+      <!-- Project 01: Fake Job Detection System -->
+      <article class="project-story-card rv" id="project-fake-job" data-project="01">
+        <div class="project-story-header">
+          <div class="project-meta-left">
+            <span class="project-badge copper"><i class="badge-dot"></i> PEER-REVIEWED RESEARCH SYSTEM</span>
+            <span class="project-id-tag">PROJECT // 01</span>
+          </div>
+          <span class="project-live-indicator">LIVE ON HUGGING FACE</span>
+        </div>
 
-  <!-- Secondary Works (Also Built) -->
-  <section class="bayview tight" data-chapter="SECONDARY WORKS" data-idx="CH. 04">
-    <div class="hold lit">
-      <div class="tag"><s></s>Archival Index // Additional Systems</div>
-      <h2 class="t-lg">Six more systems, fully public.</h2>
-      <div class="rack rv">
+        <div class="project-story-body">
+          <div class="project-narrative-col">
+            <h3 class="project-title">Fake Job Posting &amp; Recruitment Scam Detection System</h3>
+            <p class="project-repo-link">
+              <span class="repo-icon">⚡</span>
+              <a href="https://github.com/Yoge-2004/fake-job-detection-python" target="_blank" rel="noreferrer">github.com/Yoge-2004/fake-job-detection-python</a>
+            </p>
+
+            <div class="story-phases">
+              <div class="story-phase">
+                <span class="phase-step">PHASE 01 // THE CRISIS</span>
+                <p><b>The Problem:</b> Online job seekers fall victim to fraudulent recruitment postings that harvest identity credentials. The EMSCAD benchmark has an extreme 95:5 class imbalance — a naive classifier predicting "authentic" blindly scores 95% accuracy while remaining entirely useless.</p>
+              </div>
+
+              <div class="story-phase">
+                <span class="phase-step">PHASE 02 // ARCHITECTURE</span>
+                <p><b>The Engineering Approach:</b> Architected a hybrid neuro-symbolic pipeline combining <b>DistilBERT contextual embeddings</b> for deep semantic representation, an <b>Isolation Forest</b> safety boundary to detect out-of-distribution zero-day scams, and a <b>Stacking Ensemble</b> classifier.</p>
+              </div>
+
+              <div class="story-phase">
+                <span class="phase-step">PHASE 03 // OUTCOME</span>
+                <p><b>The Result:</b> Validated at <b>99% Accuracy, 99.00 F1-Score, and 99.99% ROC-AUC</b>. Published at ICISD'26 (SRM Institute of Science &amp; Technology) and deployed as a live cloud inspection dashboard with instant explainability reasoning.</p>
+              </div>
+            </div>
+
+            <div class="project-chips">
+              <span class="chip">Python</span>
+              <span class="chip">NLP</span>
+              <span class="chip">DistilBERT</span>
+              <span class="chip">Isolation Forest</span>
+              <span class="chip">Stacking Ensemble</span>
+              <span class="chip">Hugging Face</span>
+              <span class="chip">ICISD'26</span>
+            </div>
+
+            <div class="project-actions">
+              <a class="btn btn-primary" href="https://yoge-2004-fake-job-detector.hf.space/dashboard" target="_blank" rel="noreferrer">Launch Live Dashboard</a>
+              <a class="btn btn-secondary" href="https://github.com/Yoge-2004/fake-job-detection-python" target="_blank" rel="noreferrer">View Source Code</a>
+              <a class="text-link" href="srm_hackathon_certificate.jpg" target="_blank" rel="noreferrer">ICISD'26 Certificate</a>
+            </div>
+          </div>
+
+          <div class="project-telemetry-col" aria-label="System Telemetry Console">
+            <div class="telemetry-console-card">
+              <div class="console-top-bar">
+                <span class="console-title">INSPECTION TELEMETRY</span>
+                <span class="console-status active">SYS_ONLINE</span>
+              </div>
+              <div class="console-metric-grid">
+                <div class="console-metric">
+                  <span class="c-label">ACCURACY</span>
+                  <b class="c-val glow-copper">99%</b>
+                  <div class="c-bar"><div class="c-bar-fill" style="width: 99%;"></div></div>
+                </div>
+                <div class="console-metric">
+                  <span class="c-label">F1-SCORE</span>
+                  <b class="c-val glow-copper">99.00</b>
+                  <div class="c-bar"><div class="c-bar-fill" style="width: 99%;"></div></div>
+                </div>
+                <div class="console-metric">
+                  <span class="c-label">ROC-AUC</span>
+                  <b class="c-val glow-copper">99.99</b>
+                  <div class="c-bar"><div class="c-bar-fill" style="width: 99.9%;"></div></div>
+                </div>
+              </div>
+              <div class="console-schematic-box">
+                <span class="schematic-tag">EMSCAD CLASS IMBALANCE MITIGATION</span>
+                <div class="schematic-viz">
+                  <div class="ratio-bar"><span style="width: 95%;">Authentic: 95%</span><span style="width: 5%;">5%</span></div>
+                  <small>Synthetic Isolation Forest Safety Threshold</small>
+                </div>
+              </div>
+              <div class="console-footer-stamp">
+                <span>ORAL PRESENTATION // SRM VADAPALANI</span>
+                <span>REF: ICISD26-408</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 02: Private Digital Diary Platform -->
+      <article class="project-story-card rv" id="project-digital-diary" data-project="02">
+        <div class="project-story-header">
+          <div class="project-meta-left">
+            <span class="project-badge cyan"><i class="badge-dot"></i> ZERO-FRAMEWORK SECURITY</span>
+            <span class="project-id-tag">PROJECT // 02</span>
+          </div>
+          <span class="project-live-indicator">OPEN SOURCE REPO</span>
+        </div>
+
+        <div class="project-story-body">
+          <div class="project-narrative-col">
+            <h3 class="project-title">Private Digital Diary Platform</h3>
+            <p class="project-repo-link">
+              <span class="repo-icon">⚡</span>
+              <a href="https://github.com/Yoge-2004/digital-diary-application" target="_blank" rel="noreferrer">github.com/Yoge-2004/digital-diary-application</a>
+            </p>
+
+            <div class="story-phases">
+              <div class="story-phase">
+                <span class="phase-step">PHASE 01 // THE CRISIS</span>
+                <p><b>The Problem:</b> Modern single-page web applications routinely store JWT authentication tokens in <code>localStorage</code> or client memory, leaving confidential user journals vulnerable to client-side XSS token exfiltration.</p>
+              </div>
+
+              <div class="story-phase">
+                <span class="phase-step">PHASE 02 // ARCHITECTURE</span>
+                <p><b>The Engineering Approach:</b> Engineered a zero-framework platform using Python FastAPI, Jinja2, and vanilla JavaScript over SQLAlchemy. Authentication relies on cryptographically signed JWT access &amp; refresh tokens stored strictly in <b>HttpOnly, SameSite cookies</b> with zero script exposure.</p>
+              </div>
+
+              <div class="story-phase">
+                <span class="phase-step">PHASE 03 // OUTCOME</span>
+                <p><b>The Result:</b> Complete mitigation of XSS token hijacking. Features granular emotional telemetry, mood analytics, archival pinning, and time-decayed sharing tokens over an automated OpenAPI backend.</p>
+              </div>
+            </div>
+
+            <div class="project-chips">
+              <span class="chip">FastAPI</span>
+              <span class="chip">SQLAlchemy</span>
+              <span class="chip">PostgreSQL</span>
+              <span class="chip">JWT HttpOnly</span>
+              <span class="chip">Jinja2</span>
+              <span class="chip">Bcrypt</span>
+            </div>
+
+            <div class="project-actions">
+              <a class="btn btn-primary" href="https://github.com/Yoge-2004/digital-diary-application" target="_blank" rel="noreferrer">View Repository &amp; Docs</a>
+            </div>
+          </div>
+
+          <div class="project-telemetry-col" aria-label="System Telemetry Console">
+            <div class="telemetry-console-card">
+              <div class="console-top-bar">
+                <span class="console-title">SECURITY BENCHMARK</span>
+                <span class="console-status active">HARDENED</span>
+              </div>
+              <div class="console-metric-grid">
+                <div class="console-metric">
+                  <span class="c-label">XSS EXPOSURE</span>
+                  <b class="c-val glow-cyan">0%</b>
+                  <div class="c-bar"><div class="c-bar-fill" style="width: 100%;"></div></div>
+                </div>
+                <div class="console-metric">
+                  <span class="c-label">AUTH LATENCY</span>
+                  <b class="c-val glow-cyan">&lt;14ms</b>
+                  <div class="c-bar"><div class="c-bar-fill" style="width: 92%;"></div></div>
+                </div>
+                <div class="console-metric">
+                  <span class="c-label">STORAGE</span>
+                  <b class="c-val glow-cyan">FERNET</b>
+                  <div class="c-bar"><div class="c-bar-fill" style="width: 95%;"></div></div>
+                </div>
+              </div>
+              <div class="console-schematic-box">
+                <span class="schematic-tag">CRYPTO SESSION BOUNDARY</span>
+                <div class="schematic-viz">
+                  <div class="ratio-bar"><span style="width: 70%;">HttpOnly Cookie (70%)</span><span style="width: 30%; background: #06b6d4;">Argon2 Hash</span></div>
+                  <small>Signed Access + Refresh Token Rotation Policy</small>
+                </div>
+              </div>
+              <div class="console-footer-stamp">
+                <span>FASTAPI // ASYNC OPENAPI BACKEND</span>
+                <span>ZERO CLIENT FRAMEWORK</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 03: Expense Tracker & Capital Allocation Engine -->
+      <article class="project-story-card rv" id="project-expense-tracker" data-project="03">
+        <div class="project-story-header">
+          <div class="project-meta-left">
+            <span class="project-badge"><i class="badge-dot"></i> ENTERPRISE REST SERVICE</span>
+            <span class="project-id-tag">PROJECT // 03</span>
+          </div>
+          <span class="project-live-indicator">LIVE ON NETLIFY</span>
+        </div>
+
+        <div class="project-story-body">
+          <div class="project-narrative-col">
+            <h3 class="project-title">Expense Tracker &amp; Budget Engine</h3>
+            <p class="project-repo-link">
+              <span class="repo-icon">⚡</span>
+              <a href="https://github.com/Yoge-2004/expense-tracker" target="_blank" rel="noreferrer">github.com/Yoge-2004/expense-tracker</a>
+            </p>
+
+            <div class="story-phases">
+              <div class="story-phase">
+                <span class="phase-step">PHASE 01 // THE CRISIS</span>
+                <p><b>The Problem:</b> Tracking multi-stream income, dynamic category budgeting, and capital allocation across disparate spreadsheets leads to ledger drift and lack of audit validation.</p>
+              </div>
+
+              <div class="story-phase">
+                <span class="phase-step">PHASE 02 // ARCHITECTURE</span>
+                <p><b>The Engineering Approach:</b> Architected an enterprise layered REST backend in Java 17 and Spring Boot (Controller $\to$ Service $\to$ Repository pattern) backed by a normalized MySQL relational database with transactional balance enforcement.</p>
+              </div>
+
+              <div class="story-phase">
+                <span class="phase-step">PHASE 03 // OUTCOME</span>
+                <p><b>The Result:</b> Shipped full financial audit reports, category limit alerts, sub-50ms REST API response latency, and continuous deployment to Netlify web hosting.</p>
+              </div>
+            </div>
+
+            <div class="project-chips">
+              <span class="chip">Java 17</span>
+              <span class="chip">Spring Boot 3</span>
+              <span class="chip">RESTful API</span>
+              <span class="chip">MySQL</span>
+              <span class="chip">Netlify</span>
+              <span class="chip">Maven</span>
+            </div>
+
+            <div class="project-actions">
+              <a class="btn btn-primary" href="https://cozy-narwhal-3099ad.netlify.app" target="_blank" rel="noreferrer">Launch Netlify App</a>
+              <a class="btn btn-secondary" href="https://github.com/Yoge-2004/expense-tracker" target="_blank" rel="noreferrer">View Source Code</a>
+            </div>
+          </div>
+
+          <div class="project-telemetry-col" aria-label="System Telemetry Console">
+            <div class="telemetry-console-card">
+              <div class="console-top-bar">
+                <span class="console-title">REST PERFORMANCE METRICS</span>
+                <span class="console-status active">OPTIMIZED</span>
+              </div>
+              <div class="console-metric-grid">
+                <div class="console-metric">
+                  <span class="c-label">API LATENCY</span>
+                  <b class="c-val glow">&lt;48ms</b>
+                  <div class="c-bar"><div class="c-bar-fill" style="width: 90%;"></div></div>
+                </div>
+                <div class="console-metric">
+                  <span class="c-label">ACID INTEGRITY</span>
+                  <b class="c-val glow">100%</b>
+                  <div class="c-bar"><div class="c-bar-fill" style="width: 100%;"></div></div>
+                </div>
+                <div class="console-metric">
+                  <span class="c-label">TEST COVERAGE</span>
+                  <b class="c-val glow">92%</b>
+                  <div class="c-bar"><div class="c-bar-fill" style="width: 92%;"></div></div>
+                </div>
+              </div>
+              <div class="console-schematic-box">
+                <span class="schematic-tag">ENTERPRISE LAYERED ARCHITECTURE</span>
+                <div class="schematic-viz">
+                  <div class="ratio-bar"><span style="width: 50%;">REST Controller</span><span style="width: 50%; background: #f59e0b;">JPA MySQL</span></div>
+                  <small>Spring Data JPA Transactional Isolation</small>
+                </div>
+              </div>
+              <div class="console-footer-stamp">
+                <span>JAVA 17 // SPRING BOOT 3</span>
+                <span>NETLIFY CLIENT PROD</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- 3. Secondary Systems Showcase (6 More Systems, Fully Public) -->
+    <div class="secondary-systems-section hold lit">
+      <div class="secondary-header">
+        <div class="tag"><s></s>Archival Index // Six More Public Systems</div>
+        <h3 class="t-lg">Production applications built, tested, and shipped.</h3>
+        <p class="copy mt-sm">Every repository represents a functional system complete with documentation, test suites, or native installers.</p>
+      </div>
+
+      <div class="systems-grid rv">
         <div class="slot">
           <span class="idx">01</span>
           <div>
             <h4>Library Management System</h4>
-            <p>Engineered during the Robowaves internship. Complete JavaFX desktop application with MySQL relational storage covering circulation, member authentication, cataloging, and administrative audit reports. Distributed with native installers.</p>
+            <p>Engineered during the Robowaves developer internship. Complete JavaFX desktop application with MySQL relational storage covering circulation, member authentication, cataloging, and administrative audit reports. Distributed with native installers.</p>
             <div class="chips"><span class="chip">Java</span><span class="chip">JavaFX</span><span class="chip">MySQL</span><span class="chip">Maven</span></div>
             <div class="links">
               <a class="text-link" href="https://github.com/Yoge-2004/lms-javafx" target="_blank" rel="noreferrer">Source Code</a>

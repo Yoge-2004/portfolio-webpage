@@ -8,6 +8,7 @@ import { initMagneticButtons } from './interaction/magnetic.js';
 import { initMobileMenu } from './navigation/mobile-menu.js';
 import { initNavigation } from './navigation/navigation.js';
 import { initScroll } from './animation/scroll.js';
+import { initStoryScroll } from './animation/story-scroll.js';
 import { initReveal } from './animation/reveal.js';
 import { initTextReveals } from './animation/text.js';
 import { initTelemetry } from './ui/telemetry.js';
@@ -35,6 +36,7 @@ function bootstrap() {
   initTextReveals();
   const telemetryController = initTelemetry();
   const lenisInstance = initScroll();
+  initStoryScroll();
   initNavigation(lenisInstance);
 
   // 4. Tactical Canvases & 3D World

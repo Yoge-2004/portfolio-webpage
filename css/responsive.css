@@ -26,19 +26,15 @@
 
 /* 2. Standard Laptop & Tablet Landscape (<= 1080px) */
 @media (max-width: 1080px) {
-  .duo,
-  .exhibit,
-  .exhibit.reverse {
+  .duo {
     grid-template-columns: 1fr;
     gap: 40px;
   }
-  .exhibit.reverse .spatial-frame {
-    order: 1;
+  .project-story-body {
+    grid-template-columns: 1fr;
+    gap: 32px;
   }
-  .exhibit.reverse .lit {
-    order: 2;
-  }
-  .rack,
+  .systems-grid,
   .caps {
     grid-template-columns: 1fr;
   }
@@ -72,15 +68,9 @@
   .burger {
     display: flex;
   }
-  .bayview {
+  .bayview,
+  #quests.chapter-quests {
     padding: 100px var(--pad) 76px;
-  }
-  .exhibit {
-    padding: 100px var(--pad) 76px;
-    gap: 28px;
-  }
-  .spatial-frame {
-    min-height: 260px;
   }
   .row {
     grid-template-columns: 1fr;
@@ -107,14 +97,11 @@
 /* 4. Small Mobile & Narrow Phones (<= 480px) */
 @media (max-width: 480px) {
   :root {
-    --pad: 20px;
+    --pad: 18px;
   }
-  .bayview {
-    padding: 88px var(--pad) 64px;
-  }
-  .exhibit {
-    padding: 88px var(--pad) 64px;
-    gap: 24px;
+  .bayview,
+  #quests.chapter-quests {
+    padding: 84px var(--pad) 60px;
   }
   
   /* Hero Refinements */
@@ -123,7 +110,7 @@
     line-height: 1.0;
   }
   .lede {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     line-height: 1.45;
   }
   .acts {
@@ -149,7 +136,7 @@
     justify-content: space-between;
     gap: 16px;
     padding: 8px 0;
-    border-bottom: 1px solid rgba(48, 38, 29, 0.45);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
   .facts-item b {
     font-size: 1.85rem;
@@ -194,28 +181,14 @@
     padding: 12px;
   }
 
-  /* Tactical Project Cards */
-  .exhibit-tactical {
-    padding: 22px 18px;
-  }
-  .spatial-frame {
-    min-height: 200px;
-    padding: 16px;
-  }
-  .slot {
-    grid-template-columns: 36px 1fr;
-    gap: 12px;
-    padding: 20px 0;
-  }
-
   /* Arena Rows */
   .row {
-    padding: 20px 0;
+    padding: 18px 16px;
   }
 
   /* Capabilities & Certifications */
   .cap {
-    padding: 20px 18px;
+    padding: 18px 16px;
   }
   .cert-card {
     padding: 14px 16px;
@@ -223,18 +196,18 @@
 
   /* Path Timeline */
   .path {
-    padding-left: 20px;
+    padding-left: 18px;
   }
   .stop::before {
-    left: -24.5px;
+    left: -22.5px;
   }
   .stop {
-    padding: 18px 0;
+    padding: 16px 18px;
   }
 
   /* Reach & Footer */
   .reach-card {
-    padding: 18px 20px;
+    padding: 18px 16px;
   }
   footer {
     flex-direction: column;

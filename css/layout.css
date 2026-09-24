@@ -10,7 +10,8 @@ main {
   min-height: 100vh;
   min-height: 100svh;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   padding: 132px var(--pad) 112px;
   position: relative;
   overflow-x: clip;
@@ -19,6 +20,13 @@ main {
 .bayview.tight {
   min-height: 0;
   padding: 88px var(--pad);
+}
+
+#quests.bayview,
+.chapter-quests {
+  display: block;
+  min-height: auto;
+  padding: 120px var(--pad) 100px;
 }
 
 .hold {
