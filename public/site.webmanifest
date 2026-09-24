@@ -1,0 +1,12 @@
+{
+  "name": "Yogeshwaran Muthuraman — Software Engineer & Applied ML Researcher",
+  "short_name": "Yogeshwaran M",
+  "description": "A cinematic, scroll-driven 3D portfolio.",
+  "start_url": "/portfolio-webpage/",
+  "display": "standalone",
+  "background_color": "#06070e",
+  "theme_color": "#0d1024",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

@@ -1,0 +1,114 @@
+/* ============================================================
+   FOCUS / SPOTLIGHT
+   The cinematic "one thing at a time" layer. Items in a sequence
+   dim and shrink slightly when they are not the current reading
+   focus, so the eye is always led to a single element rather than
+   a wall of equal text. Driven by src/js/core/focus.js.
+   ============================================================ */
+
+.focusable {
+  transition:
+    opacity 520ms var(--ease-out),
+    transform 520ms var(--ease-out),
+    filter 520ms var(--ease-out),
+    border-color 400ms var(--ease-out);
+  will-change: opacity, transform;
+}
+
+/* Non-focused items recede — like a camera's depth of field pulling focus to
+   a single subject. Kept to opacity/transform on the common path; the light
+   blur is only applied on capable pointer devices to avoid scroll cost. */
+.focusable.is-dim {
+  opacity: 0.45;
+}
+
+/* The single focused item is brought forward and fully lit. */
+.focusable.is-focus {
+  opacity: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .focusable.is-dim {
+    filter: blur(1px);
+  }
+}
+
+/* Per-type focus emphasis — a gentle lift/scale so the current item
+   visibly "steps toward" the reader. Kept transform-only for GPU. */
+.pillar.is-focus,
+.instrument.is-focus,
+.satellite.is-focus {
+  transform: translateY(-6px) scale(1.015);
+}
+
+.pillar.is-dim,
+.instrument.is-dim,
+.satellite.is-dim {
+  transform: scale(0.985);
+}
+
+/* Pipeline steps get an accent edge when focused. */
+.pipeline__step.is-focus {
+  transform: translateY(-4px);
+}
+.pipeline__step.is-focus .pipeline__title {
+  color: var(--ch-accent);
+}
+
+/* Project phases: the focused phase gets a stronger accent bar. */
+.phase.is-focus {
+  transform: translateX(4px);
+  border-left-color: var(--ch-accent);
+  background: linear-gradient(to right, var(--ch-accent-soft), transparent 74%);
+}
+.phase.is-dim {
+  border-left-color: var(--ch-hairline);
+}
+
+/* Milestones: the focused stop's marker pulses brighter. */
+.milestone.is-focus::after {
+  box-shadow: 0 0 0 7px var(--ch-accent-soft), 0 0 22px var(--ch-accent);
+  transform: translate(-50%, -50%) scale(1.25);
+}
+.milestone.is-focus .milestone__body h3 {
+  color: var(--ch-accent);
+}
+
+/* Monuments: the focused row gains the spotlight wash. */
+.monument.is-focus {
+  background: linear-gradient(to right, var(--ch-accent-soft), transparent 62%);
+}
+.monument.is-focus .monument__year {
+  color: var(--ch-accent);
+  -webkit-text-stroke-color: var(--ch-accent);
+}
+
+/* Mindset steps: focused step draws its top rule fully + brightens. */
+.mindset__step.is-focus h3 {
+  color: var(--ch-accent);
+}
+
+/* On coarse pointers the effect is lighter (no scale jitter on tap scroll). */
+@media (hover: none), (pointer: coarse) {
+  .focusable.is-dim {
+    opacity: 0.5;
+  }
+  .pillar.is-focus,
+  .instrument.is-focus,
+  .satellite.is-focus,
+  .pipeline__step.is-focus,
+  .phase.is-focus {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .focusable,
+  .focusable.is-dim,
+  .focusable.is-focus {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+}

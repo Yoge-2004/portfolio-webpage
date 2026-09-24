@@ -1,7 +1,5 @@
-script.js
-components.css
 node_modules/
-.idea/
-.test-artifacts/
-.cache/
-.npm/
+dist/
+.DS_Store
+*.local
+npm-debug.log*
