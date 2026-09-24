@@ -1,6 +1,19 @@
 /**
  * Loading Overlay Animation, Reveal States, and Noscript Fallbacks
  */
+@keyframes autoDismissLoader {
+  0%, 85% {
+    opacity: 1;
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    display: none;
+  }
+}
+
 .load {
   position: fixed;
   inset: 0;
@@ -11,13 +24,15 @@
   opacity: 1;
   visibility: visible;
   transition: opacity .35s var(--ease), visibility .35s;
+  animation: autoDismissLoader 1.4s ease-out 1.4s forwards;
 }
 
 .load.off {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  display: none;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  display: none !important;
+  animation: none !important;
 }
 
 .load-inner {
@@ -64,8 +79,8 @@
 
 /* Reveal Transitions */
 .rv {
-  transform: translateY(28px);
-  transition: opacity .9s var(--ease), transform .9s var(--ease);
+  transform: translateY(20px);
+  transition: opacity .7s var(--ease), transform .7s var(--ease);
 }
 
 .rv.pend {
