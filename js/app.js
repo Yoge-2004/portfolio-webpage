@@ -1,546 +1,276 @@
-/* ==========================================================================
-   APP — everything that moves. The page scroll position becomes the camera's
-   position along the 3D world; sections map to stretches of the flight.
-   ========================================================================== */
+(() => {
+  'use strict';
 
-import { createScene } from './scene.js';
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const BLUE = [45, 75, 110], RED = [194, 65, 43], LIT = [92, 128, 170];
+  const LIGHT = (() => { const v = [-0.35, 0.85, 0.55], l = Math.hypot(...v); return v.map((a) => a / l); })();
+  const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+  const fmt = (n) => n.toLocaleString('en-US');
+  const pct = (x) => (x * 100).toFixed(1) + '%';
+  const shade = (c, f) => `rgb(${c.map((v) => Math.round(Math.min(255, v * f))).join(',')})`;
 
-const $ = (s, r = document) => r.querySelector(s);
-const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-const root = document.documentElement;
-const params = new URLSearchParams(location.search);
-const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
-const coarse = matchMedia('(pointer: coarse)').matches;
-const clamp = (x, a = 0, b = 1) => (x < a ? a : x > b ? b : x);
-const lerp = (a, b, t) => a + (b - a) * t;
-
-/* ---------- Theme ---------- */
-let themeT = root.dataset.theme === 'light' ? 1 : 0;
-let theme = themeT;
-const themeBtn = $('#theme');
-const metaTheme = $('#meta-theme');
-function syncThemeUI() {
-  const light = themeT === 1;
-  themeBtn.setAttribute('aria-pressed', String(light));
-  themeBtn.setAttribute('aria-label', light ? 'Switch to dark theme' : 'Switch to light theme');
-  metaTheme.setAttribute('content', light ? '#F3F0E8' : '#07080D');
-}
-themeBtn.addEventListener('click', () => {
-  const light = root.dataset.theme !== 'light';
-  root.dataset.theme = light ? 'light' : 'dark';
-  themeT = light ? 1 : 0;
-  try { localStorage.setItem('ym-theme', light ? 'light' : 'dark'); } catch (e) { /* storage blocked */ }
-  syncThemeUI();
-});
-syncThemeUI();
-
-/* ---------- Colour worlds: each set piece has a colour; the page accent follows the camera ---------- */
-const PAL_NIGHT = [[255, 138, 61], [94, 200, 255], [157, 123, 255], [255, 184, 56], [64, 242, 184], [255, 92, 158]];
-const PAL_DAY = [[224, 86, 27], [10, 110, 158], [95, 60, 200], [176, 110, 0], [0, 128, 96], [200, 40, 110]];
-const smoothstep = (a, b, x) => { const t = clamp((x - a) / (b - a)); return t * t * (3 - 2 * t); };
-function accentFor(uPos, th) {
-  const pos = Math.max(uPos, 0) - 0.27;           /* the piece in view sits about 12 units ahead of the camera */
-  const k0 = Math.floor(pos);
-  const f = smoothstep(0.3, 0.7, pos - k0);
-  const a = ((k0 % 6) + 6) % 6;
-  const b = (((k0 + 1) % 6) + 6) % 6;
-  const blend = (P) => [0, 1, 2].map((i) => lerp(P[a][i], P[b][i], f));
-  const n = blend(PAL_NIGHT), d = blend(PAL_DAY);
-  return [0, 1, 2].map((i) => lerp(n[i], d[i], th));
-}
-function applyAccent(c, th) {
-  const [r, g, b] = c.map(Math.round);
-  const t = th < 0.5 ? c.map((v) => Math.round(v + (255 - v) * 0.22)) : c.map((v) => Math.round(v * 0.82));
-  root.style.setProperty('--accent', `rgb(${r},${g},${b})`);
-  root.style.setProperty('--accent-t', `rgb(${t[0]},${t[1]},${t[2]})`);
-  root.style.setProperty('--glow', `rgba(${r},${g},${b},0.22)`);
-  root.style.setProperty('--hl', `rgba(${r},${g},${b},${th < 0.5 ? 0.3 : 0.22})`);
-}
-
-/* ---------- 3D scene ---------- */
-const canvas = $('#gl');
-let scene = null;
-let quality = parseFloat(params.get('scale')) || (coarse ? 0.75 : 0.9);
-const fixedQuality = params.has('scale');
-if (params.get('field') === 'css') {
-  root.classList.add('no-gl');
-} else {
-  try {
-    scene = createScene(canvas);
-  } catch (err) {
-    console.warn('[ym] 3D scene unavailable; using the CSS backdrop.', err);
+  // Rotate a point by yaw (about Y) then pitch (about X).
+  function rot(p, yw, pt) {
+    const cy = Math.cos(yw), sy = Math.sin(yw), cp = Math.cos(pt), sp = Math.sin(pt);
+    const x1 = p[0] * cy + p[2] * sy;
+    const z1 = -p[0] * sy + p[2] * cy;
+    return [x1, p[1] * cp - z1 * sp, p[1] * sp + z1 * cp];
   }
-  if (!scene) root.classList.add('no-gl');
-}
-canvas.addEventListener('webglcontextlost', (e) => {
-  e.preventDefault();
-  scene = null;
-  root.classList.add('no-gl');
-});
 
-function look() {
-  const w = innerWidth;
-  if (w >= 1000) return { px: 4.3, scale: 0.9, sx: 0, sy: 0 };
-  if (w >= 700) return { px: 3.8, scale: 0.85, sx: 0, sy: 0.1 };
-  return { px: 3.3, scale: 0.75, sx: 0, sy: 0.2 };
-}
-function sizeCanvas() {
-  if (!scene) return;
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);   /* render in device pixels, capped at 2x */
-  scene.resize(Math.max(2, Math.round(innerWidth * dpr * quality)), Math.max(2, Math.round(innerHeight * dpr * quality)));
-}
+  // A small orthographic 3D view: boxes drawn back to front, back faces culled.
+  function makeView(canvas, o) {
+    const ctx = canvas.getContext('2d');
+    const v = { W: 0, H: 0, unit: 80, yaw: o.yaw, pitch: o.pitch, fit: o.fit, oy: o.oy, drag: false, lx: 0, ly: 0, sway: reduce ? 0 : 1 };
+    const S = (q) => [v.W * 0.5 + q[0] * v.unit, v.H * v.oy - q[1] * v.unit];
+    const P = (p, yw) => S(rot(p, yw, v.pitch));
 
-/* ---------- Sections → flight path ---------- */
-const sections = $$('[data-u]').map((el) => {
-  const [a, b] = el.dataset.u.split(',').map(parseFloat);
-  return { el, a, b };
-});
-let layout = [];
-function measure() {
-  layout = sections.map((s) => {
-    const r = s.el.getBoundingClientRect();
-    return { top: r.top + scrollY, h: Math.max(1, r.height), a: s.a, b: s.b };
-  });
-}
-function uAt(y) {
-  const c = y + innerHeight * 0.5;
-  for (const s of layout) {
-    if (c < s.top + s.h) return lerp(s.a, s.b, clamp((c - s.top) / s.h));
-  }
-  return layout.length ? layout[layout.length - 1].b : 0;
-}
+    function size() {
+      const r = canvas.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(r.width * dpr);
+      canvas.height = Math.round(r.height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      v.W = r.width; v.H = r.height;
+      v.unit = Math.min(v.H / v.fit, v.W / (v.fit * 0.8));
+    }
+    function update() { v.sway += ((v.drag || reduce ? 0 : 1) - v.sway) * 0.05; }
+    function angle(now) { return v.yaw + v.sway * 0.26 * Math.sin(now / 2600); }
+    function clear() { ctx.clearRect(0, 0, v.W, v.H); }
 
-/* ---------- Kinetic type: the hero name rises letter by letter ---------- */
-function splitNode(node, state) {
-  [...node.childNodes].forEach((n) => {
-    if (n.nodeType === 3) {
-      const frag = document.createDocumentFragment();
-      for (const ch of n.textContent) {
-        const s = document.createElement('span');
-        s.className = 'ch';
-        s.style.setProperty('--i', String(state.i++));
-        s.setAttribute('aria-hidden', 'true');
-        s.textContent = ch;
-        frag.appendChild(s);
+    function quad(pts, col) {
+      ctx.beginPath();
+      ctx.moveTo(pts[0][0], pts[0][1]);
+      for (let i = 1; i < 4; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+      ctx.closePath();
+      ctx.fillStyle = col;
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(242,238,229,0.55)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    function drawBox(b, yw) {
+      const F = [
+        { n: [0, 1, 0],  p: [[b.x0, b.y1, b.z0], [b.x1, b.y1, b.z0], [b.x1, b.y1, b.z1], [b.x0, b.y1, b.z1]] },
+        { n: [0, 0, 1],  p: [[b.x0, b.y0, b.z1], [b.x1, b.y0, b.z1], [b.x1, b.y1, b.z1], [b.x0, b.y1, b.z1]] },
+        { n: [1, 0, 0],  p: [[b.x1, b.y0, b.z0], [b.x1, b.y0, b.z1], [b.x1, b.y1, b.z1], [b.x1, b.y1, b.z0]] },
+        { n: [-1, 0, 0], p: [[b.x0, b.y0, b.z0], [b.x0, b.y0, b.z1], [b.x0, b.y1, b.z1], [b.x0, b.y1, b.z0]] },
+        { n: [0, 0, -1], p: [[b.x0, b.y0, b.z0], [b.x1, b.y0, b.z0], [b.x1, b.y1, b.z0], [b.x0, b.y1, b.z0]] },
+      ];
+      for (const f of F) {
+        const nr = rot(f.n, yw, v.pitch);
+        if (nr[2] <= 0.02) continue;                           // faces away from the viewer
+        const lam = Math.max(0, nr[0] * LIGHT[0] + nr[1] * LIGHT[1] + nr[2] * LIGHT[2]);
+        quad(f.p.map((q) => S(rot(q, yw, v.pitch))), shade(b.col, 0.56 + 0.44 * lam));
       }
-      n.replaceWith(frag);
-    } else if (n.nodeType === 1) {
-      splitNode(n, state);
     }
-  });
-}
-$$('[data-split]').forEach((row, k) => splitNode(row, { i: k * 11 }));
-
-/* ---------- Scrubbed statement: words light up as you read ---------- */
-const stmt = $('#statement');
-let words = [];
-if (stmt) {
-  const text = stmt.textContent.trim();
-  stmt.textContent = '';
-  const parts = text.split(/\s+/);
-  parts.forEach((wd, i) => {
-    const s = document.createElement('span');
-    s.className = 'w';
-    s.textContent = wd;
-    stmt.appendChild(s);
-    if (i < parts.length - 1) stmt.appendChild(document.createTextNode(' '));
-  });
-  words = $$('.w', stmt);
-}
-function updateStatement() {
-  if (!words.length) return;
-  const r = stmt.getBoundingClientRect();
-  const prog = reduce ? 1 : clamp((innerHeight * 0.82 - r.top) / (r.height + innerHeight * 0.3));
-  const n = words.length;
-  for (let i = 0; i < n; i++) {
-    const k = clamp(prog * (n + 6) - i, 0, 1);
-    const o = (0.16 + 0.84 * k).toFixed(2);
-    if (words[i]._o !== o) { words[i]._o = o; words[i].style.setProperty('--o', o); }
-  }
-}
-
-/* ---------- Headings: every word rises in as its heading enters view ---------- */
-function splitWords(node, state) {
-  [...node.childNodes].forEach((n) => {
-    if (n.nodeType === 3) {
-      const frag = document.createDocumentFragment();
-      n.textContent.split(/(\s+)/).forEach((part) => {
-        if (!part) return;
-        if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
-        const outer = document.createElement('span');
-        outer.className = 'wd';
-        const inner = document.createElement('span');
-        inner.className = 'wi';
-        inner.style.setProperty('--i', String(state.i++));
-        inner.textContent = part;
-        outer.appendChild(inner);
-        frag.appendChild(outer);
-      });
-      n.replaceWith(frag);
-    } else if (n.nodeType === 1) {
-      splitWords(n, state);
+    function drawBoxes(list, yw) {
+      const order = list.map((b) => ({ b, d: rot([(b.x0 + b.x1) / 2, (b.y0 + b.y1) / 2, (b.z0 + b.z1) / 2], yw, v.pitch)[2] }));
+      order.sort((a, b) => a.d - b.d);                          // far first
+      for (const { b } of order) drawBox(b, yw);
     }
-  });
-}
-const headings = $$('.title, .giant--s, .proj-title, .proj-cap, .timeline h3, .pipe h3, .card h3');
-headings.forEach((h) => { h.classList.add('wsplit'); splitWords(h, { i: 0 }); });
-
-/* ---------- Reveals and counters ---------- */
-const io = new IntersectionObserver((entries) => {
-  entries.forEach((e) => {
-    if (e.isIntersecting) {
-      e.target.classList.add('in');
-      io.unobserve(e.target);
-      if (e.target.classList.contains('card')) setTimeout(() => e.target.classList.add('settled'), 1800);
+    function floor(e, yw) {
+      const pts = [[-e, 0, -e], [e, 0, -e], [e, 0, e], [-e, 0, e]].map((p) => P(p, yw));
+      ctx.beginPath();
+      ctx.moveTo(pts[0][0], pts[0][1]);
+      for (let i = 1; i < 4; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(28,27,24,0.035)';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(28,27,24,0.14)';
+      ctx.stroke();
     }
-  });
-}, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
-$$('.reveal, [data-in], .wsplit').forEach((el) => io.observe(el));
-
-function countUp(el) {
-  const end = parseFloat(el.dataset.count);
-  const dec = parseInt(el.dataset.dec || '0', 10);
-  const suffix = el.dataset.suffix || '';
-  const final = end.toFixed(dec) + suffix;
-  if (reduce) { el.textContent = final; return; }
-  const t0 = performance.now();
-  const step = (n) => {
-    const k = clamp((n - t0) / 1400);
-    el.textContent = (end * (1 - Math.pow(1 - k, 4))).toFixed(dec) + suffix;
-    if (k < 1) requestAnimationFrame(step); else el.textContent = final;
-  };
-  requestAnimationFrame(step);
-  setTimeout(() => { el.textContent = final; }, 2600);   /* never leave a number half-counted */
-}
-const counters = new IntersectionObserver((entries) => {
-  entries.forEach((e) => {
-    if (e.isIntersecting) { countUp(e.target); counters.unobserve(e.target); }
-  });
-}, { threshold: 0.6 });
-$$('[data-count]').forEach((el) => counters.observe(el));
-
-/* ---------- Stacked project cards ---------- */
-const cards = $$('.proj');
-let stickyMode = false;
-function checkSticky() { stickyMode = cards.length > 0 && getComputedStyle(cards[0]).position === 'sticky'; }
-function updateCards() {
-  if (!stickyMode) return;
-  cards.forEach((c, i) => {
-    let t = 0;
-    const next = cards[i + 1];
-    if (next) {
-      const stick = innerHeight * 0.09 + (i + 1) * 26;
-      t = clamp(1 - (next.getBoundingClientRect().top - stick) / (innerHeight * 0.6));
+    function text(s, p3, yw, opt = {}) {
+      const [x, y] = P(p3, yw);
+      ctx.font = opt.font || '13px ui-monospace, Menlo, monospace';
+      ctx.textAlign = opt.align || 'center';
+      ctx.textBaseline = 'middle';
+      if (opt.plate) {
+        const w = ctx.measureText(s).width, pad = 6;
+        ctx.fillStyle = 'rgba(242,238,229,0.94)';
+        ctx.fillRect(x - w / 2 - pad, y - 11, w + pad * 2, 22);
+      }
+      ctx.fillStyle = opt.color || '#1c1b18';
+      ctx.fillText(s, x, y);
     }
-    c.style.setProperty('--sc', (1 - 0.05 * t).toFixed(4));
-    c.style.setProperty('--t', t.toFixed(3));
-  });
-}
 
-/* ---------- Timeline rail ---------- */
-const timeline = $('#timeline');
-function updateTimeline() {
-  if (!timeline) return;
-  const r = timeline.getBoundingClientRect();
-  timeline.style.setProperty('--draw', clamp((innerHeight * 0.65 - r.top) / r.height).toFixed(3));
-}
-
-/* ---------- Marquees ---------- */
-const marquees = $$('.marquee').map((m) => {
-  const track = $('.track', m);
-  const set = [...track.children];
-  set.forEach((n) => track.appendChild(n.cloneNode(true)));
-  set.forEach((n) => track.appendChild(n.cloneNode(true)));
-  return { m, track, dir: parseFloat(m.dataset.dir) || -1, pos: 0, W: 1 };
-});
-function measureMarquees() {
-  marquees.forEach((q) => { q.W = Math.max(1, q.track.scrollWidth / 3); });
-}
-function updateMarquees(dt, vel) {
-  const speed = (reduce ? 0 : 46) + Math.abs(vel) * 0.3;
-  marquees.forEach((q) => {
-    q.pos = (q.pos + speed * dt) % q.W;
-    const x = q.dir < 0 ? -q.pos : q.pos - q.W;
-    q.track.style.transform = `translate3d(${x.toFixed(1)}px, 0, 0)`;
-  });
-}
-
-/* ---------- Cursor, magnetic buttons, spotlight ---------- */
-const cursor = $('#cursor');
-const cursorLabel = $('#cursor-label');
-let cx = 0, cy = 0, tx = 0, ty = 0;
-if (fine) {
-  root.classList.add('has-cursor');
-  addEventListener('pointermove', (e) => { tx = e.clientX; ty = e.clientY; }, { passive: true });
-  document.addEventListener('pointerover', (e) => {
-    const t = e.target.closest && e.target.closest('[data-cursor]');
-    if (t) { cursorLabel.textContent = t.dataset.cursor; cursor.classList.add('has-label'); }
-    else cursor.classList.remove('has-label');
-  });
-  $$('.mag').forEach((el) => {
-    el.addEventListener('pointermove', (e) => {
-      const r = el.getBoundingClientRect();
-      el.style.transform = `translate3d(${((e.clientX - r.left - r.width / 2) * 0.3).toFixed(1)}px, ${((e.clientY - r.top - r.height / 2) * 0.3).toFixed(1)}px, 0)`;
+    // Drag to turn (horizontal) and tilt (vertical).
+    canvas.addEventListener('pointerdown', (e) => {
+      v.drag = true; v.lx = e.clientX; v.ly = e.clientY;
+      canvas.setPointerCapture(e.pointerId);
+      canvas.classList.add('drag');
     });
-    el.addEventListener('pointerleave', () => { el.style.transform = ''; });
-  });
-  $$('.spot').forEach((el) => {
-    el.addEventListener('pointermove', (e) => {
-      const r = el.getBoundingClientRect();
-      el.style.setProperty('--mx', (e.clientX - r.left).toFixed(0) + 'px');
-      el.style.setProperty('--my', (e.clientY - r.top).toFixed(0) + 'px');
-      el.style.setProperty('--ry', (((e.clientX - r.left) / r.width - 0.5) * 7).toFixed(2) + 'deg');
-      el.style.setProperty('--rx', ((0.5 - (e.clientY - r.top) / r.height) * 5).toFixed(2) + 'deg');
+    canvas.addEventListener('pointermove', (e) => {
+      if (!v.drag) return;
+      v.yaw += (e.clientX - v.lx) * 0.009;
+      v.pitch = clamp(v.pitch + (e.clientY - v.ly) * 0.005, 0.25, 1.25);
+      v.lx = e.clientX; v.ly = e.clientY;
     });
-    el.addEventListener('pointerleave', () => { el.style.setProperty('--rx', '0deg'); el.style.setProperty('--ry', '0deg'); });
-  });
-}
+    const endDrag = () => { v.drag = false; canvas.classList.remove('drag'); };
+    canvas.addEventListener('pointerup', endDrag);
+    canvas.addEventListener('pointercancel', endDrag);
+    window.addEventListener('resize', size);
+    size();
 
-/* ---------- Drag the hero sculpture ---------- */
-const heroEl = $('#top');
-let spin = 0, spinV = 0, dragging = false, dragX = 0;
-if (heroEl && !reduce) {
-  heroEl.addEventListener('pointerdown', (e) => {
-    if (e.target.closest('a, button')) return;
-    dragging = true; dragX = e.clientX;
-    try { heroEl.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
-  });
-  heroEl.addEventListener('pointermove', (e) => {
-    if (!dragging) return;
-    const dx = e.clientX - dragX;
-    dragX = e.clientX;
-    spin += dx * 0.008;
-    spinV = dx * 0.008 * 60;
-  });
-  const endDrag = () => { dragging = false; };
-  heroEl.addEventListener('pointerup', endDrag);
-  heroEl.addEventListener('pointercancel', endDrag);
-}
-
-/* ---------- Section rail ---------- */
-const railEl = $('#rail');
-const railIds = [['about', 'About'], ['research', 'Research'], ['evidence', 'Evidence'], ['path', 'Path'], ['work', 'Work'], ['systems', 'Systems'], ['stack', 'Stack'], ['credentials', 'Proof'], ['contact', 'Contact']];
-let railTops = [], railOn = -2;
-if (railEl) {
-  railEl.innerHTML = railIds.map(([id, n], i) => `<a href="#${id}"><span>${n}</span><i>${String(i + 1).padStart(2, '0')}</i></a>`).join('');
-}
-function measureRail() {
-  railTops = railIds.map(([id]) => { const el = document.getElementById(id); return el ? el.getBoundingClientRect().top + scrollY : 1e9; });
-}
-function updateRail(y) {
-  if (!railEl) return;
-  const c = y + innerHeight * 0.5;
-  let on = -1;
-  railTops.forEach((t, i) => { if (c >= t) on = i; });
-  if (on !== railOn) {
-    railOn = on;
-    [...railEl.children].forEach((a, i) => a.classList.toggle('on', i === on));
+    return { update, angle, clear, drawBoxes, floor, text };
   }
-}
 
-/* ---------- Parallax: large display elements drift a little slower than the page ---------- */
-const parallaxEls = $$('[data-speed]');
-const progressEl = $('#progress');
-function updateParallax() {
-  parallaxEls.forEach((el) => {
-    const r = el.getBoundingClientRect();
-    const c = r.top + r.height / 2 - innerHeight / 2;
-    el.style.setProperty('--py', (-c * parseFloat(el.dataset.speed)).toFixed(1) + 'px');
-  });
-  if (progressEl) {
-    const max = Math.max(1, document.documentElement.scrollHeight - innerHeight);
-    progressEl.style.setProperty('--p', clamp(scrollY / max).toFixed(4));
-  }
-}
-
-/* ---------- Drag gallery ---------- */
-const gallery = $('#gallery');
-if (gallery) {
-  let down = false, sx = 0, sl = 0;
-  gallery.addEventListener('pointerdown', (e) => {
-    if (e.pointerType === 'touch') return;
-    down = true; sx = e.clientX; sl = gallery.scrollLeft;
-    gallery.classList.add('drag');
-    gallery.setPointerCapture(e.pointerId);
-  });
-  gallery.addEventListener('pointermove', (e) => { if (down) gallery.scrollLeft = sl - (e.clientX - sx); });
-  const up = () => { down = false; gallery.classList.remove('drag'); };
-  gallery.addEventListener('pointerup', up);
-  gallery.addEventListener('pointercancel', up);
-}
-
-/* ---------- Menu (small screens) ---------- */
-const nav = $('#nav');
-const menuBtn = $('#menu');
-function setMenu(open) {
-  nav.classList.toggle('open', open);
-  menuBtn.setAttribute('aria-expanded', String(open));
-  menuBtn.setAttribute('aria-label', open ? 'Close the menu' : 'Open the menu');
-}
-menuBtn.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
-nav.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
-addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
-
-/* ---------- Clock ---------- */
-const clockEl = $('#clock');
-function tick() {
-  try {
-    clockEl.textContent = 'Chennai ' + new Date().toLocaleTimeString('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit' });
-  } catch (e) { clockEl.textContent = 'Chennai'; }
-}
-tick();
-setInterval(tick, 30000);
-$('#year').textContent = String(new Date().getFullYear());
-
-/* ---------- Loader ---------- */
-const loader = $('#loader');
-const loaderCount = $('#loader-count');
-const loaderBar = $('#loader-bar');
-let loaderDone = false;
-function finishLoader() {
-  if (loaderDone) return;
-  loaderDone = true;
-  loader.classList.add('done');
-  root.classList.add('ready');
-}
-function runLoader() {
-  if (params.has('nopre') || reduce) { finishLoader(); return; }
-  const t0 = performance.now();
-  let loaded = false;
-  Promise.all([
-    document.fonts ? document.fonts.ready : Promise.resolve(),
-    new Promise((r) => (document.readyState === 'complete' ? r() : addEventListener('load', r, { once: true }))),
-  ]).then(() => { loaded = true; });
-  const step = (now) => {
-    const el = now - t0;
-    const e = 1 - Math.pow(1 - clamp(el / 1300), 3);
-    loaderCount.textContent = String(Math.round(e * 100)).padStart(3, '0');
-    loaderBar.style.transform = `scaleX(${e.toFixed(3)})`;
-    if ((el >= 1300 && loaded) || el >= 3200) { finishLoader(); return; }
-    requestAnimationFrame(step);
+  // ---------- 01 · Confusion matrix ----------
+  // Counts from results/evaluation_report.txt (BERT Fusion).
+  // TN real called real, FP real called fraud, FN fraud called real, TP fraud called fraud.
+  const COUNTS = {
+    test:  { TN: 3385, FP: 18, FN: 57, TP: 3356 },
+    train: { TN: 4226, FP: 27, FN: 62, TP: 4205 },
   };
-  requestAnimationFrame(step);
-}
+  const SCALE_MAX = 4300;
+  const CELLS = [
+    { k: 'TN', x: 0, z: 0, col: BLUE }, { k: 'FP', x: 1, z: 0, col: RED },
+    { k: 'FN', x: 0, z: 1, col: RED },  { k: 'TP', x: 1, z: 1, col: BLUE },
+  ];
+  const mView = makeView(document.getElementById('cm'), { yaw: 0.8, pitch: 0.72, fit: 4.7, oy: 0.63 });
+  const mState = { model: 'model', split: 'test' };
+  const mH = { TN: 0, FP: 0, FN: 0, TP: 0 };
+  const hFor = (n) => (n > 0 ? 0.08 + 2.4 * Math.sqrt(n / SCALE_MAX) : 0.02);
 
-/* ---------- Governor: trade resolution for frame time; never the motion ---------- */
-let govAcc = 0, govN = 0, govFast = 0;
-function govern(dt) {
-  if (fixedQuality) return;
-  govAcc += dt; govN++;
-  if (govN < 45) return;
-  const avg = govAcc / govN;
-  govAcc = 0; govN = 0;
-  if (avg > 0.034 && quality > 0.6) {
-    quality = Math.max(0.6, quality - 0.06);
-    sizeCanvas(); govFast = 0;
-  } else if (avg < 0.017) {
-    govFast++;
-    if (govFast >= 6 && quality < 1) { quality = Math.min(1, quality + 0.04); sizeCanvas(); govFast = 0; }
-  } else {
-    govFast = 0;
+  function countsFor() {
+    const d = COUNTS[mState.split];
+    if (mState.model === 'model') return d;
+    return { TN: d.TN + d.FP, FP: 0, FN: d.FN + d.TP, TP: 0 };   // always answers "real"
   }
-}
 
-/* ---------- Frame loop ---------- */
-const mouse = { x: 0, y: 0, sx: 0, sy: 0 };
-if (fine && !reduce) {
-  addEventListener('pointermove', (e) => {
-    mouse.x = (e.clientX / Math.max(innerWidth, 1)) * 2 - 1;
-    mouse.y = -((e.clientY / Math.max(innerHeight, 1)) * 2 - 1);
-  }, { passive: true });
-}
+  function drawMatrix(now) {
+    mView.update();
+    const yw = mView.angle(now);
+    const c = countsFor();
+    for (const k of ['TN', 'FP', 'FN', 'TP']) mH[k] += (hFor(c[k]) - mH[k]) * 0.14;
+    mView.clear();
+    mView.floor(2.35, yw);
+    const list = CELLS.map((q) => {
+      const cx = (q.x - 0.5) * 2.2, cz = (q.z - 0.5) * 2.2;
+      return { x0: cx - 0.82, x1: cx + 0.82, y0: 0, y1: mH[q.k], z0: cz - 0.82, z1: cz + 0.82, col: q.col, k: q.k, cx, cz };
+    });
+    mView.drawBoxes(list, yw);
+    for (const b of list) {
+      const err = b.k === 'FP' || b.k === 'FN';
+      mView.text(fmt(c[b.k]), [b.cx, b.y1 + 0.22, b.cz], yw,
+        { plate: true, color: err ? '#a8361f' : '#1c1b18', font: '600 14px ui-monospace, Menlo, monospace' });
+    }
+    const ax = { color: '#6b675e', font: '12px ui-monospace, Menlo, monospace' };
+    mView.text('model says real', [-1.1, 0, 2.7], yw, ax);
+    mView.text('model says fraud', [1.1, 0, 2.7], yw, ax);
+    mView.text('is real', [2.75, 0, -1.1], yw, { ...ax, align: 'left' });
+    mView.text('is fraud', [2.75, 0, 1.1], yw, { ...ax, align: 'left' });
+  }
 
-let u = 0, last = performance.now(), lastY = scrollY, vel = 0;
-let lastDomY = -1, needsDom = true, frameN = 0;
-let lastActivity = performance.now();
-const touch = () => { lastActivity = performance.now(); };
-addEventListener('scroll', touch, { passive: true });
-addEventListener('pointermove', touch, { passive: true });
-addEventListener('keydown', touch);
+  function renderMatrixReadout() {
+    const c = countsFor();
+    const total = c.TN + c.FP + c.FN + c.TP;
+    const real = c.TN + c.FP, fraud = c.FN + c.TP;
+    const model = mState.model === 'model';
+    document.getElementById('acc').textContent = pct((c.TN + c.TP) / total);
+    document.getElementById('accNote').textContent = model
+      ? `Share of all ${fmt(total)} postings in this split labelled correctly.`
+      : 'Equal to the share of real postings in this split.';
+    document.getElementById('missed').textContent = fmt(c.FN);
+    document.getElementById('missedOf').textContent = `of ${fmt(fraud)}`;
+    document.getElementById('missedNote').textContent = model
+      ? 'Fraudulent postings the model let through.'
+      : 'It labels every posting real, so every fraud gets through.';
+    document.getElementById('flagged').textContent = fmt(c.FP);
+    document.getElementById('flaggedOf').textContent = `of ${fmt(real)}`;
+    document.getElementById('flaggedNote').textContent = model
+      ? 'Genuine postings wrongly marked as fraud.'
+      : 'Zero by construction: it never flags a posting.';
+  }
 
-function frame(now) {
-  requestAnimationFrame(frame);
-  const dt = Math.min(0.05, Math.max(0.001, (now - last) / 1000));
-  last = now;
-  const y = scrollY;
-  vel += ((y - lastY) / dt - vel) * 0.1;
-  lastY = y;
+  function setGroup(ids, active) {
+    for (const id of ids) document.getElementById(id).setAttribute('aria-pressed', String(id === active));
+  }
+  const M = ['m-model', 'm-naive'], S2 = ['s-test', 's-train'];
+  document.getElementById('m-model').addEventListener('click', () => { mState.model = 'model'; setGroup(M, 'm-model'); renderMatrixReadout(); });
+  document.getElementById('m-naive').addEventListener('click', () => { mState.model = 'naive'; setGroup(M, 'm-naive'); renderMatrixReadout(); });
+  document.getElementById('s-test').addEventListener('click', () => { mState.split = 'test'; setGroup(S2, 's-test'); renderMatrixReadout(); });
+  document.getElementById('s-train').addEventListener('click', () => { mState.split = 'train'; setGroup(S2, 's-train'); renderMatrixReadout(); });
 
-  u += (uAt(y) - u) * (reduce ? 1 : 1 - Math.exp(-dt * 4.2));
-  theme += (themeT - theme) * (1 - Math.exp(-dt * 5));
-  const km = 1 - Math.exp(-dt * 4);
-  mouse.sx += (mouse.x - mouse.sx) * km;
-  mouse.sy += (mouse.y - mouse.sy) * km;
+  // ---------- 02 · Systems, exploded ----------
+  // Layers listed top to bottom, with a footprint width and depth for each.
+  const SYSTEMS = {
+    fraud: { label: 'Fraud detector', layers: [
+      { name: 'Web app and API', text: 'Flask 3.1 with Google OAuth 2.0 sign-in and OpenAPI/Swagger docs.', w: 2.2, d: 2.2 },
+      { name: 'Text model', text: 'DistilBERT (distilbert-base-uncased), fine-tuned with frozen lower layers.', w: 2.6, d: 2.6 },
+      { name: 'Anomaly and ensemble', text: 'Isolation Forest for outliers, combined with a scikit-learn ensemble.', w: 3.0, d: 3.0 },
+      { name: 'Deployment', text: 'Docker image for a Hugging Face Space, serving on port 7860.', w: 2.4, d: 2.4 },
+    ] },
+    expense: { label: 'Expense tracker', layers: [
+      { name: 'Web client', text: 'Netlify-hosted front end, with receipt scanning in the browser (Tesseract.js).', w: 2.4, d: 2.4 },
+      { name: 'Mobile client', text: 'Expo and React Native app for recording and reviewing finances.', w: 2.0, d: 2.0 },
+      { name: 'REST API', text: 'Spring Boot 4.1.1 on Java 26: authentication, business rules, reports and sync.', w: 2.8, d: 2.8 },
+      { name: 'Database', text: 'PostgreSQL and SQLite, both named in the repository.', w: 3.0, d: 3.0 },
+    ] },
+    diary: { label: 'Digital diary', layers: [
+      { name: 'Pages', text: 'Server-rendered HTML with Jinja2 and a little vanilla JavaScript.', w: 2.2, d: 2.2 },
+      { name: 'API and sign-in', text: 'FastAPI with JSON endpoints under /api, JWT in HttpOnly cookies, and passkeys (WebAuthn).', w: 2.6, d: 2.6 },
+      { name: 'Data', text: 'SQLAlchemy 2 over SQLite or Postgres.', w: 3.0, d: 3.0 },
+      { name: 'Sharing', text: 'Per-entry visibility, user grants and public links that can expire.', w: 2.8, d: 2.8 },
+    ] },
+  };
+  const sView = makeView(document.getElementById('stack'), { yaw: 0.7, pitch: 0.6, fit: 5.9, oy: 0.7 });
+  const T = 0.2;                       // layer thickness
+  const sState = { sys: 'fraud', exT: 0, ex: 0, hover: -1 };
 
-  frameN++;
-  if (!dragging && Math.abs(spinV) > 0.001) { spin += spinV * dt; spinV *= Math.exp(-dt * 2.2); }
-  const acc = accentFor(u, theme);
-  if ((frameN & 3) === 0) applyAccent(acc, theme);
-  const idle = now - lastActivity > 1500 && Math.abs(uAt(y) - u) < 0.002 && Math.abs(theme - themeT) < 0.01;
-  if (scene && !document.hidden && !(idle && (frameN & 1))) {
-    const L = look();
-    try {
-      scene.draw({
-        time: reduce ? 0 : now / 1000, p: u, theme,
-        px: L.px, scale: L.scale, sx: L.sx, sy: L.sy,
-        mx: mouse.sx, my: mouse.sy,
-        spin, accent: [acc[0] / 255, acc[1] / 255, acc[2] / 255],
-      });
-      if (!idle) govern(dt);        /* idle frames are paced on purpose; don't let them look slow */
-    } catch (err) {
-      console.warn('[ym] draw failed; using the CSS backdrop.', err);
-      scene = null;
-      root.classList.add('no-gl');
+  function drawStack(now) {
+    sView.update();
+    sState.ex += (sState.exT - sState.ex) * 0.1;
+    const yw = sView.angle(now);
+    const layers = SYSTEMS[sState.sys].layers;
+    const n = layers.length;
+    sView.clear();
+    sView.floor(2.5, yw);
+    const list = layers.map((L, k) => {
+      const level = n - 1 - k;          // k = 0 is the top layer
+      const gapA = 0.14, gapE = 0.95;
+      const y0 = level * (T + gapA + sState.ex * (gapE - gapA));
+      return { x0: -L.w / 2, x1: L.w / 2, y0, y1: y0 + T, z0: -L.d / 2, z1: L.d / 2,
+               col: k === sState.hover ? LIT : BLUE, k };
+    });
+    sView.drawBoxes(list, yw);
+    if (sState.ex > 0.4) {                     // numbers only once the layers have room to show them
+      for (const b of list) {
+        sView.text(String(b.k + 1), [0, b.y1 + 0.02, 0], yw,
+          { plate: true, color: '#1c1b18', font: '600 13px ui-monospace, Menlo, monospace' });
+      }
     }
   }
 
-  if (needsDom || Math.abs(y - lastDomY) > 0.5) {   /* these read layout: only when scroll or size changed */
-    updateStatement();
-    updateCards();
-    updateTimeline();
-    updateRail(y);
-    updateParallax();
-    lastDomY = y;
-    needsDom = false;
+  function renderLayers() {
+    const ol = document.getElementById('layers');
+    ol.innerHTML = '';
+    SYSTEMS[sState.sys].layers.forEach((L, k) => {
+      const li = document.createElement('li');
+      li.innerHTML = `<b>${k + 1}. ${L.name}</b><span>${L.text}</span>`;
+      li.addEventListener('mouseenter', () => { sState.hover = k; li.classList.add('on'); });
+      li.addEventListener('mouseleave', () => { sState.hover = -1; li.classList.remove('on'); });
+      ol.appendChild(li);
+    });
   }
-  updateMarquees(dt, vel);
-  if (fine) {
-    cx += (tx - cx) * (1 - Math.exp(-dt * 22));
-    cy += (ty - cy) * (1 - Math.exp(-dt * 22));
-    cursor.style.transform = `translate3d(${cx.toFixed(1)}px, ${cy.toFixed(1)}px, 0)`;
+
+  document.querySelectorAll('[data-sys]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      sState.sys = btn.dataset.sys;
+      sState.hover = -1;
+      document.querySelectorAll('[data-sys]').forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      renderLayers();
+    });
+  });
+  document.getElementById('ex').addEventListener('input', (e) => { sState.exT = Number(e.target.value) / 100; });
+
+  // ---------- one frame loop for both objects ----------
+  function loop(now) {
+    drawMatrix(now);
+    drawStack(now);
+    requestAnimationFrame(loop);
   }
-}
 
-/* ---------- Boot ---------- */
-function relayout() {
-  measure();
-  measureMarquees();
-  checkSticky();
-  measureRail();
-  needsDom = true;
-}
-sizeCanvas();
-relayout();
-u = uAt(scrollY);
-
-let resizeTimer = 0;
-addEventListener('resize', () => {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(() => { sizeCanvas(); relayout(); }, 120);
-});
-if ('ResizeObserver' in window) new ResizeObserver(() => { measure(); }).observe(document.body);
-if (document.fonts) document.fonts.ready.then(relayout);
-
-/* ?debug exposes the flight state for the still-image renderer (a development tool, not used by visitors). */
-if (params.has('debug')) {
-  window.__ym = {
-    state: () => {
-      const uu = uAt(scrollY);
-      return { u: uu, theme: themeT, look: look(), accent: accentFor(uu, themeT).map((v) => v / 255) };
-    },
-  };
-}
-
-runLoader();
-requestAnimationFrame(frame);
+  renderMatrixReadout();
+  renderLayers();
+  requestAnimationFrame(loop);
+})();

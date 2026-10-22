@@ -1,371 +1,158 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Yogeshwaran Muthuraman — Software Engineer &amp; Applied ML Researcher</title>
-  <meta name="description" content="Yogeshwaran Muthuraman is a software engineer and applied machine learning researcher in Chennai, India. Published at ICISD’26 on recruitment-scam detection with DistilBERT and Isolation Forest.">
-  <meta name="author" content="Yogeshwaran Muthuraman">
-  <meta name="robots" content="index, follow, max-image-preview:large">
-  <link rel="canonical" href="https://yoge-2004.github.io/portfolio-webpage/">
-  <meta name="theme-color" content="#07080D" id="meta-theme">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Yogeshwaran Muthuraman — Software Engineer &amp; Applied ML Researcher">
-  <meta property="og:description" content="Applied ML research and production software, as a 3D world you fly through.">
-  <meta property="og:url" content="https://yoge-2004.github.io/portfolio-webpage/">
-  <meta property="og:image" content="https://yoge-2004.github.io/portfolio-webpage/assets/img/social-card.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="preload" href="assets/fonts/instrument-serif-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/geist-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <script>
-    (function () {
-      var r = document.documentElement, t = 'dark';
-      try {
-        var s = localStorage.getItem('ym-theme');
-        if (s === 'light' || s === 'dark') t = s;
-        else if (matchMedia('(prefers-color-scheme: light)').matches) t = 'light';
-      } catch (e) {}
-      r.setAttribute('data-theme', t);
-      r.classList.add('js');
-      /* Failsafe: never leave the page hidden behind the intro. */
-      setTimeout(function () { r.classList.add('ready'); }, 5000);
-    })();
-  </script>
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Yogeshwaran Muthuraman · Software engineer and applied ML researcher</title>
+<meta name="description" content="Software engineer and applied ML researcher, Chennai. Fraud detection research, three full-stack systems, certificates and contact.">
+<meta name="theme-color" content="#f2eee5">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
 
-  <div class="bg-fallback" aria-hidden="true"></div>
-  <canvas id="gl" aria-hidden="true"></canvas>
-  <div class="veil" aria-hidden="true"></div>
-
-  <div class="loader" id="loader" aria-hidden="true">
-    <span class="loader-name">Yogeshwaran Muthuraman</span>
-    <span class="loader-count" id="loader-count">000</span>
-    <span class="loader-bar"><i id="loader-bar"></i></span>
-  </div>
-
-  <div class="cursor" id="cursor" aria-hidden="true"><span id="cursor-label"></span></div>
-  <div class="progress" aria-hidden="true"><i id="progress"></i></div>
-
-  <nav class="rail" id="rail" aria-label="Section progress"></nav>
-
-  <header class="bar">
-    <a class="logo" href="#top" aria-label="Back to the top">YM</a>
-    <nav class="nav" id="nav" aria-label="Sections">
-      <a href="#about">About</a>
-      <a href="#research">Research</a>
-      <a href="#work">Work</a>
-      <a href="#systems">Systems</a>
-      <a href="#stack">Stack</a>
-      <a href="#contact">Contact</a>
+  <header class="hero">
+    <p class="kicker">Yogeshwaran Muthuraman &middot; Chennai, India</p>
+    <h1>Software engineer and applied ML researcher.</h1>
+    <p class="lede">B.E. Computer Science, Panimalar Engineering College, 2022&ndash;2026, CGPA 9.37/10. I build full-stack systems, and I measure the models inside them.</p>
+    <nav class="actions" aria-label="Primary">
+      <a href="#research">Fraud-detector results</a>
+      <a href="#systems">Three systems</a>
+      <a href="https://github.com/Yoge-2004/portfolio-webpage/raw/master/Yogeshwaran%20Resume.pdf">Résumé (PDF)</a>
+      <a href="mailto:yogeshwaranmuthuraman56@gmail.com">Email</a>
     </nav>
-    <div class="bar-end">
-      <span class="clock mono" id="clock" aria-hidden="true">Chennai</span>
-      <button class="icon-btn" id="theme" type="button" aria-label="Switch to light theme" aria-pressed="false">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
-      </button>
-      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Open the menu" aria-expanded="false" aria-controls="nav">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
-      </button>
-    </div>
   </header>
 
-  <main id="main">
+  <section id="research" aria-labelledby="research-title">
+    <p class="kicker">01 &middot; Research</p>
+    <h2 id="research-title">Where the fraud detector fails.</h2>
+    <p class="sub">A fraud detector for job postings: DistilBERT embeddings, an Isolation Forest and a stacking ensemble. The chart is its confusion matrix on postings it did not see in training. Drag to turn it. Each column is what the model said; each row is what the posting really was. Taller blocks hold more postings; heights use a square-root scale so small errors stay visible.</p>
 
-    <!-- HERO -->
-    <section class="hero" id="top" data-u="-0.2,0.5" aria-labelledby="name">
-      <div class="hero-pin">
-        <div class="hero-meta">
-          <p class="mono">Software Engineer · Applied ML Researcher</p>
-          <p class="mono">Chennai, Tamil Nadu, India</p>
-          <p class="mono hero-open">Open to software &amp; ML roles · Open to relocation</p>
-        </div>
-        <h1 class="giant" data-speed="0.12" id="name" aria-label="Yogeshwaran Muthuraman">
-          <span class="row" data-split>Yogeshwaran</span>
-          <span class="row" data-split><em>Muthuraman</em></span>
-        </h1>
-        <div class="hero-foot">
-          <p class="lede">Applied ML research and production software. Published at ICISD’26 on fake recruitment-scam detection.</p>
-          <div class="hero-cta">
-            <a class="btn mag" href="#work" data-cursor="View">See the work</a>
-            <a class="btn btn--ghost mag" href="assets/docs/resume.pdf" download data-cursor="Download">Résumé</a>
-          </div>
-          <a class="badge mag" href="#contact" data-cursor="Contact" aria-label="Open to software and applied ML roles. Go to contact.">
-            <svg viewBox="0 0 120 120" aria-hidden="true">
-              <defs><path id="circ" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>
-              <text><textPath href="#circ" textLength="286" lengthAdjust="spacing">OPEN TO SOFTWARE &amp; ML ROLES · OPEN TO RELOCATION ·</textPath></text>
-            </svg>
-            <span class="badge-arrow">↗</span>
-          </a>
-        </div>
-        <p class="scroll-cue mono" aria-hidden="true">Scroll to fly · Drag to orbit</p>
+    <div class="stage">
+      <canvas id="cm" role="img" aria-label="Three-dimensional confusion matrix of the fraud detector on the test split: 3,356 frauds caught, 57 frauds missed, 18 real postings flagged, 3,385 real postings passed."></canvas>
+    </div>
+
+    <div class="bar">
+      <div class="toggles" role="group" aria-label="Which classifier">
+        <button id="m-model" aria-pressed="true">Trained model</button>
+        <button id="m-naive" aria-pressed="false">Always says &ldquo;real&rdquo;</button>
       </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section class="sec about" id="about" data-u="0.5,2" aria-labelledby="about-title">
-      <div class="wrap">
-        <p class="label reveal"><span>( 01 )</span> The person</p>
-        <h2 class="sr-only" id="about-title">The person</h2>
-        <p class="statement" data-speed="0.05" id="statement">Investigating how statistical models distinguish deceptive signals from legitimate communication under extreme class imbalance. Architecting production backend REST APIs and client interfaces with Java Spring Boot, Python FastAPI, and secure session management. Engineering client-side desktop software with JavaFX and relational MySQL storage during my Robowaves developer internship.</p>
-        <div class="about-grid">
-          <dl class="records">
-            <div class="reveal" style="--d:0"><dt class="mono">Education</dt><dd><strong>B.E. Computer Science</strong><span>Panimalar Engineering College, Chennai · 2022–2026 · CGPA 9.37/10</span></dd></div>
-            <div class="reveal" style="--d:1"><dt class="mono">Experience</dt><dd><strong>Java Developer Intern</strong><span>Robowaves, Chennai · June–August 2025 · Java, JavaFX, MySQL</span></dd></div>
-            <div class="reveal" style="--d:2"><dt class="mono">Research</dt><dd><strong>Published at ICISD’26</strong><span>Paper ICISD26-408 · SRM Institute of Science &amp; Technology, Vadapalani</span></dd></div>
-          </dl>
-          <div class="stats">
-            <div class="stat reveal" style="--d:0"><p class="stat-v"><span data-count="9.37" data-dec="2">9.37</span></p><p class="mono">CGPA / 10</p></div>
-            <div class="stat reveal" style="--d:1"><p class="stat-v"><span data-count="1">1</span></p><p class="mono">Peer-reviewed paper</p></div>
-            <div class="stat reveal" style="--d:2"><p class="stat-v"><span data-count="13">13</span></p><p class="mono">Public repositories</p></div>
-            <div class="stat reveal" style="--d:3"><p class="stat-v"><span data-count="7">7</span></p><p class="mono">Certifications</p></div>
-          </div>
-        </div>
+      <div class="toggles" role="group" aria-label="Which split">
+        <button id="s-test" aria-pressed="true">Test split</button>
+        <button id="s-train" aria-pressed="false">Training split</button>
       </div>
-    </section>
+    </div>
 
-    <!-- RESEARCH -->
-    <section class="sec research" id="research" data-u="2,3.3" aria-labelledby="research-title">
-      <div class="wrap">
-        <p class="label reveal"><span>( 02 )</span> The research</p>
-        <h2 class="title reveal" id="research-title">Flagging recruitment fraud <em>before you apply.</em></h2>
-        <p class="lede reveal">Thousands of job seekers fall prey to postings that never existed. My final-year research examined whether an applied ML architecture could flag recruitment fraud before an applicant submits credentials — and provide verifiable reasoning.</p>
-        <ol class="pipe" data-in>
-          <li><span class="pipe-n">01</span><div><p class="mono">Semantic encoding</p><h3>DistilBERT contextual embeddings</h3><p>Extracts dense high-dimensional semantic representations from unstructured job descriptions, capturing nuanced deceptive linguistic patterns.</p></div></li>
-          <li><span class="pipe-n">02</span><div><p class="mono">Anomaly isolation</p><h3>Isolation Forest safety layer</h3><p>Unsupervised safety boundary that isolates structural anomalies unseen in training distributions, detecting zero-day scam variants.</p></div></li>
-          <li><span class="pipe-n">03</span><div><p class="mono">Classification</p><h3>Stacking ensemble classifier</h3><p>Meta-classifier combining semantic and tabular features to overcome the severe 95:5 authentic-to-fraudulent class imbalance.</p></div></li>
-        </ol>
+    <dl class="read">
+      <div>
+        <dt>Accuracy</dt>
+        <dd id="acc"></dd>
+        <small id="accNote"></small>
       </div>
-    </section>
-
-    <!-- EVIDENCE -->
-    <section class="sec evidence" id="evidence" data-u="3.3,4.3" aria-labelledby="evidence-title">
-      <div class="wrap evidence-grid">
-        <div class="evidence-main">
-          <p class="label reveal"><span>( 03 )</span> The evidence</p>
-          <h2 class="sr-only" id="evidence-title">The evidence</h2>
-          <div class="big-metrics" data-speed="0.06">
-            <div class="reveal" style="--d:0"><p class="big"><span data-count="99" data-suffix="%">99%</span></p><p class="mono">Accuracy</p></div>
-            <div class="reveal" style="--d:1"><p class="big"><span data-count="99" data-dec="2">99.00</span></p><p class="mono">F1-score</p></div>
-            <div class="reveal" style="--d:2"><p class="big"><span data-count="99.99" data-dec="2">99.99</span></p><p class="mono">ROC-AUC</p></div>
-          </div>
-          <p class="paper reveal">Fake Job Posting and Online Recruitment Scam Detection Utilizing Machine Learning and Advanced Natural Language Processing Techniques</p>
-          <p class="body reveal"><strong>International Conference on Intelligent Systems and Digital Transformation (ICISD’26)</strong><br>SRM Institute of Science and Technology, Vadapalani Campus, Chennai · 6–7 April 2026</p>
-          <ul class="chips reveal"><li>Published ICISD’26</li><li>Peer reviewed</li><li>Oral presentation</li><li class="chip-cool">Paper ICISD26-408</li></ul>
-        </div>
-        <aside class="panel inspect reveal" aria-label="Sample posting inspection">
-          <p class="mono">Posting inspection · sample</p>
-          <p class="posting">URGENT: Entry-Level Remote Data Verification Assistant. Earn <mark>$4,500/week!</mark> <mark>No technical interview</mark> or previous experience needed. Telegram <mark>@fast_onboard_support</mark> to receive your home-office equipment check immediately.</p>
-          <div class="gauges" data-in>
-            <figure class="gauge"><div class="gauge-dial"><svg viewBox="0 0 120 64" aria-hidden="true"><path class="g-track" d="M10 58 A50 50 0 0 1 110 58" pathLength="100"/><path class="g-fill" d="M10 58 A50 50 0 0 1 110 58" pathLength="100" style="--v:99.4"/></svg><span class="gv">99.4%</span></div><figcaption class="mono">DistilBERT</figcaption></figure>
-            <figure class="gauge"><div class="gauge-dial"><svg viewBox="0 0 120 64" aria-hidden="true"><path class="g-track" d="M10 58 A50 50 0 0 1 110 58" pathLength="100"/><path class="g-fill" d="M10 58 A50 50 0 0 1 110 58" pathLength="100" style="--v:98.2"/></svg><span class="gv">0.982</span></div><figcaption class="mono">Isolation Forest</figcaption></figure>
-          </div>
-          <p class="verdict"><span class="mono accent">Verdict</span> Contextual embeddings matched known fraud clusters (unrealistic compensation, off-platform messaging). Isolation Forest mapped posting into extreme outlier distribution.</p>
-        </aside>
+      <div>
+        <dt>Frauds missed</dt>
+        <dd><span id="missed"></span><span class="of" id="missedOf"></span></dd>
+        <small id="missedNote"></small>
       </div>
-    </section>
-
-    <!-- PATH -->
-    <section class="sec path" id="path" data-u="4.3,5.3" aria-labelledby="path-title">
-      <div class="wrap">
-        <p class="label reveal"><span>( 04 )</span> The path</p>
-        <h2 class="title reveal" id="path-title">From school to <em>published research.</em></h2>
-        <ol class="timeline" id="timeline">
-          <li class="reveal"><p class="mono when">2019 — 2020</p><h3>Secondary School Certificate (SSLC)</h3><p>Nav Bharath Vidyalaya, Chennai · 90%</p></li>
-          <li class="reveal"><p class="mono when">2021 — 2022</p><h3>Higher Secondary Certificate (HSC)</h3><p>Nav Bharath Vidyalaya, Chennai · 91%</p></li>
-          <li class="reveal"><p class="mono when">2022 — 2026</p><h3>B.E. Computer Science and Engineering</h3><p>Panimalar Engineering College, Chennai · CGPA 9.37 / 10</p></li>
-          <li class="reveal"><p class="mono when">June — August 2025</p><h3>Java Developer Intern, Robowaves</h3><p>Built the core Library Management System in Java, JavaFX, and MySQL — architected user access controls, book cataloging, and automated audit reporting modules.</p></li>
-          <li class="reveal"><p class="mono when">April 2026</p><h3>Published at ICISD’26</h3><p>Presented fake recruitment scam detection research at SRM Institute of Science and Technology, Vadapalani Campus · Paper ICISD26-408</p></li>
-          <li class="reveal"><p class="mono when">Present</p><h3>Seeking the next engineering challenge</h3><p>Actively interviewing for software engineering and applied machine learning roles where curiosity, ownership, and rapid shipping compound.</p></li>
-        </ol>
+      <div>
+        <dt>Real postings flagged</dt>
+        <dd><span id="flagged"></span><span class="of" id="flaggedOf"></span></dd>
+        <small id="flaggedNote"></small>
       </div>
-    </section>
+    </dl>
 
-    <!-- WORK -->
-    <section class="sec work" id="work" data-u="5.3,6.5" aria-labelledby="work-title">
-      <div class="wrap">
-        <p class="label reveal"><span>( 05 )</span> Selected work</p>
-        <h2 class="title reveal" id="work-title">Three systems, <em>built end to end.</em></h2>
-      </div>
+    <div class="note">
+      <p>Source: <code>results/evaluation_report.txt</code> in the fraud-detection repository, BERT Fusion model. Test split: 6,816 postings (3,413 fraud, 3,403 real). Training split: 8,520 postings.</p>
+      <p>The repository trains on a balanced 50/50 dataset. A classifier that always answers &ldquo;real&rdquo; scores about 50% here, not 95%. The 95:5 ratio in the paper describes the original EMSCAD data, not this split.</p>
+      <p>Paper: &ldquo;Fake Job Posting and Online Recruitment Scam Detection Utilizing Machine Learning and Advanced Natural Language Processing Techniques&rdquo;, ICISD&rsquo;26, SRM Institute of Science and Technology, Vadapalani, 6&ndash;7 April 2026 (ICISD26-408).</p>
+    </div>
+  </section>
 
-      <article class="proj" style="--i:0">
-        <div class="proj-text">
-          <p class="mono">01 / 03 · ICISD’26</p>
-          <h3 class="proj-title">Scam Detection</h3>
-          <p class="proj-cap">A machine taught to <em>recognise a lie.</em></p>
-          <ul class="phases">
-            <li><span class="mono">The problem</span><p>Online job seekers fall victim to fraudulent recruitment postings that harvest identity credentials. The EMSCAD benchmark has an extreme 95:5 class imbalance — a naive classifier predicting “authentic” blindly scores 95% accuracy while remaining entirely useless.</p></li>
-            <li><span class="mono">The approach</span><p>Architected a hybrid neuro-symbolic pipeline combining DistilBERT contextual embeddings for deep semantic representation, an Isolation Forest safety boundary to detect out-of-distribution zero-day scams, and a Stacking Ensemble classifier.</p></li>
-            <li><span class="mono">The result</span><p>Validated at 99% accuracy, 99.00 F1-score and 99.99% ROC-AUC. Published at ICISD’26 and deployed as a live cloud inspection dashboard with instant explainability reasoning.</p></li>
-          </ul>
-          <ul class="chips"><li>Python</li><li>NLP</li><li>DistilBERT</li><li>Isolation Forest</li><li>Stacking Ensemble</li><li>Hugging Face</li></ul>
-          <a class="link" href="https://github.com/Yoge-2004/fake-job-detection-python" rel="noopener" data-cursor="Open">github.com/Yoge-2004/fake-job-detection-python</a>
-        </div>
-        <div class="proj-viz" data-speed="0.05">
-          <ol class="flow" data-in aria-label="Detection pipeline">
-            <li><b>Job posting</b><span>Unstructured text</span></li>
-            <li><b>DistilBERT embeddings</b><span>Contextual semantics</span></li>
-            <li><b>Isolation Forest</b><span>Out-of-distribution safety boundary</span></li>
-            <li><b>Stacking ensemble</b><span>Meta-classifier</span></li>
-            <li class="flow-end"><b>Verdict + reasoning</b><span>Live inspection dashboard</span></li>
-          </ol>
-          <div class="proj-metrics"><div><p class="pm">99%</p><p class="mono">Accuracy</p></div><div><p class="pm">99.00</p><p class="mono">F1-score</p></div><div><p class="pm">99.99</p><p class="mono">ROC-AUC</p></div></div>
-        </div>
-      </article>
+  <section id="systems" aria-labelledby="systems-title">
+    <p class="kicker">02 &middot; Systems</p>
+    <h2 id="systems-title">Three systems, taken apart.</h2>
+    <p class="sub">Each system is drawn from its repository as its layers. Drag to turn it. Slide to pull the layers apart, and hover a layer in the list to find it in the object.</p>
 
-      <article class="proj" style="--i:1">
-        <div class="proj-text">
-          <p class="mono">02 / 03 · Security</p>
-          <h3 class="proj-title">Digital Diary</h3>
-          <p class="proj-cap">Private by construction, <em>not by promise.</em></p>
-          <ul class="phases">
-            <li><span class="mono">The problem</span><p>Modern single-page web applications routinely store JWT authentication tokens in localStorage or client memory, leaving confidential user journals vulnerable to client-side XSS token exfiltration.</p></li>
-            <li><span class="mono">The approach</span><p>Engineered a zero-framework platform using Python FastAPI, Jinja2 and vanilla JavaScript over SQLAlchemy. Authentication relies on cryptographically signed JWT access &amp; refresh tokens stored strictly in HttpOnly, SameSite cookies with zero script exposure.</p></li>
-            <li><span class="mono">The result</span><p>Complete mitigation of XSS token hijacking. Features granular emotional telemetry, mood analytics, archival pinning, and time-decayed sharing tokens over an automated OpenAPI backend.</p></li>
-          </ul>
-          <ul class="chips"><li>FastAPI</li><li>SQLAlchemy</li><li>PostgreSQL</li><li>JWT HttpOnly</li><li>Jinja2</li><li>Bcrypt</li></ul>
-          <a class="link" href="https://github.com/Yoge-2004/digital-diary-application" rel="noopener" data-cursor="Open">github.com/Yoge-2004/digital-diary-application</a>
-        </div>
-        <div class="proj-viz" data-speed="0.05">
-          <ol class="flow" data-in aria-label="Authentication flow">
-            <li><b>Browser</b><span>No script access to tokens</span></li>
-            <li class="flow-note"><b>HttpOnly · SameSite cookie</b><span>Signed JWT access + refresh</span></li>
-            <li><b>FastAPI + Jinja2</b><span>Automated OpenAPI backend</span></li>
-            <li><b>SQLAlchemy</b><span>Session and data layer</span></li>
-            <li class="flow-end"><b>PostgreSQL</b><span>Encrypted storage</span></li>
-          </ol>
-          <div class="proj-metrics"><div><p class="pm">0%</p><p class="mono">XSS exposure</p></div><div><p class="pm">&lt;14ms</p><p class="mono">Auth latency</p></div><div><p class="pm">Enc.</p><p class="mono">Storage</p></div></div>
-        </div>
-      </article>
+    <div class="toggles" role="group" aria-label="Which system">
+      <button data-sys="fraud" aria-pressed="true">Fraud detector</button>
+      <button data-sys="expense" aria-pressed="false">Expense tracker</button>
+      <button data-sys="diary" aria-pressed="false">Digital diary</button>
+    </div>
 
-      <article class="proj" style="--i:2">
-        <div class="proj-text">
-          <p class="mono">03 / 03 · Backend</p>
-          <h3 class="proj-title">Budget Engine</h3>
-          <p class="proj-cap">Money that has to <em>balance, every time.</em></p>
-          <ul class="phases">
-            <li><span class="mono">The problem</span><p>Tracking multi-stream income, dynamic category budgeting, and capital allocation across disparate spreadsheets leads to ledger drift and lack of audit validation.</p></li>
-            <li><span class="mono">The approach</span><p>Architected an enterprise layered REST backend in Java 25 and Spring Boot (Controller → Service → Repository pattern) backed by a normalized MySQL relational database with transactional balance enforcement.</p></li>
-            <li><span class="mono">The result</span><p>Shipped full financial audit reports, category limit alerts, sub-50ms REST API response latency, and continuous deployment to Netlify web hosting.</p></li>
-          </ul>
-          <ul class="chips"><li>Java 25</li><li>Spring Boot 3</li><li>RESTful API</li><li>MySQL</li><li>Netlify</li><li>Maven</li></ul>
-          <a class="link" href="https://github.com/Yoge-2004/expense-tracker" rel="noopener" data-cursor="Open">github.com/Yoge-2004/expense-tracker</a>
-        </div>
-        <div class="proj-viz" data-speed="0.05">
-          <ol class="flow" data-in aria-label="Backend layers">
-            <li><b>REST client</b><span>Netlify-hosted front end</span></li>
-            <li><b>Controller</b><span>Spring Boot 3 · Java 25</span></li>
-            <li><b>Service</b><span>Transactional balance enforcement</span></li>
-            <li><b>Repository</b><span>Data access layer</span></li>
-            <li class="flow-end"><b>MySQL</b><span>Normalized relational schema</span></li>
-          </ol>
-          <div class="proj-metrics"><div><p class="pm">&lt;48ms</p><p class="mono">API latency</p></div><div><p class="pm">100%</p><p class="mono">ACID integrity</p></div><div><p class="pm">92%</p><p class="mono">Test coverage</p></div></div>
-        </div>
-      </article>
-    </section>
+    <div class="stage" style="margin-top:18px">
+      <canvas id="stack" role="img" aria-label="Exploded three-dimensional view of the layers of the selected system."></canvas>
+    </div>
 
-    <!-- SYSTEMS -->
-    <section class="sec systems" id="systems" data-u="6.5,7.3" aria-labelledby="systems-title">
-      <div class="wrap">
-        <p class="label reveal"><span>( 06 )</span> Secondary systems</p>
-        <h2 class="title reveal" id="systems-title">The rest of the <em>workshop.</em></h2>
-        <div class="grid">
-          <article class="card spot reveal" style="--d:0"><p class="mono">01</p><h3>Library Management System</h3><p>Engineered during the Robowaves developer internship. Complete JavaFX desktop application with MySQL relational storage covering circulation, member authentication, cataloging, and administrative audit reports.</p><ul class="chips"><li>Java</li><li>JavaFX</li><li>MySQL</li><li>Maven</li></ul></article>
-          <article class="card spot reveal" style="--d:1"><p class="mono">02</p><h3>Explainable Fraud Alert System</h3><p>Transaction scoring pipeline providing interpretable machine learning verdicts. Incorporates SHAP and LIME explanatory vectors, webhook alerting, and containerized Docker execution.</p><ul class="chips"><li>Python</li><li>SHAP</li><li>LIME</li><li>Docker</li></ul></article>
-          <article class="card spot reveal" style="--d:2"><p class="mono">03</p><h3>Task Management Web App</h3><p>FastAPI and SQLModel service with session-cookie authentication and bcrypt credential hashing. Real-time deadline validation and asynchronous background email notification pipelines.</p><ul class="chips"><li>FastAPI</li><li>SQLModel</li><li>Bcrypt</li><li>SMTP</li></ul></article>
-          <article class="card spot reveal" style="--d:3"><p class="mono">04</p><h3>Smart City Guide</h3><p>Interactive urban directory mapping municipal infrastructure, healthcare networks, and transit nodes. Engineered with a Java core and responsive web frontend.</p><ul class="chips"><li>Java</li><li>HTML5</li><li>CSS3</li></ul></article>
-          <article class="card spot reveal" style="--d:4"><p class="mono">05</p><h3>REST Assured Automation Framework</h3><p>API test suite executing automated verification against the Petstore Swagger spec. Implements Cucumber Gherkin scenarios, TestNG runner architecture, and multi-format test reporting.</p><ul class="chips"><li>Java</li><li>REST Assured</li><li>Cucumber</li><li>TestNG</li></ul></article>
-          <article class="card spot reveal" style="--d:5"><p class="mono">06</p><h3>Java Desktop Quiz Application</h3><p>Interactive assessment desktop software with multi-topic catalogs, precision timer enforcement, and instant scoring diagnostics. Designed for extensible question datasets.</p><ul class="chips"><li>Java</li><li>Swing / JavaFX</li></ul></article>
-        </div>
-      </div>
-    </section>
+    <div class="range">
+      <span>Assembled</span>
+      <input id="ex" type="range" min="0" max="100" value="0" aria-label="Explode the layers">
+      <span>Exploded</span>
+    </div>
 
-    <!-- STACK -->
-    <section class="sec stack" id="stack" data-u="7.3,8" aria-labelledby="stack-title">
-      <div class="wrap">
-        <p class="label reveal"><span>( 07 )</span> The technical world</p>
-        <h2 class="sr-only" id="stack-title">The technical world</h2>
-      </div>
-      <div class="marquee" data-dir="-1" aria-hidden="true"><div class="track"><span>Python</span><span class="o">Java 25</span><span>C / C++</span><span class="o">JavaScript</span><span>SQL</span><span class="o">Git &amp; GitHub</span></div></div>
-      <div class="marquee" data-dir="1" aria-hidden="true"><div class="track"><span class="o">Spring Boot 3</span><span>FastAPI</span><span class="o">DistilBERT</span><span>Isolation Forest</span><span class="o">JavaFX</span><span>Docker</span></div></div>
-      <div class="marquee" data-dir="-1" aria-hidden="true"><div class="track"><span>MySQL</span><span class="o">PostgreSQL</span><span>JWT · HttpOnly</span><span class="o">REST Assured</span><span>Cucumber</span><span class="o">TestNG</span></div></div>
-      <ul class="sr-only"><li>Python, Java 25, C and C++, JavaScript, SQL, Git and GitHub</li><li>Spring Boot 3, FastAPI, DistilBERT, Isolation Forest, JavaFX, Docker</li><li>MySQL, PostgreSQL, JWT in HttpOnly cookies, REST Assured, Cucumber, TestNG</li></ul>
+    <ol class="layers" id="layers"></ol>
 
-      <div class="wrap">
-        <div class="caps">
-          <section class="cap reveal" style="--d:0"><h3 class="mono">Backend &amp; machine learning</h3><ul><li><strong>Java</strong><span>Library OS, Expense Tracker, internship engineering</span></li><li><strong>Python</strong><span>ICISD’26 research, explainable fraud, diary, task app</span></li><li><strong>Spring Boot</strong><span>Expense Tracker enterprise REST architecture</span></li><li><strong>FastAPI</strong><span>Digital diary service, todo web application</span></li></ul></section>
-          <section class="cap reveal" style="--d:1"><h3 class="mono">Interface &amp; systems</h3><ul><li><strong>JavaFX</strong><span>Library OS native desktop system</span></li><li><strong>HTML5 &amp; CSS3</strong><span>Zero-framework semantic, accessible layouts</span></li><li><strong>JavaScript (ES6+)</strong><span>Interactive client systems, WebGL integration</span></li><li><strong>Jinja2</strong><span>Server-side templating for secure web platforms</span></li></ul></section>
-          <section class="cap reveal" style="--d:2"><h3 class="mono">Data &amp; quality engineering</h3><ul><li><strong>MySQL</strong><span>Relational schema design, transactions, indexing</span></li><li><strong>PostgreSQL &amp; SQLite</strong><span>Encrypted storage, SQLAlchemy migrations</span></li><li><strong>Git &amp; GitHub</strong><span>Version control, 13 public repositories</span></li><li><strong>Cucumber &amp; TestNG</strong><span>REST Assured behavioural test automation</span></li></ul></section>
-        </div>
-        <ol class="mindset">
-          <li class="reveal" style="--d:0"><span class="mono">Question</span><p>Start from the failure mode, not the feature.</p></li>
-          <li class="reveal" style="--d:1"><span class="mono">Explore</span><p>Read the data before trusting the model.</p></li>
-          <li class="reveal" style="--d:2"><span class="mono">Build</span><p>Ship something inspectable early.</p></li>
-          <li class="reveal" style="--d:3"><span class="mono">Break</span><p>Test the assumption that hurts.</p></li>
-          <li class="reveal" style="--d:4"><span class="mono">Refine</span><p>Measure honestly, including the boring metrics.</p></li>
-          <li class="reveal" style="--d:5"><span class="mono">Ship</span><p>A model without an interface is an unverifiable claim.</p></li>
-        </ol>
-      </div>
-    </section>
+    <div class="note">
+      <p>Layers are taken from each repository&rsquo;s README and build files: fraud-detection-python, expense-tracker and digital-diary-application.</p>
+    </div>
+  </section>
 
-    <!-- CREDENTIALS -->
-    <section class="sec creds" id="credentials" data-u="8,8.3" aria-labelledby="creds-title">
-      <div class="wrap">
-        <p class="label reveal"><span>( 08 )</span> Proving grounds &amp; credentials</p>
-        <h2 class="title reveal" id="creds-title">Hackathons, workshops <em>and courses.</em></h2>
-        <ul class="arenas">
-          <li class="reveal"><span class="mono">2026</span><b>ICISD’26 — International Conference</b><span>SRM Institute of Science and Technology · 6–7 April 2026</span></li>
-          <li class="reveal"><span class="mono">2025</span><b>Naan Mudhalvan Hackathon</b><span>IIT Madras Research Park · NLP for the Tamil language</span></li>
-          <li class="reveal"><span class="mono">2025</span><b>Web-A-Thon</b><span>IEEE SJCE Student Branch · 27–28 March 2025</span></li>
-          <li class="reveal"><span class="mono">2024</span><b>Hack4Purpose</b><span>DPurpose Foundation · February–May 2024</span></li>
-          <li class="reveal"><span class="mono">—</span><b>Mastering MERN Workshop</b><span>Octanet · Four-day intensive</span></li>
-        </ul>
-      </div>
-      <div class="gallery" id="gallery" tabindex="0" aria-label="Certificate gallery. Scroll sideways or drag.">
-        <figure data-cursor="Drag"><img width="1280" height="904" src="assets/credentials/hack4purpose_hackathon_certificate.webp" alt="Hack4Purpose hackathon certificate" loading="lazy" draggable="false"></figure>
-        <figure data-cursor="Drag"><img width="1400" height="990" src="assets/credentials/srm_hackathon_certificate.webp" alt="SRM hackathon certificate" loading="lazy" draggable="false"></figure>
-        <figure data-cursor="Drag"><img width="1280" height="904" src="assets/credentials/stjoseph_hackathon_certificate.webp" alt="St. Joseph’s Web-A-Thon hackathon certificate" loading="lazy" draggable="false"></figure>
-        <figure data-cursor="Drag"><img width="1400" height="1034" src="assets/credentials/java_scaler.webp" alt="Java certificate from Scaler" loading="lazy" draggable="false"></figure>
-        <figure data-cursor="Drag"><img width="1400" height="1034" src="assets/credentials/c++_scaler.webp" alt="C++ certificate from Scaler" loading="lazy" draggable="false"></figure>
-      </div>
-      <div class="wrap">
-        <ul class="docs">
-          <li><a href="assets/credentials/python_GFG.pdf">Python · GFG</a></li>
-          <li><a href="assets/credentials/web_certificate_coursera.pdf">Web development · Coursera</a></li>
-          <li><a href="assets/credentials/c_udemy.pdf">C · Udemy</a></li>
-          <li><a href="assets/credentials/sql_udemy.pdf">SQL · Udemy</a></li>
-          <li><a href="assets/credentials/cloud_tcs.pdf">Cloud · TCS iON</a></li>
-          <li><a href="assets/credentials/mern_octanet_workshop.pdf">MERN · Octanet</a></li>
-          <li><a href="assets/credentials/internship_certificate_robowaves.pdf">Java Developer Intern · Robowaves</a></li>
-        </ul>
-      </div>
-    </section>
+  <section id="path" aria-labelledby="path-title">
+    <p class="kicker">03 &middot; Path</p>
+    <h2 id="path-title">Education and experience.</h2>
+    <ol class="timeline">
+      <li><span class="mono">2022&ndash;2026</span><div><b>B.E. Computer Science and Engineering</b><span>Panimalar Engineering College, Chennai. CGPA 9.37/10.</span></div></li>
+      <li><span class="mono">June&ndash;August 2025</span><div><b>Java Developer Intern, Robowaves</b><span>Built the core library management system in Java, JavaFX and MySQL, with user access controls, cataloguing and audit reports.</span></div></li>
+      <li><span class="mono">2021&ndash;2022</span><div><b>Higher Secondary Certificate</b><span>Nav Bharath Vidyalaya, Chennai. 91%.</span></div></li>
+      <li><span class="mono">2019&ndash;2020</span><div><b>Secondary School Certificate</b><span>Nav Bharath Vidyalaya, Chennai. 90%.</span></div></li>
+    </ol>
 
-    <!-- CONTACT -->
-    <section class="sec contact" id="contact" data-u="8.3,8.9" aria-labelledby="contact-title">
-      <div class="wrap">
-        <p class="label reveal"><span>( 09 )</span> The next chapter</p>
-        <h2 class="giant giant--s reveal" id="contact-title">Seeking the next <em>engineering challenge.</em></h2>
-        <p class="lede reveal">Actively interviewing for software engineering and applied machine learning roles where curiosity, ownership, and rapid shipping compound.</p>
-        <a class="mail mag reveal" href="mailto:yogeshwaranmuthuraman56@gmail.com" data-cursor="Email">yogeshwaranmuthuraman56@gmail.com</a>
-        <div class="hero-cta reveal">
-          <a class="btn mag" href="mailto:yogeshwaranmuthuraman56@gmail.com" data-cursor="Email">Email me</a>
-          <a class="btn btn--ghost mag" href="https://github.com/Yoge-2004" rel="noopener" data-cursor="Open">GitHub</a>
-          <a class="btn btn--ghost mag" href="assets/docs/resume.pdf" download data-cursor="Download">Résumé (PDF)</a>
-        </div>
-      </div>
-    </section>
-  </main>
+    <h3 class="subhead">Events and workshops</h3>
+    <ol class="timeline">
+      <li><span class="mono">2026</span><div><b>ICISD&rsquo;26 International Conference</b><span>SRM Institute of Science and Technology, 6&ndash;7 April 2026. Research presented.</span></div></li>
+      <li><span class="mono">2025</span><div><b>Naan Mudhalvan Hackathon</b><span>IIT Madras Research Park. NLP for the Tamil language.</span></div></li>
+      <li><span class="mono">2025</span><div><b>Web-A-Thon</b><span>IEEE SJCE Student Branch, 27&ndash;28 March 2025.</span></div></li>
+      <li><span class="mono">2024</span><div><b>Hack4Purpose</b><span>DPurpose Foundation, February&ndash;May 2024.</span></div></li>
+      <li><span class="mono">Workshop</span><div><b>Mastering MERN</b><span>Octanet. Four-day intensive.</span></div></li>
+    </ol>
+  </section>
 
-  <footer class="foot">
-    <p>© <span id="year">2026</span> Yogeshwaran Muthuraman</p>
-    <p class="mono">Chennai, Tamil Nadu, India</p>
-    <a class="mono" href="#top" data-cursor="Top">Back to top ↑</a>
+  <section id="certificates" aria-labelledby="cert-title">
+    <p class="kicker">04 &middot; Certificates</p>
+    <h2 id="cert-title">Certificates, as files.</h2>
+    <p class="sub">Each entry opens the original file in the repository.</p>
+    <ul class="certs">
+      <li><a href="https://github.com/Yoge-2004/portfolio-webpage/blob/master/c_udemy.pdf">C &middot; Udemy</a></li>
+      <li><a href="https://github.com/Yoge-2004/portfolio-webpage/blob/master/sql_udemy.pdf">SQL &middot; Udemy</a></li>
+      <li><a href="https://github.com/Yoge-2004/portfolio-webpage/blob/master/python_GFG.pdf">Python &middot; GeeksforGeeks</a></li>
+      <li><a href="https://github.com/Yoge-2004/portfolio-webpage/blob/master/cloud_tcs.pdf">Cloud &middot; TCS iON</a></li>
+      <li><a href="https://github.com/Yoge-2004/portfolio-webpage/blob/master/web_certificate_coursera.pdf">Web &middot; Coursera</a></li>
+      <li><a href="https://github.com/Yoge-2004/portfolio-webpage/blob/master/mern_octanet_workshop.pdf">MERN workshop &middot; Octanet</a></li>
+      <li><a href="https://github.com/Yoge-2004/portfolio-webpage/blob/master/c%2B%2B_scaler.png">C++ &middot; Scaler</a></li>
+      <li><a href="https://github.com/Yoge-2004/portfolio-webpage/blob/master/java_scaler.jpg">Java &middot; Scaler</a></li>
+      <li><a href="https://github.com/Yoge-2004/portfolio-webpage/blob/master/internship_certificate_robowaves.pdf">Internship &middot; Robowaves</a></li>
+      <li><a href="https://github.com/Yoge-2004/portfolio-webpage/blob/master/hack4purpose_hackathon_certificate.jpg">Hackathon &middot; Hack4Purpose</a></li>
+      <li><a href="https://github.com/Yoge-2004/portfolio-webpage/blob/master/srm_hackathon_certificate.jpg">Hackathon &middot; SRM</a></li>
+      <li><a href="https://github.com/Yoge-2004/portfolio-webpage/blob/master/stjoseph_hackathon_certificate.jpg">Hackathon &middot; St Joseph</a></li>
+    </ul>
+  </section>
+
+  <section id="contact" aria-labelledby="contact-title">
+    <p class="kicker">05 &middot; Contact</p>
+    <h2 id="contact-title">Open to software and applied-ML roles.</h2>
+    <p class="sub">Based in Chennai, Tamil Nadu. Open to relocation.</p>
+    <nav class="actions" aria-label="Contact">
+      <a href="mailto:yogeshwaranmuthuraman56@gmail.com">yogeshwaranmuthuraman56@gmail.com</a>
+      <a href="https://github.com/Yoge-2004">GitHub</a>
+      <a href="https://github.com/Yoge-2004/portfolio-webpage/raw/master/Yogeshwaran%20Resume.pdf">Résumé (PDF)</a>
+    </nav>
+  </section>
+
+  <footer>
+    <p>Built with plain HTML, CSS and JavaScript. No framework and no build step.</p>
   </footer>
 
-  <script type="module" src="js/app.js"></script>
+</div>
+<script src="js/app.js"></script>
 </body>
 </html>
