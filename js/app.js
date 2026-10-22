@@ -61,7 +61,7 @@ function applyAccent(c, th) {
 /* ---------- 3D scene ---------- */
 const canvas = $('#gl');
 let scene = null;
-let quality = parseFloat(params.get('scale')) || (coarse ? 0.5 : 0.62);
+let quality = parseFloat(params.get('scale')) || (coarse ? 0.75 : 0.9);
 const fixedQuality = params.has('scale');
 if (params.get('field') === 'css') {
   root.classList.add('no-gl');
@@ -87,7 +87,8 @@ function look() {
 }
 function sizeCanvas() {
   if (!scene) return;
-  scene.resize(Math.max(2, Math.round(innerWidth * quality)), Math.max(2, Math.round(innerHeight * quality)));
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);   /* render in device pixels, capped at 2x */
+  scene.resize(Math.max(2, Math.round(innerWidth * dpr * quality)), Math.max(2, Math.round(innerHeight * dpr * quality)));
 }
 
 /* ---------- Sections → flight path ---------- */
@@ -159,6 +160,32 @@ function updateStatement() {
   }
 }
 
+/* ---------- Headings: every word rises in as its heading enters view ---------- */
+function splitWords(node, state) {
+  [...node.childNodes].forEach((n) => {
+    if (n.nodeType === 3) {
+      const frag = document.createDocumentFragment();
+      n.textContent.split(/(\s+)/).forEach((part) => {
+        if (!part) return;
+        if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+        const outer = document.createElement('span');
+        outer.className = 'wd';
+        const inner = document.createElement('span');
+        inner.className = 'wi';
+        inner.style.setProperty('--i', String(state.i++));
+        inner.textContent = part;
+        outer.appendChild(inner);
+        frag.appendChild(outer);
+      });
+      n.replaceWith(frag);
+    } else if (n.nodeType === 1) {
+      splitWords(n, state);
+    }
+  });
+}
+const headings = $$('.title, .giant--s, .proj-title, .proj-cap, .timeline h3, .pipe h3, .card h3');
+headings.forEach((h) => { h.classList.add('wsplit'); splitWords(h, { i: 0 }); });
+
 /* ---------- Reveals and counters ---------- */
 const io = new IntersectionObserver((entries) => {
   entries.forEach((e) => {
@@ -169,7 +196,7 @@ const io = new IntersectionObserver((entries) => {
     }
   });
 }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
-$$('.reveal, [data-in]').forEach((el) => io.observe(el));
+$$('.reveal, [data-in], .wsplit').forEach((el) => io.observe(el));
 
 function countUp(el) {
   const end = parseFloat(el.dataset.count);
@@ -312,6 +339,21 @@ function updateRail(y) {
   }
 }
 
+/* ---------- Parallax: large display elements drift a little slower than the page ---------- */
+const parallaxEls = $$('[data-speed]');
+const progressEl = $('#progress');
+function updateParallax() {
+  parallaxEls.forEach((el) => {
+    const r = el.getBoundingClientRect();
+    const c = r.top + r.height / 2 - innerHeight / 2;
+    el.style.setProperty('--py', (-c * parseFloat(el.dataset.speed)).toFixed(1) + 'px');
+  });
+  if (progressEl) {
+    const max = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+    progressEl.style.setProperty('--p', clamp(scrollY / max).toFixed(4));
+  }
+}
+
 /* ---------- Drag gallery ---------- */
 const gallery = $('#gallery');
 if (gallery) {
@@ -389,12 +431,12 @@ function govern(dt) {
   if (govN < 45) return;
   const avg = govAcc / govN;
   govAcc = 0; govN = 0;
-  if (avg > 0.028 && quality > 0.36) {
-    quality = Math.max(0.36, quality - 0.07);
+  if (avg > 0.034 && quality > 0.6) {
+    quality = Math.max(0.6, quality - 0.06);
     sizeCanvas(); govFast = 0;
-  } else if (avg < 0.0145) {
+  } else if (avg < 0.017) {
     govFast++;
-    if (govFast >= 6 && quality < 0.9) { quality = Math.min(0.9, quality + 0.05); sizeCanvas(); govFast = 0; }
+    if (govFast >= 6 && quality < 1) { quality = Math.min(1, quality + 0.04); sizeCanvas(); govFast = 0; }
   } else {
     govFast = 0;
   }
@@ -458,6 +500,7 @@ function frame(now) {
     updateCards();
     updateTimeline();
     updateRail(y);
+    updateParallax();
     lastDomY = y;
     needsDom = false;
   }
