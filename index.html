@@ -94,6 +94,8 @@ html.no-3d #scene, html.no-3d #labels { display: none; }
 .panel[data-st="0"] { opacity: 1; }
 @media (max-width: 900px) { .panel { right: 44px; } }
 
+.hint { font-size: 14px; color: var(--mute); margin-top: -4px; }
+
 </style>
 </head>
 <body>
@@ -109,9 +111,10 @@ html.no-3d #scene, html.no-3d #labels { display: none; }
     <p class="kicker">Yogeshwaran Muthuraman &middot; Chennai</p>
     <h1 id="t0">Software engineer and applied ML researcher.</h1>
     <p>B.E. Computer Science, Panimalar Engineering College, 2022&ndash;2026. CGPA 9.37 out of 10.</p>
+    <p class="hint">Scroll to move through the scene. The dots on the right jump between sections.</p>
     <p class="caption">Each cube is one of the 6,816 postings the fraud detector was tested on. The coloured cubes are its mistakes: 57 frauds it missed and 18 genuine postings it flagged. Cube positions are arbitrary.</p>
     <div class="actions">
-      <button class="linkish" data-go="1">Continue &darr;</button>
+      <button class="linkish" data-go="1">Walk through the work &darr;</button>
       <a href="https://github.com/Yoge-2004/portfolio-webpage/raw/master/Yogeshwaran%20Resume.pdf">Résumé (PDF)</a>
       <a href="mailto:yogeshwaranmuthuraman56@gmail.com">Email</a>
     </div>
@@ -586,7 +589,9 @@ html.no-3d #scene, html.no-3d #labels { display: none; }
     const cx = pS * GAP;
     const narrow = mobile();
     camera.position.set(cx + mxS * 0.7, CAM_H + myS * 0.3, narrow ? 46 : CAM_D);
-    camera.lookAt(cx + (narrow ? OBJ : LOOK), narrow ? -1.8 : 1.4, 0);
+    // on phones, aim at the middle of each station's composition (object plus its screenshot)
+    const aim = narrow ? 3.2 * Math.max(0, 1 - Math.abs(pS - 3) / 1.3, 1 - Math.abs(pS - 5) / 1.3) : 0;
+    camera.lookAt(cx + (narrow ? OBJ + aim : LOOK), narrow ? -1.8 : 1.4, 0);
     key.position.set(cx - 12, 22, 16);
     key.target.position.set(cx + 4, 0, 0);
     key.target.updateMatrixWorld();
@@ -620,8 +625,8 @@ html.no-3d #scene, html.no-3d #labels { display: none; }
       }
       place(axisLabels[0], MX - 1.4, 0.05, 2.9);
       place(axisLabels[1], MX + 1.4, 0.05, 2.9);
-      place(axisLabels[2], MX + 3.0, 0.05, -1.4);
-      place(axisLabels[3], MX + 3.0, 0.05, 1.4);
+      place(axisLabels[2], MX + 3.5, 0.05, -1.35);
+      place(axisLabels[3], MX + 3.5, 0.05, 1.35);
     }
     if (active === 6) pathNodes.forEach((n, k) => place(pathLabels[k], n.mesh.position.x, n.mesh.position.y, n.mesh.position.z, mobile() ? 56 : 120));
 
