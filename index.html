@@ -458,7 +458,7 @@ html.no-3d #scene, html.no-3d #labels { display: none; }
     const m4 = new TH.Matrix4();
     for (let i = 0; i < POST; i++) {
       const c = i % COLS, r = Math.floor(i / COLS);
-      m4.makeTranslation(ox(0) + 2.2 + (c - COLS / 2) * 0.13, (ROWS / 2 - r) * 0.13, 0);
+      m4.makeTranslation(ox(0) + (mobile() ? 0 : 2.2) + (c - COLS / 2) * 0.13, (ROWS / 2 - r) * 0.13, 0);
       hero.setMatrixAt(i, m4);
       hero.setColorAt(i, kind[i] === 1 ? cFN : kind[i] === 2 ? cFP : cCorrect);
     }
@@ -556,9 +556,9 @@ html.no-3d #scene, html.no-3d #labels { display: none; }
 
   // labels are placed in screen space on every redraw
   const vec = typeof THREE !== 'undefined' ? new THREE.Vector3() : null;
-  function place(el, x, y, z) {
+  function place(el, x, y, z, dx = 0) {
     vec.set(x, y, z).project(camera);
-    const sx = (vec.x * 0.5 + 0.5) * window.innerWidth, sy = (-vec.y * 0.5 + 0.5) * window.innerHeight;
+    const sx = (vec.x * 0.5 + 0.5) * window.innerWidth + dx, sy = (-vec.y * 0.5 + 0.5) * window.innerHeight;
     el.style.transform = `translate(${sx.toFixed(1)}px, ${sy.toFixed(1)}px) translate(-50%, -50%)`;
     el.style.opacity = vec.z < 1 ? '1' : '0';
   }
@@ -584,8 +584,9 @@ html.no-3d #scene, html.no-3d #labels { display: none; }
 
   function renderScene() {
     const cx = pS * GAP;
-    camera.position.set(cx + mxS * 0.7, CAM_H + myS * 0.3, CAM_D);
-    camera.lookAt(cx + LOOK, mobile() ? -1.8 : 1.4, 0);
+    const narrow = mobile();
+    camera.position.set(cx + mxS * 0.7, CAM_H + myS * 0.3, narrow ? 46 : CAM_D);
+    camera.lookAt(cx + (narrow ? OBJ : LOOK), narrow ? -1.8 : 1.4, 0);
     key.position.set(cx - 12, 22, 16);
     key.target.position.set(cx + 4, 0, 0);
     key.target.updateMatrixWorld();
@@ -622,7 +623,7 @@ html.no-3d #scene, html.no-3d #labels { display: none; }
       place(axisLabels[2], MX + 3.0, 0.05, -1.4);
       place(axisLabels[3], MX + 3.0, 0.05, 1.4);
     }
-    if (active === 6) pathNodes.forEach((n, k) => place(pathLabels[k], n.mesh.position.x + 0.5, n.mesh.position.y + 0.25, n.mesh.position.z));
+    if (active === 6) pathNodes.forEach((n, k) => place(pathLabels[k], n.mesh.position.x, n.mesh.position.y, n.mesh.position.z, mobile() ? 56 : 120));
 
     renderer.render(scene3, camera);
   }
