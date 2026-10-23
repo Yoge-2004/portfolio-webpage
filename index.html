@@ -357,7 +357,7 @@ html.no-3d #scene, html.no-3d #labels { display: none; }
       if (onLi) onLi.classList.add('on');
     }
     if (scene3) renderer.domElement.style.cursor = (mesh && source === 'canvas') ? 'pointer' : '';
-    if (source === 'canvas' && mesh) { tip.textContent = NAMES[st] + '  \u2197'; }
+    if (source === 'canvas' && mesh) { tip.textContent = (mesh.userData.tip || NAMES[st]) + '  \u2197'; }
     tip.classList.toggle('on', !!mesh && source === 'canvas');
     dirty = true;
   }
@@ -434,7 +434,9 @@ html.no-3d #scene, html.no-3d #labels { display: none; }
       if (moved >= 6) return;
       aimAt(e);                       // touch screens send no hover, so check what is under the tap now
       raycastHover();
-      if (hovered.source === 'canvas' && hovered.st !== null) window.scrollTo({ top: hovered.st * window.innerHeight, behavior: 'smooth' });
+      if (hovered.source !== 'canvas' || hovered.st === null) return;
+      if (hovered.mesh.userData.href) { window.location.href = hovered.mesh.userData.href; return; }
+      window.scrollTo({ top: hovered.st * window.innerHeight, behavior: 'smooth' });
     });
     renderer.outputEncoding = TH.sRGBEncoding;
     renderer.toneMapping = TH.ACESFilmicToneMapping;
@@ -578,6 +580,34 @@ html.no-3d #scene, html.no-3d #labels { display: none; }
     door.position.set(ox(7), 2.6, -0.34);
     scn.add(door);
     register(door, 7);
+
+    const cardCanvas = document.createElement('canvas');
+    cardCanvas.width = 1024; cardCanvas.height = 640;
+    const cg = cardCanvas.getContext('2d');
+    const drawCard = () => {
+      cg.fillStyle = '#f4f1ea'; cg.fillRect(0, 0, 1024, 640);
+      cg.fillStyle = '#07080d'; cg.fillRect(0, 0, 24, 640);
+      cg.fillStyle = '#07080d'; cg.font = '400 74px "Instrument Serif", Georgia, serif';
+      cg.fillText('Yogeshwaran Muthuraman', 88, 170);
+      cg.fillStyle = '#8e8c9b'; cg.font = '400 30px "Geist Mono", monospace';
+      cg.fillText('SOFTWARE ENGINEER \u00b7 APPLIED ML', 88, 240);
+      cg.fillStyle = '#07080d'; cg.font = '400 38px "Geist", sans-serif';
+      cg.fillText('yogeshwaranmuthuraman56@gmail.com', 88, 380);
+      cg.fillText('github.com/Yoge-2004', 88, 440);
+      cg.fillStyle = '#ff8a3d'; cg.font = '500 28px "Geist Mono", monospace';
+      cg.fillText('\u2197 click to send an email', 88, 560);
+    };
+    drawCard();
+    const cardTex = new TH.CanvasTexture(cardCanvas);
+    cardTex.encoding = TH.sRGBEncoding;
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { cg.clearRect(0, 0, 1024, 640); drawCard(); cardTex.needsUpdate = true; });
+    const card = new TH.Mesh(new TH.PlaneGeometry(3.6, 2.25), new TH.MeshBasicMaterial({ map: cardTex, toneMapped: false }));
+    card.position.set(ox(7) + 3.2, 1.6, 0.9);
+    card.rotation.y = -0.4;
+    scn.add(card);
+    register(card, 7);
+    card.userData.tip = 'Send email';
+    card.userData.href = 'mailto:yogeshwaranmuthuraman56@gmail.com';
 
     // labels
     mLabel = { TN: mkLabel('m', ''), FP: mkLabel('m err', ''), FN: mkLabel('m err', ''), TP: mkLabel('m', '') };
