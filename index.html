@@ -234,7 +234,7 @@ html.no-3d #scene, html.no-3d #labels { display: none; }
   const $ = (id) => document.getElementById(id);
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const mobile = () => window.innerWidth <= 900;
-  const N = 8, GAP = 26, OBJ = 5.4, CAM_D = 22, CAM_H = 4.6, LOOK = 3.8;
+  const N = 8, GAP = 26, OBJ = 3.2, CAM_D = 15, CAM_H = 3.4, LOOK = 1.0;
   const BG = 0x07080d, EMBER = 0xff8a3d, AMBER = 0xffd27a;
   const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
   const fmt = (n) => n.toLocaleString('en-US');
@@ -392,7 +392,7 @@ html.no-3d #scene, html.no-3d #labels { display: none; }
     labelsEl.appendChild(s);
     return s;
   }
-  let renderer, camera, key, rim, pillars, pathNodes, mLabel, axisLabels, pathLabels, ray, clickMeshes = [];
+  let renderer, camera, key, rim, spot, dust, pillars, pathNodes, mLabel, axisLabels, pathLabels, ray, clickMeshes = [];
   const CELLS = [
     { k: 'TN', x: 0, z: 0, col: 0x4f7fa3 }, { k: 'FP', x: 1, z: 0, col: EMBER },
     { k: 'FN', x: 0, z: 1, col: EMBER },   { k: 'TP', x: 1, z: 1, col: 0x4f7fa3 },
@@ -446,10 +446,10 @@ html.no-3d #scene, html.no-3d #labels { display: none; }
 
     const scn = new TH.Scene();
     scn.background = new TH.Color(BG);
-    scn.fog = new TH.Fog(BG, 26, 84);
+    scn.fog = new TH.Fog(BG, mobile() ? 40 : 14, mobile() ? 150 : 62);
     camera = new TH.PerspectiveCamera(38, window.innerWidth / window.innerHeight, 0.1, 400);
     scn.add(new TH.HemisphereLight(0xc4d0de, 0x0b0b0d, 0.35));
-    key = new TH.DirectionalLight(0xfff0dc, 1.2);
+    key = new TH.DirectionalLight(0xfff0dc, 0.7);
     key.castShadow = !mobile();
     key.shadow.mapSize.set(1024, 1024);
     Object.assign(key.shadow.camera, { left: -30, right: 30, top: 24, bottom: -24, near: 1, far: 120 });
@@ -464,6 +464,23 @@ html.no-3d #scene, html.no-3d #labels { display: none; }
     floor.position.set((N - 1) * GAP / 2, 0, 0);
     floor.receiveShadow = !mobile();
     scn.add(floor);
+
+    const wallMat = new TH.MeshLambertMaterial({ color: 0x111218 });
+    const back = new TH.Mesh(new TH.PlaneGeometry(400, 40), wallMat);
+    back.position.set((N - 1) * GAP / 2, 14, -7);
+    scn.add(back);
+    const ceil = new TH.Mesh(new TH.PlaneGeometry(400, 60), wallMat);
+    ceil.rotation.x = Math.PI / 2;
+    ceil.position.set((N - 1) * GAP / 2, 9, 0);
+    scn.add(ceil);
+    for (const y of [8.6]) {
+      const s = new TH.Mesh(new TH.PlaneGeometry(400, 0.12), new TH.MeshBasicMaterial({ color: 0xffb36b, toneMapped: false }));
+      s.position.set((N - 1) * GAP / 2, y, -6.95);
+      scn.add(s);
+    }
+    spot = new TH.SpotLight(0xffe2b8, 1.4, 44, 0.42, 0.75, 2);
+    spot.castShadow = false;
+    scn.add(spot, spot.target);
 
     const unitCube = new TH.BoxGeometry(1, 1, 1);
     const box = (w, h, d, mat, x, y, z) => {
@@ -491,13 +508,25 @@ html.no-3d #scene, html.no-3d #labels { display: none; }
     const m4 = new TH.Matrix4();
     for (let i = 0; i < POST; i++) {
       const c = i % COLS, r = Math.floor(i / COLS);
-      m4.makeTranslation(ox(0) + (mobile() ? 0 : 2.2) + (c - COLS / 2) * 0.13, (ROWS / 2 - r) * 0.13, 0);
+      m4.makeTranslation(ox(0) + (mobile() ? 0 : 1.5) + (c - COLS / 2) * 0.1, (ROWS / 2 - r) * 0.1, 0);
       hero.setMatrixAt(i, m4);
       hero.setColorAt(i, kind[i] === 1 ? cFN : kind[i] === 2 ? cFP : cCorrect);
     }
     hero.instanceMatrix.needsUpdate = true;
     hero.instanceColor.needsUpdate = true;
     scn.add(hero);
+
+    // dust drifting in the light
+    const dustGeo = new TH.BufferGeometry();
+    const DUST = 280, dpos = new Float32Array(DUST * 3);
+    for (let i = 0; i < DUST; i++) {
+      dpos[i * 3] = (rnd() * 2 - 1) * 12;
+      dpos[i * 3 + 1] = rnd() * 8;
+      dpos[i * 3 + 2] = (rnd() * 2 - 1) * 6 + 2;
+    }
+    dustGeo.setAttribute('position', new TH.BufferAttribute(dpos, 3));
+    dust = new TH.Points(dustGeo, new TH.PointsMaterial({ color: 0xffd7a8, size: 0.06, transparent: true, opacity: 0.4, depthWrite: false }));
+    scn.add(dust);
 
     // station 1: the confusion matrix as pillars (clickable)
     pillars = {};
@@ -532,9 +561,9 @@ html.no-3d #scene, html.no-3d #labels { display: none; }
       scn.add(plane);
       register(plane, st);
     };
-    shot(IMG.fraudDash, ox(2) + 6.5, 2.5, -1.4, 4.8, -0.26, 2);
-    shot(IMG.expenseDash, ox(3) + 6.8, 2.7, -1.6, 4.8, -0.26, 3);
-    shot(IMG.expenseBudgets, ox(3) + 6.1, 0.95, 3.6, 2.7, -0.36, 3);
+    shot(IMG.fraudDash, ox(2) + 4.5, 2.3, -1.0, 3.8, -0.26, 2);
+    shot(IMG.expenseDash, ox(3) + 4.7, 2.3, -1.2, 3.8, -0.26, 3);
+    shot(IMG.expenseBudgets, ox(3) + 3.6, 0.2, 2.0, 2.4, -0.3, 3);
 
     // station 5: the paper as a lit page (clickable)
     const pc = document.createElement('canvas');
@@ -554,8 +583,8 @@ html.no-3d #scene, html.no-3d #labels { display: none; }
     const paperTex = new TH.CanvasTexture(pc);
     paperTex.encoding = TH.sRGBEncoding;
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { g.clearRect(0, 0, 1280, 800); drawPaper(); paperTex.needsUpdate = true; });
-    const paper = new TH.Mesh(new TH.PlaneGeometry(5.6, 3.5), new TH.MeshBasicMaterial({ map: paperTex, toneMapped: false }));
-    paper.position.set(ox(5) + 4.4, 2.6, 0);
+    const paper = new TH.Mesh(new TH.PlaneGeometry(4.8, 3.0), new TH.MeshBasicMaterial({ map: paperTex, toneMapped: false }));
+    paper.position.set(ox(5) + 2.8, 2.4, 0);
     paper.rotation.y = -0.18;
     scn.add(paper);
     register(paper, 5);
@@ -602,7 +631,7 @@ html.no-3d #scene, html.no-3d #labels { display: none; }
     cardTex.encoding = TH.sRGBEncoding;
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { cg.clearRect(0, 0, 1024, 640); drawCard(); cardTex.needsUpdate = true; });
     const card = new TH.Mesh(new TH.PlaneGeometry(3.6, 2.25), new TH.MeshBasicMaterial({ map: cardTex, toneMapped: false }));
-    card.position.set(ox(7) + 3.2, 1.6, 0.9);
+    card.position.set(ox(7) + 2.7, 1.6, 0.9);
     card.rotation.y = -0.4;
     scn.add(card);
     register(card, 7);
@@ -669,6 +698,10 @@ html.no-3d #scene, html.no-3d #labels { display: none; }
     key.target.position.set(cx + 4, 0, 0);
     key.target.updateMatrixWorld();
     rim.position.set(cx + 18, 7, 9);
+    spot.position.set(cx + OBJ, 9.5, 5);
+    spot.target.position.set(cx + OBJ, 0, 0);
+    spot.target.updateMatrixWorld();
+    dust.position.x = cx;
 
     for (const q of CELLS) {
       const h = Math.max(mH[q.k], 0.02);
